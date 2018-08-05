@@ -9,11 +9,11 @@ inline int read() {
     while ('0' <= ch && ch <= '9') {x = x * 10 + ch - 48; ch = getchar(); }
     return x * f;
 }
-struct data
+struct Data
 {
     int u, v, w;
 } a[N];
-inline bool cmp(const data &a, const data &b)
+inline bool cmp(const Data &a, const Data &b)
 {
     return a.w > b.w;
 }
