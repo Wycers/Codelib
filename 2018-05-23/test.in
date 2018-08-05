@@ -1,0 +1,33 @@
+5 5
+Day is-a Time
+Appointment is-a Datebook
+Appointment is-a Reminder
+Appointment has-a Day
+Datebook has-a Year
+Day is-a Time
+Time is-a Day
+Appointment has-a Time
+Appointment has-a Year
+Day is-a Day
+
+
+8 10
+b is-a a
+b is-a c
+e is-a b
+a is-a f
+e has-a ee
+a has-a aa
+wa is-a re
+re has-a tle
+
+b has-a ee
+b has-a aa
+c has-a aa
+e has-a aa
+c is-a f
+c is-a wa
+c has-a tle
+f has-a aa
+e is-a c
+c is-a c
