@@ -1,4 +1,4 @@
-# 时间：2018年8月5日
+# 时间：2018年8月6日
 # 来源：
 ## OJ：HDU
 ## 场次：2018 Multi-University Training Contest 5
