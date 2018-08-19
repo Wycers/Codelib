@@ -55,3 +55,5 @@ int main()
     printf("%d\n", res % p);
     return 0;
 }
+
+//这份代码的作用是让郝老师发现了公式是错的XD
