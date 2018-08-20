@@ -19,9 +19,9 @@ void solve()
             int p = upper_bound(pos[ch].begin(), pos[ch].end(), cur) - pos[ch].begin();
             if (p == pos[ch].size())
             {
-                ans += now.substr(i);
                 for (int j = i, t = ans.length(); j < len; ++j)
-                    pos[now[j]].push_back(t + j - 1);
+                    pos[now[j]].push_back(t + j - i);
+                ans += now.substr(i);
                 break;
             }
             cur = pos[ch][p];
