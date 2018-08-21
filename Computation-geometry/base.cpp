@@ -1,5 +1,7 @@
 #include <cstdio>
 #include <cmath>
+#include <algorithm>
+using namespace std;
 const double pi = acos(-1.0);
 const double eps = 1e-8;
 
@@ -15,11 +17,15 @@ struct Vector
     double x, y;
     void input() { scanf("%lf%lf", &x, &y); }
     void output() { printf("%.2lf %.2lf\n", x, y); }
+    Vector () {}
     Vector (double _x, double _y) { 
         x = _x; y = _y; 
     }
     bool operator == (const Vector &b) const {
         return sign(x - b.x) == 0 && sign(y - b.y) == 0;
+    }
+    bool operator < (const Vector &b) const {
+        return sign(x - b.x) == 0 ? sign(y - b.y) < 0 : x < b.x;
     }
     Vector operator + (const Vector &b) const {
         return Vector(x + b.x, y + b.y);
@@ -76,9 +82,4 @@ inline double dist(Vector &a, Vector &b)
 {
     Vector t = b - a;
     return t.length();
-}
-
-int main()
-{
-
 }
