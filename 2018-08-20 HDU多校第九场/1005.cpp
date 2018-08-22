@@ -196,34 +196,7 @@ bool judge(Vector &p)
     }
     return true;
 }
-void work()
-{
-    pos.init();
-    double ans = 1e9, t = 500;
-    for (int i = 1; i <= n; ++i)
-    {
-        for (int d = 0; d <= t; ++d)
-        {
-            Vector now = l[i].p + l[i].v * (double)d / t;
-            if (!judge(now))
-                continue;
-            ans = min(ans, dist(pos, now));
-        }
-    }
-    for (int i = 1; i <= top; ++i)
-    {
-        double length = arc[i].t - arc[i].s;
-        for (int d = 0; d <= t; ++d)
-        {
-            double angle = arc[i].s + (double)d * length / t;
-            Vector now = arc[i].o + (Vector){cos(angle), sin(angle)} * r;
-            if (!judge(now))
-                continue;
-            ans = min(ans, dist(pos, now));
-        }
-    }
-    oi((int)round(ans));
-}
+Vector ava[8000010]; int cnt = 0;
 void solve()
 {
     sc(n, m);
@@ -246,7 +219,7 @@ void solve()
         b[i] = Line(L[i    ].p, Nor[i]);
         d[i] = Line(L[i + 1].p, Nor[i]);
     }
-
+    
     // 取弧
     top = 0;
     for (int i = 1; i <= n; ++i)
@@ -260,8 +233,38 @@ void solve()
         arc[++top] = Arc(s, t, L[i + 1].p);
     }
 
+    cnt = 0; int t = 2e4;
+    for (int i = 1; i <= n; ++i)
+    {
+        for (int d = 0; d <= t; ++d)
+        {
+            Vector now = l[i].p + l[i].v * (double)d / t;
+            if (!judge(now))
+                continue;
+            ava[++cnt] = now;
+        }
+    }
+    for (int i = 1; i <= top; ++i)
+    {
+        double length = arc[i].t - arc[i].s;
+        for (int d = 0; d <= t; ++d)
+        {
+            double angle = arc[i].s + (double)d * length / t;
+            Vector now = arc[i].o + (Vector){cos(angle), sin(angle)} * r;
+            if (!judge(now))
+                continue;
+            ava[++cnt] = now;
+        }
+    }
+
     for (int i = 1; i <= m; ++i)
-        work();
+    {
+        pos.init();
+        double ans = 1e9;
+        for (int j = 1; j <= cnt; ++j)
+            ans = min(ans, dist(ava[j], pos));
+        oi((int)round(ans));
+    }
 }
 int main()
 {
