@@ -1,11 +1,27 @@
 #include <cstdio>
+#include <algorithm>
 using namespace std;
 typedef long long ll;
 ll n, m;
 bool trys(ll a, ll b, ll c)
 {
-    ll x = 2 * a + 2 * c;
-    ll y =     b + 2 * c;
+    ll x = a + 2 * min(b, c);
+    ll y = 2 * (b + c);
+    if ((x <= n && y <= m) || (x <= m && y <= n))
+        return true;
+    
+    x = 2 * a + b + c;
+    y = min(a, c) + b + c;
+    if ((x <= n && y <= m) || (x <= m && y <= n))
+        return true;
+    
+    x = a + b;
+    y = a + b + 3 * c;
+    if ((x <= n && y <= m) || (x <= m && y <= n))
+        return true;
+    
+    x = a + b + c;
+    y = 2 * a + b + c;
     if ((x <= n && y <= m) || (x <= m && y <= n))
         return true;
     return false;
@@ -31,7 +47,7 @@ bool solve()
 }
 int main()
 {
-    ll T; scanf("%d", &T);
+    int T; scanf("%d", &T);
     while (T--)
         puts(solve() ? "Yes" : "No");
     return 0;
