@@ -3,6 +3,7 @@
 struct Line 
 {
     Vector s, e;
+    double ag;
     Line () {}
     Line (Vector _s, Vector _e) {
         s = _s;
@@ -10,6 +11,10 @@ struct Line
     }
     bool operator == (const Line &b) const {
         return (s == b.s) && (e == b.e);
+    }
+    bool operator<(const Line &b) const
+    {
+        return ag < b.ag;
     }
     // 点角式确定直线
     Line (Vector p, double rad) {
@@ -37,6 +42,7 @@ struct Line
     double length() {
         return s.distance(e);
     }
+    // 计算倾斜角
     double angle() {
         Vector t = e - s;
         double k = atan2(t.x, t.y);
@@ -45,6 +51,10 @@ struct Line
         if (sign(k - pi) == 0)
             k -= pi;
         return k;
+    }
+    double calangle()
+    {
+        ag = atan2(e.y - s.y, e.x - s.x);
     }
     // 某点和该直线的关系，1在左，0在上，-1在右
     int prelation (const Vector &p) {

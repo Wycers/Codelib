@@ -84,8 +84,3 @@ struct polygon
         return fabs(res) / 2;
     }
 };
-int main()
-{
-    puts("233");
-    return 0;
-}
