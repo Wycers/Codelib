@@ -47,25 +47,6 @@ struct Vector
     double operator ^ (const Vector &b) const {
         return x * b.y - y * b.x;
     }
-    double length() {
-        return hypot(x, y);
-    }
-    double lengths() {
-        return x * x + y * y;
-    }
-    double distance(const Vector &b) const {
-        return hypot(x - b.x, y - b.y);
-    }
-    Vector rotccw() {
-        return Vector(-y, x);
-    }
-    Vector rotcw() {
-        return Vector(y, -x);
-    }
-    Vector rot(double rad, const Vector &b) const {
-        Vector v = (*this) - b, t = Vector(sin(rad), cos(rad));
-        return b + Vector(v ^ t, v * t);
-    }
 };
 struct Line 
 {
@@ -118,14 +99,14 @@ struct Line
         s.input();
         e.input();
     }
-    double length() {
-        return s.distance(e);
+    int prelation (const Vector &p) {
+        return sign(v ^ (p - s));
+    }
+    bool cross(const Vector &p) {
+        return prelation(p) == 0 && sign((p - s) ^ (p - e)) <= 0; 
     }
     bool parallel(const Line &b) {
         return sign(v ^ b.v) == 0;
-    }
-    bool onleft(const Vector &b) {
-        return sign(v ^ (b - s)) > 0;
     }
     // 求两直线的交点，要保证两直线不平行或重合
     Vector crosspoint(const Line &b) {
@@ -139,39 +120,41 @@ struct halfplane
     int n;
     Line hp[N];
     Vector p[N];
-    int que[N];
+    Line *q[N];
     int st, ed;
     void push(Line tmp)
     {
         hp[n++] = tmp;
-        // tmp.s.output();
-        // tmp.e.output();
     }
-    int halfplaneinsert()
+    void halfplaneinsert()
     {
         sort(hp, hp + n);
-	    vector<Line> q(n);
-        int first, last;
-        q[first = last = 0] = hp[0];
+        q[st = ed = 0] = &hp[0];
         for (int i = 1; i < n; i++)
         {
-            while (first < last && !hp[i].onleft(p[last - 1]))
-                last--;       //Remove the top of the half plane
-            while (first < last && !hp[i].onleft(p[first]))
-                first++;      //Remove the bottom half plane
-            q[++last] = hp[i]; //The half plane current if the double ended queue at the top.
-            if (sign(q[last].v ^ q[last - 1].v) == 0)
+            while (st < ed && hp[i].prelation(p[ed - 1]) != 1)
+                --ed;       //Remove the top of the half plane
+            while (st < ed && hp[i].prelation(p[st]) != 1)
+                ++st;      //Remove the bottom half plane
+            q[++ed] = &hp[i]; //The half plane current if the double ended queue at the top.
+            if (sign(q[ed]->v ^ q[ed - 1]->v) == 0)
             { //For the polar angle the same, selective retention of a.
-                last--;
-                if (q[last].onleft(hp[i].s))
-                    q[last] = hp[i];
+                --ed;
+                if ((*q[ed]).prelation(hp[i].s) == 1)
+                    q[ed] = &hp[i];
             }
-            if (first < last)
-                p[last - 1] = q[last-1].crosspoint(q[last]); //Calculation of the top of the queue half plane intersection.
+            if (st < ed)
+                p[ed - 1] = (*q[ed - 1]).crosspoint(*q[ed]); //Calculation of the top of the queue half plane intersection.
         }
-        while (first < last && !q[first].onleft(p[last - 1]))
-            last--; //Remove the top of the queue of useless half plane.
-        return last - first + 1;
+        while (st < ed && (*q[st]).prelation(p[ed - 1]) != 1)
+            --ed; //Remove the top of the queue of useless half plane.
+        if (ed - st <= 1)
+            return;
+        p[ed] = (*q[ed]).crosspoint(*q[st]); //The top of the queue and the first intersection calculation.
+    }
+    int getconvex()
+    {
+        return ed - st + 1;
     }
 } hp;
 
@@ -188,11 +171,11 @@ void solve()
         scanf("%lf%lf", &b, &k);
         hp.push(Line(Vector(0, b), Vector(1, b + k)));
     }
-    printf("%d\n", hp.halfplaneinsert() - 2);
+    hp.halfplaneinsert();
+    printf("%d\n", hp.getconvex() - 2);
 }
 int main()
 {
-    freopen("test.in", "r", stdin);
     int T; scanf("%d", &T);
     while (T--)
         solve();
