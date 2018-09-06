@@ -6,7 +6,7 @@ struct Line
     double ag;
     Line () {}
     void init() {
-        v = s - e;
+        v = e - s;
         ag = atan2(v.y, v.x);
     }
     Line (Vector _s, Vector _e) {
