@@ -247,7 +247,7 @@ void solve()
     hp.push(Line(origin.p[origin.n - 1], origin.p[0]));
     hp.halfplaneinsert();
     hp.getconvex(ans);
-    printf("%.2lf\n", fabs(ans.area()));
+    printf("%.2f\n", fabs(ans.area()));
 }
 int main()
 {

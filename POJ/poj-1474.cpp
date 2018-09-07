@@ -168,12 +168,10 @@ struct polygon
     };
     // 求该多边形面积
     double area() {
-        if (n < 3)
-            return 0;
         double res = 0;
-        for (int i = 1; i < n - 1; i++)
-            res += ((p[i] - p[0]) ^ (p[i + 1] - p[0]));
-        return res / 2.0;
+        for (int i = 0; i < n; i++)
+            res += (p[i] ^ p[(i + 1) % n]);
+        return fabs(res) / 2;
     }
 } origin, ans;
 
