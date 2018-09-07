@@ -7,7 +7,7 @@ using namespace std;
 const double pi = acos(-1.0);
 const double eps = 1e-8;
 const double Inf = 1e12;
-const int N = 2e4 + 10;
+const int N = 1e5 + 10;
 int sign(double x)
 {
     if (fabs(x) < eps)
@@ -167,99 +167,63 @@ struct polygon
         }
     };
     // 求该多边形面积
-    double PolyArea()
-    {
-        double ans = 0;
-        for (int i = 1; i < n - 1; i++)
-            ans += (p[i] - p[0]) ^ (p[i + 1] - p[0]);
-        return fabs(ans) / 2;
+    double area() {
+        double res = 0;
+        for (int i = 0; i < n; i++)
+            res += (p[i] ^ p[(i + 1) % n]);
+        return fabs(res) / 2;
     }
 } ans;
 
 struct halfplanes
 {
     int n;
-    // Line hp[N], *q[N];
+    Line hp[N], *q[N];
     Vector p[N];
     int st, ed;
     vector<Line> L;
     void push(Line tmp)
     {
-        // hp[n++] = tmp;
-        L.push_back(tmp);
+        hp[n++] = tmp;
     }
-    // void unique()
-    // {
-    //     int m = 1;
-    //     for (int i = 1; i < n; ++i)
-    //     {
-    //         if (sign(hp[i].ag - hp[i - 1].ag) != 0)
-    //             hp[m++] = hp[i];
-    //         else if (sign((hp[m - 1].e - hp[m - 1].s) ^ (hp[i].s - hp[m - 1].s)) > 0)
-    //             hp[m - 1] = hp[i];
-    //     }
-    //     n = m;
-    // }
-    // bool halfplaneinsert()
-    // {
-    //     sort(hp, hp + n);
-    //     unique();
-    //     q[st = 0] = &hp[0];
-    //     q[ed = 1] = &hp[1];
-    //     p[1] = hp[0].crosspoint(hp[1]);
-    //     for (int i = 2; i < n; ++i)
-    //     {
-    //         while (st < ed && hp[i].prelation(p[ed]) < 0)
-    //             --ed;
-    //         while (st < ed && hp[i].prelation(p[st + 1]) < 0)
-    //             ++st;
-    //         q[++ed] = &hp[i];
-    //         if (hp[i].parallel(*q[ed - 1]))
-    //             return false;
-    //         p[ed] = hp[i].crosspoint(*q[ed - 1]);
-    //     }
-    //     while (st < ed && q[st]->prelation(p[ed]) < 0)
-    //         --ed;
-    //     while (st < ed && q[st]->prelation(p[st + 1]) < 0)
-    //         ++st;
-    //     if (st + 1 >= ed)
-    //         return false;
-    //     p[st] = q[st]->crosspoint(*q[ed]);
-    //     return true;
-    // }
-    vector<Vector> HPI()
+    void unique()
     {
-        int n = L.size();
-        sort(L.begin(), L.end()); //将所有半平面按照极角排序。
-        int first, last;
-        vector<Vector> p(n);
-        vector<Line> q(n);
-        vector<Vector> ans;
-        q[first = last = 0] = L[0];
-        for (int i = 1; i < n; i++)
+        int m = 1;
+        for (int i = 1; i < n; ++i)
         {
-            while (first < last && L[i].prelation(p[last - 1]) <= 0)
-                last--; //删除顶部的半平面
-            while (first < last && L[i].prelation(p[first]) <= 0)
-                first++;      //删除底部的半平面
-            q[++last] = L[i]; //将当前的半平面假如双端队列顶部。
-            if (sign(q[last].v ^ q[last - 1].v) == 0)
-            { //对于极角相同的，选择性保留一个。
-                last--;
-                if (q[last].prelation(L[i].s) > 0)
-                    q[last] = L[i];
-            }
-            if (first < last)
-                p[last - 1] = q[last - 1].crosspoint(q[last]); //计算队列顶部半平面交点。
+            if (sign(hp[i].ag - hp[i - 1].ag) != 0)
+                hp[m++] = hp[i];
+            else if (sign((hp[m - 1].e - hp[m - 1].s) ^ (hp[i].s - hp[m - 1].s)) > 0)
+                hp[m - 1] = hp[i];
         }
-        while (first < last && q[first].prelation(p[last - 1]) <= 0)
-            last--; //删除队列顶部的无用半平面。
-        if (last - first <= 1)
-            return ans;                                   //半平面退化
-        p[last] = q[last].crosspoint(q[first]); //计算队列顶部与首部的交点。
-        for (int i = first; i <= last; i++)
-            ans.push_back(p[i]); //将队列中的点复制。
-        return ans;
+        n = m;
+    }
+    bool halfplaneinsert()
+    {
+        sort(hp, hp + n);
+        unique();
+        q[st = 0] = &hp[0];
+        q[ed = 1] = &hp[1];
+        p[1] = hp[0].crosspoint(hp[1]);
+        for (int i = 2; i < n; ++i)
+        {
+            while (st < ed && hp[i].prelation(p[ed]) < 0)
+                --ed;
+            while (st < ed && hp[i].prelation(p[st + 1]) < 0)
+                ++st;
+            q[++ed] = &hp[i];
+            if (hp[i].parallel(*q[ed - 1]))
+                return false;
+            p[ed] = hp[i].crosspoint(*q[ed - 1]);
+        }
+        while (st < ed && q[st]->prelation(p[ed]) < 0)
+            --ed;
+        while (st < ed && q[st]->prelation(p[st + 1]) < 0)
+            ++st;
+        if (st + 1 >= ed)
+            return false;
+        p[st] = q[st]->crosspoint(*q[ed]);
+        return true;
     }
     void getconvex(polygon &con)
     {
@@ -268,14 +232,12 @@ struct halfplanes
             con.p[i] = p[j];
     }
 } hp;
-
-int n;
 int main()
 {
     freopen("test.in", "r", stdin);
+    int n;
     while (~scanf("%d", &n))
     {
-        hp.n = 0;
         hp.push(Line(Vector(0, 10000.0), Vector(0, 0)));
         hp.push(Line(Vector(0, 0), Vector(10000.0, 0)));
         hp.push(Line(Vector(10000.0, 0), Vector(10000.0, 10000.0)));
@@ -286,19 +248,13 @@ int main()
             a.input(); b.input();
             hp.push(Line(a, b));
         }
-        // if (hp.halfplaneinsert() == false)
-        // {
-        //     printf("%.1lf\n", 0.0);
-        //     return 0;
-        // }
-        // hp.getconvex(ans);
-        // printf("%.1lf\n", fabs(ans.PolyArea()));
-        vector<Vector> p = hp.HPI();
-        int n = p.size();
-        double ans = 0;
-        for (int i = 1; i < n - 1; i++)
-            ans += (p[i] - p[0]) ^ (p[i + 1] - p[0]);
-        printf("%.1lf\n", fabs(ans) / 2.0);
+        if (hp.halfplaneinsert() == false)
+        {
+            printf("%.1lf\n", 0.0);
+            return 0;
+        }
+        hp.getconvex(ans);
+        printf("%.1f\n", fabs(ans.area()));
     }
     return 0;
 }
