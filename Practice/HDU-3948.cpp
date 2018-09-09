@@ -54,9 +54,9 @@ struct PAM
             fail[now] = next[get_fail(fail[cur])][c];
             next[cur][c] = now;
             num[now] = num[fail[now]] + 1;
+            ++ans;
         }
         last = next[cur][c];
-        ++ans;
         cnt[last]++;
     }
     void count()
