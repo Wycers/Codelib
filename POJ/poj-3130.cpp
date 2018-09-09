@@ -208,18 +208,18 @@ struct halfplanes
         for (int i = 2; i < n; ++i)
         {
             while (st < ed && hp[i].prelation(p[ed]) < 0)
-                --ed;
+                ed--;
             while (st < ed && hp[i].prelation(p[st + 1]) < 0)
-                ++st;
+                st++;
             q[++ed] = &hp[i];
             if (hp[i].parallel(*q[ed - 1]))
                 return false;
             p[ed] = hp[i].crosspoint(*q[ed - 1]);
         }
         while (st < ed && q[st]->prelation(p[ed]) < 0)
-            --ed;
+            ed--;
         while (st < ed && q[st]->prelation(p[st + 1]) < 0)
-            ++st;
+            st++;
         if (st + 1 >= ed)
             return false;
         return true;
@@ -235,7 +235,6 @@ struct halfplanes
 
 void solve()
 {
-    scanf("%d", &origin.n);
     for (int i = 0; i < origin.n; ++i)
         origin.p[i].input();
     if (origin.area() < 0)
@@ -247,13 +246,16 @@ void solve()
     hp.push(Line(origin.p[origin.n - 1], origin.p[0]));
     hp.halfplaneinsert();
     hp.getconvex(ans);
-    printf("%.2f\n", fabs(ans.area()));
+    puts(ans.n > 2 ? "1" : "0");
 }
 int main()
 {
-    freopen("test.in", "r", stdin);
-    int T; scanf("%d", &T);
-    while (T--)
+    while (true)
+    {
+        scanf("%d", &origin.n);
+        if (origin.n == 0)
+            break;
         solve();
+    }
     return 0;
 }

@@ -2,10 +2,12 @@
 #include <cmath>
 #include <algorithm>
 #include <iostream>
+#include <vector>
 using namespace std;
 const double pi = acos(-1.0);
 const double eps = 1e-8;
-const int N = 2000;
+const double Inf = 1e12;
+const int N = 1e5 + 10;
 int sign(double x)
 {
     if (fabs(x) < eps)
@@ -66,7 +68,7 @@ struct Vector
         Vector v = (*this) - b, t = Vector(sin(rad), cos(rad));
         return b + Vector(v ^ t, v * t);
     }
-} p[N];
+};
 struct Line 
 {
     Vector s, e, v;
@@ -96,7 +98,6 @@ struct Line
         else
             e = s + Vector(1, tan(rad));
         init();
-        ag = atan2(v.y, v.x);
     }
     // 一般式确定直线
     Line (double a, double b, double c) {
@@ -167,14 +168,12 @@ struct polygon
     };
     // 求该多边形面积
     double area() {
-        if (n < 3)
-            return 0;
         double res = 0;
-        for (int i = 1; i < n - 1; i++)
-            res += ((p[i] - p[0]) ^ (p[i + 1] - p[0]));
-        return res / 2.0;
+        for (int i = 0; i < n; i++)
+            res += (p[i] ^ p[(i + 1) % n]);
+        return fabs(res) / 2;
     }
-} origin, ans;
+} ans;
 
 struct halfplanes
 {
@@ -182,6 +181,7 @@ struct halfplanes
     Line hp[N], *q[N];
     Vector p[N];
     int st, ed;
+    vector<Line> L;
     void push(Line tmp)
     {
         hp[n++] = tmp;
@@ -222,38 +222,39 @@ struct halfplanes
             ++st;
         if (st + 1 >= ed)
             return false;
+        p[st] = q[st]->crosspoint(*q[ed]);
         return true;
     }
     void getconvex(polygon &con)
     {
-        p[st] = q[st]->crosspoint(*q[ed]);
         con.n = ed - st + 1;
         for (int j = st, i = 0; j <= ed; ++i, ++j)
             con.p[i] = p[j];
     }
 } hp;
-
-void solve()
-{
-    scanf("%d", &origin.n);
-    for (int i = 0; i < origin.n; ++i)
-        origin.p[i].input();
-    if (origin.area() < 0)
-        reverse(origin.p, origin.p + origin.n);
-
-    hp.n = 0;
-    for (int i = 0; i < origin.n - 1; ++i)
-        hp.push(Line(origin.p[i], origin.p[i + 1]));
-    hp.push(Line(origin.p[origin.n - 1], origin.p[0]));
-    hp.halfplaneinsert();
-    hp.getconvex(ans);
-    printf("%.2f\n", fabs(ans.area()));
-}
 int main()
 {
     freopen("test.in", "r", stdin);
-    int T; scanf("%d", &T);
-    while (T--)
-        solve();
+    int n;
+    while (~scanf("%d", &n))
+    {
+        hp.push(Line(Vector(0, 10000.0), Vector(0, 0)));
+        hp.push(Line(Vector(0, 0), Vector(10000.0, 0)));
+        hp.push(Line(Vector(10000.0, 0), Vector(10000.0, 10000.0)));
+        hp.push(Line(Vector(10000.0, 10000.0), Vector(0, 10000.0)));
+        for (int i = 0; i < n; ++i)
+        {
+            Vector a, b;
+            a.input(); b.input();
+            hp.push(Line(a, b));
+        }
+        if (hp.halfplaneinsert() == false)
+        {
+            printf("%.1lf\n", 0.0);
+            return 0;
+        }
+        hp.getconvex(ans);
+        printf("%.1f\n", fabs(ans.area()));
+    }
     return 0;
 }

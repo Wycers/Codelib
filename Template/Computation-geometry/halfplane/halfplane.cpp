@@ -1,6 +1,6 @@
 #include "../polygon/polygon.cpp"
 
-struct halfplane
+struct halfplanes
 {
     int n;
     Line hp[N], *q[N];
@@ -10,42 +10,52 @@ struct halfplane
     {
         hp[n++] = tmp;
     }
-    void halfplaneinsert()
+    void unique()
+    {
+        int m = 1;
+        for (int i = 1; i < n; ++i)
+        {
+            if (sign(hp[i].ag - hp[i - 1].ag) != 0)
+                hp[m++] = hp[i];
+            else if (sign((hp[m - 1].e - hp[m - 1].s) ^ (hp[i].s - hp[m - 1].s)) > 0)
+                hp[m - 1] = hp[i];
+        }
+        n = m;
+    }
+    bool halfplaneinsert()
     {
         sort(hp, hp + n);
-        q[st = ed = 0] = &hp[0];
-        for (int i = 1; i < n; i++)
+        unique();
+        q[st = 0] = &hp[0];
+        q[ed = 1] = &hp[1];
+        p[1] = hp[0].crosspoint(hp[1]);
+        for (int i = 2; i < n; ++i)
         {
-            while (st < ed && hp[i].prelation(p[ed - 1]) != 1)
-                --ed;       //Remove the top of the half plane
-            while (st < ed && hp[i].prelation(p[st]) != 1)
-                ++st;      //Remove the bottom half plane
-            q[++ed] = &hp[i]; //The half plane current if the double ended queue at the top.
-            if (sign(q[ed]->v ^ q[ed - 1]->v) == 0)
-            { //For the polar angle the same, selective retention of a.
+            while (st < ed && hp[i].prelation(p[ed]) < 0)
                 --ed;
-                if ((*q[ed]).prelation(hp[i].s) == 1)
-                    q[ed] = &hp[i];
-            }
-            if (st < ed)
-                p[ed - 1] = (*q[ed - 1]).crosspoint(*q[ed]); //Calculation of the top of the queue half plane intersection.
+            while (st < ed && hp[i].prelation(p[st + 1]) < 0)
+                ++st;
+            q[++ed] = &hp[i];
+            if (hp[i].parallel(*q[ed - 1]))
+                return false;
+            p[ed] = hp[i].crosspoint(*q[ed - 1]);
         }
-        while (st < ed && (*q[st]).prelation(p[ed - 1]) != 1)
-            --ed; //Remove the top of the queue of useless half plane.
-        if (ed - st <= 1)
-            return;
-        p[ed] = (*q[ed]).crosspoint(*q[st]); //The top of the queue and the first intersection calculation.
-    }
-    bool getconvex(polygon &res)
-    {
-        res.n = ed - st + 1;
-        if (ed - st <= 1)
-            return false;                                   //Half plane degradation
-        for (int i = st; i <= ed; i++)
-            res.p[i - st] = p[i]; //The queue of point.
+        while (st < ed && q[st]->prelation(p[ed]) < 0)
+            --ed;
+        while (st < ed && q[st]->prelation(p[st + 1]) < 0)
+            ++st;
+        if (st + 1 >= ed)
+            return false;
         return true;
     }
-};
+    void getconvex(polygon &con)
+    {
+        p[st] = q[st]->crosspoint(*q[ed]);
+        con.n = ed - st + 1;
+        for (int j = st, i = 0; j <= ed; ++i, ++j)
+            con.p[i] = p[j];
+    }
+} hp;
 
 int main()
 {

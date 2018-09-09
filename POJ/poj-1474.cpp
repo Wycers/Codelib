@@ -1,3 +1,4 @@
+
 #include <cstdio>
 #include <cmath>
 #include <algorithm>
@@ -167,12 +168,10 @@ struct polygon
     };
     // 求该多边形面积
     double area() {
-        if (n < 3)
-            return 0;
         double res = 0;
-        for (int i = 1; i < n - 1; i++)
-            res += ((p[i] - p[0]) ^ (p[i + 1] - p[0]));
-        return res / 2.0;
+        for (int i = 0; i < n; i++)
+            res += (p[i] ^ p[(i + 1) % n]);
+        return fabs(res) / 2;
     }
 } origin, ans;
 
@@ -208,18 +207,18 @@ struct halfplanes
         for (int i = 2; i < n; ++i)
         {
             while (st < ed && hp[i].prelation(p[ed]) < 0)
-                --ed;
+                ed--;
             while (st < ed && hp[i].prelation(p[st + 1]) < 0)
-                ++st;
+                st++;
             q[++ed] = &hp[i];
             if (hp[i].parallel(*q[ed - 1]))
                 return false;
             p[ed] = hp[i].crosspoint(*q[ed - 1]);
         }
         while (st < ed && q[st]->prelation(p[ed]) < 0)
-            --ed;
+            ed--;
         while (st < ed && q[st]->prelation(p[st + 1]) < 0)
-            ++st;
+            st++;
         if (st + 1 >= ed)
             return false;
         return true;
@@ -235,7 +234,6 @@ struct halfplanes
 
 void solve()
 {
-    scanf("%d", &origin.n);
     for (int i = 0; i < origin.n; ++i)
         origin.p[i].input();
     if (origin.area() < 0)
@@ -247,13 +245,21 @@ void solve()
     hp.push(Line(origin.p[origin.n - 1], origin.p[0]));
     hp.halfplaneinsert();
     hp.getconvex(ans);
-    printf("%.2f\n", fabs(ans.area()));
+    cout << "Surveillance is " << (ans.n <= 2 ? "im" : "") << "possible." << endl;
 }
 int main()
 {
     freopen("test.in", "r", stdin);
-    int T; scanf("%d", &T);
-    while (T--)
+    int T = 0;
+    while (true)
+    {
+        scanf("%d", &origin.n);
+        if (origin.n == 0)
+            break;
+        if (T > 0)
+            puts("");
+        printf("Floor #%d\n", ++T);
         solve();
+    }
     return 0;
 }

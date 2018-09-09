@@ -4,8 +4,9 @@
 #include <iostream>
 using namespace std;
 const double pi = acos(-1.0);
-const double eps = 1e-8;
-const int N = 2000;
+const double eps = 1e-12;
+const double Inf = 1e9;
+const int N = 110;
 int sign(double x)
 {
     if (fabs(x) < eps)
@@ -131,10 +132,11 @@ struct Line
         return sign(v ^ b.v) == 0;
     }
     // 求两直线的交点，要保证两直线不平行或重合
-    Vector crosspoint(const Line &b) {
-        Vector u = s - b.s;
-        double t = (b.v ^ u) / (v ^ b.v);
-        return s + v * t;
+    Vector crosspoint(const Line &b)
+    {
+        double a1 = b.v ^ (s - b.s);
+        double a2 = b.v ^ (e - b.s);
+        return Vector((s.x * a2 - e.x * a1) / (a2 - a1), (s.y * a2 - e.y * a1) / (a2 - a1));
     }
 };
 
@@ -208,18 +210,18 @@ struct halfplanes
         for (int i = 2; i < n; ++i)
         {
             while (st < ed && hp[i].prelation(p[ed]) < 0)
-                --ed;
+                ed--;
             while (st < ed && hp[i].prelation(p[st + 1]) < 0)
-                ++st;
+                st++;
             q[++ed] = &hp[i];
             if (hp[i].parallel(*q[ed - 1]))
                 return false;
             p[ed] = hp[i].crosspoint(*q[ed - 1]);
         }
         while (st < ed && q[st]->prelation(p[ed]) < 0)
-            --ed;
+            ed--;
         while (st < ed && q[st]->prelation(p[st + 1]) < 0)
-            ++st;
+            st++;
         if (st + 1 >= ed)
             return false;
         return true;
@@ -240,19 +242,19 @@ void solve()
         origin.p[i].input();
     if (origin.area() < 0)
         reverse(origin.p, origin.p + origin.n);
-
     hp.n = 0;
     for (int i = 0; i < origin.n - 1; ++i)
         hp.push(Line(origin.p[i], origin.p[i + 1]));
     hp.push(Line(origin.p[origin.n - 1], origin.p[0]));
     hp.halfplaneinsert();
     hp.getconvex(ans);
-    printf("%.2f\n", fabs(ans.area()));
+    puts(ans.n > 2 ? "YES" : "NO");
 }
 int main()
 {
     freopen("test.in", "r", stdin);
-    int T; scanf("%d", &T);
+    int T;
+    scanf("%d", &T);
     while (T--)
         solve();
     return 0;
