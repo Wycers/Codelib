@@ -2,24 +2,17 @@
 #include <algorithm>
 using namespace std;
 const int N = 2e5 + 10;
-int n, m, a[N], b[N];
+int n, m, a[N];
 void solve()
 {
     scanf("%d%d", &n, &m);
     for (int i = 1; i <= n; ++i)
         scanf("%d", a + i);
     for (int i = 1; i <= m; ++i)
-        scanf("%d", b + i);
-    int pa = 1, pb = 1;
-    a[n + 1] = b[m + 1] = 0x7fffffff; 
-    while (pa <= n || pb <= m)
-    {
-        if (a[pa] < b[pb])
-            printf("%d ", a[pa++]);
-        else
-            printf("%d ", b[pb++]);
-    }
-    puts("");
+        scanf("%d", a + n + i);
+    sort(a + 1, a + n + m + 1);
+    for (int i = 1, len = n + m; i <= len; ++i)
+        printf("%d%c", a[i], i == len ? '\n' : ' ');
 }
 int main()
 {

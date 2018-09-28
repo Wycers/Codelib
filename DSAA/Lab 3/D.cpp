@@ -25,7 +25,9 @@ struct node
             printf("%d", abs(c));
         if (e != 0)
             printf("x");
-        if (e != 1)
+        if (abs(c) == 1 && e == 0)
+            printf("1");
+        if (e != 1 && e != 0)
             printf("^%d", e);
     }
 } a[N];
@@ -55,11 +57,15 @@ void solve()
             x.c += a[pre].c;
             ++pre;
         }
+        x.c *= x.e--;
         if (x.c)
             v.push_back(x);
     }
-    for (int i = 0, sz = v.size(); i < sz; ++i)
-        v[i].c *= v[i].e--;
+    if (v.size() == 0)
+    {
+        puts("0");
+        return;
+    }
     for (int i = 0, sz = v.size(); i < sz; ++i)
     {
         v[i].output();
