@@ -26,5 +26,6 @@ public class A2Q3 {
         } catch (Exception e) {
             System.out.println("invalid input!");
         }
+        sc.close();
     }
 }

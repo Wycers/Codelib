@@ -21,5 +21,6 @@ public class A2Q2 {
             }
         }
         System.out.println("Congratulations");
+        sc.close();
     }
 }
