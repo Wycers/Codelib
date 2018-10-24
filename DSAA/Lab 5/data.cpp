@@ -6,22 +6,22 @@ using namespace std;
 int main()
 {
     srand(time(0));
-	int n = 100;
-    puts("2");
+	int n = 4, c = 2;
     printf("%d\n", n);
-    for (int j = 1; j <= 1; ++j)
+    for (int j = 1; j <= n; ++j)
     {
-        for (int i = 1; i <= n; ++i)
-            printf("%c", 'a' + rand() % 2);
+        for (int i = 1, len = rand() % 5 + 1; i <= len; ++i)
+            printf("%c", 'a' + rand() % c);
         puts("");
     }
-    printf("%d\n", n);
-    for (int j = 1; j <= 1; ++j)
+    for (int i = 1; i <= 5; ++i)
     {
-
-        for (int i = 1; i <= n; ++i)
-            printf("%c", 'a' + rand() % 2);
-        puts("");
+        int now = rand() % (c + 1);
+        if (now == c)
+            printf("%c", '-');
+        else    
+            printf("%c", 'a' + now);
     }
+    puts("");
     return 0;
 }
