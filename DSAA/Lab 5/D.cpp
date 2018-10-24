@@ -10,9 +10,18 @@ bool judge(int x)
     int g = len - x;
     if (memcmp(str, str + g, x) != 0)
         return false;
-    for (int i = 2 * x - 1; i < g; ++i)
-        if (nx[i + 1] >= x && x + nx[i + 1] <= i + 1)
-            return true;
+    int i = x, j = 0;
+    while (i < g)
+    {
+        if (j == -1 || str[i] == str[j])
+        {
+            ++i; ++j;
+            if (j == x)
+                return true;
+        }
+        else
+            j = nx[j];
+    }
     return false;
 }
 void getnext()
@@ -46,5 +55,3 @@ int main()
         solve();
     return 0;
 }
-
-// 不知道哪里WA了
