@@ -11,10 +11,7 @@ bool judge(int x)
     if (memcmp(str, str + g, x) != 0)
         return false;
     for (int i = 2 * x - 1; i < g; ++i)
-    {
-        printf("")
-    }
-        if (x + nx[i + 1] < i)
+        if (nx[i + 1] >= x && x + nx[i + 1] <= i + 1)
             return true;
     return false;
 }
@@ -34,9 +31,6 @@ void solve()
     scanf("%d", &len);
     scanf("%s", str);
     getnext();
-    for (int i = 0; i < len; ++i)
-        printf("%d ", nx[i]);
-    puts("");
     for (int ans = min(len / 3, nx[len - 1] + 1); ans >= 1; --ans)
         if (judge(ans))
         {
