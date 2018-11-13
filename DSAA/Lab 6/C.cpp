@@ -1,26 +1,5 @@
 #include <cstdio>
 #include <algorithm>
-<<<<<<< HEAD
-#include <cstring>
-#include <queue>
-using namespace std;
-priority_queue<int, vector<int>, greater<int> > q, tmp;
-void solve()
-{
-    int n;
-    scanf("%d", &n);
-    q = tmp;
-    for (int i = 1; i <= n; ++i)
-    {
-        int x;
-        scanf("%d", &x);
-        q.push(x);
-    }
-    scanf("%d", &n);
-    for (int i = 1; i <= n; ++i)
-    {
-        int opt, x;
-=======
 using namespace std;
 const int N = 1e5 + 10;
 int h[N], top;
@@ -71,35 +50,20 @@ void solve()
     int q, opt, x; scanf("%d", &q);
     while (q--)
     {
->>>>>>> e0b7e4c7140b84fce92116c4e145f271689e043d
         scanf("%d", &opt);
         if (opt == 1)
         {
             scanf("%d", &x);
-<<<<<<< HEAD
-            q.push(x);    
-        }
-        else if (opt == 2)
-            q.pop();
-        else
-            printf("%d\n", q.top());
-=======
             add(x);
         }
         else if (opt == 2)
             del();
         else 
             printf("%d\n", h[1]);
->>>>>>> e0b7e4c7140b84fce92116c4e145f271689e043d
     }
 }
 int main()
 {
-<<<<<<< HEAD
-    while (!tmp.empty())
-        tmp.pop();
-=======
->>>>>>> e0b7e4c7140b84fce92116c4e145f271689e043d
     int T; scanf("%d", &T);
     while (T--)
         solve();
