@@ -77,7 +77,11 @@ void solve()
             ++g;
         }
         add(x);
+<<<<<<< HEAD
     } 
+=======
+    }
+>>>>>>> e0b7e4c7140b84fce92116c4e145f271689e043d
     printf("%d\n", ans);
 }
 int main()
@@ -86,6 +90,7 @@ int main()
     while (T--)
         solve();
     return 0;
+<<<<<<< HEAD
 }
 
 /*
@@ -106,3 +111,6 @@ int main()
 10 1 2 3 4 5 6 1 2 3 6 5 4 10 1 6
  
  */
+=======
+}
+>>>>>>> e0b7e4c7140b84fce92116c4e145f271689e043d
