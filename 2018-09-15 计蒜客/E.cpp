@@ -67,22 +67,29 @@ struct node
 } tr[4 * N];
 inline void pd(int k, int l, int r)
 {
+    int mid = (l + r) >> 1;
     if (tr[k].lazy_add)
     {
         tr[k << 1].lazy_add += tr[k].lazy_add;
+        tr[k << 1].sum += (mid - l + 1) * tr[k].lazy_add;
         tr[k << 1 | 1].lazy_add += tr[k].lazy_add;
+        tr[k << 1 | 1].sum += (r - mid) * tr[k].lazy_add;
         tr[k].lazy_add = 0;
     }
     if (tr[k].lazy_mul > 1)
     {
         tr[k << 1].lazy_mul *= tr[k].lazy_mul;
+        tr[k << 1].sum *= tr[k].lazy_mul;
         tr[k << 1 | 1].lazy_mul *= tr[k].lazy_mul;
+        tr[k << 1 | 1].sum *= tr[k].lazy_mul;
         tr[k].lazy_mul = 1;
     }
     if (tr[k].lazy_sub) 
     {
         tr[k << 1].lazy_sub ^= 1;
+        tr[k << 1].sum = (mid - l + 1) * Ha - tr[k << 1].sum;
         tr[k << 1 | 1].lazy_sub ^= 1;
+        tr[k << 1 | 1].sum = (r - mid) * Ha - tr[k << 1 | 1].sum;
         tr[k].lazy_sub = 0;
     }
 }
@@ -121,7 +128,7 @@ void Add(int k, int l, int r, int L, int R, unsigned long long x)
     if (l == L && r == R)
     {
         tr[k].lazy_add += x;
-        tr[k].sum += (r - l + 1) * x;
+        tr[k].sum += 1ull * (r - l + 1) * x;
         return;
     }
     int mid = (l + r) >> 1;
@@ -161,21 +168,18 @@ void mul(int k, int l, int r, int x, unsigned long long y)
 void Mul(int k, int l, int r, int L, int R, int x)
 {
     pd(k, l, r);
-    for (int i = L; i <= R; ++i)
-        mul(1, 1, n, i, x);
-    // if (l == L && r == R)
-    // {
-    //     tr[k].lazy_mul *= x;
-    //     tr[k].sum *= tr[k].lazy_mul;
-    //     return;
-    // }
-    // int mid = (l + r) >> 1;
-    // int res = 0;
-    // if (L <= mid)
-    //     Mul(k << 1, l, mid, L, min(mid, R), x);
-    // if (mid < R)
-    //     Mul(k << 1 | 1, mid + 1, r, max(L, mid + 1), R, x);
-    // tr[k].sum = tr[k << 1].sum + tr[k << 1 | 1].sum;
+    if (l == L && r == R)
+    {
+        tr[k].lazy_mul *= x;
+        tr[k].sum *= x;
+        return;
+    }
+    int mid = (l + r) >> 1;
+    if (L <= mid)
+        Mul(k << 1, l, mid, L, min(mid, R), x);
+    if (mid < R)
+        Mul(k << 1 | 1, mid + 1, r, max(L, mid + 1), R, x);
+    tr[k].sum = tr[k << 1].sum + tr[k << 1 | 1].sum;
 }
 void SolveMul(int x, int y, int z) {
     while (belong[x] != belong[y]) {
@@ -189,38 +193,24 @@ void SolveMul(int x, int y, int z) {
     Mul(1, 1, n, pos[x], pos[y], z);
 }
 
-void sub(int k, int l, int r, int x)
-{
-    if (l == r)
-    {
-        tr[k].sum = Ha - tr[k].sum;
-        return;
-    }
-    int mid = (l + r) >> 1;
-    if (x <= mid)
-        sub(k << 1, l, mid, x);
-    else
-        sub(k << 1 | 1, mid + 1, r, x);
-    tr[k].sum = tr[k << 1].sum + tr[k << 1 | 1].sum;
-}
 void Sub(int k, int l, int r, int L, int R)
 {
     pd(k, l, r);
-    for (int i = L; i <= R; ++i)
-        sub(1, 1, n, i);
-    // if (l == L && r == R)
-    // {
-    //     tr[k].lazy_sub ^= 1;
-    //     tr[k].sum = Ha - tr[k].sum;
-    //     return;
-    // }
-    // int mid = (l + r) >> 1;
-    // int res = 0;
-    // if (L <= mid)
-    //     Sub(k << 1, l, mid, L, min(mid, R));
-    // if (mid < R)
-    //     Sub(k << 1 | 1, mid + 1, r, max(L, mid + 1), R);
-    // tr[k].sum = tr[k << 1].sum + tr[k << 1 | 1].sum;
+    // for (int i = L; i <= R; ++i)
+    //     sub(1, 1, n, i);
+    if (l == L && r == R)
+    {
+        tr[k].lazy_sub ^= 1;
+        tr[k].sum = (r - l + 1) * Ha - tr[k].sum;
+        return;
+    }
+    int mid = (l + r) >> 1;
+    int res = 0;
+    if (L <= mid)
+        Sub(k << 1, l, mid, L, min(mid, R));
+    if (mid < R)
+        Sub(k << 1 | 1, mid + 1, r, max(L, mid + 1), R);
+    tr[k].sum = tr[k << 1].sum + tr[k << 1 | 1].sum;
 }
 void SolveSub(int x, int y) {
     while (belong[x] != belong[y]) {
@@ -244,6 +234,8 @@ void solve()
     memset(pos, 0, sizeof pos);
     memset(belong, 0, sizeof belong);
     memset(tr, 0, sizeof tr);
+    for (int i = 0; i < 4 * N; ++i)
+        tr[i].lazy_mul = 1;
     cnt = 0; sz = 0;
 
     for (int i = 2, f; i <= n; ++i)
