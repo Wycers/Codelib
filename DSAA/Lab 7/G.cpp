@@ -2,11 +2,11 @@
 #include <algorithm>
 #include <cmath>
 using namespace std;
-const int N = 4e4 + 10;
+const int N = 1e5 + 10;
 int a[N], h[N], top;
 
 
-struct data
+struct Data
 {
     int x, y, k;
 } f[N];
@@ -65,45 +65,64 @@ void solve()
     {
         int x, y;
         scanf("%d%d", &x, &y);
-        f[i] = (data){x, y, y == 0 ? 1 : x % y};
+        f[i] = (Data){x, y, y == 0 ? 1 : x % y};
         tag[i] = i;
     }
     sort(tag + 1, tag + n + 1, cmp);
-    for (int i = 1; i <= n; ++i)
-        printf("%d %d %d\n", f[tag[i]].x, f[tag[i]].y, f[tag[i]].k);
-    int t = n;
-    while (t--)
+
+    int i, pre;
+    for (i = 1; i <= n; ++i)
     {
-        int x, y;
-        scanf("%d%d", &x, &y);
-        top = 0;
-        if (x + (k - 1) * y > n)
-        {
-            puts("-1");
-            continue;
-        }
+        int x = f[tag[i]].x, y = f[tag[i]].y;
         if (y == 0)
+            ans[tag[i]] =  k == 1 ? a[x] : -1;
+        else
         {
-            printf("%d\n", k == 1 ? a[x] : -1);
-            continue;
+            pre = i;
+            break;
         }
-        for (int i = x; i <= n; i += y)
+    }
+    // for (int i = 1; i <= n; ++i)
+    //     printf("%d %d %d\n", f[tag[i]].x, f[tag[i]].y, f[tag[i]].k);
+    for (; i <= n; ++i)
+    {
+        if (i < n && f[tag[pre]].y == f[tag[i + 1]].y && f[tag[pre]].k == f[tag[i + 1]].k)
+            continue;
+        top = 0;
+        int fx = f[tag[pre]].x, fy = f[tag[pre]].y;
+        int tx = (n - fx) / fy, ty = fy;
+        if (tx == 0)
+            tx = fx;
+        else
+            tx = tx * ty + fx;
+        // printf("==> %d %d %d %d %d\n", tx, pre, i, fx, fy);
+        while (pre <= i)
         {
             if (top == k)
             {
-                if (a[i] <= h[1])
-                    continue;
-                else
+                if (a[tx] > h[1])
                 {
-                    add(a[i]);
+                    add(a[tx]);
                     del();
                 }
             }
             else
-                add(a[i]);
+                add(a[tx]);
+            // printf("qwq：%d %d\n", tx, f[tag[pre]].x);
+            while (tx == f[tag[pre]].x && ty == f[tag[pre]].y)
+            {
+                // printf("%d %d %d %d\n", pre, h[1], tag[pre], top);
+                if (top < k)
+                    ans[tag[pre]] = -1;
+                else
+                    ans[tag[pre]] = h[1];
+                ++pre;
+            }
+            tx -= ty;
         }
-        printf("%d\n", h[1]);
     }
+    for (int i = 1; i <= n; ++i)
+        printf("%d\n", ans[i]);
 }
 int main()
 {
