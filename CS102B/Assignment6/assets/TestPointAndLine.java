@@ -5,7 +5,7 @@ public class TestPointAndLine {
 
 	public static int testPoint(String point, int x, int y) {
 		
-		String pattern = "(?i).*Point\\s*\\[x=(.*)\\s*,\\s*y=(.*)\\]";
+		String pattern = "(?i).*Point\\s*\\[x=(-?\\d+)\\s*,\\s*y=(-?\\d+)\\]";
  
 		// 创建 Pattern 对象
 		Pattern r = Pattern.compile(pattern);
@@ -75,6 +75,9 @@ public class TestPointAndLine {
 
 		Line l2 = new Line(point2, point3);
 		score -= 5 * testLine(l2.toString(), 5, 5, 3, 4);
+		
+		Line l3 = new Line(-3, -4, 0, 0);
+		score -= 5 * testLine(l3.toString(), -3, -4, 0, 0);
 		System.out.println(score);
 	}
 }
