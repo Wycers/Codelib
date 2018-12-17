@@ -106,10 +106,10 @@ public class TestContainerAndBall {
 		score -= 10 * checkBox();
 		score -= 10 * checkBall();
 
-		score -= 6 * checkMove(0, 0, 100, 100, 5, 50, 50, 70, 45);
-		score -= 6 * checkMove(0, 0, 80, 80, 5, 0, 0, 10, 45);
-		score -= 6 * checkMove(0, 0, 50, 50, 5, 25, 25, 5, 180);
-		score -= 6 * checkMove(0, 0, 75, 10, 2, 34, 5, 20, 73);
+		score -= 5 * checkMove(0, 0, 100, 100, 5, 50, 50, 70, 45);
+		score -= 5 * checkMove(0, 0, 80, 80, 5, 0, 0, 10, 45);
+		score -= 5 * checkMove(0, 0, 50, 50, 5, 25, 25, 5, 180);
+		score -= 5 * checkMove(0, 0, 75, 10, 2, 34, 5, 20, 73);
 		System.out.println(score);
 	}
 }
