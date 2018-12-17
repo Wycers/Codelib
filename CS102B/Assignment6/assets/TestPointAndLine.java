@@ -10,9 +10,9 @@ public class TestPointAndLine {
 		// 创建 Pattern 对象
 		Pattern r = Pattern.compile(pattern);
 	
-		// 现在创建 matcher 对象
+		// 创建 matcher 对象
 		Matcher m = r.matcher(point);
-		if (m.find( )) {
+		if (m.find()) {
 			if (m.groupCount() != 2)
 				return 3;
 			if (Integer.parseInt(m.group(1)) != x)
@@ -32,9 +32,9 @@ public class TestPointAndLine {
 		// 创建 Pattern 对象
 		Pattern r = Pattern.compile(pattern);
 	
-		// 现在创建 matcher 对象
+		// 创建 matcher 对象
 		Matcher m = r.matcher(line);
-		if (m.find( )) {
+		if (m.find()) {
 			if (m.groupCount() < 7)
 				return 3;
 			if (Integer.parseInt(m.group(1)) != sx)
