@@ -2,6 +2,7 @@ import subprocess, shutil
 from os import path, listdir, remove
 
 def test(name, filelist):
+    global workspace
     for file in filelist:
         if not path.exists(path.join('.', 'user', file)):
             print('[%s] File [ %s ] not found.' % (name, file))
@@ -21,6 +22,8 @@ def test(name, filelist):
     if code is not 0:
         print('%s failed' % name)
         return 0
+    for file in filelist:
+        remove(path.join(workspace, file))
     return int(output.split('\n')[-1])
 
 workspace = path.join('.', 'user')
@@ -35,6 +38,3 @@ task2 = test('TestPointAndLine', ['Point.java', 'Line.java'])
 task3 = test('TestContainerAndBall', ['Container.java', 'Ball.java'])
 print(task1, task2, task3, '==>', task1 * 0.3 + task2 * 0.3 + task3 * 0.4)
 subprocess.getoutput('rm *.class *.java')
-
-for file in filelist:
-    remove(path.join(workspace, file))
