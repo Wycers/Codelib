@@ -39,6 +39,29 @@ public class TestContainerAndBall {
 
 		return res;
 	}
+	public static int checkBallOutput(String ball, double x, double y, double vx, double vy) {
+		String pattern = "(?i).*Ball\\s*at\\s*\\(\\s*((-?\\d+)(\\.\\d+)?)\\s*,\\s*((-?\\d+)(\\.\\d+)?)\\s*\\)\\s*of\\s*velocity\\s*\\(\\s*((-?\\d+)(\\.\\d+)?)\\s*,\\s*((-?\\d+)(\\.\\d+)?)\\s*\\)\\s*";
+		Pattern r = Pattern.compile(pattern);
+
+		Matcher m = r.matcher(ball);
+		if (m.find()) {
+			const double eps = 1e-8;
+			try {
+				if (Math.abs(Double.parseDouble(m.group(1)) - x) > eps)
+					return 1;
+				if (Math.abs(Double.parseDouble(m.group(3)) - y) > eps)
+					return 1;
+				if (Math.abs(Double.parseDouble(m.group(5)) - vx) > eps)
+					return 1;
+				if (Math.abs(Double.parseDouble(m.group(7)) - vy) > eps)
+					return 1;
+			} catch (Exception e) {
+				return 1;
+			}
+			return 0;
+		}
+		return 1;
+	}
 	public static void main(String[] args) {
 		int score = 100;
 		score -= 5 * checkBox();
