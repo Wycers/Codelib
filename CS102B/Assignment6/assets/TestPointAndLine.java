@@ -52,7 +52,7 @@ public class TestPointAndLine {
 				return 2;
 			}
 			double std = Math.sqrt(Math.pow(sx - tx, 2) + Math.pow(sy - ty, 2));
-			if (Math.abs(res - std) > 1e-8)
+			if (Math.abs(res - std) > 1e-2)
 				return 2;
 		} else {
 			return 3;
