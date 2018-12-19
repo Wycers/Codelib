@@ -78,7 +78,7 @@ public class TestDateUtil {
 
 		return true;
 	}
-	public static int testStringAndDow(int y, int m, int d) {
+	public static int testStringAndDow(int y, int m, int d, int score) {
 		dateUtil.setYear(y);
 		dateUtil.setMonth(m);
 		dateUtil.setDay(d);
@@ -89,21 +89,27 @@ public class TestDateUtil {
 		try {
 			string = testString.parse(dateUtil.toString());
 		} catch (ParseException e) {
-			return 3;
+			System.out.printf("Valid output not found while testing weekofday. (%d)\n", -3 * score);
+			return 3 * score;
 		}
 
 		try {
 			dow = testDow.parse(dateUtil.getDayOfWeek());
 		} catch(ParseException e) {
-			return 2;
+			System.out.printf("Valid output not found while testing weekofday. (%d)\n", -2 * score);
+			return 2 * score;
 		}
 
 		Calendar std = Calendar.getInstance(Locale.US); std.setTime(string);
-		if (std.get(Calendar.YEAR) != y || std.get(Calendar.MONTH) + 1 != m || std.get(Calendar.DAY_OF_MONTH) != d)
-			return 3;
+		if (std.get(Calendar.YEAR) != y || std.get(Calendar.MONTH) + 1 != m || std.get(Calendar.DAY_OF_MONTH) != d) {
+			System.out.printf("Cannot set while testing weekofday. (%d)\n", -3 * score);
+			return 3 * score;
+		}
 		Calendar res = Calendar.getInstance(Locale.US); res.setTime(dow);
-		if (std.get(Calendar.DAY_OF_WEEK) != res.get(Calendar.DAY_OF_WEEK))
-			return 1;
+		if (std.get(Calendar.DAY_OF_WEEK) != res.get(Calendar.DAY_OF_WEEK)) {
+			System.out.printf("Wrong answer while testing weekofday. (%d)\n", -1 * score);
+			return 1 * score;
+		}
 		return 0;
 	}
 	public static void main(String[] args) {
@@ -111,18 +117,21 @@ public class TestDateUtil {
 		int score = 100;
 		// test getter and setter 
 		if (testYear() == false) {
+			System.out.println("test year failed. (-10)");
 			score -= 10;
 		}
 		if (testMonth() == false) {
+			System.out.println("test year failed. (-10)");
 			score -= 10;
 		}
 		if (testDay() == false) {
+			System.out.println("test year failed. (-10)");
 			score -= 10;
 		}
-		score -= 5 * testStringAndDow(5000, 9, 11);
-		score -= 5 * testStringAndDow(2018, 12, 14);
-		score -= 5 * testStringAndDow(1999, 4, 30);
-		score -= 5 * testStringAndDow(1799, 3, 4);
+		score -= testStringAndDow(5000, 9, 11, 5);
+		score -= testStringAndDow(2018, 12, 14, 5);
+		score -= testStringAndDow(1999, 4, 30, 5);
+		score -= testStringAndDow(1799, 3, 4, 5);
 		System.out.println(score);
 	}
 
