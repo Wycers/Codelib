@@ -19,9 +19,9 @@ public class TestContainerAndBall {
 					flag = true;
 				if (Integer.parseInt(m.group(3)) != sy)
 					flag = true;
-				if (Integer.parseInt(m.group(5)) != tx)
+				if (Integer.parseInt(m.group(5)) != tx && Integer.parseInt(m.group(5)) != tx + 1)
 					flag = true;
-				if (Integer.parseInt(m.group(7)) != ty)
+				if (Integer.parseInt(m.group(7)) != ty && Integer.parseInt(m.group(7)) != ty + 1)
 					flag = true;
 			} catch (Exception e) {
 				flag = true;
