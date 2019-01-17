@@ -11,12 +11,9 @@ def kt(a):
         res = res + fac[8 - i - 1] * x
     return res
 
-
-ans = {}
-
 q = queue.Queue()
 q.put((range(1, 9), 0))
-ans[0] = 0
+ans = {0: 0}
 
 while not q.empty():
     ori, step = q.get()
@@ -31,7 +28,6 @@ while not q.empty():
     tmp = list(ori)
     tmp[0: 3], tmp[3] = tmp[1: 4], tmp[0]
     tmp[4], tmp[5: 8] = tmp[7], tmp[4: 7]
-
     state = kt(tmp)
     if state not in ans:
         ans[state] = step + 1
