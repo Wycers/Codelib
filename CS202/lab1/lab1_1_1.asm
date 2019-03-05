@@ -10,28 +10,8 @@
 	d:	.word 	4
 	quotient: 	.asciiz "Quotient of expression is "
 	remainder: 	.asciiz	"Remainder of expression is "
+	message: 	.asciiz	"By 11711918 wyc"
 .text
-	# Input
-	la		$t0, a
-	li $v0, 0x5
-	syscall
-	sw		$v0, ($t0)
-
-	la		$t0, b
-	li $v0, 0x5
-	syscall
-	sw		$v0, ($t0)
-
-	la		$t0, c
-	li $v0, 0x5
-	syscall
-	sw		$v0, ($t0)
-
-	la		$t0, d
-	li $v0, 0x5
-	syscall
-	sw		$v0, ($t0)
-	
     # Calculate b * c
 	lw $t0, b
 	lw $t1, c
@@ -68,3 +48,18 @@
 	mfhi $a0
 	li $v0, 0x1
 	syscall
+	
+    # Print LF
+	li $a0, 0xA
+    li $v0, 0xB
+   	syscall
+	
+	
+    # Homeword required
+	la $a0, message
+    li $v0, 0x4
+   	syscall
+
+	# Exit
+    li $v0, 0xA
+   	syscall
