@@ -1,4 +1,5 @@
 .exe
 .vscode
 *.pdf
+*.pyc
 __pycache__
