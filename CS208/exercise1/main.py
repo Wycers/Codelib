@@ -1,4 +1,4 @@
-import n, n2, n3, nf, nlogn
+import n, n2, n3, nf, nlogn, pown
 import time, dis
 
 
