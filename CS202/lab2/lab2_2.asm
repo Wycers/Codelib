@@ -17,7 +17,7 @@
     endl()
 
     print_str("After:  ")
-    xori    $a0, $t0, 0x55555555
+    xori    $a0, $t0, 0xAAAAAAAA
     li      $v0, 0x23
     syscall
     endl()
