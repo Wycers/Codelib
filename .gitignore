@@ -3,3 +3,5 @@
 *.pdf
 *.pyc
 __pycache__
+
+CS312/build
