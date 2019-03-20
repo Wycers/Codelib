@@ -1,62 +1,27 @@
 /* Ask for an OpenGL Core Context */
-#define GL_SILENCE_DEPRECATION
-#define GLFW_INCLUDE_GLCOREARB
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <string>
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+#include <learnopengl/filesystem.h>
+#include <learnopengl/shader_s.h>
+
+#include <iostream>
+
+const unsigned int WIDTH = 800;
+const unsigned int HEIGHT = 800;
+
 using namespace std;
-
-GLuint VAO[2], VBO[2];
-void createTrangle(int index, float *vertex)
-{
-    glBindVertexArray(VAO[index]);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO[index]);
-    glBufferData(GL_ARRAY_BUFFER, 9 * sizeof(float), vertex, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), NULL);
-    glEnableVertexAttribArray(0);
-}
-GLuint createProgramme(int arg)
-{
-    const char *vertex_shader =
-        "#version 400\n"
-        "in vec3 vp;"
-        "void main() {"
-        "  gl_Position = vec4(vp, 1.0);"
-        "}";
-    const char *fragment_shader =
-        "#version 400\n"
-        "out vec4 frag_colour;"
-        "void main() {"
-        "  frag_colour = vec4(0, 0.5372, 0.6549, 1.0);"
-        "}";
-    const char *XD = 
-        "#version 400\n"
-        "out vec4 frag_colour;"
-        "void main() {"
-        "  frag_colour = vec4(1.0, 0.5372, 0.6549, 1.0);"
-        "}";
-    GLuint vs = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vs, 1, &vertex_shader, NULL);
-    glCompileShader(vs);
-    GLuint fs = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fs, 1, arg ? &fragment_shader : &XD, NULL);
-    glCompileShader(fs);
-
-    GLuint programme = glCreateProgram();
-    glAttachShader(programme, fs);
-    glAttachShader(programme, vs);
-    glLinkProgram(programme);
-    return programme;
-}
+void framebuffer_size_callback(GLFWwindow* windows, int width, int height);
 
 int main()
 {
-    GLFWwindow *window;
-
     /* Initialize the library */
     if (!glfwInit())
-    {
         return -1;
-    }
 
 #ifdef __APPLE__
     /* We need to explicitly ask for a 3.2 context on OS X */
@@ -67,7 +32,7 @@ int main()
 #endif
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(1280, 720, "11711918 吴烨昌", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "11711918 吴烨昌", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -76,36 +41,65 @@ int main()
 
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
-    GLuint prog[2] = {
-        createProgramme(0),
-        createProgramme(1)};
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-    glGenVertexArrays(2, VAO);
-    glGenBuffers(2, VBO);
-    float points0[] = {
-        0.0f, 0.5f, 0.0f,
-        0.5f, -0.5f, 0.0f,
-        -0.5f, -0.5f, 0.0f};
-    float points1[] = {
-        0.0f, 0.5f, 0.0f,
-        0.5f, -0.5f, 0.0f,
-        1.0f, 0.5f, 0.0f};
-    createTrangle(0, points0);
-    createTrangle(1, points1);
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+        return -1;
+    }
 
+    Shader myShader("lab4.t1.vs", "lab4.t1.fs");
+
+    float vertices[] = {
+        // positions        
+         0.5f,  0.5f, 0.0f, 
+         0.5f, -0.5f, 0.0f, 
+        -0.5f, -0.5f, 0.0f, 
+        -0.5f,  0.5f, 0.0f  
+    };
+    unsigned int indices[] = {
+        0, 1, 3, // first triangle
+        1, 2, 3  // second triangle
+    };
+    unsigned int VBO, VAO, EBO;
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
+
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof vertices, vertices, GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof indices, indices, GL_STATIC_DRAW);
+
+    // position attribute
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
+        /* Input */
+        // processInput(window);
         /* Render here */
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the buffers
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+        // get matrix's uniform location and set matrix
+         // create transformations
+        glm::mat4 transform = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+        transform = glm::translate(transform, glm::vec3(0.25f, -0.0f, 0.0f));
+        transform = glm::rotate(transform, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
 
-        for (int i = 0; i < 2; ++i)
-        {
-            glUseProgram(prog[i]);
-            glBindVertexArray(VAO[i]);
-            glDrawArrays(GL_TRIANGLES, 0, 3);
-            glBindVertexArray(0);
-        }
+        // get matrix's uniform location and set matrix
+        myShader.use();
+        unsigned int transformLoc = glGetUniformLocation(myShader.ID, "transform");
+        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
+
+        // render container
+        glBindVertexArray(VAO);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
 
@@ -113,6 +107,19 @@ int main()
         glfwPollEvents();
     }
 
+    // optional: de-allocate all resources once they've outlived their purpose:
+    // ------------------------------------------------------------------------
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &EBO);
+
+    // glfw: terminate, clearing all previously allocated GLFW resources.
+    // ------------------------------------------------------------------
     glfwTerminate();
     return 0;
+}
+
+void framebuffer_size_callback(GLFWwindow* windows, int width, int height)
+{
+    glViewport(0, 0, width, height);
 }
