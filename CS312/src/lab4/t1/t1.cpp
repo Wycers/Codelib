@@ -52,10 +52,10 @@ int main()
 
     float vertices[] = {
         // positions        
-         0.5f,  0.5f, 0.0f, 
-         0.5f, -0.5f, 0.0f, 
-        -0.5f, -0.5f, 0.0f, 
-        -0.5f,  0.5f, 0.0f  
+         0.25f,  0.25f, 0.0f, 
+         0.25f, -0.25f, 0.0f, 
+        -0.25f, -0.25f, 0.0f, 
+        -0.25f,  0.25f, 0.0f  
     };
     unsigned int indices[] = {
         0, 1, 3, // first triangle
@@ -83,13 +83,13 @@ int main()
         /* Input */
         // processInput(window);
         /* Render here */
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClearColor(1.0, 0.5372, 0.6549, 1.0);
         glClear(GL_COLOR_BUFFER_BIT);
         // get matrix's uniform location and set matrix
          // create transformations
         glm::mat4 transform = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-        transform = glm::translate(transform, glm::vec3(0.25f, -0.0f, 0.0f));
-        transform = glm::rotate(transform, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+        transform = glm::translate(transform, glm::vec3(0.75 * sin((float)glfwGetTime()), 0.75 * cos((float)glfwGetTime()), 0.0f));
+        transform = glm::rotate(transform, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 0.8f));
 
         // get matrix's uniform location and set matrix
         myShader.use();
