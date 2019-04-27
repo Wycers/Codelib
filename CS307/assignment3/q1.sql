@@ -1,0 +1,1 @@
+SELECT count(peopleid) AS cnt FROM people WHERE first_name = 'Alex' and (died is null or died > 2012) and gender = 'M';
