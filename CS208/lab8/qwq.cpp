@@ -2,22 +2,23 @@
 #include <algorithm>
 #include <complex>
 typedef long long ll;
-const int N = 2e6 + 10;
+const int N = 1e6 + 10;
 const double PI = acos(-1.0);
+using namespace std;
 struct FastFourierTransform
 {
-    std::complex<double> omega[N], omegaInverse[N];
+    complex<double> omega[N], omegaInverse[N];
 
     void init(const int n)
     {
         for (int i = 0; i < n; i++)
         {
-            omega[i] = std::complex<double>(cos(2 * PI / n * i), sin(2 * PI / n * i));
-            omegaInverse[i] = std::conj(omega[i]);
+            omega[i] = complex<double>(cos(2 * PI / n * i), sin(2 * PI / n * i));
+            omegaInverse[i] = conj(omega[i]);
         }
     }
 
-    void transform(std::complex<double> *a, const int n, const std::complex<double> *omega)
+    void transform(complex<double> *a, const int n, const complex<double> *omega)
     {
         int k = 0;
         while ((1 << k) < n)
@@ -29,17 +30,17 @@ struct FastFourierTransform
                 if (i & (1 << j))
                     t |= (1 << (k - j - 1));
             if (i < t)
-                std::swap(a[i], a[t]);
+                swap(a[i], a[t]);
         }
 
         for (int l = 2; l <= n; l <<= 1)
         {
             int m = l >> 1;
-            for (std::complex<double> *p = a; p != a + n; p += l)
+            for (complex<double> *p = a; p != a + n; p += l)
             {
                 for (int i = 0; i < m; i++)
                 {
-                    std::complex<double> t = omega[n / l * i] * p[m + i];
+                    complex<double> t = omega[n / l * i] * p[m + i];
                     p[m + i] = p[i] - t;
                     p[i] += t;
                 }
@@ -47,12 +48,12 @@ struct FastFourierTransform
         }
     }
 
-    void dft(std::complex<double> *a, const int n)
+    void dft(complex<double> *a, const int n)
     {
         transform(a, n, omega);
     }
 
-    void idft(std::complex<double> *a, const int n)
+    void idft(complex<double> *a, const int n)
     {
         transform(a, n, omegaInverse);
         for (int i = 0; i < n; i++)
@@ -65,7 +66,7 @@ inline void multiply(const int *a1, const int n1, const int *a2, const int n2, i
     int n = 1;
     while (n < n1 + n2)
         n *= 2;
-    static std::complex<double> c1[N], c2[N];
+    static complex<double> c1[N], c2[N];
     for (int i = 0; i < n1; i++)
         c1[i].real(a1[i]);
     for (int i = 0; i < n2; i++)
@@ -160,7 +161,6 @@ int main()
             continue;
         }
         ++cnt[id[a[i] % p]];
-        printf("%d %d\n", id[a[i] % p], cnt[id[a[i] % p]]);
     }
     multiply(cnt, p, cnt, p, res);
     printf("%lld\n", 2 * zero * (n - zero) + zero * zero);
