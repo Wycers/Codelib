@@ -30,7 +30,7 @@ int main()
 	{
 		system("data > test.in");
 		system("qwq < test.in > 1.out");
-		system("lab8 < test.in > 2.out");
+		system("java Main < test.in > 2.out");
 		if (system("fc 1.out 2.out"))
 			break;
 	}

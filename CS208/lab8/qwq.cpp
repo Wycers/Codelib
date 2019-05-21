@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <complex>
 typedef long long ll;
-const int N = 1e6 + 10;
+const int N = 3e5 + 10;
 const double PI = acos(-1.0);
 using namespace std;
 struct FastFourierTransform
@@ -61,26 +61,24 @@ struct FastFourierTransform
     }
 } fft;
 
-inline void multiply(const int *a1, const int n1, const int *a2, const int n2, int *res)
+inline void multiply(const int *a, const int len, int *res)
 {
     int n = 1;
-    while (n < n1 + n2)
+    while (n <= 2 * len - 1)
         n *= 2;
-    static complex<double> c1[N], c2[N];
-    for (int i = 0; i < n1; i++)
-        c1[i].real(a1[i]);
-    for (int i = 0; i < n2; i++)
-        c2[i].real(a2[i]);
+    static complex<double> c[N];
+    for (int i = 0; i < len; i++)
+        c[i].real(a[i]);
     fft.init(n);
-    fft.dft(c1, n), fft.dft(c2, n);
+    fft.dft(c, n);
     for (int i = 0; i < n; i++)
-        c1[i] *= c2[i];
-    fft.idft(c1, n);
-    for (int i = 0; i < n1 + n2 - 1; i++)
-        res[i] = static_cast<int>(floor(c1[i].real() + 0.5));
+        c[i] *= c[i];
+    fft.idft(c, n);
+    for (int i = 0; i < 2 * len - 1; i++)
+        res[i] = static_cast<int>(floor(c[i].real() + 0.5));
 }
 
-int n, p, a[N], id[N], cnt[N], res[N];
+int n, p, id[N], cnt[N], res[N];
 ll notpri[N], pri[N], divi[N];
 ll qpow(ll a, ll b)
 {
@@ -152,17 +150,19 @@ int main()
         t = (t % p) * (g % p) % p;
     }
     ll zero = 0;
+    int tmp;
     for (int i = 1; i <= n; ++i)
     {
-        scanf("%d", a + i);
-        if (a[i] % p == 0)
+        scanf("%d", &tmp);
+        tmp %= p;
+        if (tmp == 0)
         {
             ++zero;
             continue;
         }
-        ++cnt[id[a[i] % p]];
+        ++cnt[id[tmp]];
     }
-    multiply(cnt, p, cnt, p, res);
+    multiply(cnt, p, res);
     printf("%lld\n", 2 * zero * (n - zero) + zero * zero);
     for (int i = 1; i < p; ++i)
         printf("%lld\n", res[id[i]] + res[id[i] + p - 1]);
