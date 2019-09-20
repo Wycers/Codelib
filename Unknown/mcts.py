@@ -32,3 +32,4 @@ class State(object):
         next_state.current_value = self.current_value + random_choice
         next_state.current_round = self.current_round + 1
         next_state.cumulative_choices = self.cumulative_choices + [random_choice]
+        return next_state
