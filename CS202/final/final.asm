@@ -48,7 +48,7 @@ case5:  sll $4, $4, 1
         j print
 case6:  sll $5, $4, 16
         sra $5, $5, 1
-	    srl $4, $5, 16
+	     srl $4, $5, 16
         j print
 case7:  srl $4, $4, 1
         j print
