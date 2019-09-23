@@ -1,0 +1,211 @@
+\documentclass[12pt,letterpaper]{ctexart}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage[binary-units=true]{siunitx}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{afterpage}
+
+\newcommand\blankpage{%
+  \null
+  \thispagestyle{empty}%
+  \addtocounter{page}{-1}%
+  \newpage
+}
+
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\renewcommand\lstlistingname{Algorithm}
+\renewcommand\lstlistlistingname{Algorithms}
+\def\lstlistingautorefname{Alg.}
+
+\lstdefinestyle{Python}{
+    language        = Python,
+    frame           = lines,
+    basicstyle      = \footnotesize,
+    keywordstyle    = \color{blue},
+    stringstyle     = \color{green},
+    commentstyle    = \color{red}\ttfamily
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+% Edit these as appropriate
+\newcommand\course{CS305}
+\newcommand\hwnumber{1}                  % <-- homework number
+\newcommand\NetIDa{11711918}           % <-- NetID of person #1
+\newcommand\NetIDb{吴烨昌}           % <-- NetID of person #2 (Comment this line out for problem sets)
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}                 % <-- Comment this line out for problem sets (make sure you are person #1)
+\chead{\textbf{\Large Homework \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\section*{Problem 1}
+
+{\bf Description}
+
+Compare packet switch and circuit switch under the following scenario.
+Suppose you would like to deliver a message of $x$ bit.
+There are $k$ links from the source to destination.
+The propagation delay of each link is $d$ second, the transmission rate is $b$ bit/second.
+The circuit setup time under circuit switch is $s$ second.
+Under packet switch network, when the packet length is $p$ bit, the queue delay in every node can be neglected.
+Please calculate the condition, under which the delay of packet switch is smaller than that of the circuit switch.
+
+{\bf Solution}
+
+  In circuit switch, total delay is
+
+  $$
+  t_{c} = s + k \times d + \frac{x}{b}
+  $$
+
+  In packet switch, total delay is
+
+  $$
+  t_{s} = \frac{(k - 1) \times p }{b} + \lceil \frac{x}{p}\rceil \times \frac{p}{b} + k \times  d
+  $$
+
+  When $t_s < t_c$, or $ (k - 1) \times p  + \lceil \frac{x}{p}\rceil \times p < s \times b + x $, the delay of packet switch is smaller than that of the circuit switch.
+
+%   \item
+%     Problem 1 part 2 answer here.
+
+%     Here is an example typesetting mathematics in \LaTeX
+% \begin{equation*}
+%     X(m,n) = \left\{\begin{array}{lr}
+%         x(n), & \text{for } 0\leq n\leq 1\\
+%         \frac{x(n-1)}{2}, & \text{for } 0\leq n\leq 1\\
+%         \log_2 \left\lceil n \right\rceil \qquad & \text{for } 0\leq n\leq 1
+%         \end{array}\right\} = xy
+% \end{equation*}
+
+%     \item Problem 1 part 3 answer here.
+
+%     Here is an example of how you can typeset algorithms.
+%     There are many packages to do this in \LaTeX.
+
+%     \lstset{caption={Caption for code}}
+%     \lstset{label={lst:alg1}}
+%      \begin{lstlisting}[style = Python]
+%     from package import Class # Mesh required for..
+
+%     cinstance = Class.from_obj('class.obj')
+%     cinstance.go()
+%     \end{lstlisting}
+
+%   \item Problem 1 part 4 answer here.
+
+%     Here is an example of how you can insert a figure.
+%     \begin{figure}[!h]
+%     \centering
+%     % \includegraphics[width=0.3\linewidth]{heidi.jpg}
+%     \caption{Heidi attacked by a string.}
+%     \end{figure}
+
+% \afterpage{\blankpage}
+\newpage
+
+\section*{Problem 2}
+
+{\bf Description}
+
+Calculate the overall delay of transmitting a \SI{1000}{\kilo\byte} file under the following circumstance.
+The overall delay is defined as the time from the starting point of the transmission until the arrival of the last bit to the destination.
+RTT is assumed to be \SI{100}{\ms}, one packet is \SI{1}{\kilo\byte} (\SI{1024}{\byte}) size.
+The handshaking process costs \SI{2}{RTT} before transmitting the file.
+% Rest of the work...
+\begin{enumerate}
+  \item Transmission bandwidth is \SI[per-mode=symbol]{1.5}{\mega\byte\per\second}, the packets can be continuously transmitted.
+  \item Transmission bandwidth is \SI[per-mode=symbol]{1.5}{\mega\byte\per\second}, but when one packet is transmitted, the next packet should wait for 1 RTT (waiting for the acknowledgement of the receiver) before being transmitted.
+  \item Transmission bandwidth is infinite, i.e. transmission delay is 0. After every \SI{1}{RTT}, as many as 20 packets can be transmitted.
+\end{enumerate}
+
+{\bf Solution}
+
+The number of packets $n$ is $\frac{1000\text{kB}}{1\text{kB}}=1000$.
+
+\begin{enumerate}
+  \item The delay under {\bf circumstance 1}
+
+  $$
+  t_1 = 2\text{RTT} + n \times \frac{1\text{kB}}{1.5\times1024\text{kB/s}} + 0.5\text{RTT} \approx 0.901\text{s}
+  $$
+
+  \item The delay under {\bf circumstance 2}
+
+  $$
+  t_2 = 2\text{RTT} + n \times (\frac{1\text{KB}}{1.5\times1024\text{KB/s}} + 0.5\text{RTT}) - 0.5\text{RTT} = t_1 + 0.5(n - 1) \text{RTT} \approx 50.851s
+  $$
+
+  \item The delay under {\bf circumstance 3}
+
+  $$
+  t_3 = 2\text{RTT} + \frac{n}{20/\text{RTT}} = 52\text{RTT} = 5.2\text{s}
+  $$
+\end{enumerate}
+
+\section*{Problem 3}
+
+{\bf Description}
+
+List six access technologies. Classify each of them as home access, enterprise access, or wide-area mobile access.
+
+{\bf Solution}
+
+\begin{itemize}
+  \item Home access: Dial-up modem over telephone line, Hybrid fiber-coaxial cable, WLAN
+  \item Enterprise access: IEEE 802.1X
+  \item Wide-area mobile access: 3G, 4G, 5G
+\end{itemize}
+
+\section*{Problem 4}
+{\bf Description}
+
+\begin{enumerate}
+  \item List five nonproprietary Internet applications and the application-layer protocols that they use.
+  \item What information is used by a process running on one host to identify a process running on another host?
+\end{enumerate}
+
+{\bf Solution}
+
+\begin{enumerate}
+  \item As followed
+  \begin{enumerate}
+    \item  web: http/https
+    \item e-mail: imap/smtp/pop3
+    \item remote desktop: rdp
+    \item file transform: ftp
+    \item remote access: ssh, telnet
+  \end{enumerate}
+  \item The IP address and port number of the destination host
+\end{enumerate}
+
+\newpage
+
+\chead{\textbf{\Large Lab 3}}
+\section*{Problem 1}
+
+\end{document}
