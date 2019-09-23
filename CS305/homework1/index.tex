@@ -8,10 +8,18 @@
 \usepackage{fancyhdr}
 \usepackage{mathrsfs}
 \usepackage{xcolor}
-\usepackage{graphicx}
+\usepackage{graphicx} %插入图片的宏包
+\usepackage{float} %设置图片浮动位置的宏包
+\usepackage{subfigure} %插入多图时用子图显示的宏包
 \usepackage{listings}
-\usepackage{hyperref}
 \usepackage{afterpage}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+}
 
 \newcommand\blankpage{%
   \null
@@ -85,47 +93,11 @@ Please calculate the condition, under which the delay of packet switch is smalle
   In packet switch, total delay is
 
   $$
-  t_{s} = \frac{(k - 1) \times p }{b} + \lceil \frac{x}{p}\rceil \times \frac{p}{b} + k \times  d
+  t_{s} = \frac{(k - 1) \times p }{b} + \frac{x}{p} \times \frac{p}{b} + k \times  d
   $$
 
-  When $t_s < t_c$, or $ (k - 1) \times p  + \lceil \frac{x}{p}\rceil \times p < s \times b + x $, the delay of packet switch is smaller than that of the circuit switch.
+  When $t_s < t_c$, or $ (k - 1) p < sb$, the delay of packet switch is smaller than that of the circuit switch.
 
-%   \item
-%     Problem 1 part 2 answer here.
-
-%     Here is an example typesetting mathematics in \LaTeX
-% \begin{equation*}
-%     X(m,n) = \left\{\begin{array}{lr}
-%         x(n), & \text{for } 0\leq n\leq 1\\
-%         \frac{x(n-1)}{2}, & \text{for } 0\leq n\leq 1\\
-%         \log_2 \left\lceil n \right\rceil \qquad & \text{for } 0\leq n\leq 1
-%         \end{array}\right\} = xy
-% \end{equation*}
-
-%     \item Problem 1 part 3 answer here.
-
-%     Here is an example of how you can typeset algorithms.
-%     There are many packages to do this in \LaTeX.
-
-%     \lstset{caption={Caption for code}}
-%     \lstset{label={lst:alg1}}
-%      \begin{lstlisting}[style = Python]
-%     from package import Class # Mesh required for..
-
-%     cinstance = Class.from_obj('class.obj')
-%     cinstance.go()
-%     \end{lstlisting}
-
-%   \item Problem 1 part 4 answer here.
-
-%     Here is an example of how you can insert a figure.
-%     \begin{figure}[!h]
-%     \centering
-%     % \includegraphics[width=0.3\linewidth]{heidi.jpg}
-%     \caption{Heidi attacked by a string.}
-%     \end{figure}
-
-% \afterpage{\blankpage}
 \newpage
 
 \section*{Problem 2}
@@ -151,13 +123,13 @@ The number of packets $n$ is $\frac{1000\text{kB}}{1\text{kB}}=1000$.
   \item The delay under {\bf circumstance 1}
 
   $$
-  t_1 = 2\text{RTT} + n \times \frac{1\text{kB}}{1.5\times1024\text{kB/s}} + 0.5\text{RTT} \approx 0.901\text{s}
+  t_1 = 2\text{RTT} + n \times \frac{1\text{kB} \times 8\text{b/B}}{1.5\times1024\text{kb/s}} + 0.5\text{RTT} \approx 5.458\text{s}
   $$
 
   \item The delay under {\bf circumstance 2}
 
   $$
-  t_2 = 2\text{RTT} + n \times (\frac{1\text{KB}}{1.5\times1024\text{KB/s}} + 0.5\text{RTT}) - 0.5\text{RTT} = t_1 + 0.5(n - 1) \text{RTT} \approx 50.851s
+  t_2 = 2\text{RTT} + n \times (\frac{1\text{KB}\times 8\text{b/B}}{1.5\times1024\text{Kb/s}} + \text{RTT}) - \text{RTT} = t_1 + (n - 1) \text{RTT} \approx 105.358\text{s}
   $$
 
   \item The delay under {\bf circumstance 3}
@@ -207,5 +179,95 @@ List six access technologies. Classify each of them as home access, enterprise a
 
 \chead{\textbf{\Large Lab 3}}
 \section*{Problem 1}
+
+{\bf Description}
+
+Using cURL to make request, attach the screenshot of curl result and packets captured by Wireshark. And answer
+
+\begin{enumerate}
+  \item What did you get via cURL?
+  \item What are the meaning of fields in your request and response headers?
+  \item Is the packet captured by Wireshark capture correspond to the cURL request?
+\end{enumerate}
+
+for following request:
+\begin{enumerate}
+  \item GET request to \url{http://httpbin.org/get}
+  \item POST request to \url{http://httpbin.org/post}
+\end{enumerate}
+
+{\bf Solution}
+
+\begin{enumerate}
+  \item GET request to \url{http://httpbin.org/get}
+    \begin{enumerate}
+      \item Screenshot of cURL result(Figure~\ref{fig:get_cmd})
+        \begin{figure}[H]
+          \centering
+          \includegraphics[width=0.8\linewidth]{assets/get_cmd.png}
+          \caption{cURL output when making GET request}
+          \label{fig:get_cmd}
+        \end{figure}
+      \item Screenshot of packets captured by Wireshark(Figure~\ref{fig:get_ws})
+        \begin{figure}[H]
+          \centering
+          \includegraphics[width=0.8\linewidth]{assets/get_wireshark.png}
+          \caption{Traffic captured by WireShark while making GET request}
+          \label{fig:get_ws}
+        \end{figure}
+      \newpage
+      \item Request
+        \begin{itemize}
+          \item request type: GET
+          \item protocol: HTTP/1.1
+          \item host: httpbin.org
+          \item user-agent: curl/7.55.1
+        \end{itemize}
+      \item Response
+        \begin{itemize}
+          \item status code: 200 (OK)
+          \item content type: application/json
+          \item server: nginx
+          \item content-length: 204
+          \item Others: Access-Control-Allow-Origin: * (允许跨域)
+        \end{itemize}
+
+    \end{enumerate}
+  \newpage
+  \item POST request to \url{http://httpbin.org/post}
+  \begin{enumerate}
+    \item Screenshot of cURL result(Figure~\ref{fig:post_cmd})
+      \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\linewidth]{assets/post_cmd.png}
+        \caption{cURL output when making GET request}
+        \label{fig:post_cmd}
+      \end{figure}
+    \newpage
+    \item Screenshot of packets captured by Wireshark(Figure~\ref{fig:post_ws})
+      \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\linewidth]{assets/post_wireshark.png}
+        \caption{Traffic captured by WireShark while making GET request}
+        \label{fig:post_ws}
+      \end{figure}
+    \item Request
+      \begin{itemize}
+        \item request type: POST
+        \item protocol: HTTP/1.1
+        \item host: httpbin.org
+        \item user-agent: curl/7.55.1
+      \end{itemize}
+    \item Response
+      \begin{itemize}
+        \item status code: 200 (OK)
+        \item content type: application/json
+        \item server: nginx
+        \item content-length: 296
+        \item Others: Access-Control-Allow-Origin: * (允许跨域)
+      \end{itemize}
+
+  \end{enumerate}
+\end{enumerate}
 
 \end{document}
