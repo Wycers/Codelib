@@ -110,8 +110,8 @@ RTT is assumed to be \SI{100}{\ms}, one packet is \SI{1}{\kilo\byte} (\SI{1024}{
 The handshaking process costs \SI{2}{RTT} before transmitting the file.
 % Rest of the work...
 \begin{enumerate}
-  \item Transmission bandwidth is \SI[per-mode=symbol]{1.5}{\mega\byte\per\second}, the packets can be continuously transmitted.
-  \item Transmission bandwidth is \SI[per-mode=symbol]{1.5}{\mega\byte\per\second}, but when one packet is transmitted, the next packet should wait for 1 RTT (waiting for the acknowledgement of the receiver) before being transmitted.
+  \item Transmission bandwidth is \SI[per-mode=symbol]{1.5}{\mega\bit\per\second}, the packets can be continuously transmitted.
+  \item Transmission bandwidth is \SI[per-mode=symbol]{1.5}{\mega\bit\per\second}, but when one packet is transmitted, the next packet should wait for 1 RTT (waiting for the acknowledgement of the receiver) before being transmitted.
   \item Transmission bandwidth is infinite, i.e. transmission delay is 0. After every \SI{1}{RTT}, as many as 20 packets can be transmitted.
 \end{enumerate}
 
@@ -123,13 +123,13 @@ The number of packets $n$ is $\frac{1000\text{kB}}{1\text{kB}}=1000$.
   \item The delay under {\bf circumstance 1}
 
   $$
-  t_1 = 2\text{RTT} + n \times \frac{1\text{kB} \times 8\text{b/B}}{1.5\times1024\text{kb/s}} + 0.5\text{RTT} \approx 5.458\text{s}
+  t_1 = 2\text{RTT} + n \times \frac{1\text{KB} \times 8\text{b/B}}{1.5\text{Mb/s}} + 0.5\text{RTT} \approx 5.711\text{s}
   $$
 
   \item The delay under {\bf circumstance 2}
 
   $$
-  t_2 = 2\text{RTT} + n \times (\frac{1\text{KB}\times 8\text{b/B}}{1.5\times1024\text{Kb/s}} + \text{RTT}) - \text{RTT} = t_1 + (n - 1) \text{RTT} \approx 105.358\text{s}
+  t_2 = 2\text{RTT} + n \times (\frac{1\text{KB}\times 8\text{b/B}}{1.5\text{Mb/s}} + \text{RTT}) - \text{RTT} = t_1 + (n - 1) \text{RTT} \approx 105.611\text{s}
   $$
 
   \item The delay under {\bf circumstance 3}
