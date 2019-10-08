@@ -1,0 +1,217 @@
+\documentclass[12pt,letterpaper]{ctexart}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage[binary-units=true]{siunitx}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx} %插入图片的宏包
+\usepackage{float} %设置图片浮动位置的宏包
+\usepackage{subfigure} %插入多图时用子图显示的宏包
+\usepackage{listings}
+\usepackage{afterpage}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+}
+
+\newcommand\blankpage{%
+  \null
+  \thispagestyle{empty}%
+  \addtocounter{page}{-1}%
+  \newpage
+}
+
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\renewcommand\lstlistingname{Algorithm}
+\renewcommand\lstlistlistingname{Algorithms}
+\def\lstlistingautorefname{Alg.}
+
+\lstdefinestyle{Python}{
+    language        = Python,
+    frame           = lines,
+    basicstyle      = \footnotesize,
+    keywordstyle    = \color{blue},
+    stringstyle     = \color{green},
+    commentstyle    = \color{red}\ttfamily
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+% Edit these as appropriate
+\newcommand\course{CS305}
+\newcommand\hwnumber{2}                  % <-- homework number
+\newcommand\NetIDa{11711918}           % <-- NetID of person #1
+\newcommand\NetIDb{吴烨昌}           % <-- NetID of person #2 (Comment this line out for problem sets)
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}                 % <-- Comment this line out for problem sets (make sure you are person #1)
+\chead{\textbf{\Large Homework \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\section*{Problem 1}
+
+{\bf Description}
+
+List the four broad classes of services that a transport protocol can provide. For each of the service classes, indicate if either UDP or TCP (or both) provides such a service
+
+{\bf Solution}
+
+\begin{itemize}
+  \item Reliable transport: TCP
+  \item Flow controlP: TCP
+  \item Congestion control: TCP
+  \item Throughput guarantee: neither
+\end{itemize}
+
+\newpage
+
+\section*{Problem 2}
+
+{\bf Description}
+
+Suppose within your Web browser you click on a link to obtain a Web page. The IP address for the associated URL is not cached in your local host, so a DNS lookup is necessary to obtain the IP address. Suppose that n DNS servers are visited before your host receives the IP address from DNS; the successive visits incur an RTT of RTT1, . . ., RTTn. Further suppose that the Web page associated with one HTML file, and the HTML file references eight very small objects on the same server. Let RTT0 denote the RTT between the local host and the server containing these objects. Assuming zero transmission time of the objects. Please calculate the time which elapses from when the client clicks on the link
+
+\begin{enumerate}
+  \item Non-persistent HTTP with no parallel TCP connections?
+  \item Non-persistent HTTP with the browser configured for 5 parallel connections?
+  \item Persistent HTTP?
+\end{enumerate}
+
+
+{\bf Solution}
+
+The time elapsed for get HTML file:
+
+$$
+T_0 = \underbrace{\text{RTT}_{1} + \dots + \text{RTT}_{n}}_{\text{Query n DNS server to get target IP}} + \underbrace{\text{RTT}_0}_{\text{Set up TCP connection}} + \underbrace{\text{RTT}_0}_{\text{Get HTML file}}
+$$
+
+\begin{enumerate}
+  \item Non-persistent HTTP with no parallel TCP connections?
+  $$
+    T_1 = T_0 + 8 \times (\text{RTT}_{0} + \text{RTT}_{0}) = \text{RTT}_{1} + \dots + \text{RTT}_{n} + 18 \times \text{RTT}_{0}
+  $$
+
+  \item Non-persistent HTTP with the browser configured for 5 parallel connections?
+  $$
+    T_2 = T_0 + 2 \times (\text{RTT}_{0} + \text{RTT}_{0}) = \text{RTT}_{1} + \dots + \text{RTT}_{n} + 6 \times \text{RTT}_{0}
+  $$
+
+  \item Persistent HTTP?
+  $$
+    T_3 = T_0 + 8 \times \text{RTT}_{0} = \text{RTT}_{1} + \dots + \text{RTT}_{n} + 10 \times \text{RTT}_{0}
+  $$
+
+\end{enumerate}
+
+\section*{Problem 3}
+
+{\bf Description}
+
+Consider distributing a file of $F$ bits to $N$ peers using a client-server architecture. Assume a fluid model where the server can simultaneously transmit to multiple peers, transmitting to each peer at different rates, as long as the combined rate does not exceed $u_s$.
+
+\begin{enumerate}
+  \item Suppose that $ \frac{u_s}{N} \leq d_{min}$. Specify a distribution scheme that has a distribution time of $\frac{NF}{u_s}$.
+  \item Suppose that $ \frac{u_s}{N} \geq d_{min}$. Specify a distribution scheme that has a distribution time of $\frac{F}{d_{min}}$.
+  \item Conclude that the minimum distribution time is in general given by $max \{\frac{NF}{u_s}, \frac{F}{d_{min}}\}$.
+\end{enumerate}
+
+{\bf Solution}
+
+\begin{enumerate}
+  \item The distribution scheme is that the server send files to the N clients parallelly.
+  Under that scheme, server sends file to all clients with a distribution rate of $\frac{u_s}{N}$ ($\leq d_{min}$).
+  All clients would finish receiving at the same time.
+
+  The overall distribution time is $\frac{F}{\frac{u_s}{N}} = \frac{NF}{u_s}$
+
+  \item The distribution scheme is that the server send files to the N clients parallelly.
+  Under that scheme, server sends file to all clients with a distribution rate of $d_{min}$.
+  All clients would finish receiving at the same time.
+
+  The overall distribution time is $\frac{F}{d_{min}}$.
+
+  \item If $\frac{u_s}{N} \leq d_{min}$, $\frac{F}{d_{min}} \leq \frac{NF}{u_s}$, $max \{\frac{NF}{u_s}, \frac{F}{d_{min}}\} = \frac{NF}{u_s}$, which is same result in {\bf 1}.
+
+  If $\frac{u_s}{N} \geq d_{min}$, $\frac{F}{d_{min}} \geq \frac{NF}{u_s}$, $max \{\frac{NF}{u_s}, \frac{F}{d_{min}}\} = \frac{F}{d_{min}}$, which is same result in {\bf 2}.
+
+  So the minimum distribution time can be in general given by $max \{\frac{NF}{u_s}, \frac{F}{d_{min}}\}$.
+\end{enumerate}
+\newpage
+
+\section*{Problem 4}
+{\bf Description}
+
+Consider distributing a file of F bits to N peers using a P2P architecture. Assume a fluid model. For simplicity assume that dmin is very large, so that peer download bandwidth is never a bottleneck
+
+\begin{enumerate}
+  \item Suppose that $u_s \leq \frac{u_s + u_1 + \dots + u_N}{N}$. Specify a distribution scheme that has a distribution time of $\frac{F}{u_s}$.
+  \item Suppose that $u_s \geq \frac{u_s + u_1 + \dots + u_N}{N}$. Specify a distribution scheme that has a distribution time of $\frac{NF}{u_s + u_1 + \dots + u_N}$.
+  \item Conclude that the minimum distribution time is in general given by $max \{\frac{F}{u_s}, \frac{NF}{u_s + u_1 + \dots + u_N}\}$.
+\end{enumerate}
+
+{\bf Solution}
+
+\begin{enumerate}
+  \item The distribution scheme is that the server split the file into $N$ slices, server sends $i^{th}$ part to $i^{th}$ peer($i = 1 \dots N$).
+
+  Under that scheme, the server transmit the $i^{th}$ part at rate $r_i = \frac{u_i}{u_1 + \dots + u_N}u_s$ ($r_1 + \dots + r_N = u_s \leq u_s$),
+  Peer $i$ forward its received data to the rest $N - 1$ peers with aggregated rate $R_i = (N - 1) \frac{u_i}{u} u_s = u_i \frac{u_s}{\frac{u}{N - 1}} \leq u_i$.
+
+  The overall distribution time is $\frac{F}{u_s}$.
+
+  \item The distribution scheme is that the server split the file into $N + 1$ slices, server sends $i^{th}$ part to $i^{th}$ peer($i = 1 \dots N$, then server sends $N+1^{th}$ to each peer).
+
+  Under that scheme, the server transmit rate ($r_1 + \dots + r_N + N r_{N+1} = \frac{u}{N + 1} + u_s - \frac{u}{N + 1} \leq u_s$),
+  Peer $i$ forward its received data to the rest $N - 1$ peers with aggregated rate $R_i = \frac{u}{N - 1} + \frac{u_s - \frac{u}{N - 1}}{N} = \frac{u_s + u}{N}$.
+
+  The overall distribution time is $\frac{F}{\frac{u_s + u}{N}} = \frac{NF}{u_s + u} = \frac{NF}{u_s + u_1 + \dots + u_N}$.
+
+  \item If $u_s \geq \frac{u_s + u_1 + \dots + u_N}{N}$, $\frac{F}{u_s} \geq \frac{NF}{u_s + u_1 + \dots + u_N}$, $max \{\frac{F}{u_s}, \frac{NF}{u_s + u_1 + \dots + u_N}\} = \frac{F}{u_s}$, which is same result in {\bf 1}.
+
+  If $u_s \leq \frac{u_s + u_1 + \dots + u_N}{N}$, $\frac{F}{u_s} \leq \frac{NF}{u_s + u_1 + \dots + u_N}$, $max \{\frac{F}{u_s}, \frac{NF}{u_s + u_1 + \dots + u_N}\} = \frac{NF}{u_s + u_1 + \dots + u_N}$, which is same result in {\bf 2}.
+
+  So the minimum distribution time can be in general given by $max \{\frac{F}{u_s}, \frac{NF}{u_s + u_1 + \dots + u_N}\}$.
+\end{enumerate}
+
+\section*{Problem 5}
+{\bf Description}
+
+Consider a DASH system for which there are N video versions (at N different rates and qualities) and N audio versions (at N different rates and qualities). Suppose we want to allow the player to choose at any time any of the N video versions and any of the N audio versions.
+
+
+\begin{enumerate}
+  \item If we create files so that the audio is mixed in with the video, so server sends only one media stream at given time, how many files will the server need to store (each a different URL)?
+  \item If the server instead sends the audio and video streams separately and has the client synchronize the streams, how many files will the server need to store?
+\end{enumerate}
+
+{\bf Solution}
+
+\begin{enumerate}
+  \item $N^2$
+  \item $2N$
+\end{enumerate}
+
+\end{document}
