@@ -33,14 +33,14 @@
         <el-table-column prop="staffNumber" label="Staff Number" width="120" align="center"></el-table-column>
         <el-table-column prop="status" label="Status" width="120" align="center"></el-table-column>
 
-        <el-table-column fixed="right" label="操作" width="120">
+        <el-table-column fixed="right" label="Operations" width="120">
           <template slot-scope="scope">
             <el-button
               @click.native.prevent="removeRecord(scope.$index, records)"
               type="danger"
               size="small"
               align="center"
-            >移除</el-button>
+            >Remove</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -105,13 +105,12 @@ import moment from "moment";
 export default {
   data() {
     const validator = (_, __, callback) => {
-      if (!this.form.arrivalTime)
-        return callback();
-      if (!this.form.departureTime)
-        return callback();
-      if (moment(this.departureTime).isAfter(this.form.arrivalTime)) callback();
+      if (!this.form.arrivalTime) return callback();
+      if (!this.form.departureTime) return callback();
+      if (moment(this.form.departureTime).isAfter(this.form.arrivalTime))
+        callback();
       else callback(new Error("Departure time should be after arrival time"));
-    }
+    };
     return {
       visible: false,
       rules: {
@@ -243,8 +242,20 @@ export default {
     onSubmit() {
       this.$refs.form.validate(valid => {
         if (valid) {
-          const record = Object.assign({}, this.form)
-          console.log(record)
+          if (
+            this.records.some(
+              item =>
+                item.plateNumber === this.form.plateNumber &&
+                moment(item.arrivalTime).isSame(this.form.arrivalTime, "minute")
+            )
+          ) {
+            this.$alert("Same record exists", "Error", {
+              confirmButtonText: "Known"
+            });
+            return;
+          }
+          const record = Object.assign({}, this.form);
+          console.log(record);
           this.records.push(record);
           this.visible = false;
           this.$refs.form.resetFields();
