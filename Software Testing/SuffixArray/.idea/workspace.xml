@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0e205307-bb20-4420-a276-d4266e650f06" name="Default Changelist" comment="" />
+    <list default="true" id="0e205307-bb20-4420-a276-d4266e650f06" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../CS303/lab4/SA.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../CS303/lab4/SA.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS303/lab4/algorithm_ncs/parameter.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../CS303/lab4/algorithm_ncs/parameter.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS303/lab4/gg.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS312/includes/GLFW/glfw3.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../CS312/includes/GLFW/glfw3.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS312/includes/GLFW/glfw3native.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../CS312/includes/GLFW/glfw3native.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS312/includes/glad/glad.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../CS312/includes/glad/glad.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS312/lib/glfw3.lib" beforeDir="false" afterPath="$PROJECT_DIR$/../../CS312/lib/glfw3.lib" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Calculator/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Calculator/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pauselesshashmap/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../pauselesshashmap/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,9 +45,21 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
   <component name="ProjectId" id="1SNaVmmSvGcj0eDKwHbl29GENpJ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="JAVA_HOME" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="cores_evosuite_param" value="3" />
@@ -182,32 +207,44 @@
       <workItem from="1571406556005" duration="5116000" />
       <workItem from="1571473672607" duration="882000" />
       <workItem from="1571556169672" duration="3968000" />
+      <workItem from="1572011259358" duration="1123000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/SuffixArray$SuffixArrayTest.ic" NAME="SuffixArrayTest Coverage Results" MODIFIED="1571556928933" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/SuffixArray$SuffixArrayTest_testComputeLCP.ic" NAME="SuffixArrayTest.testComputeLCP Coverage Results" MODIFIED="1571558735093" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>net.mooctest.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/SuffixArray$SuffixArrayTest_test.ic" NAME="SuffixArrayTest.test Coverage Results" MODIFIED="1571556893482" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>net.mooctest.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/Calculator$Calculator_ESTest.exec" NAME="Calculator_ESTest Coverage Results" MODIFIED="1571411233912" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>net.mooctest.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/SuffixArray$SuffixArrayTest.ic" NAME="SuffixArrayTest Coverage Results" MODIFIED="1571556928933" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>net.mooctest.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/SuffixArray$SuffixArrayTest.exec" NAME="SuffixArrayTest Coverage Results" MODIFIED="1572011335835" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>net.mooctest.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/Calculator$net_mooctest_in_Calculator.exec" NAME="net.mooctest in Calculator Coverage Results" MODIFIED="1571409440833" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>net.mooctest.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/Calculator$net_mooctest_in_Calculator.ic" NAME="net.mooctest in Calculator Coverage Results" MODIFIED="1571409334708" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>net.mooctest.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/SuffixArray$SuffixArrayTest_test.ic" NAME="SuffixArrayTest.test Coverage Results" MODIFIED="1571556893482" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>net.mooctest.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/SuffixArray$SuffixArrayTest.exec" NAME="SuffixArrayTest Coverage Results" MODIFIED="1571559166367" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>net.mooctest.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/SuffixArray$SuffixArrayTest_testComputeLCP.ic" NAME="SuffixArrayTest.testComputeLCP Coverage Results" MODIFIED="1571558735093" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>net.mooctest.*</FILTER>
     </SUITE>
   </component>
