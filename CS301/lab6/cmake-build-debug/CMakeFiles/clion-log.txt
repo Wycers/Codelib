@@ -1,0 +1,16 @@
+"/Users/wycer/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/192.6817.32/CLion.app/Contents/bin/cmake/mac/bin/cmake" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/wycer/Codelib/CS301/lab6
+-- The C compiler identification is GNU 8.2.1
+-- The CXX compiler identification is GNU 8.2.1
+-- The ASM compiler identification is GNU
+-- Found assembler: /usr/local/bin/arm-none-eabi-gcc
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/wycer/Codelib/CS301/lab6/cmake-build-debug
