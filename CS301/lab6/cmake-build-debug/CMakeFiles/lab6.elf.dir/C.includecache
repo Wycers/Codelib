@@ -259,4 +259,6 @@ usart.h
 /Users/wycer/Codelib/CS301/lab6/Src/usart.h
 gpio.h
 /Users/wycer/Codelib/CS301/lab6/Src/gpio.h
+string.h
+/Users/wycer/Codelib/CS301/lab6/Src/string.h
 

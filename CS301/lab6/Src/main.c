@@ -22,6 +22,7 @@
 #include "main.h"
 #include "usart.h"
 #include "gpio.h"
+#include "string.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -72,8 +73,12 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
         static unsigned char uRx_Data[1024] = {0};
         static unsigned char uLength = 0;
         if (rxBuffer[0] == '\n') {
-            HAL_UART_Transmit(&huart1, uRx_Data, uLength, 0xffff);
-            HAL_UART_Transmit(&huart1, "\r\n", 2, 0xffff);
+            uRx_Data[uLength - 1] = '\0';
+            if (strcmp(uRx_Data, "interrupt") == 0) {
+                HAL_UART_Transmit(&huart1, "interrupt\r\n", 11, 0xffff);
+            } else {
+//                HAL_UART_Transmit(&huart1, "Not interrupt\r\n", 15, 0xffff);
+            }
             uLength = 0;
         } else {
             uRx_Data[uLength] = rxBuffer[0];
