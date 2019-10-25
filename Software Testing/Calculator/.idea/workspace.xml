@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c6844439-4048-412c-9a7b-8902a37d0078" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageViewManager">
+    <option name="myElementSize" value="489" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="usePluginRegistry" value="true" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1SNZqRQIQsSWTs7JtSQx1w6lpAm" />
+  <component name="PropertiesComponent">
+    <property name="JAVA_HOME" value="D:\Program Files\Java\jdk1.8.0_221" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="cores_evosuite_param" value="6" />
+    <property name="evosuite_gui_dialog_height" value="398" />
+    <property name="evosuite_gui_dialog_width" value="570" />
+    <property name="evosuite_jar_location" value="" />
+    <property name="execution_mode" value="JAR" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../hw2/pauselesshashmap" />
+    <property name="memory_evosuite_param" value="2000" />
+    <property name="mvn_location" value="" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.General" />
+    <property name="target_folder_evosuite_param" value="src/evo" />
+    <property name="time_evosuite_param" value="3" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Wycer\Desktop\hw1\Calculator\src\test\java\net\mooctest" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="JUnit.net.mooctest in Calculator">
+    <configuration name="Calculator_ESTest.test12" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Calculator" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="net.mooctest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="net.mooctest" />
+      <option name="MAIN_CLASS_NAME" value="net.mooctest.Calculator_ESTest" />
+      <option name="METHOD_NAME" value="test12" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ExpressionParser_ESTest.test43" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Calculator" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="net.mooctest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="net.mooctest" />
+      <option name="MAIN_CLASS_NAME" value="net.mooctest.ExpressionParser_ESTest" />
+      <option name="METHOD_NAME" value="test43" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ExpressionParser_ESTest.test44" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Calculator" />
+      <extension name="coverage" runner="jacoco">
+        <pattern>
+          <option name="PATTERN" value="net.mooctest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="net.mooctest" />
+      <option name="MAIN_CLASS_NAME" value="net.mooctest.ExpressionParser_ESTest" />
+      <option name="METHOD_NAME" value="test44" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="net.mooctest in Calculator" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Calculator" />
+      <extension name="coverage" runner="jacoco">
+        <pattern>
+          <option name="PATTERN" value="net.mooctest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="net.mooctest" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.ExpressionParser_ESTest.test43" />
+      <item itemvalue="JUnit.ExpressionParser_ESTest.test44" />
+      <item itemvalue="JUnit.net.mooctest in Calculator" />
+      <item itemvalue="JUnit.Calculator_ESTest.test12" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.net.mooctest in Calculator" />
+        <item itemvalue="JUnit.Calculator_ESTest.test12" />
+        <item itemvalue="JUnit.ExpressionParser_ESTest.test44" />
+        <item itemvalue="JUnit.ExpressionParser_ESTest.test43" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\Wycer\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c6844439-4048-412c-9a7b-8902a37d0078" name="Default Changelist" comment="" />
+      <created>1571406204016</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1571406204016</updated>
+      <workItem from="1571406208009" duration="1914000" />
+      <workItem from="1571408477510" duration="1189000" />
+      <workItem from="1571409724066" duration="3009000" />
+      <workItem from="1571464582035" duration="6662000" />
+      <workItem from="1571474736448" duration="4814000" />
+      <workItem from="1571490139757" duration="9000" />
+      <workItem from="1571492144904" duration="1991000" />
+      <workItem from="1571503544882" duration="543000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Calculator$ExpressionParser_ESTest_test44.ic" NAME="ExpressionParser_ESTest.test44 Coverage Results" MODIFIED="1571476605737" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>net.mooctest.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Calculator$ExpressionParser_ESTest_test43.ic" NAME="ExpressionParser_ESTest.test43 Coverage Results" MODIFIED="1571475730734" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>net.mooctest.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Calculator$net_mooctest_in_Calculator.exec" NAME="net.mooctest in Calculator Coverage Results" MODIFIED="1571489672597" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>net.mooctest.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Calculator$Calculator_ESTest_test12.ic" NAME="Calculator_ESTest.test12 Coverage Results" MODIFIED="1571489665832" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>net.mooctest.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Calculator$net_mooctest_in_Calculator.ic" NAME="net.mooctest in Calculator Coverage Results" MODIFIED="1571473793491" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>net.mooctest.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Calculator$ExpressionParser_ESTest_test44.exec" NAME="ExpressionParser_ESTest.test44 Coverage Results" MODIFIED="1571477422827" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>net.mooctest.*</FILTER>
+    </SUITE>
+  </component>
+</project>
