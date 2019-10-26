@@ -3,7 +3,7 @@ from algorithm_ncs import ncs_c as ncs
 from math import exp
 import numpy as np
 import json, os, time
-p = 12
+p = 6
 
 
 class Parameter():
@@ -44,7 +44,7 @@ class Parameter():
                 'lambda': self.l,
                 'epoch': self.e,
                 'n': self.n,
-                'val': self.val
+                'val': self._val
             }
             json.dump(data, f)
 
@@ -112,7 +112,7 @@ def random():
         np.random.uniform(low=0.4, high=1.1),
         np.random.uniform(low=0.4, high=1.1),
         np.random.randint(10, 125),
-        np.random.randint(1, 3),
+        np.random.randint(1, 2),
     )
     # if not param.check():
     #     return
@@ -122,8 +122,8 @@ def random():
 
 
 if __name__ == '__main__':
-    with Pool(2) as p:
-        for i in range(100000):
+    with Pool(1) as p:
+        for i in range(1):
             p.apply_async(random, args=())
         p.close()
         p.join()

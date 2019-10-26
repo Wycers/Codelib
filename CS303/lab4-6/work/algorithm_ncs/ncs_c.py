@@ -33,12 +33,14 @@ class NCS_C(object):
             np.random.random((self.N, self.Dimension)) * \
             np.tile(self.problem_para.lu[1, :] -
                     self.problem_para.lu[0, :], (self.N, 1))
+        print(p)
 
         fit = benchmark.benchmark_func(
             p, self.problem_index, self.problem_para)
         min_fit = min(fit)
         sigma = np.tile(
             (self.problem_para.lu[1] - self.problem_para.lu[0]) / self.N, (self.N, 1))
+        print(sigma)
         flag = np.zeros((self.N, 1))
         _lambda = np.full(self.N, self._lambda_exp, dtype=float)
         _lambda_sigma = 0.1

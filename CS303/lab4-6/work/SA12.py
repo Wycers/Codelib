@@ -3,8 +3,7 @@ from algorithm_ncs import ncs_c as ncs
 from math import exp
 import numpy as np
 import json, os, time
-p = 6
-
+p = 12
 
 class Parameter():
     def __init__(self, r, l, e, n, val=None):
@@ -15,8 +14,8 @@ class Parameter():
         self._val = val
 
     @classmethod
-    def fromJson(self):
-        with open('%d.json' % p, 'r') as f:
+    def fromJson(self, filename='%d.json' % p):
+        with open(filename, 'r') as f:
             data = json.load(f)
             if 'val' in data:
                 return Parameter(data['r'], data['lambda'], data['epoch'], data['n'], data['val'])
@@ -44,7 +43,7 @@ class Parameter():
                 'lambda': self.l,
                 'epoch': self.e,
                 'n': self.n,
-                'val': self._val
+                'val': self.val
             }
             json.dump(data, f)
 
@@ -60,7 +59,7 @@ class Parameter():
     @property
     def val(self):
         if self._val is None:
-            self.run(True)
+            self.run(False)
         return self._val
 
 
@@ -112,7 +111,7 @@ def random():
         np.random.uniform(low=0.4, high=1.1),
         np.random.uniform(low=0.4, high=1.1),
         np.random.randint(10, 125),
-        np.random.randint(1, 2),
+        np.random.randint(1, 3),
     )
     # if not param.check():
     #     return
@@ -122,8 +121,10 @@ def random():
 
 
 if __name__ == '__main__':
-    with Pool(4) as p:
-        for i in range(100000):
-            p.apply_async(random, args=())
-        p.close()
-        p.join()
+    param = Parameter.fromJson('7.json')
+    print(param.val)
+    # with Pool(2) as p:
+    #     for i in range(100000):
+    #         p.apply_async(random, args=())
+    #     p.close()
+    #     p.join()
