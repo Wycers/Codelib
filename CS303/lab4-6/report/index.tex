@@ -1,0 +1,167 @@
+%!TEX program = pdflatex
+% Full chain: pdflatex -> bibtex -> pdflatex -> pdflatex
+\documentclass[lang=en,12pt]{elegantpaper}
+\usepackage{url}
+\usepackage[binary-units=true]{siunitx}
+\newcommand{\mysec}[1] {
+  \SI[per-mode=symbol]{#1}{\second}
+}
+
+
+\title{Project Report of NCS \& OLMP}
+\author{WU Yechang}
+\institute{11711918}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+\textbf{NCS} is a evolutionary algorithm which maintains multiple individual search processes in parallel and models the search behaviors by encouraging differences among the probability distribution.
+By this means, individual search processes share information and cooparate with each other to search diverse regions of search space.
+
+\textbf{OLMP} is Optimization based LMP (OLMP), an optimization based approach, used to automatically tune the pruning thresholds for LMP.
+Concretely, the threshold tuning problem is formulated as a constrained optimization problem, which requires minimizing the size (i.e., thenumber of connections) of the pruned network, subject to a constraint on the accuracy loss. Then, a powerful derivative free optimization algorithm is employed to solve this problem.
+
+Relative code can be found on \href{https://github.com/Wycers/Codelib/tree/master/CS303/lab4-6}{https://github.com/Wycers/Codelib/tree/master/CS303/lab4-6}
+\keywords{NCS, OLMP, parameters}
+\end{abstract}
+
+
+\section{Algorithm description}
+\subsection{Main Idea of NCS}
+Negative correlation search, \textbf{NCS}, is a search algorithm that inherits the basic form of the parallel hill climbing algorithm.
+The individuals in the population rely on the Gaussian mutation operator to generate a new solution.
+\textbf{NCS} use $f(x_i)$ to evaluate the adaptability of solution $x_i$ and $Corr(x_i)$ to evaluate the correlation of solution $x_i$.
+For the minimization problem, for the i-th search process, normalize the gap with the currently known optimal solution.
+A smaller $f(x_i)$ indicates that $x_i$ has a better fitness,
+and a larger $Corr(p_i')$ indicates that the progeny produced by $x_i$ will be at a far distance from those those individuals with local search behavior.
+Therefore, those solutions where $f(x_i)$ is smaller and $Corr(p_i)$ is larger will tend to be retained.
+
+\subsection{Applications of NCS}
+For the problem of large solution space, \textbf{NCS} can find the approximate optimal solution. For example,
+\begin{enumerate}
+  \item Search for extreme points of a math function.
+  \item Search for generalized Fermat points.
+  \item Search for answer to travelling salesman problem (\textbf{TSP}).
+\end{enumerate}
+
+\subsection{Main Idea of OLMP}
+An automatic tuning approach based on optimization.
+The idea is to transform the threshold tuning problem into a constrained optimization problem (i.e., minimizing the size of the pruned model subject to a constraint on the accuracy loss),
+and then use powerful derivative-free optimization algorithms to solve it. In this premise, the accuracy of model will not be damaged.
+
+\subsection{Applications of OLMP}
+For the problem of large solution space, the approximate optimal solution is obtained.
+\begin{enumerate}
+  \item Apply pruning to DNN so that the model size can be minimized.
+  \item Enhance efficiency of model training.
+  \item Reduce the threshold of training and deployment of DNN model.
+\end{enumerate}
+
+
+
+\section{Parameters description}
+\subsection{$\lambda$}
+\subsubsection{Role}
+$\lambda$ is parameter used to tune the weight of exploration and exploitation.
+Assume that $\sigma_i$ generated a new solution $\sigma_i'$, if $\frac{f(\sigma_i)}{Corr(f(\sigma_i))} < \lambda$, the new solution $\sigma_i'$ will be accepted.
+Otherwise, the $\sigma_i'$ will be discarded.
+\subsubsection{Effect on final performance}
+According to the implementation, the smaller the $\lambda$ is, the new solution will be more difficult to be accepted.
+
+\subsubsection{Best range}
+For F6 and F12, $\lambda$ is good to be nearly to $1$, so I choose from $[0.5, 1.0]$.
+
+\subsection{r}
+\subsubsection{Role}
+\textbf{r} is used to tune the step size.
+After each epoch iterations, each $\sigma_i$ will be updated according to the 1/5 successful rule suggested.
+Which means, after each \textbf{epoch} iterations, if the probability of getting a better solution is greater than $20\%$,
+Thus, the search step-size should be reduced (by $r^{-1}$ times).
+On the other hand,
+if a RLS frequently failed to achieve a better solution in the past iterations,
+it might have been stuck in a local optimum. In this case, the search step-size will be reduced (by $r$ times) to help the RLS explore other promising regions in the search space.
+\subsubsection{Effect on final performance}
+According to the heuristic rule adopted in NCS, the larger the \textbf{r} is, the individuals will behave more ``radically''.
+In other words, the larger the \textbf{r} is, while a individual generate new individual, the new individual will more close to old individual.
+\subsubsection{Best range}
+For F6 and F12, r is good to be nearly to 1, so I choose from $[0.5, 1.0]$.
+
+
+
+\subsection{epoch}
+\subsubsection{Role}
+\textbf{Epoch} is the number of iteration in each searching period.
+As inferred in last subsection, after each \textbf{epoch} iterations, each $\sigma_i$ will be updated according to the 1/5 successful rule suggested.
+\subsubsection{Effect on final performance}
+Each \textbf{epoch} iterations, new individuals will be generated and replace individuals before.
+The larger the \textbf{epoch} is, the longer searching time individuals will have.
+So if \textbf{epoch} is larger, individuals will search more deeply around current rigion.
+\subsubsection{Best range}
+With my practical experience, the best range of epoch is $[100, 200]$ for F6 and F12.
+
+
+
+\subsection{n}
+\subsubsection{Role}
+\textbf{n} is the number of areas to search while iterating.
+In the beginning, \textbf{n} individuals will be generated randomly and iterated \textbf{epoch} times.
+\subsubsection{Effect on final performance}
+Intuitively speaking, the larger the \textbf{n} is, the slower the search iteration is.
+Because each iteration will generate \textbf{n} individuals, the search procedure will cover more regions but cost more time and computation resources.
+\subsubsection{Best range}
+With my practical experience, the best range of epoch is $[1, 3]$ for F6 and F12.
+
+For F29, the final result is only related to \textbf{n}, $n = 92$ is the best range.
+
+\begin{table}[htbp]
+  \small
+  \centering
+  \caption{Final values and local results \label{tab:reg}}
+    \begin{tabular}{cccc}
+    \toprule
+                           &       F6           &         F12        &        OLMP         \\
+    \midrule
+    \textbf{$\lambda$}     & 0.7050851182889523 & 0.7106047788961356 & 0.47548385463535714 \\
+    \textbf{r}             & 0.9534024348847432 & 0.5851014575394479 & 0.9295558997353595  \\
+    \textbf{epoch}         &        117         &         163        &        233          \\
+    \textbf{n}             &         1          &          1         &         92          \\
+    \textbf{Local Result}  & 390.00000000690886 & -459.9999999997802 & 0.9889914106747684  \\
+    \textbf{Online Result} & 390.00000000692114 &        -460        & 0.9889914106747684  \\
+    \textbf{Running Time}  &   \mysec{47.52}    &    \mysec{35.68}   &    \mysec{68.59}    \\
+    \bottomrule
+    \end{tabular}%
+\end{table}%
+
+\section{Tuning procedure}
+I used \textbf{simulated annealing} algorithm to tune the parameters.
+\textbf{Simulated annealing} algorithm uses heating and cooling control strategies to adjust the search process away from local extremum points, inspired by the metallurgical annealing process.
+With temprature decreasing, the search process shifts from exploration to utilization.
+
+For F6 and F12
+\begin{lstlisting}
+randomly generate a parameter p
+while (Temprature > pre_defined_temprature)
+  for pre_defined_epoch iteration
+    generate new parameter with respect to current parameter and current temprature
+    calculate result by call NCS(new parameter)
+    if result is better
+      accept new parameter(set p as new parameter)
+    else
+      randomly accept new parameter by difference of result and current temprature
+output p
+\end{lstlisting}
+
+For F12, I search for all possible $n$, then find the best result.
+
+\section{Conclusion}
+During this lab, I learned a NCS besides hill-climbing algorithm and simulated annealing algorithm and had a better understanding of evolutionary algorithm.
+I implemented simulated annealing algorithm to tune the search process. I runned my program for 3 days and finnally get results good enough.
+
+\nocite{*}
+\bibliography{wpref}
+
+\end{document}
