@@ -72,7 +72,6 @@ public class Jipa {
             opcode = instruction;
             operand = new String[1];
         }
-
         switch (opcodes.toOpcode(opcode.toLowerCase()))
         {
             case halt:

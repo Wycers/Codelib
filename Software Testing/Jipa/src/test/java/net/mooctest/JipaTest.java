@@ -6,13 +6,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 import static org.junit.Assert.fail;
+import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.emptyStandardInputStream;
 
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
 import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 import org.junit.contrib.java.lang.system.SystemOutRule;
+import org.junit.contrib.java.lang.system.TextFromStandardInputStream;
 
 
 public class JipaTest {
@@ -448,6 +451,7 @@ public class JipaTest {
             //
         }
     }
+
     @Rule
     public final ExpectedSystemExit exit = ExpectedSystemExit.none();
 
@@ -489,7 +493,7 @@ public class JipaTest {
     @org.junit.Test(timeout = 4000)
     public void test58() throws java.lang.Throwable {
         net.mooctest.Jipa jipa0 = new net.mooctest.Jipa();
-        org.junit.Assert.assertEquals(22, net.mooctest.Jipa.TOTAL_INSTRUCTIONS);
+        org.junit.Assert.assertEquals(0, net.mooctest.Jipa.TOTAL_INSTRUCTIONS);
     }
 
     @org.junit.Test(timeout = 4000)
@@ -1027,6 +1031,55 @@ public class JipaTest {
         jipa.processInstruction("dec a");
         jipa.processInstruction("out a");
         assertEquals("0\n1\n0\n", systemOutRule.getLog().replaceAll("\r\n", "\n"));
+    }
+
+    @Test(timeout = 4000)
+    public void test91() throws java.lang.Throwable {
+        Jipa jipa = new Jipa();
+        jipa.processInstruction("var a");
+        jipa.processInstruction("var b");
+        jipa.processInstruction("set b,6");
+        jipa.processInstruction("and a,b");
+        jipa.processInstruction("out a");
+        jipa.processInstruction("out b");
+        jipa.processInstruction("add a,b");
+        jipa.processInstruction("sub a,b");
+        jipa.processInstruction("or a,b");
+        jipa.processInstruction("xor a,b");
+        jipa.processInstruction("mul a,b");
+        jipa.processInstruction("div a,b");
+        jipa.processInstruction("mod a,b");
+//        assertEquals("6\n6\n", systemOutRule.getLog().replaceAll("\r\n", "\n"));
+    }
+
+    @Rule
+    public final TextFromStandardInputStream systemInMock = emptyStandardInputStream();
+
+    @Before
+    public void handleBefore() {
+        Jipa.TOTAL_INSTRUCTIONS = 0;
+        Jipa.instruction = new String[0];
+        Jipa.iPtr = 0;
+    }
+
+    @Test(timeout = 4000)
+    public void test92() throws java.lang.Throwable {
+        Jipa jipa = new Jipa();
+        systemInMock.provideLines("qwq.txt");
+        jipa.loadInstructions("");
+
+        systemInMock.provideLines("2");
+        assertEquals(2, jipa.readValue());
+        systemInMock.provideLines("w");
+        assertEquals(0, jipa.readValue());
+    }
+
+    @Test(timeout = 4000)
+    public void test93() throws java.lang.Throwable {
+        Jipa jipa = new Jipa();
+        exit.expectSystemExit();
+        jipa.loadInstructions("q");
+
     }
 }
 
