@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Project>
+    <totalNumberOfTestableClasses>3</totalNumberOfTestableClasses>
+    <cut>
+        <fullNameOfTargetClass>net.mooctest.Jipa</fullNameOfTargetClass>
+        <fullNameOfTestSuite>net.mooctest.Jipa_ESTest</fullNameOfTestSuite>
+        <generation>
+            <id>0</id>
+            <failed>false</failed>
+            <modified>true</modified>
+            <timeBudgetInSeconds>60</timeBudgetInSeconds>
+            <memoryInMB>2000</memoryInMB>
+            <std_err_CLIENT>D:\Codelib\Software Testing\Jipa\.evosuite\tmp_2019_10_31_13_23_06\logs\net.mooctest.Jipa\std_err_CLIENT.log</std_err_CLIENT>
+            <std_out_CLIENT>D:\Codelib\Software Testing\Jipa\.evosuite\tmp_2019_10_31_13_23_06\logs\net.mooctest.Jipa\std_out_CLIENT.log</std_out_CLIENT>
+            <std_err_MASTER>D:\Codelib\Software Testing\Jipa\.evosuite\tmp_2019_10_31_13_23_06\logs\net.mooctest.Jipa\std_err_MASTER.log</std_err_MASTER>
+            <std_out_MASTER>D:\Codelib\Software Testing\Jipa\.evosuite\tmp_2019_10_31_13_23_06\logs\net.mooctest.Jipa\std_out_MASTER.log</std_out_MASTER>
+            <suite>
+                <fullPathOfTestSuite>D:\Codelib\Software Testing\Jipa\.evosuite\tmp_2019_10_31_13_23_06\tests\net\mooctest\Jipa_ESTest.java</fullPathOfTestSuite>
+                <numberOfTests>59</numberOfTests>
+                <totalNumberOfStatements>75</totalNumberOfStatements>
+                <totalEffortInSeconds>45</totalEffortInSeconds>
+                <coverage>
+                    <criterion>LineCoverage</criterion>
+                    <coverageValue>0.72</coverageValue>
+                    <coverageBitString>11111111111111111111111111111111111111111111111111111111111111101000000000010100010000000000000001010101110101000101010100001111111111111111111111111111111111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>BranchCoverage</criterion>
+                    <coverageValue>0.74</coverageValue>
+                    <coverageBitString>1111111111010101011111110101010101010111111111111111011111111101110000000000000000000011111111111111111111011111111111111111111111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>ExceptionCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>11111111111111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>WeakMutationScore</criterion>
+                    <coverageValue>0.93</coverageValue>
+                    <coverageBitString>111111111111111111111111111111111111111111111111110111111111111111111111100000000000001111011101111111111111111110111111111110111111111111111111111111111111111111101111111111111011111111111111111111011111111111111111111111111111111111111111111111111111111111111111111111111101111111111101111111111111111111111111111111111111111111111111111111011111111111111111111111111111111011111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>OutputCoverage</criterion>
+                    <coverageValue>0.64</coverageValue>
+                    <coverageBitString>1101100101111111001110010</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>MethodCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>1111111111111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>MethodNoExceptionCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>1111111111111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>CBranchCoverage</criterion>
+                    <coverageValue>0.74</coverageValue>
+                    <coverageBitString>1111111111011001111111101110101101111110111011101111100111011111110000000000000000000011111111111111111111011111111111111111111111</coverageBitString>
+                </coverage>
+            </suite>
+        </generation>
+    </cut>
+    <cut>
+        <fullNameOfTargetClass>net.mooctest.Label</fullNameOfTargetClass>
+        <fullNameOfTestSuite>net.mooctest.Label_ESTest</fullNameOfTestSuite>
+        <generation>
+            <id>0</id>
+            <failed>false</failed>
+            <modified>true</modified>
+            <timeBudgetInSeconds>60</timeBudgetInSeconds>
+            <memoryInMB>2000</memoryInMB>
+            <std_err_CLIENT>D:\Codelib\Software Testing\Jipa\.evosuite\tmp_2019_10_31_13_23_06\logs\net.mooctest.Label\std_err_CLIENT.log</std_err_CLIENT>
+            <std_out_CLIENT>D:\Codelib\Software Testing\Jipa\.evosuite\tmp_2019_10_31_13_23_06\logs\net.mooctest.Label\std_out_CLIENT.log</std_out_CLIENT>
+            <std_err_MASTER>D:\Codelib\Software Testing\Jipa\.evosuite\tmp_2019_10_31_13_23_06\logs\net.mooctest.Label\std_err_MASTER.log</std_err_MASTER>
+            <std_out_MASTER>D:\Codelib\Software Testing\Jipa\.evosuite\tmp_2019_10_31_13_23_06\logs\net.mooctest.Label\std_out_MASTER.log</std_out_MASTER>
+            <suite>
+                <fullPathOfTestSuite>D:\Codelib\Software Testing\Jipa\.evosuite\tmp_2019_10_31_13_23_06\tests\net\mooctest\Label_ESTest.java</fullPathOfTestSuite>
+                <numberOfTests>11</numberOfTests>
+                <totalNumberOfStatements>63</totalNumberOfStatements>
+                <totalEffortInSeconds>37</totalEffortInSeconds>
+                <coverage>
+                    <criterion>LineCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>11111111111111111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>BranchCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>11111111111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>ExceptionCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>WeakMutationScore</criterion>
+                    <coverageValue>0.95</coverageValue>
+                    <coverageBitString>111111011111111111111111111011111111111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>OutputCoverage</criterion>
+                    <coverageValue>0.89</coverageValue>
+                    <coverageBitString>101111111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>MethodCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>11111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>MethodNoExceptionCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>11111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>CBranchCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>11111111111</coverageBitString>
+                </coverage>
+            </suite>
+        </generation>
+    </cut>
+    <cut>
+        <fullNameOfTargetClass>net.mooctest.Variable</fullNameOfTargetClass>
+        <fullNameOfTestSuite>net.mooctest.Variable_ESTest</fullNameOfTestSuite>
+        <generation>
+            <id>0</id>
+            <failed>false</failed>
+            <modified>true</modified>
+            <timeBudgetInSeconds>60</timeBudgetInSeconds>
+            <memoryInMB>2000</memoryInMB>
+            <std_err_CLIENT>D:\Codelib\Software Testing\Jipa\.evosuite\tmp_2019_10_31_13_23_06\logs\net.mooctest.Variable\std_err_CLIENT.log</std_err_CLIENT>
+            <std_out_CLIENT>D:\Codelib\Software Testing\Jipa\.evosuite\tmp_2019_10_31_13_23_06\logs\net.mooctest.Variable\std_out_CLIENT.log</std_out_CLIENT>
+            <std_err_MASTER>D:\Codelib\Software Testing\Jipa\.evosuite\tmp_2019_10_31_13_23_06\logs\net.mooctest.Variable\std_err_MASTER.log</std_err_MASTER>
+            <std_out_MASTER>D:\Codelib\Software Testing\Jipa\.evosuite\tmp_2019_10_31_13_23_06\logs\net.mooctest.Variable\std_out_MASTER.log</std_out_MASTER>
+            <suite>
+                <fullPathOfTestSuite>D:\Codelib\Software Testing\Jipa\.evosuite\tmp_2019_10_31_13_23_06\tests\net\mooctest\Variable_ESTest.java</fullPathOfTestSuite>
+                <numberOfTests>19</numberOfTests>
+                <totalNumberOfStatements>312</totalNumberOfStatements>
+                <totalEffortInSeconds>54</totalEffortInSeconds>
+                <coverage>
+                    <criterion>LineCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>1111111111111111111111111111111111111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>BranchCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>11111111111111111111111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>ExceptionCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>111111111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>WeakMutationScore</criterion>
+                    <coverageValue>0.94</coverageValue>
+                    <coverageBitString>11111111111011111111110111111101111111111111111111111111111111111110111111111101111111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>OutputCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>11111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>MethodCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>1111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>MethodNoExceptionCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>1111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>CBranchCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>11111111111111111111111</coverageBitString>
+                </coverage>
+            </suite>
+        </generation>
+    </cut>
+</Project>
