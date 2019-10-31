@@ -1,11 +1,7 @@
 package net.mooctest;
 
 
-import static org.junit.Assert.assertEquals;
-
-import static org.junit.Assert.assertFalse;
-
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.emptyStandardInputStream;
 
 
@@ -17,9 +13,18 @@ import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.junit.contrib.java.lang.system.TextFromStandardInputStream;
 
+import java.util.ArrayList;
+
 
 public class JipaTest {
 
+    @Before
+    public void handleBefore() {
+        Jipa.TOTAL_INSTRUCTIONS = 0;
+        Jipa.instruction = new String[0];
+        Jipa.iPtr = 0;
+        Label.labelList = new ArrayList<Label>();
+    }
 
     @Test(timeout = 4000)
 
@@ -74,19 +79,13 @@ public class JipaTest {
     @org.junit.Test(timeout = 4000)
     public void test6() throws java.lang.Throwable {
         boolean boolean0 = net.mooctest.Jipa.isNumeric("00");
-        org.junit.Assert.assertTrue(boolean0);
+        assertTrue(boolean0);
     }
 
     @org.junit.Test(timeout = 4000)
     public void test7() throws java.lang.Throwable {
         int int0 = net.mooctest.Jipa.getValue("5");
         org.junit.Assert.assertEquals(5, int0);
-    }
-
-    @org.junit.Test(timeout = 4000)
-    public void test8() throws java.lang.Throwable {
-        int int0 = net.mooctest.Jipa.getValue("*");
-        org.junit.Assert.assertEquals(13, int0);
     }
 
     @org.junit.Test(timeout = 4000)
@@ -589,7 +588,7 @@ public class JipaTest {
     public void test70() throws java.lang.Throwable {
         net.mooctest.Variable.removeVariable("");
         boolean boolean0 = net.mooctest.Variable.addVariable("&");
-        org.junit.Assert.assertTrue(boolean0);
+        assertTrue(boolean0);
         int int0 = net.mooctest.Variable.getVariableValue("&");
         org.junit.Assert.assertEquals(0, int0);
         net.mooctest.Variable.setVariableValue("&", 0);
@@ -597,43 +596,43 @@ public class JipaTest {
         net.mooctest.Variable.setVariableValue("l", 0);
         net.mooctest.Variable.setVariableValue("&", 0);
         boolean boolean1 = net.mooctest.Variable.addVariable("l");
-        org.junit.Assert.assertTrue((boolean1 == boolean0));
-        org.junit.Assert.assertTrue(boolean1);
+        assertTrue((boolean1 == boolean0));
+        assertTrue(boolean1);
         int int1 = net.mooctest.Variable.getVariableValue("");
-        org.junit.Assert.assertTrue((int1 == int0));
+        assertTrue((int1 == int0));
         org.junit.Assert.assertEquals(0, int1);
         boolean boolean2 = net.mooctest.Variable.addVariable("&");
-        org.junit.Assert.assertTrue((boolean2 == boolean0));
-        org.junit.Assert.assertTrue((boolean2 == boolean1));
-        org.junit.Assert.assertTrue(boolean2);
+        assertTrue((boolean2 == boolean0));
+        assertTrue((boolean2 == boolean1));
+        assertTrue(boolean2);
         net.mooctest.Variable.setVariableValue("", (-1453));
         int int2 = net.mooctest.Variable.getVariableValue("");
-        org.junit.Assert.assertTrue((int2 == int0));
-        org.junit.Assert.assertTrue((int2 == int1));
+        assertTrue((int2 == int0));
+        assertTrue((int2 == int1));
         org.junit.Assert.assertEquals(0, int2);
         net.mooctest.Variable.setVariableValue("", 0);
         int int3 = net.mooctest.Variable.getVariableValue("&");
-        org.junit.Assert.assertTrue((int3 == int1));
-        org.junit.Assert.assertTrue((int3 == int2));
-        org.junit.Assert.assertTrue((int3 == int0));
+        assertTrue((int3 == int1));
+        assertTrue((int3 == int2));
+        assertTrue((int3 == int0));
         org.junit.Assert.assertEquals(0, int3);
         int int4 = net.mooctest.Variable.getVariableValue("");
-        org.junit.Assert.assertTrue((int4 == int1));
-        org.junit.Assert.assertTrue((int4 == int2));
-        org.junit.Assert.assertTrue((int4 == int0));
-        org.junit.Assert.assertTrue((int4 == int3));
+        assertTrue((int4 == int1));
+        assertTrue((int4 == int2));
+        assertTrue((int4 == int0));
+        assertTrue((int4 == int3));
         org.junit.Assert.assertEquals(0, int4);
         boolean boolean3 = net.mooctest.Variable.addVariable("&");
-        org.junit.Assert.assertTrue((boolean3 == boolean2));
-        org.junit.Assert.assertTrue((boolean3 == boolean1));
-        org.junit.Assert.assertTrue((boolean3 == boolean0));
-        org.junit.Assert.assertTrue(boolean3);
+        assertTrue((boolean3 == boolean2));
+        assertTrue((boolean3 == boolean1));
+        assertTrue((boolean3 == boolean0));
+        assertTrue(boolean3);
         boolean boolean4 = net.mooctest.Variable.addVariable("");
-        org.junit.Assert.assertTrue((boolean4 == boolean3));
-        org.junit.Assert.assertTrue((boolean4 == boolean2));
-        org.junit.Assert.assertTrue((boolean4 == boolean0));
-        org.junit.Assert.assertTrue((boolean4 == boolean1));
-        org.junit.Assert.assertTrue(boolean4);
+        assertTrue((boolean4 == boolean3));
+        assertTrue((boolean4 == boolean2));
+        assertTrue((boolean4 == boolean0));
+        assertTrue((boolean4 == boolean1));
+        assertTrue(boolean4);
         net.mooctest.Variable.setVariableValue("", (-1453));
         boolean boolean5 = net.mooctest.Variable.addVariable("");
         org.junit.Assert.assertFalse((boolean5 == boolean2));
@@ -647,7 +646,7 @@ public class JipaTest {
         org.junit.Assert.assertFalse((boolean6 == boolean0));
         org.junit.Assert.assertFalse((boolean6 == boolean2));
         org.junit.Assert.assertFalse((boolean6 == boolean3));
-        org.junit.Assert.assertTrue((boolean6 == boolean5));
+        assertTrue((boolean6 == boolean5));
         org.junit.Assert.assertFalse((boolean6 == boolean1));
         org.junit.Assert.assertFalse(boolean6);
         net.mooctest.Variable.removeVariable("*");
@@ -668,7 +667,7 @@ public class JipaTest {
         int int0 = net.mooctest.Variable.getVariableValue("");
         org.junit.Assert.assertEquals(-1453, int0);
         int int1 = net.mooctest.Variable.getVariableValue("");
-        org.junit.Assert.assertTrue((int1 == int0));
+        assertTrue((int1 == int0));
         org.junit.Assert.assertEquals(-1453, int1);
         net.mooctest.Variable.setVariableValue("", 1690);
         net.mooctest.Variable.setVariableValue("", 1690);
@@ -680,7 +679,7 @@ public class JipaTest {
         org.junit.Assert.assertFalse((int2 == int0));
         org.junit.Assert.assertEquals((-14), int2);
         int int3 = net.mooctest.Variable.getVariableValue("");
-        org.junit.Assert.assertTrue((int3 == int2));
+        assertTrue((int3 == int2));
         org.junit.Assert.assertFalse((int3 == int0));
         org.junit.Assert.assertFalse((int3 == int1));
         org.junit.Assert.assertEquals((-14), int3);
@@ -719,7 +718,7 @@ public class JipaTest {
         boolean boolean0 = net.mooctest.Variable.addVariable("");
         org.junit.Assert.assertFalse(boolean0);
         boolean boolean1 = net.mooctest.Variable.addVariable("");
-        org.junit.Assert.assertTrue((boolean1 == boolean0));
+        assertTrue((boolean1 == boolean0));
         org.junit.Assert.assertFalse(boolean1);
         java.lang.String string1 = "&";
         int int1 = 0;
@@ -739,7 +738,7 @@ public class JipaTest {
         int int0 = net.mooctest.Variable.getVariableValue("sX");
         org.junit.Assert.assertEquals(0, int0);
         int int1 = net.mooctest.Variable.getVariableValue("}N");
-        org.junit.Assert.assertTrue((int1 == int0));
+        assertTrue((int1 == int0));
         org.junit.Assert.assertEquals(0, int1);
         net.mooctest.Variable.removeVariable("sX");
         // Undeclared exception!
@@ -771,10 +770,10 @@ public class JipaTest {
         org.junit.Assert.assertEquals(0, int0);
         net.mooctest.Variable.removeVariable("");
         int int1 = net.mooctest.Variable.getVariableValue("");
-        org.junit.Assert.assertTrue((int1 == int0));
+        assertTrue((int1 == int0));
         org.junit.Assert.assertEquals(0, int1);
         boolean boolean0 = net.mooctest.Variable.addVariable("");
-        org.junit.Assert.assertTrue(boolean0);
+        assertTrue(boolean0);
         java.lang.String string0 = "";
         net.mooctest.Variable.removeVariable("");
         // Undeclared exception!
@@ -939,7 +938,7 @@ public class JipaTest {
         net.mooctest.Variable.getVariableValue(",@ly0%US^y");
         net.mooctest.Variable.removeVariable(",@ly0%US^y");
         boolean boolean0 = net.mooctest.Variable.addVariable("oaT6*");
-        org.junit.Assert.assertTrue(boolean0);
+        assertTrue(boolean0);
         int int0 = net.mooctest.Variable.getVariableValue("oaT6*");
         org.junit.Assert.assertEquals(0, int0);
         net.mooctest.Variable.getVariableValue("6,]4apOus?m");
@@ -1043,43 +1042,176 @@ public class JipaTest {
         jipa.processInstruction("out a");
         jipa.processInstruction("out b");
         jipa.processInstruction("add a,b");
+        jipa.processInstruction("out a");
+        jipa.processInstruction("out b");
         jipa.processInstruction("sub a,b");
+        jipa.processInstruction("out a");
+        jipa.processInstruction("out b");
         jipa.processInstruction("or a,b");
+        jipa.processInstruction("out a");
+        jipa.processInstruction("out b");
         jipa.processInstruction("xor a,b");
+        jipa.processInstruction("out a");
+        jipa.processInstruction("out b");
+        jipa.processInstruction("set a,6");
+        jipa.processInstruction("set b,6");
         jipa.processInstruction("mul a,b");
+        jipa.processInstruction("out a");
+        jipa.processInstruction("out b");
+        jipa.processInstruction("set a,6");
+        jipa.processInstruction("set b,6");
         jipa.processInstruction("div a,b");
+        jipa.processInstruction("out a");
+        jipa.processInstruction("out b");
+        jipa.processInstruction("set a,6");
+        jipa.processInstruction("set b,4");
         jipa.processInstruction("mod a,b");
-//        assertEquals("6\n6\n", systemOutRule.getLog().replaceAll("\r\n", "\n"));
+        jipa.processInstruction("out a");
+        jipa.processInstruction("out b");
+        jipa.processInstruction("arr c,4");
+        jipa.processInstruction("out a");
+        jipa.processInstruction("out b");
+        assertEquals("6\n" +
+                "6\n" +
+                "12\n" +
+                "6\n" +
+                "6\n" +
+                "6\n" +
+                "6\n" +
+                "6\n" +
+                "0\n" +
+                "6\n" +
+                "36\n" +
+                "6\n" +
+                "1\n" +
+                "6\n" +
+                "2\n" +
+                "4\n" +
+                "2\n" +
+                "4\n", systemOutRule.getLog().replaceAll("\r\n", "\n"));
     }
 
     @Rule
     public final TextFromStandardInputStream systemInMock = emptyStandardInputStream();
 
-    @Before
-    public void handleBefore() {
-        Jipa.TOTAL_INSTRUCTIONS = 0;
-        Jipa.instruction = new String[0];
-        Jipa.iPtr = 0;
-    }
 
     @Test(timeout = 4000)
     public void test92() throws java.lang.Throwable {
         Jipa jipa = new Jipa();
-        systemInMock.provideLines("qwq.txt");
-        jipa.loadInstructions("");
+        systemInMock.provideLines("qwq.txt\n");
+        Label.labelList = new ArrayList<Label>();
+
+        assertTrue(jipa.loadInstructions(""));
+
+        jipa.processInstruction("jmp label");
+
+        assertEquals(1, jipa.iPtr);
+
+        jipa.processInstruction("jmp sb");
+        assertEquals(-1, jipa.iPtr);
+
+        jipa.processInstruction("var a");
+        jipa.processInstruction("var a");
+
+        jipa.processInstruction("jnz 1,label");
+        assertEquals(1, jipa.iPtr);
+        jipa.processInstruction("jnz 0,label");
+        assertEquals(2, jipa.iPtr);
+
+        jipa.processInstruction("jz 0,label");
+        assertEquals(1, jipa.iPtr);
+        jipa.processInstruction("jz 1,label");
+        assertEquals(2, jipa.iPtr);
+
+        jipa.processInstruction("ja 2,1,label");
+        assertEquals(1, jipa.iPtr);
+        jipa.processInstruction("ja 1,1,label");
+        assertEquals(2, jipa.iPtr);
+
+        jipa.processInstruction("jae 2,1,label");
+        assertEquals(1, jipa.iPtr);
+        jipa.processInstruction("jae 1,1,label");
+        assertEquals(1, jipa.iPtr);
+        jipa.processInstruction("jae 0,1,label");
+        assertEquals(2, jipa.iPtr);
+
+        jipa.processInstruction("jb 1,2,label");
+        assertEquals(1, jipa.iPtr);
+        jipa.processInstruction("jb 1,1,label");
+        assertEquals(2, jipa.iPtr);
+
+        jipa.processInstruction("jbe 1,2,label");
+        assertEquals(1, jipa.iPtr);
+        jipa.processInstruction("jbe 1,1,label");
+        assertEquals(1, jipa.iPtr);
+        jipa.processInstruction("jbe 1,0,label");
+        assertEquals(2, jipa.iPtr);
+
+
+        jipa.processInstruction("je 1,2,label");
+        assertEquals(3, jipa.iPtr);
+        jipa.processInstruction("je 1,1,label");
+        assertEquals(1, jipa.iPtr);
+        jipa.processInstruction("je 1,0,label");
+        assertEquals(2, jipa.iPtr);
+
+
+        jipa.processInstruction("jne 1,2,label");
+        assertEquals(1, jipa.iPtr);
+        jipa.processInstruction("jne 1,1,label");
+        assertEquals(2, jipa.iPtr);
+        jipa.processInstruction("jne 1,0,label");
+        assertEquals(1, jipa.iPtr);
+
+        jipa.processInstruction("cmp 1,2,a");
+        jipa.processInstruction("out a");
+        jipa.processInstruction("cmp 1,1,a");
+        jipa.processInstruction("out a");
+
+        jipa.processInstruction("var b");
+        jipa.processInstruction("mov a,b");
+        jipa.processInstruction("out a");
+        jipa.processInstruction("out b");
+        jipa.processInstruction("cpy b,a");
+        jipa.processInstruction("out a");
+        jipa.processInstruction("out b");
+
+
+        assertEquals("Enter the full path to the file or type q to quit :\n" +
+                "0\n" +
+                "1\n" +
+                "0\n" +
+                "1\n" +
+                "1\n" +
+                "1\n", systemOutRule.getLog().replaceAll("\r\n", "\n"));
 
         systemInMock.provideLines("2");
         assertEquals(2, jipa.readValue());
         systemInMock.provideLines("w");
         assertEquals(0, jipa.readValue());
+
+        jipa.resetInstructions();
     }
 
     @Test(timeout = 4000)
     public void test93() throws java.lang.Throwable {
         Jipa jipa = new Jipa();
-        exit.expectSystemExit();
-        jipa.loadInstructions("q");
 
+        assertFalse(jipa.loadInstructions("qaq.txt"));
+
+        exit.expectSystemExit();
+        assertFalse(jipa.loadInstructions("q"));
+    }
+
+    @Test(timeout = 4000)
+    public void test94() throws java.lang.Throwable {
+        Jipa jipa = new Jipa();
+        jipa.processInstruction("var a");
+        systemInMock.provideLines("5\n");
+        jipa.processInstruction("in a");
+        jipa.processInstruction("out a");
+        assertEquals("5\n", systemOutRule.getLog().replaceAll("\r\n", "\n"));
+        jipa.processInstruction("del a");
     }
 }
 

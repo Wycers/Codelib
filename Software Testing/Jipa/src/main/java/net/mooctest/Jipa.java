@@ -135,7 +135,7 @@ public class Jipa {
             case dec:
                 Variable.setVariableValue(operand[0], Variable.getVariableValue(operand[0]) - 1);
                 break;
-                
+
             // add var1, n|var2 - adds the values of n/variable2 to variable1
             case add:
                 Variable.setVariableValue(operand[0], Variable.getVariableValue(operand[0]) + getValue(operand[1]));
@@ -268,7 +268,7 @@ public class Jipa {
         // Check if user wants to quit
         if (fileName.equalsIgnoreCase("q"))
             System.exit(0);
-       
+
         try {
             // Initialize file reader
             FileInputStream fin = new FileInputStream(fileName);

@@ -17,7 +17,8 @@ import java.util.*;
 
 public class Label {
     public static Collection<Label> labelList = new ArrayList<Label>();
-    private int lineNumber; private String labelName;
+    private int lineNumber;
+    private String labelName;
 
     public Label(int line, String name)
     {
