@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Project>
+    <totalNumberOfTestableClasses>3</totalNumberOfTestableClasses>
+    <cut>
+        <fullNameOfTargetClass>net.mooctest.OokEngine</fullNameOfTargetClass>
+        <fullNameOfTestSuite>net.mooctest.OokEngine_ESTest</fullNameOfTestSuite>
+        <generation>
+            <id>0</id>
+            <failed>false</failed>
+            <modified>true</modified>
+            <timeBudgetInSeconds>174</timeBudgetInSeconds>
+            <memoryInMB>2000</memoryInMB>
+            <std_err_CLIENT>D:\Codelib\Software Testing\Brainfuck\.evosuite\tmp_2019_10_31_01_33_53\logs\net.mooctest.OokEngine\std_err_CLIENT.log</std_err_CLIENT>
+            <std_out_CLIENT>D:\Codelib\Software Testing\Brainfuck\.evosuite\tmp_2019_10_31_01_33_53\logs\net.mooctest.OokEngine\std_out_CLIENT.log</std_out_CLIENT>
+            <std_err_MASTER>D:\Codelib\Software Testing\Brainfuck\.evosuite\tmp_2019_10_31_01_33_53\logs\net.mooctest.OokEngine\std_err_MASTER.log</std_err_MASTER>
+            <std_out_MASTER>D:\Codelib\Software Testing\Brainfuck\.evosuite\tmp_2019_10_31_01_33_53\logs\net.mooctest.OokEngine\std_out_MASTER.log</std_out_MASTER>
+            <suite>
+                <fullPathOfTestSuite>D:\Codelib\Software Testing\Brainfuck\.evosuite\tmp_2019_10_31_01_33_53\tests\net\mooctest\OokEngine_ESTest.java</fullPathOfTestSuite>
+                <numberOfTests>12</numberOfTests>
+                <totalNumberOfStatements>31</totalNumberOfStatements>
+                <totalEffortInSeconds>136</totalEffortInSeconds>
+                <coverage>
+                    <criterion>LineCoverage</criterion>
+                    <coverageValue>0.26</coverageValue>
+                    <coverageBitString>011111111111001110000000001000000000000000000000000000000000100001</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>BranchCoverage</criterion>
+                    <coverageValue>0.16</coverageValue>
+                    <coverageBitString>11111101010000001000000000000000000000000000000000000000</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>ExceptionCoverage</criterion>
+                    <coverageValue>0.9</coverageValue>
+                    <coverageBitString>1111110111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>WeakMutationScore</criterion>
+                    <coverageValue>0.42</coverageValue>
+                    <coverageBitString>01111111101000111111111111111110110001111000111111111111111000000000000000000000000000000011100100000000000000000000000000</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>OutputCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString></coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>MethodCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>11111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>MethodNoExceptionCoverage</criterion>
+                    <coverageValue>0.8</coverageValue>
+                    <coverageBitString>11101</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>CBranchCoverage</criterion>
+                    <coverageValue>0.16</coverageValue>
+                    <coverageBitString>11111110100000000100000000000000000000000000000000000000</coverageBitString>
+                </coverage>
+            </suite>
+        </generation>
+    </cut>
+    <cut>
+        <fullNameOfTargetClass>net.mooctest.BrainfuckEngine</fullNameOfTargetClass>
+        <fullNameOfTestSuite>net.mooctest.BrainfuckEngine_ESTest</fullNameOfTestSuite>
+        <generation>
+            <id>0</id>
+            <failed>false</failed>
+            <modified>true</modified>
+            <timeBudgetInSeconds>147</timeBudgetInSeconds>
+            <memoryInMB>2000</memoryInMB>
+            <std_err_CLIENT>D:\Codelib\Software Testing\Brainfuck\.evosuite\tmp_2019_10_31_01_33_53\logs\net.mooctest.BrainfuckEngine\std_err_CLIENT.log</std_err_CLIENT>
+            <std_out_CLIENT>D:\Codelib\Software Testing\Brainfuck\.evosuite\tmp_2019_10_31_01_33_53\logs\net.mooctest.BrainfuckEngine\std_out_CLIENT.log</std_out_CLIENT>
+            <std_err_MASTER>D:\Codelib\Software Testing\Brainfuck\.evosuite\tmp_2019_10_31_01_33_53\logs\net.mooctest.BrainfuckEngine\std_err_MASTER.log</std_err_MASTER>
+            <std_out_MASTER>D:\Codelib\Software Testing\Brainfuck\.evosuite\tmp_2019_10_31_01_33_53\logs\net.mooctest.BrainfuckEngine\std_out_MASTER.log</std_out_MASTER>
+            <suite>
+                <fullPathOfTestSuite>D:\Codelib\Software Testing\Brainfuck\.evosuite\tmp_2019_10_31_01_33_53\tests\net\mooctest\BrainfuckEngine_ESTest.java</fullPathOfTestSuite>
+                <numberOfTests>37</numberOfTests>
+                <totalNumberOfStatements>148</totalNumberOfStatements>
+                <totalEffortInSeconds>80</totalEffortInSeconds>
+                <coverage>
+                    <criterion>LineCoverage</criterion>
+                    <coverageValue>0.99</coverageValue>
+                    <coverageBitString>01111111111111111111111111111111111111111111111111111111111111111111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>BranchCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>111111111111111111111111111111111111111111111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>ExceptionCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>1111111111111111111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>WeakMutationScore</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>OutputCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString></coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>MethodCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>11111111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>MethodNoExceptionCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>11111111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>CBranchCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>111111111111111111111111111111111111111111111</coverageBitString>
+                </coverage>
+            </suite>
+        </generation>
+    </cut>
+    <cut>
+        <fullNameOfTargetClass>net.mooctest.TrollScriptEngine</fullNameOfTargetClass>
+        <fullNameOfTestSuite>net.mooctest.TrollScriptEngine_ESTest</fullNameOfTestSuite>
+        <generation>
+            <id>0</id>
+            <failed>false</failed>
+            <modified>true</modified>
+            <timeBudgetInSeconds>218</timeBudgetInSeconds>
+            <memoryInMB>2000</memoryInMB>
+            <std_err_CLIENT>D:\Codelib\Software Testing\Brainfuck\.evosuite\tmp_2019_10_31_01_33_53\logs\net.mooctest.TrollScriptEngine\std_err_CLIENT.log</std_err_CLIENT>
+            <std_out_CLIENT>D:\Codelib\Software Testing\Brainfuck\.evosuite\tmp_2019_10_31_01_33_53\logs\net.mooctest.TrollScriptEngine\std_out_CLIENT.log</std_out_CLIENT>
+            <std_err_MASTER>D:\Codelib\Software Testing\Brainfuck\.evosuite\tmp_2019_10_31_01_33_53\logs\net.mooctest.TrollScriptEngine\std_err_MASTER.log</std_err_MASTER>
+            <std_out_MASTER>D:\Codelib\Software Testing\Brainfuck\.evosuite\tmp_2019_10_31_01_33_53\logs\net.mooctest.TrollScriptEngine\std_out_MASTER.log</std_out_MASTER>
+            <suite>
+                <fullPathOfTestSuite>D:\Codelib\Software Testing\Brainfuck\.evosuite\tmp_2019_10_31_01_33_53\tests\net\mooctest\TrollScriptEngine_ESTest.java</fullPathOfTestSuite>
+                <numberOfTests>30</numberOfTests>
+                <totalNumberOfStatements>408</totalNumberOfStatements>
+                <totalEffortInSeconds>182</totalEffortInSeconds>
+                <coverage>
+                    <criterion>LineCoverage</criterion>
+                    <coverageValue>0.53</coverageValue>
+                    <coverageBitString>11111111111111111111101111110000000000000000000000000000000000111111111111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>BranchCoverage</criterion>
+                    <coverageValue>0.5</coverageValue>
+                    <coverageBitString>1111111111111110111000000000000000000000000000000000000011111111111111111111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>ExceptionCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>11111111111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>WeakMutationScore</criterion>
+                    <coverageValue>0.93</coverageValue>
+                    <coverageBitString>1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111110111110111101111111111111111111111111111111111111111011101110111011101110111011101110111011</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>OutputCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>11</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>MethodCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>111111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>MethodNoExceptionCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString>111111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>CBranchCoverage</criterion>
+                    <coverageValue>0.5</coverageValue>
+                    <coverageBitString>1111111111111110111000000000000000000000000000000000000011111111111111111111</coverageBitString>
+                </coverage>
+            </suite>
+        </generation>
+    </cut>
+</Project>
