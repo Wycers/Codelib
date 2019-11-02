@@ -1,0 +1,26 @@
+@org.junit.Test
+public void test0() {
+    net.mooctest.AStar<java.lang.Integer> aStar = new net.mooctest.AStar<java.lang.Integer>();
+    net.mooctest.Graph<java.lang.Integer> graph = new net.mooctest.Graph();
+    graph = new net.mooctest.Graph();
+    org.junit.Assert.assertEquals(net.mooctest.Graph.TYPE.UNDIRECTED, graph.getType());
+}
+@org.junit.Test
+public void test1() {
+    net.mooctest.Graph<java.lang.Integer> graph = new net.mooctest.Graph();
+    graph = new net.mooctest.Graph(net.mooctest.Graph.TYPE.DIRECTED);
+    org.junit.Assert.assertEquals(net.mooctest.Graph.TYPE.DIRECTED, graph.getType());
+}
+@org.junit.Test
+public void test2() {
+    net.mooctest.AStar<java.lang.Integer> aStar = new net.mooctest.AStar<java.lang.Integer>();
+    net.mooctest.Graph<java.lang.Integer> graph = new net.mooctest.Graph();
+    graph = new net.mooctest.Graph();
+    org.junit.Assert.assertEquals(net.mooctest.Graph.TYPE.UNDIRECTED, graph.getType());
+}
+@org.junit.Test
+public void test3() {
+    net.mooctest.Graph<java.lang.Integer> graph = new net.mooctest.Graph();
+    graph = new net.mooctest.Graph(net.mooctest.Graph.TYPE.DIRECTED);
+    org.junit.Assert.assertEquals(net.mooctest.Graph.TYPE.DIRECTED, graph.getType());
+}

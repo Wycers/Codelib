@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Project>
+    <totalNumberOfTestableClasses>2</totalNumberOfTestableClasses>
+    <cut>
+        <fullNameOfTargetClass>net.mooctest.Graph</fullNameOfTargetClass>
+        <fullNameOfTestSuite>net.mooctest.Graph_ESTest</fullNameOfTestSuite>
+        <generation>
+            <id>0</id>
+            <failed>false</failed>
+            <modified>true</modified>
+            <timeBudgetInSeconds>209</timeBudgetInSeconds>
+            <memoryInMB>2000</memoryInMB>
+            <std_err_CLIENT>/Users/wycer/Codelib/Software Testing/AStar/.evosuite/tmp_2019_11_02_08_17_35/logs/net.mooctest.Graph/std_err_CLIENT.log</std_err_CLIENT>
+            <std_out_CLIENT>/Users/wycer/Codelib/Software Testing/AStar/.evosuite/tmp_2019_11_02_08_17_35/logs/net.mooctest.Graph/std_out_CLIENT.log</std_out_CLIENT>
+            <std_err_MASTER>/Users/wycer/Codelib/Software Testing/AStar/.evosuite/tmp_2019_11_02_08_17_35/logs/net.mooctest.Graph/std_err_MASTER.log</std_err_MASTER>
+            <std_out_MASTER>/Users/wycer/Codelib/Software Testing/AStar/.evosuite/tmp_2019_11_02_08_17_35/logs/net.mooctest.Graph/std_out_MASTER.log</std_out_MASTER>
+            <suite>
+                <fullPathOfTestSuite>/Users/wycer/Codelib/Software Testing/AStar/.evosuite/tmp_2019_11_02_08_17_35/tests/net/mooctest/Graph_ESTest.java</fullPathOfTestSuite>
+                <numberOfTests>0</numberOfTests>
+                <totalNumberOfStatements>0</totalNumberOfStatements>
+                <totalEffortInSeconds>131</totalEffortInSeconds>
+                <coverage>
+                    <criterion>LineCoverage</criterion>
+                    <coverageValue>0.0</coverageValue>
+                    <coverageBitString>000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>BranchCoverage</criterion>
+                    <coverageValue>0.0</coverageValue>
+                    <coverageBitString>0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>ExceptionCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString></coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>WeakMutationScore</criterion>
+                    <coverageValue>0.0</coverageValue>
+                    <coverageBitString>0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>OutputCoverage</criterion>
+                    <coverageValue>0.0</coverageValue>
+                    <coverageBitString>0000000000000000000</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>MethodCoverage</criterion>
+                    <coverageValue>0.0</coverageValue>
+                    <coverageBitString>0000000000000000000000000000000000000000000000</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>MethodNoExceptionCoverage</criterion>
+                    <coverageValue>0.0</coverageValue>
+                    <coverageBitString>0000000000000000000000000000000000000000000000</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>CBranchCoverage</criterion>
+                    <coverageValue>0.0</coverageValue>
+                    <coverageBitString>0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</coverageBitString>
+                </coverage>
+            </suite>
+        </generation>
+    </cut>
+    <cut>
+        <fullNameOfTargetClass>net.mooctest.AStar</fullNameOfTargetClass>
+        <fullNameOfTestSuite>net.mooctest.AStar_ESTest</fullNameOfTestSuite>
+        <generation>
+            <id>0</id>
+            <failed>false</failed>
+            <modified>true</modified>
+            <timeBudgetInSeconds>150</timeBudgetInSeconds>
+            <memoryInMB>2000</memoryInMB>
+            <std_err_CLIENT>/Users/wycer/Codelib/Software Testing/AStar/.evosuite/tmp_2019_11_02_08_17_35/logs/net.mooctest.AStar/std_err_CLIENT.log</std_err_CLIENT>
+            <std_out_CLIENT>/Users/wycer/Codelib/Software Testing/AStar/.evosuite/tmp_2019_11_02_08_17_35/logs/net.mooctest.AStar/std_out_CLIENT.log</std_out_CLIENT>
+            <std_err_MASTER>/Users/wycer/Codelib/Software Testing/AStar/.evosuite/tmp_2019_11_02_08_17_35/logs/net.mooctest.AStar/std_err_MASTER.log</std_err_MASTER>
+            <std_out_MASTER>/Users/wycer/Codelib/Software Testing/AStar/.evosuite/tmp_2019_11_02_08_17_35/logs/net.mooctest.AStar/std_out_MASTER.log</std_out_MASTER>
+            <suite>
+                <fullPathOfTestSuite>/Users/wycer/Codelib/Software Testing/AStar/.evosuite/tmp_2019_11_02_08_17_35/tests/net/mooctest/AStar_ESTest.java</fullPathOfTestSuite>
+                <numberOfTests>0</numberOfTests>
+                <totalNumberOfStatements>0</totalNumberOfStatements>
+                <totalEffortInSeconds>144</totalEffortInSeconds>
+                <coverage>
+                    <criterion>LineCoverage</criterion>
+                    <coverageValue>0.0</coverageValue>
+                    <coverageBitString>000000000000000000000000000000000000000000000000000000000</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>BranchCoverage</criterion>
+                    <coverageValue>0.0</coverageValue>
+                    <coverageBitString>00000000000000000000000000000000000</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>ExceptionCoverage</criterion>
+                    <coverageValue>1.0</coverageValue>
+                    <coverageBitString></coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>WeakMutationScore</criterion>
+                    <coverageValue>0.0</coverageValue>
+                    <coverageBitString>0000000000000000000000000000000000000000000000000000000000000000000000</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>OutputCoverage</criterion>
+                    <coverageValue>0.0</coverageValue>
+                    <coverageBitString>000000000000</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>MethodCoverage</criterion>
+                    <coverageValue>0.0</coverageValue>
+                    <coverageBitString>0000</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>MethodNoExceptionCoverage</criterion>
+                    <coverageValue>0.0</coverageValue>
+                    <coverageBitString>0000</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>CBranchCoverage</criterion>
+                    <coverageValue>0.0</coverageValue>
+                    <coverageBitString>00000000000000000000000000000000000</coverageBitString>
+                </coverage>
+            </suite>
+        </generation>
+    </cut>
+</Project>

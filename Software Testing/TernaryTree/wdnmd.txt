@@ -1,0 +1,4 @@
+@org.junit.Test(timeout = 4000)
+public void test0() {
+    net.mooctest.TernaryTree<java.lang.Integer> ternaryTree = new net.mooctest.TernaryTree<java.lang.Integer>();
+}
