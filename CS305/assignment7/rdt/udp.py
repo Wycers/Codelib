@@ -10,6 +10,7 @@ class UDPsocket(socket):
         self.corruption_rate = corruption_rate
         self.delay_rate = delay_rate
         self.delay = delay
+        super().settimeout(0.5)
 
     def settimeout(self, value):
         self.timeout = value
