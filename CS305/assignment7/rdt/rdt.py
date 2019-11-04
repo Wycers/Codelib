@@ -1,12 +1,13 @@
 from udp import UDPsocket  # import provided class
 from enum import Enum, unique
 
+SYN = 0b0100
+FIN = 0b0010
+ACK = 0b0001
 
-@unique
-class datagram_type(Enum):
-    SYN = 0b0100
-    FIN = 0b0010
-    ACK = 0b0001
+class FSM(object):
+    def __init__(self):
+        pass
 
 
 class datagram(object):
@@ -18,16 +19,13 @@ class datagram(object):
 
     # For datagram type
     @property
-    def dtype(self):
-        return datagram_type(self._dtype)
+    def dtype(self) -> int:
+        return self._dtype
 
     @dtype.setter
-    def dtype(self, dtype):
-        if type(dtype) == datagram_type:
-            self._dtype = dtype.value.to_bytes(1, 'big')
-            self._set_header(0, self._dtype)
-        else:
-            raise ValueError("Dtype must be datagram_type")
+    def dtype(self, dtype: int):
+        self._dtype = dtype
+        self._set_header(0, self._dtype.to_bytes(1, 'big'))
 
     # For Seq
     @property
@@ -100,14 +98,14 @@ class datagram(object):
             self._decode(raw_data)
         else:
             self._header = bytes(15)
-            self._dtype = bytes(1)
+            self._dtype = 0
             self._seq = bytes(4)
             self._seq_ack = bytes(4)
             self._length = bytes(4)
             self._checksum = bytes(2)
             self._payload = b''
 
-    def _decode(self, raw_data):
+    def _decode(self, raw_data: bytes):
         if len(raw_data) < 15:
             raise ValueError("Invalid data!")
         self._header = raw_data[0:15]
@@ -127,62 +125,97 @@ class datagram(object):
 
     def __repr__(self):
         try:
-            res = "Type:\t{}\nSeq:\t{}\nSEQ_ACK:\t{}\nLENGTH:\t{}\nChecksum:\t{}".format(self.dtype, self.seq, self.seq_ack, self.length, self.checksum)
+            res = "Type:\t{}\nSeq:\t{}\nSEQ_ACK:\t{}\nLENGTH:\t{}\nChecksum:\t{}".format(
+                self.dtype, self.seq, self.seq_ack, self.length, self.checksum)
             return res
         except Exception as e:
+            print(e)
             return "Invalid"
 
+
 class socket(UDPsocket):
-    def __init__(self):
+    def __init__(self, ):
         super().__init__()
 
     def connect(self, sock):
         print('connect')
         # send syn;
-        data = datagram()
-        data.dtype = datagram_type.SYN
-        self.sendto(data(), sock)
+        req = datagram()
+        req.dtype = SYN
+        self.sendto(req(), sock)
 
         # receive syn, ack;
         data, addr = super().recvfrom(2048)
-        data = datagram(data)
-        print(data)
+        res = datagram(data)
+        if res.dtype == SYN + ACK and res.seq == 1:
+            # send ack
+            req = datagram()
+            req.dtype = ACK
+            self.sendto(req(), sock)
 
-        # send ack
-        # your code here
+            self.server = sock
+        else:
+            raise Exception("Failed to connect to server")
 
     def accept(self):
         while True:
             try:
+                # Recieve data
                 data, addr = self.recvfrom(2048)
+                # Data is SYN, response SYN + ACK
+                res = datagram(data)
+                if res.dtype & SYN:
+                    req = datagram()
+                    req.dtype = SYN + ACK
+                    req.seq = res.seq + 1
+                    self.sendto(req(), addr)
+                else:
+                    continue
+
+                # Data is ACK
+                data, addr = self.recvfrom(2048)
+                res = datagram(data)
+                if res.dtype & ACK:
+                    print('Success!')
+                    return socket(), addr
+                else:
+                    continue
+
             except Exception as e:
                 continue
 
-            dg = datagram(data)
-            print("==>", dg)
-            print(dg.dtype)
-            if dg.dtype == datagram_type.SYN:
-                res = datagram()
-                res.seq = dg.seq + 1
-                print(res)
-                self.sendto(res(), addr)
-                try:
-                    data, addr = self.recvfrom(2048)
-                    dg = datagram(data)
-                except Exception as e:
-                    print(e)
-                print(dg)
 
     def close(self):
         # send fin; receive ack; receive fin; send ack
         # your code here
         pass
 
-    def recv(self):
-        # your code here
-        pass
+    def recv(self, bufsize: int):
+        print('?')
+        while True:
+            print('wait data')
+            try:
+                data, addr = self.recvfrom(bufsize)
+                print(data)
+                # data = datagram()
+                # data.dtype = ACK
+                # self.sendto(data(), addr)
+                # return data
+            except Exception as e:
+                print(e)
+                continue
 
-    def send(self, content):
-
-        # your code here
-        pass
+    def send(self, content: bytes):
+        data = datagram()
+        data.payload = content
+        while True:
+            print(self.server)
+            self.sendto(data(), self.server)
+            print('sending', data())
+            try:
+                data, addr = self.recvfrom(2048)
+                print(data)
+                return
+            except Exception as e:
+                print(e)
+                continue
