@@ -1,5 +1,9 @@
-from udp import UDPsocket  # import provided class
+from udp import UDPsocket, timeout # import provided class
 from enum import Enum, unique
+import logging
+
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s')
 
 SYN = 0b0100
 FIN = 0b0010
@@ -123,13 +127,15 @@ class datagram(object):
     def __call__(self):
         return self._encode()
 
+    def __str__(self):
+        return self.__repr__()
+
     def __repr__(self):
         try:
-            res = "Type:\t{}\nSeq:\t{}\nSEQ_ACK:\t{}\nLENGTH:\t{}\nChecksum:\t{}".format(
-                self.dtype, self.seq, self.seq_ack, self.length, self.checksum)
+            res = "Type:\t{}\nSeq:\t{}\nSEQ_ACK:\t{}\nLENGTH:\t{}\nChecksum:\t{}\nPayload:\t{}".format(
+                self.dtype, self.seq, self.seq_ack, self.length, self.checksum, self.payload)
             return res
         except Exception as e:
-            print(e)
             return "Invalid"
 
 
@@ -138,33 +144,42 @@ class socket(UDPsocket):
         super().__init__()
 
     def connect(self, sock):
-        print('connect')
-        # send syn;
-        req = datagram()
-        req.dtype = SYN
-        self.sendto(req(), sock)
+        while True:
+            try:
+                # send syn;
+                req = datagram()
+                req.dtype = SYN
+                self.sendto(req(), sock)
+                logging.info("SYN sent")
 
-        # receive syn, ack;
-        data, addr = super().recvfrom(2048)
-        res = datagram(data)
-        if res.dtype == SYN + ACK and res.seq == 1:
-            # send ack
-            req = datagram()
-            req.dtype = ACK
-            self.sendto(req(), sock)
+                # receive syn, ack;
+                data, addr = self.recvfrom(2048)
+                res = datagram(data)
+                if res.dtype == SYN + ACK and res.seq == 1:
+                    logging.info('Recived %s' % res)
+                    # send ack
+                    req = datagram()
+                    req.dtype = ACK
+                    self.sendto(req(), sock)
 
-            self.server = sock
-        else:
-            raise Exception("Failed to connect to server")
+                    self.to = sock
+                    logging.info("Connected!")
+                    return
+                else:
+                    raise Exception("Failed to connect to server")
+            except Exception as e:
+                logging.error(e)
 
     def accept(self):
+        logging.info("Waiting for connection")
         while True:
             try:
                 # Recieve data
                 data, addr = self.recvfrom(2048)
-                # Data is SYN, response SYN + ACK
                 res = datagram(data)
                 if res.dtype & SYN:
+                    logging.info('Recieved SYN')
+                    logging.debug(res)
                     req = datagram()
                     req.dtype = SYN + ACK
                     req.seq = res.seq + 1
@@ -176,13 +191,15 @@ class socket(UDPsocket):
                 data, addr = self.recvfrom(2048)
                 res = datagram(data)
                 if res.dtype & ACK:
-                    print('Success!')
-                    return socket(), addr
+                    logging.info("Connected")
+                    self.to = addr
+                    return self, addr
                 else:
                     continue
-
+            except timeout as e:
+                logging.debug(e)
             except Exception as e:
-                continue
+                logging.error(e)
 
 
     def close(self):
@@ -191,31 +208,38 @@ class socket(UDPsocket):
         pass
 
     def recv(self, bufsize: int):
-        print('?')
         while True:
-            print('wait data')
             try:
+                logging.info("Waiting for data")
                 data, addr = self.recvfrom(bufsize)
-                print(data)
-                # data = datagram()
-                # data.dtype = ACK
-                # self.sendto(data(), addr)
-                # return data
+                logging.info("Data received")
+                req = datagram(data)
+                logging.info(req)
+
+                res = datagram()
+                res.dtype = ACK
+                self.sendto(res(), addr)
+                return req.payload
+            except timeout as e:
+                logging.debug(e)
             except Exception as e:
-                print(e)
-                continue
+                logging.error(e)
+
 
     def send(self, content: bytes):
         data = datagram()
         data.payload = content
         while True:
-            print(self.server)
-            self.sendto(data(), self.server)
-            print('sending', data())
             try:
+                logging.info("Trying to send %s" % content)
+                self.sendto(data(), self.to)
+
+                logging.info("Waining for ACK")
                 data, addr = self.recvfrom(2048)
                 print(data)
+
                 return
+            except timeout as e:
+                logging.debug(e)
             except Exception as e:
-                print(e)
-                continue
+                logging.error(e)
