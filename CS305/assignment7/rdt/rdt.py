@@ -9,9 +9,81 @@ SYN = 0b0100
 FIN = 0b0010
 ACK = 0b0001
 
+
+
+@unique
+class STATE(Enum):
+    OPENED = 0
+    LISTENING = 1
+    CONNECTING = 2
+    CONNECTED = 3
+    CLOSING = 4
+    CLOSED = 5
+
+@unique
+class EVENT(Enum):
+    bind = 0
+    listen = 1
+    accept = 2
+    connect_requested = 3
+    connect = 4
+    close_requested = 5
+    close = 6
+
 class FSM(object):
-    def __init__(self):
-        pass
+    def __init__(self, state=None):
+        self._current = None
+        if type(state) == STATE:
+            self._current = state
+        elif type(state) == int:
+            self._current = STATE(state)
+        elif state is None:
+            self._current = STATE.OPENED
+        else:
+            raise ValueError("Invalid state")
+    @property
+    def current(self):
+        return self._current
+
+    @current.setter
+    def current(self, current: STATE):
+        self._current = current
+        logging.info('Change From %s to %s', self._current, current)
+
+    def dispatch(self, event: str):
+        if self._current == STATE.OPENED:
+            if event == EVENT.bind:
+                self._current = STATE.LISTENING
+            elif event == EVENT.listen:
+                self._current = STATE.LISTENING
+            elif event == EVENT.connect:
+                self._current = STATE.CONNECTED
+            else:
+                raise ValueError("Invalid event")
+        elif self._current == STATE.LISTENING:
+            if event == EVENT.connect_requested:
+                self._current = STATE.CONNECTING
+            else:
+                raise ValueError("Invalid event")
+        elif self._current == STATE.CONNECTING:
+            if event == EVENT.accept:
+                self._current = STATE.CONNECTED
+            else:
+                raise ValueError("Invalid event")
+        elif self._current == STATE.CONNECTED:
+            if event == EVENT.close_requested:
+                self._current = STATE.CLOSING
+            elif event == EVENT.close:
+                self._current = STATE.CLOSED
+            else:
+                raise ValueError("Invalid event")
+        elif self._current == STATE.CLOSING:
+            if event == EVENT.close:
+                self._current = STATE.CLOSED
+            else:
+                raise ValueError("Invalid event")
+        else:
+            logging.warning("Nothing to do")
 
 
 class datagram(object):
@@ -69,7 +141,7 @@ class datagram(object):
     # For CHECKSUM
     @property
     def checksum(self):
-        tmp = self._header + self._payload
+        tmp = self._header[0:13] + b'\x00\x00' + self._payload
         sum = 0
         for byte in tmp:
             sum += byte
@@ -82,7 +154,7 @@ class datagram(object):
 
     @property
     def valid(self):
-        pass
+        return self.checksum == int.from_bytes(self._checksum, 'big')
 
     # For PAYLOAD
     @property
@@ -122,6 +194,7 @@ class datagram(object):
         self._payload = raw_data[15:]
 
     def _encode(self):
+        self._set_header(13, self.checksum.to_bytes(2, 'big'))
         return self._header + self._payload
 
     def __call__(self):
@@ -142,41 +215,50 @@ class datagram(object):
 class socket(UDPsocket):
     def __init__(self, ):
         super().__init__()
+        self.state = FSM(STATE.OPENED)
 
-    def connect(self, sock):
+    def bind(self, addr):
+        self.state.dispatch(EVENT.bind)
+        super().bind(addr)
+
+    def connect(self, addr):
         while True:
             try:
                 # send syn;
                 req = datagram()
                 req.dtype = SYN
-                self.sendto(req(), sock)
+                self.sendto(req(), addr)
                 logging.info("SYN sent")
 
                 # receive syn, ack;
-                data, addr = self.recvfrom(2048)
-                res = datagram(data)
+                res, addr = self.recvfrom(2048)
                 if res.dtype == SYN + ACK and res.seq == 1:
                     logging.info('Recived %s' % res)
                     # send ack
                     req = datagram()
                     req.dtype = ACK
-                    self.sendto(req(), sock)
+                    self.sendto(req(), addr)
 
-                    self.to = sock
+                    self.to = addr
                     logging.info("Connected!")
-                    return
+                    break
                 else:
                     raise Exception("Failed to connect to server")
             except Exception as e:
                 logging.error(e)
+        self.state.dispatch(EVENT.connect)
 
     def accept(self):
+        if self.state.current == STATE.CLOSED:
+            raise Exception("Server is closed")
+        if self.state.current != STATE.LISTENING:
+            return
         logging.info("Waiting for connection")
+        self.state.dispatch(EVENT.connect_requested)
         while True:
             try:
                 # Recieve data
-                data, addr = self.recvfrom(2048)
-                res = datagram(data)
+                res, addr = self.recvfrom(2048)
                 if res.dtype & SYN:
                     logging.info('Recieved SYN')
                     logging.debug(res)
@@ -188,12 +270,10 @@ class socket(UDPsocket):
                     continue
 
                 # Data is ACK
-                data, addr = self.recvfrom(2048)
-                res = datagram(data)
+                res, addr = self.recvfrom(2048)
                 if res.dtype & ACK:
-                    logging.info("Connected")
                     self.to = addr
-                    return self, addr
+                    break
                 else:
                     continue
             except timeout as e:
@@ -201,19 +281,37 @@ class socket(UDPsocket):
             except Exception as e:
                 logging.error(e)
 
+        logging.info("Connected")
+        self.state.dispatch(EVENT.accept)
+        return self, self.to
 
     def close(self):
+        if self.state.current != STATE.CONNECTED:
+            return
         # send fin; receive ack; receive fin; send ack
-        # your code here
-        pass
+        req = datagram()
+        req.dtype = FIN
+        self.sendto(req(), self.to)
+
+    def close_requested(self):
+        logging.info("close")
+
+
+    def recvfrom(self, bufsize):
+        while True:
+            data, addr = super().recvfrom(bufsize)
+            data = datagram(data)
+            if data.valid:
+                if data.dtype & FIN:
+                    self.close_requested()
+                return data, addr
 
     def recv(self, bufsize: int):
         while True:
             try:
                 logging.info("Waiting for data")
-                data, addr = self.recvfrom(bufsize)
+                req, addr = self.recvfrom(bufsize)
                 logging.info("Data received")
-                req = datagram(data)
                 logging.info(req)
 
                 res = datagram()
@@ -236,8 +334,6 @@ class socket(UDPsocket):
 
                 logging.info("Waining for ACK")
                 data, addr = self.recvfrom(2048)
-                print(data)
-
                 return
             except timeout as e:
                 logging.debug(e)
