@@ -3,13 +3,17 @@ package observer2;
 import java.awt.*;
 
 public abstract class Ball {
+    private MainPanel panel;
     private Color color;
     private int x, y;
     private int xSpeed, ySpeed;
     private int ballSize;
     private boolean visible;
 
-    public Ball(Color color, int xSpeed, int ySpeed, int ballSize) {
+    public Ball(MainPanel panel, Color color, int xSpeed, int ySpeed, int ballSize) {
+        this.panel = panel;
+        this.panel.registerObserver(this);
+
         this.color = color;
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
@@ -106,5 +110,7 @@ public abstract class Ball {
 
         return (diffX * diffX) + (diffY * diffY) < dis * dis;
     }
+
+    public abstract void update(char keyChar);
 }
 

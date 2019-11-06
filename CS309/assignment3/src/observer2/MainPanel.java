@@ -8,34 +8,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainPanel extends JPanel implements KeyListener {
-
-    private class RedBall extends Ball {
-        public RedBall(Color color, int xSpeed, int ySpeed, int ballSize) {
-            super(color, xSpeed, ySpeed, ballSize);
-        }
-    }
-    private class BlueBall extends Ball {
-
-        public BlueBall(Color color, int xSpeed, int ySpeed, int ballSize) {
-            super(color, xSpeed, ySpeed, ballSize);
-        }
-    }
-
     private List<Ball> paintingBallList = new ArrayList<>();
+
+    public void registerObserver(Ball ball) {
+        paintingBallList.add(ball);
+    }
+
+    public void notifyObservers(char keyChar) {
+        for (Ball ball : paintingBallList) {
+            ball.update(keyChar);
+        }
+    }
+
     private boolean start = false;
     private int score = 0;
-    private Ball redBall;
-    private Ball greenBall;
-    private Ball blueBall;
-
 
     public MainPanel() {
-        redBall = new Ball(Color.RED, 3, 10, 50);
-        greenBall = new Ball(Color.GREEN, 5, 7, 100);
-        blueBall = new Ball(Color.BLUE, 8, 10, 80);
-        paintingBallList.add(redBall);
-        paintingBallList.add(greenBall);
-        paintingBallList.add(blueBall);
+        new RedBall(this, Color.RED, 3, 10, 50);
+        new GreenBall(this, Color.GREEN, 5, 7, 100);
+        new BlueBall(this, Color.BLUE, 8, 10, 80);
 
         // WHAT GOES HERE?
         // You need to make it possible for the app to get the keyboard values.
@@ -107,29 +98,7 @@ public class MainPanel extends JPanel implements KeyListener {
             start = !start;
         }
 
-        if (keyChar == 'a' || keyChar == 'd') {
-            int temp = redBall.getXSpeed();
-            redBall.setXSpeed(redBall.getYSpeed());
-            redBall.setYSpeed(temp);
-        }
-
-        switch (keyChar) {
-            case 'a':
-                greenBall.setXSpeed(Math.abs(greenBall.getXSpeed()) * -1);
-                break;
-            case 'd':
-                greenBall.setXSpeed(Math.abs(greenBall.getXSpeed()));
-                break;
-            case 'w':
-                greenBall.setYSpeed(Math.abs(greenBall.getYSpeed()) * -1);
-                break;
-            case 's':
-                greenBall.setYSpeed(Math.abs(greenBall.getYSpeed()));
-                break;
-        }
-
-        blueBall.setXSpeed(-1 * blueBall.getXSpeed());
-        blueBall.setYSpeed(-1 * blueBall.getYSpeed());
+        notifyObservers(keyChar);
     }
 
     @Override
