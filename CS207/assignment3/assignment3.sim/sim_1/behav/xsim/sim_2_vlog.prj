@@ -1,0 +1,10 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../assignment3.srcs/sources_1/new/multiplexer74151.v" \
+"../../../../assignment3.srcs/sim_1/new/sim_2.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

@@ -1,0 +1,17 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../lab9_mux.ip_user_files/bd/mux/sim/mux.v" \
+"../../../../lab9_mux.ip_user_files/bd/mux/ipshared/2bc0/not_gate.v" \
+"../../../../lab9_mux.ip_user_files/bd/mux/ip/mux_NOT_GATE_0_0_1/sim/mux_NOT_GATE_0_0.v" \
+"../../../../lab9_mux.ip_user_files/bd/mux/ipshared/aa0d/and_gate.v" \
+"../../../../lab9_mux.ip_user_files/bd/mux/ip/mux_AND_GATE_0_1_2/sim/mux_AND_GATE_0_1.v" \
+"../../../../lab9_mux.ip_user_files/bd/mux/ip/mux_AND_GATE_1_0_1/sim/mux_AND_GATE_1_0.v" \
+"../../../../lab9_mux.ip_user_files/bd/mux/ipshared/dd31/nor_gate.v" \
+"../../../../lab9_mux.ip_user_files/bd/mux/ip/mux_OR_GATE_0_0/sim/mux_OR_GATE_0_0.v" \
+"../../../../lab9_mux.srcs/sim_1/new/mux_sim.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

@@ -1,0 +1,17 @@
+verilog xil_defaultlib  \
+"../../../bd/design_1/ipshared/ea73/orgate.v" \
+"../../../bd/design_1/ip/design_1_orgate_0_0/sim/design_1_orgate_0_0.v" \
+"../../../bd/design_1/ip/design_1_orgate_2_0/sim/design_1_orgate_2_0.v" \
+"../../../bd/design_1/ipshared/cf47/andgate.v" \
+"../../../bd/design_1/ip/design_1_andgate_0_0/sim/design_1_andgate_0_0.v" \
+"../../../bd/design_1/ipshared/61b8/notgate.v" \
+"../../../bd/design_1/ip/design_1_notgate_0_0/sim/design_1_notgate_0_0.v" \
+"../../../bd/design_1/ip/design_1_notgate_0_1/sim/design_1_notgate_0_1.v" \
+"../../../bd/design_1/ip/design_1_andgate_0_1/sim/design_1_andgate_0_1.v" \
+"../../../bd/design_1/ip/design_1_notgate_0_2/sim/design_1_notgate_0_2.v" \
+"../../../bd/design_1/ip/design_1_notgate_0_3/sim/design_1_notgate_0_3.v" \
+"../../../bd/design_1/sim/design_1.v" \
+
+verilog xil_defaultlib "glbl.v"
+
+nosort

@@ -1,0 +1,10 @@
+# compile verilog/system verilog design source files
+sv xil_defaultlib  --include "D:/Xilinx/Vivado/2017.4/data/xilinx_vip/include" \
+"../../../../lab10_decoder.srcs/sources_1/new/idecode32.v" \
+"../../../../lab10_decoder.srcs/sim_1/new/idecode32_sim.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="impl_1" LaunchPart="xc7a100tfgg484-1" LaunchTime="1538480325">
+  <File Type="PWROPT-DCP" Name="demorgan_sd_pwropt.dcp"/>
+  <File Type="ROUTE-PWR" Name="demorgan_sd_power_routed.rpt"/>
+  <File Type="PA-TCL" Name="demorgan_sd.tcl"/>
+  <File Type="ROUTE-PWR-SUM" Name="demorgan_sd_power_summary_routed.pb"/>
+  <File Type="REPORTS-TCL" Name="demorgan_sd_reports.tcl"/>
+  <File Type="BG-DRC" Name="demorgan_sd.drc"/>
+  <File Type="OPT-METHODOLOGY-DRC" Name="demorgan_sd_methodology_drc_opted.rpt"/>
+  <File Type="INIT-TIMING" Name="demorgan_sd_timing_summary_init.rpt"/>
+  <File Type="OPT-HWDEF" Name="demorgan_sd.hwdef"/>
+  <File Type="OPT-DCP" Name="demorgan_sd_opt.dcp"/>
+  <File Type="OPT-DRC" Name="demorgan_sd_drc_opted.rpt"/>
+  <File Type="OPT-TIMING" Name="demorgan_sd_timing_summary_opted.rpt"/>
+  <File Type="PWROPT-DRC" Name="demorgan_sd_drc_pwropted.rpt"/>
+  <File Type="PWROPT-TIMING" Name="demorgan_sd_timing_summary_pwropted.rpt"/>
+  <File Type="PLACE-DCP" Name="demorgan_sd_placed.dcp"/>
+  <File Type="PLACE-IO" Name="demorgan_sd_io_placed.rpt"/>
+  <File Type="PLACE-CLK" Name="demorgan_sd_clock_utilization_placed.rpt"/>
+  <File Type="PLACE-UTIL" Name="demorgan_sd_utilization_placed.rpt"/>
+  <File Type="PLACE-UTIL-PB" Name="demorgan_sd_utilization_placed.pb"/>
+  <File Type="PLACE-CTRL" Name="demorgan_sd_control_sets_placed.rpt"/>
+  <File Type="PLACE-SIMILARITY" Name="demorgan_sd_incremental_reuse_placed.rpt"/>
+  <File Type="PLACE-PRE-SIMILARITY" Name="demorgan_sd_incremental_reuse_pre_placed.rpt"/>
+  <File Type="PLACE-TIMING" Name="demorgan_sd_timing_summary_placed.rpt"/>
+  <File Type="POSTPLACE-PWROPT-DCP" Name="demorgan_sd_postplace_pwropt.dcp"/>
+  <File Type="POSTPLACE-PWROPT-TIMING" Name="demorgan_sd_timing_summary_postplace_pwropted.rpt"/>
+  <File Type="PHYSOPT-DCP" Name="demorgan_sd_physopt.dcp"/>
+  <File Type="PHYSOPT-DRC" Name="demorgan_sd_drc_physopted.rpt"/>
+  <File Type="BG-BIT" Name="demorgan_sd.bit"/>
+  <File Type="PHYSOPT-TIMING" Name="demorgan_sd_timing_summary_physopted.rpt"/>
+  <File Type="ROUTE-ERROR-DCP" Name="demorgan_sd_routed_error.dcp"/>
+  <File Type="ROUTE-DCP" Name="demorgan_sd_routed.dcp"/>
+  <File Type="ROUTE-BLACKBOX-DCP" Name="demorgan_sd_routed_bb.dcp"/>
+  <File Type="ROUTE-DRC" Name="demorgan_sd_drc_routed.rpt"/>
+  <File Type="ROUTE-DRC-PB" Name="demorgan_sd_drc_routed.pb"/>
+  <File Type="BITSTR-MSK" Name="demorgan_sd.msk"/>
+  <File Type="ROUTE-DRC-RPX" Name="demorgan_sd_drc_routed.rpx"/>
+  <File Type="BG-BGN" Name="demorgan_sd.bgn"/>
+  <File Type="ROUTE-METHODOLOGY-DRC" Name="demorgan_sd_methodology_drc_routed.rpt"/>
+  <File Type="BITSTR-RBT" Name="demorgan_sd.rbt"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="demorgan_sd_methodology_drc_routed.rpx"/>
+  <File Type="BG-BIN" Name="demorgan_sd.bin"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="demorgan_sd_methodology_drc_routed.pb"/>
+  <File Type="ROUTE-PWR-RPX" Name="demorgan_sd_power_routed.rpx"/>
+  <File Type="ROUTE-STATUS" Name="demorgan_sd_route_status.rpt"/>
+  <File Type="ROUTE-STATUS-PB" Name="demorgan_sd_route_status.pb"/>
+  <File Type="ROUTE-TIMINGSUMMARY" Name="demorgan_sd_timing_summary_routed.rpt"/>
+  <File Type="ROUTE-TIMING-PB" Name="demorgan_sd_timing_summary_routed.pb"/>
+  <File Type="ROUTE-TIMING-RPX" Name="demorgan_sd_timing_summary_routed.rpx"/>
+  <File Type="ROUTE-SIMILARITY" Name="demorgan_sd_incremental_reuse_routed.rpt"/>
+  <File Type="RDI-RDI" Name="demorgan_sd.vdi"/>
+  <File Type="ROUTE-CLK" Name="demorgan_sd_clock_utilization_routed.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-DCP" Name="demorgan_sd_postroute_physopt.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-BLACKBOX-DCP" Name="demorgan_sd_postroute_physopt_bb.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING" Name="demorgan_sd_timing_summary_postroute_physopted.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-PB" Name="demorgan_sd_timing_summary_postroute_physopted.pb"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-RPX" Name="demorgan_sd_timing_summary_postroute_physopted.rpx"/>
+  <File Type="BITSTR-NKY" Name="demorgan_sd.nky"/>
+  <File Type="BITSTR-BMM" Name="demorgan_sd_bd.bmm"/>
+  <File Type="BITSTR-MMI" Name="demorgan_sd.mmi"/>
+  <File Type="BITSTR-LTX" Name="debug_nets.ltx"/>
+  <File Type="BITSTR-LTX" Name="demorgan_sd.ltx"/>
+  <File Type="BITSTR-SYSDEF" Name="demorgan_sd.sysdef"/>
+  <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
+    <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/new/demorgan_sd.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/demorgan_df.v">
+      <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/bd/design_1/design_1.bd">
+      <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/bd/design_1/hdl/design_1_wrapper.v">
+      <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="DesignMode" Val="RTL"/>
+      <Option Name="TopModule" Val="demorgan_sd"/>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
+    <Filter Type="Constrs"/>
+    <File Path="$PSRCDIR/constrs_1/new/assignment2.xdc">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="TargetConstrsFile" Val="$PSRCDIR/constrs_1/new/assignment2.xdc"/>
+      <Option Name="ConstrsType" Val="XDC"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2017">
+      <Desc>Default settings for Implementation.</Desc>
+    </StratHandle>
+    <Step Id="init_design"/>
+    <Step Id="opt_design"/>
+    <Step Id="power_opt_design"/>
+    <Step Id="place_design"/>
+    <Step Id="post_place_power_opt_design"/>
+    <Step Id="phys_opt_design"/>
+    <Step Id="route_design"/>
+    <Step Id="post_route_phys_opt_design"/>
+    <Step Id="write_bitstream"/>
+  </Strategy>
+  <BlockFileSet Type="BlockSrcs" Name="notgate_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="orgate_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="andgate_0"/>
+</GenRun>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="cpu_sim_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="cpu_sim" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="565295690fs"></ZoomEndTime>
+      <Cursor1Time time="356144000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="199"></NameColumnWidth>
+      <ValueColumnWidth column_width="68"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="15" />
+   <wvobject fp_name="/cpu_sim/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_sim/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_sim/switch_signal" type="array">
+      <obj_property name="ElementShortName">switch_signal[23:0]</obj_property>
+      <obj_property name="ObjectShortName">switch_signal[23:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_sim/led_out" type="array">
+      <obj_property name="ElementShortName">led_out[23:0]</obj_property>
+      <obj_property name="ObjectShortName">led_out[23:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_sim/c/PC" type="array">
+      <obj_property name="ElementShortName">PC[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PC[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_sim/c/Instruction" type="array">
+      <obj_property name="ElementShortName">Instruction[31:0]</obj_property>
+      <obj_property name="ObjectShortName">Instruction[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_sim/c/Branch" type="logic">
+      <obj_property name="ElementShortName">Branch</obj_property>
+      <obj_property name="ObjectShortName">Branch</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_sim/c/nBranch" type="logic">
+      <obj_property name="ElementShortName">nBranch</obj_property>
+      <obj_property name="ObjectShortName">nBranch</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_sim/c/Jmp" type="logic">
+      <obj_property name="ElementShortName">Jmp</obj_property>
+      <obj_property name="ObjectShortName">Jmp</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_sim/c/Jal" type="logic">
+      <obj_property name="ElementShortName">Jal</obj_property>
+      <obj_property name="ObjectShortName">Jal</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_sim/c/Jrn" type="logic">
+      <obj_property name="ElementShortName">Jrn</obj_property>
+      <obj_property name="ObjectShortName">Jrn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_sim/c/Zero" type="logic">
+      <obj_property name="ElementShortName">Zero</obj_property>
+      <obj_property name="ObjectShortName">Zero</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_sim/c/u3/Lw" type="logic">
+      <obj_property name="ElementShortName">Lw</obj_property>
+      <obj_property name="ObjectShortName">Lw</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_sim/c/u3/Sw" type="logic">
+      <obj_property name="ElementShortName">Sw</obj_property>
+      <obj_property name="ObjectShortName">Sw</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_sim/c/register" type="array">
+      <obj_property name="ElementShortName">register[0:31][31:0]</obj_property>
+      <obj_property name="ObjectShortName">register[0:31][31:0]</obj_property>
+   </wvobject>
+</wave_config>

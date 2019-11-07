@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<bd:repository xmlns:bd="http://www.xilinx.com/bd" bd:BoundaryCRC="0x9DB3922A9DB3922A" bd:device="xc7a100tfgg484-1" bd:isValidated="true" bd:synthFlowMode="Hierarchical" bd:tool_version="2017.4" bd:top="design_1" bd:version="1.00.a">
+
+  <spirit:component xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009">
+    <spirit:vendor>xilinx.com</spirit:vendor>
+    <spirit:library>BlockDiagram</spirit:library>
+    <spirit:name>design_1</spirit:name>
+    <spirit:version>1.00.a</spirit:version>
+    <spirit:parameters>
+      <spirit:parameter>
+        <spirit:name>isTop</spirit:name>
+        <spirit:value spirit:format="bool" spirit:resolve="immediate">true</spirit:value>
+      </spirit:parameter>
+    </spirit:parameters>
+    <spirit:model>
+      <spirit:views>
+        <spirit:view>
+          <spirit:name>BlockDiagram</spirit:name>
+          <spirit:envIdentifier>:vivado.xilinx.com:</spirit:envIdentifier>
+          <spirit:hierarchyRef spirit:library="BlockDiagram" spirit:name="design_1_imp" spirit:vendor="xilinx.com" spirit:version="1.00.a"/>
+        </spirit:view>
+      </spirit:views>
+      <spirit:ports>
+        <spirit:port>
+          <spirit:name>a</spirit:name>
+          <spirit:wire>
+            <spirit:direction>in</spirit:direction>
+          </spirit:wire>
+        </spirit:port>
+        <spirit:port>
+          <spirit:name>b</spirit:name>
+          <spirit:wire>
+            <spirit:direction>in</spirit:direction>
+          </spirit:wire>
+        </spirit:port>
+        <spirit:port>
+          <spirit:name>q</spirit:name>
+          <spirit:wire>
+            <spirit:direction>out</spirit:direction>
+            <spirit:vector>
+              <spirit:left>0</spirit:left>
+              <spirit:right>0</spirit:right>
+            </spirit:vector>
+          </spirit:wire>
+        </spirit:port>
+        <spirit:port>
+          <spirit:name>sel</spirit:name>
+          <spirit:wire>
+            <spirit:direction>in</spirit:direction>
+          </spirit:wire>
+        </spirit:port>
+      </spirit:ports>
+    </spirit:model>
+  </spirit:component>
+
+  <spirit:design xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009">
+    <spirit:vendor>xilinx.com</spirit:vendor>
+    <spirit:library>BlockDiagram</spirit:library>
+    <spirit:name>design_1_imp</spirit:name>
+    <spirit:version>1.00.a</spirit:version>
+    <spirit:componentInstances>
+      <spirit:componentInstance>
+        <spirit:instanceName>AND_GATE_0</spirit:instanceName>
+        <spirit:componentRef spirit:library="GATES" spirit:name="AND_GATE" spirit:vendor="WYCER" spirit:version="1.0"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_AND_GATE_0_2</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="WIDTH">1</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>NOT_GATE_0</spirit:instanceName>
+        <spirit:componentRef spirit:library="GATES" spirit:name="NOT_GATE" spirit:vendor="WYCER" spirit:version="1.0"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_NOT_GATE_0_1</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="WIDTH">1</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>AND_GATE_1</spirit:instanceName>
+        <spirit:componentRef spirit:library="GATES" spirit:name="AND_GATE" spirit:vendor="WYCER" spirit:version="1.0"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_AND_GATE_1_0</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="WIDTH">1</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>OR_GATE_0</spirit:instanceName>
+        <spirit:componentRef spirit:library="GATES" spirit:name="OR_GATE" spirit:vendor="WYCER" spirit:version="1.0"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_OR_GATE_0_1</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="WIDTH">1</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
+    </spirit:componentInstances>
+    <spirit:adHocConnections>
+      <spirit:adHocConnection>
+        <spirit:name>b_1</spirit:name>
+        <spirit:externalPortReference spirit:portRef="b"/>
+        <spirit:internalPortReference spirit:componentRef="AND_GATE_0" spirit:portRef="b"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>NOT_GATE_0_q</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="NOT_GATE_0" spirit:portRef="q"/>
+        <spirit:internalPortReference spirit:componentRef="AND_GATE_1" spirit:portRef="b"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>a_1</spirit:name>
+        <spirit:externalPortReference spirit:portRef="a"/>
+        <spirit:internalPortReference spirit:componentRef="AND_GATE_1" spirit:portRef="a"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>OR_GATE_0_q</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="OR_GATE_0" spirit:portRef="q"/>
+        <spirit:externalPortReference spirit:portRef="q"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>sel_1</spirit:name>
+        <spirit:externalPortReference spirit:portRef="sel"/>
+        <spirit:internalPortReference spirit:componentRef="NOT_GATE_0" spirit:portRef="a"/>
+        <spirit:internalPortReference spirit:componentRef="AND_GATE_0" spirit:portRef="a"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>AND_GATE_1_q</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="AND_GATE_1" spirit:portRef="q"/>
+        <spirit:internalPortReference spirit:componentRef="OR_GATE_0" spirit:portRef="a"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>AND_GATE_0_q</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="AND_GATE_0" spirit:portRef="q"/>
+        <spirit:internalPortReference spirit:componentRef="OR_GATE_0" spirit:portRef="b"/>
+      </spirit:adHocConnection>
+    </spirit:adHocConnections>
+  </spirit:design>
+
+</bd:repository>

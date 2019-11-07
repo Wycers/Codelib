@@ -1,0 +1,17 @@
+#-----------------------------------------------------------
+# Vivado v2017.4 (64-bit)
+# SW Build 2086221 on Fri Dec 15 20:55:39 MST 2017
+# IP Build 2085800 on Fri Dec 15 22:25:07 MST 2017
+# Start of session at: Tue May 21 08:43:39 2019
+# Process ID: 287420
+# Current directory: D:/Desktop/lab13
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent265044 D:\Desktop\lab13\lab13.xpr
+# Log file: D:/Desktop/lab13/vivado.log
+# Journal file: D:/Desktop/lab13\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project D:/Desktop/lab13/lab13.xpr
+update_compile_order -fileset sources_1
+launch_simulation
+source fuck_sim.tcl
+close_sim

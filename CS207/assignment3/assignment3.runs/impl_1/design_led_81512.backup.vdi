@@ -1,0 +1,463 @@
+#-----------------------------------------------------------
+# Vivado v2017.4 (64-bit)
+# SW Build 2086221 on Fri Dec 15 20:55:39 MST 2017
+# IP Build 2085800 on Fri Dec 15 22:25:07 MST 2017
+# Start of session at: Tue Nov 20 02:02:28 2018
+# Process ID: 81512
+# Current directory: D:/Projects/vivado/assignment3/assignment3.runs/impl_1
+# Command line: vivado.exe -log design_led.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source design_led.tcl -notrace
+# Log file: D:/Projects/vivado/assignment3/assignment3.runs/impl_1/design_led.vdi
+# Journal file: D:/Projects/vivado/assignment3/assignment3.runs/impl_1\vivado.jou
+#-----------------------------------------------------------
+source design_led.tcl -notrace
+Command: link_design -top design_led -part xc7a100tfgg484-1
+Design is defaulting to srcset: sources_1
+Design is defaulting to constrset: constrs_1
+INFO: [Netlist 29-17] Analyzing 16 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2017.4
+INFO: [Device 21-403] Loading part xc7a100tfgg484-1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Parsing XDC File [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc]
+WARNING: [Vivado 12-584] No ports matched 'out[7]'. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:17]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:17]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'out[5]'. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:18]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:18]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'oout[4]'. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:19]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:19]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'out[3]'. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:20]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:20]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'out[2]'. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:21]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:21]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'out[1]'. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:22]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:22]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'out[0]'. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:23]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:23]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'out[0]'. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:41]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:41]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'out[1]'. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:42]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:42]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'out[2]'. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:43]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:43]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'out[3]'. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:44]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:44]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'out[4]'. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:45]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:45]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'out[5]'. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:46]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:46]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'out[6]'. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:47]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:47]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'out[7]'. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:48]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:48]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'd'. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:50]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:50]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 's0'. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:51]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:51]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 's1'. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:52]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:52]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 's2'. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:53]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:53]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'Y'. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:54]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:54]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'd'. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:55]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:55]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 's0'. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:56]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:56]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 's1'. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:57]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:57]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 's2'. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:58]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:58]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'Y'. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:59]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc:59]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+Finished Parsing XDC File [D:/Projects/vivado/assignment3/assignment3.srcs/constrs_1/new/constraint.xdc]
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+7 Infos, 25 Warnings, 25 Critical Warnings and 0 Errors encountered.
+link_design completed successfully
+link_design: Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 556.539 ; gain = 323.090
+Command: opt_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
+Running DRC as a precondition to command opt_design
+
+Starting DRC Task
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Project 1-461] DRC finished with 0 Errors
+INFO: [Project 1-462] Please refer to the DRC report (report_drc) for more information.
+
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.439 . Memory (MB): peak = 570.656 ; gain = 14.117
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+
+Starting Logic Optimization Task
+
+Phase 1 Retarget
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Opt 31-49] Retargeted 0 cell(s).
+Phase 1 Retarget | Checksum: 19334c3af
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 1120.441 ; gain = 0.000
+INFO: [Opt 31-389] Phase Retarget created 0 cells and removed 0 cells
+
+Phase 2 Constant propagation
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Phase 2 Constant propagation | Checksum: 19334c3af
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 1120.441 ; gain = 0.000
+INFO: [Opt 31-389] Phase Constant propagation created 0 cells and removed 0 cells
+
+Phase 3 Sweep
+Phase 3 Sweep | Checksum: 19334c3af
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.009 . Memory (MB): peak = 1120.441 ; gain = 0.000
+INFO: [Opt 31-389] Phase Sweep created 0 cells and removed 0 cells
+
+Phase 4 BUFG optimization
+Phase 4 BUFG optimization | Checksum: 19334c3af
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.011 . Memory (MB): peak = 1120.441 ; gain = 0.000
+INFO: [Opt 31-389] Phase BUFG optimization created 0 cells and removed 0 cells
+
+Phase 5 Shift Register Optimization
+Phase 5 Shift Register Optimization | Checksum: 19334c3af
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.012 . Memory (MB): peak = 1120.441 ; gain = 0.000
+INFO: [Opt 31-389] Phase Shift Register Optimization created 0 cells and removed 0 cells
+
+Starting Connectivity Check Task
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1120.441 ; gain = 0.000
+Ending Logic Optimization Task | Checksum: 19334c3af
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.013 . Memory (MB): peak = 1120.441 ; gain = 0.000
+
+Starting Power Optimization Task
+INFO: [Pwropt 34-132] Skipping clock gating for clocks with a period < 2.00 ns.
+Ending Power Optimization Task | Checksum: 19334c3af
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 1120.441 ; gain = 0.000
+INFO: [Common 17-83] Releasing license: Implementation
+22 Infos, 25 Warnings, 25 Critical Warnings and 0 Errors encountered.
+opt_design completed successfully
+opt_design: Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 1120.441 ; gain = 563.902
+Writing placer database...
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.033 . Memory (MB): peak = 1120.441 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'D:/Projects/vivado/assignment3/assignment3.runs/impl_1/design_led_opt.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_drc -file design_led_drc_opted.rpt -pb design_led_drc_opted.pb -rpx design_led_drc_opted.rpx
+Command: report_drc -file design_led_drc_opted.rpt -pb design_led_drc_opted.pb -rpx design_led_drc_opted.rpx
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'D:/Xilinx/Vivado/2017.4/data/ip'.
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Coretcl 2-168] The results of DRC are in file D:/Projects/vivado/assignment3/assignment3.runs/impl_1/design_led_drc_opted.rpt.
+report_drc completed successfully
+INFO: [Chipscope 16-241] No debug cores found in the current design.
+Before running the implement_debug_core command, either use the Set Up Debug wizard (GUI mode)
+or use the create_debug_core and connect_debug_core Tcl commands to insert debug cores into the design.
+Command: place_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+Running DRC as a precondition to command place_design
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+
+Starting Placer Task
+INFO: [Place 30-611] Multithreading enabled for place_design using a maximum of 2 CPUs
+
+Phase 1 Placer Initialization
+
+Phase 1.1 Placer Initialization Netlist Sorting
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1120.441 ; gain = 0.000
+Phase 1.1 Placer Initialization Netlist Sorting | Checksum: 9414b9a3
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1120.441 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1120.441 ; gain = 0.000
+
+Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device | Checksum: cabd2056
+
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.792 . Memory (MB): peak = 1120.441 ; gain = 0.000
+
+Phase 1.3 Build Placer Netlist Model
+Phase 1.3 Build Placer Netlist Model | Checksum: 12c459338
+
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.827 . Memory (MB): peak = 1120.441 ; gain = 0.000
+
+Phase 1.4 Constrain Clocks/Macros
+Phase 1.4 Constrain Clocks/Macros | Checksum: 12c459338
+
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.829 . Memory (MB): peak = 1120.441 ; gain = 0.000
+Phase 1 Placer Initialization | Checksum: 12c459338
+
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.830 . Memory (MB): peak = 1120.441 ; gain = 0.000
+
+Phase 2 Global Placement
+Phase 2 Global Placement | Checksum: 1b54c447e
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 1120.441 ; gain = 0.000
+
+Phase 3 Detail Placement
+
+Phase 3.1 Commit Multi Column Macros
+Phase 3.1 Commit Multi Column Macros | Checksum: 1b54c447e
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 1120.441 ; gain = 0.000
+
+Phase 3.2 Commit Most Macros & LUTRAMs
+Phase 3.2 Commit Most Macros & LUTRAMs | Checksum: 1b948c35b
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 1120.441 ; gain = 0.000
+
+Phase 3.3 Area Swap Optimization
+Phase 3.3 Area Swap Optimization | Checksum: 16256f8fd
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 1120.441 ; gain = 0.000
+
+Phase 3.4 Pipeline Register Optimization
+Phase 3.4 Pipeline Register Optimization | Checksum: 16256f8fd
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 1120.441 ; gain = 0.000
+
+Phase 3.5 Small Shape Detail Placement
+Phase 3.5 Small Shape Detail Placement | Checksum: 1c9e51380
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 1120.441 ; gain = 0.000
+
+Phase 3.6 Re-assign LUT pins
+Phase 3.6 Re-assign LUT pins | Checksum: 1c9e51380
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 1120.441 ; gain = 0.000
+
+Phase 3.7 Pipeline Register Optimization
+Phase 3.7 Pipeline Register Optimization | Checksum: 1c9e51380
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 1120.441 ; gain = 0.000
+Phase 3 Detail Placement | Checksum: 1c9e51380
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 1120.441 ; gain = 0.000
+
+Phase 4 Post Placement Optimization and Clean-Up
+
+Phase 4.1 Post Commit Optimization
+Phase 4.1 Post Commit Optimization | Checksum: 1c9e51380
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 1120.441 ; gain = 0.000
+
+Phase 4.2 Post Placement Cleanup
+Phase 4.2 Post Placement Cleanup | Checksum: 1c9e51380
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 1120.441 ; gain = 0.000
+
+Phase 4.3 Placer Reporting
+Phase 4.3 Placer Reporting | Checksum: 1c9e51380
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 1120.441 ; gain = 0.000
+
+Phase 4.4 Final Placement Cleanup
+Phase 4.4 Final Placement Cleanup | Checksum: 1c9e51380
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 1120.441 ; gain = 0.000
+Phase 4 Post Placement Optimization and Clean-Up | Checksum: 1c9e51380
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 1120.441 ; gain = 0.000
+Ending Placer Task | Checksum: f854a734
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 1120.441 ; gain = 0.000
+INFO: [Common 17-83] Releasing license: Implementation
+40 Infos, 25 Warnings, 25 Critical Warnings and 0 Errors encountered.
+place_design completed successfully
+Writing placer database...
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.037 . Memory (MB): peak = 1120.441 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'D:/Projects/vivado/assignment3/assignment3.runs/impl_1/design_led_placed.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_io -file design_led_io_placed.rpt
+report_io: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.059 . Memory (MB): peak = 1120.441 ; gain = 0.000
+INFO: [runtcl-4] Executing : report_utilization -file design_led_utilization_placed.rpt -pb design_led_utilization_placed.pb
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.059 . Memory (MB): peak = 1120.441 ; gain = 0.000
+INFO: [runtcl-4] Executing : report_control_sets -verbose -file design_led_control_sets_placed.rpt
+report_control_sets: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 1120.441 ; gain = 0.000
+Command: route_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
+Running DRC as a precondition to command route_design
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+
+
+Starting Routing Task
+INFO: [Route 35-254] Multithreading enabled for route_design using a maximum of 2 CPUs
+Checksum: PlaceDB: bab04c05 ConstDB: 0 ShapeSum: 3da45b2f RouteDB: 0
+
+Phase 1 Build RT Design
+Phase 1 Build RT Design | Checksum: 84ffd271
+
+Time (s): cpu = 00:00:30 ; elapsed = 00:00:27 . Memory (MB): peak = 1269.641 ; gain = 149.199
+Post Restoration Checksum: NetGraph: 18050451 NumContArr: 6cface20 Constraints: 0 Timing: 0
+
+Phase 2 Router Initialization
+INFO: [Route 35-64] No timing constraints were detected. The router will operate in resource-optimization mode.
+
+Phase 2.1 Fix Topology Constraints
+Phase 2.1 Fix Topology Constraints | Checksum: 84ffd271
+
+Time (s): cpu = 00:00:30 ; elapsed = 00:00:27 . Memory (MB): peak = 1275.090 ; gain = 154.648
+
+Phase 2.2 Pre Route Cleanup
+Phase 2.2 Pre Route Cleanup | Checksum: 84ffd271
+
+Time (s): cpu = 00:00:30 ; elapsed = 00:00:27 . Memory (MB): peak = 1275.090 ; gain = 154.648
+ Number of Nodes with overlaps = 0
+Phase 2 Router Initialization | Checksum: 15852ccbb
+
+Time (s): cpu = 00:00:30 ; elapsed = 00:00:27 . Memory (MB): peak = 1279.035 ; gain = 158.594
+
+Phase 3 Initial Routing
+Phase 3 Initial Routing | Checksum: 11601d0b3
+
+Time (s): cpu = 00:00:30 ; elapsed = 00:00:27 . Memory (MB): peak = 1279.035 ; gain = 158.594
+
+Phase 4 Rip-up And Reroute
+
+Phase 4.1 Global Iteration 0
+ Number of Nodes with overlaps = 1
+ Number of Nodes with overlaps = 0
+Phase 4.1 Global Iteration 0 | Checksum: 1035d6c12
+
+Time (s): cpu = 00:00:30 ; elapsed = 00:00:27 . Memory (MB): peak = 1279.063 ; gain = 158.621
+Phase 4 Rip-up And Reroute | Checksum: 1035d6c12
+
+Time (s): cpu = 00:00:30 ; elapsed = 00:00:27 . Memory (MB): peak = 1279.063 ; gain = 158.621
+
+Phase 5 Delay and Skew Optimization
+Phase 5 Delay and Skew Optimization | Checksum: 1035d6c12
+
+Time (s): cpu = 00:00:30 ; elapsed = 00:00:27 . Memory (MB): peak = 1279.063 ; gain = 158.621
+
+Phase 6 Post Hold Fix
+
+Phase 6.1 Hold Fix Iter
+Phase 6.1 Hold Fix Iter | Checksum: 1035d6c12
+
+Time (s): cpu = 00:00:30 ; elapsed = 00:00:27 . Memory (MB): peak = 1279.063 ; gain = 158.621
+Phase 6 Post Hold Fix | Checksum: 1035d6c12
+
+Time (s): cpu = 00:00:30 ; elapsed = 00:00:27 . Memory (MB): peak = 1279.063 ; gain = 158.621
+
+Phase 7 Route finalize
+
+Router Utilization Summary
+  Global Vertical Routing Utilization    = 0.0128389 %
+  Global Horizontal Routing Utilization  = 0.00490196 %
+  Routable Net Status*
+  *Does not include unroutable nets such as driverless and loadless.
+  Run report_route_status for detailed report.
+  Number of Failed Nets               = 0
+  Number of Unrouted Nets             = 0
+  Number of Partially Routed Nets     = 0
+  Number of Node Overlaps             = 0
+
+Utilization threshold used for congestion level computation: 0.85
+Congestion Report
+North Dir 1x1 Area, Max Cong = 16.2162%, No Congested Regions.
+South Dir 1x1 Area, Max Cong = 32.4324%, No Congested Regions.
+East Dir 1x1 Area, Max Cong = 16.1765%, No Congested Regions.
+West Dir 1x1 Area, Max Cong = 4.41176%, No Congested Regions.
+Phase 7 Route finalize | Checksum: 1035d6c12
+
+Time (s): cpu = 00:00:30 ; elapsed = 00:00:27 . Memory (MB): peak = 1279.063 ; gain = 158.621
+
+Phase 8 Verifying routed nets
+
+ Verification completed successfully
+Phase 8 Verifying routed nets | Checksum: 1035d6c12
+
+Time (s): cpu = 00:00:30 ; elapsed = 00:00:27 . Memory (MB): peak = 1281.039 ; gain = 160.598
+
+Phase 9 Depositing Routes
+Phase 9 Depositing Routes | Checksum: 166c80438
+
+Time (s): cpu = 00:00:30 ; elapsed = 00:00:27 . Memory (MB): peak = 1281.039 ; gain = 160.598
+INFO: [Route 35-16] Router Completed Successfully
+
+Time (s): cpu = 00:00:30 ; elapsed = 00:00:27 . Memory (MB): peak = 1281.039 ; gain = 160.598
+
+Routing Is Done.
+INFO: [Common 17-83] Releasing license: Implementation
+52 Infos, 25 Warnings, 25 Critical Warnings and 0 Errors encountered.
+route_design completed successfully
+route_design: Time (s): cpu = 00:00:31 ; elapsed = 00:00:27 . Memory (MB): peak = 1281.039 ; gain = 160.598
+Writing placer database...
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.035 . Memory (MB): peak = 1281.039 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'D:/Projects/vivado/assignment3/assignment3.runs/impl_1/design_led_routed.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_drc -file design_led_drc_routed.rpt -pb design_led_drc_routed.pb -rpx design_led_drc_routed.rpx
+Command: report_drc -file design_led_drc_routed.rpt -pb design_led_drc_routed.pb -rpx design_led_drc_routed.rpx
+INFO: [IP_Flow 19-1839] IP Catalog is up to date.
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Coretcl 2-168] The results of DRC are in file D:/Projects/vivado/assignment3/assignment3.runs/impl_1/design_led_drc_routed.rpt.
+report_drc completed successfully
+INFO: [runtcl-4] Executing : report_methodology -file design_led_methodology_drc_routed.rpt -pb design_led_methodology_drc_routed.pb -rpx design_led_methodology_drc_routed.rpx
+Command: report_methodology -file design_led_methodology_drc_routed.rpt -pb design_led_methodology_drc_routed.pb -rpx design_led_methodology_drc_routed.rpx
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [DRC 23-133] Running Methodology with 2 threads
+INFO: [Coretcl 2-1520] The results of Report Methodology are in file D:/Projects/vivado/assignment3/assignment3.runs/impl_1/design_led_methodology_drc_routed.rpt.
+report_methodology completed successfully
+INFO: [runtcl-4] Executing : report_power -file design_led_power_routed.rpt -pb design_led_power_summary_routed.pb -rpx design_led_power_routed.rpx
+Command: report_power -file design_led_power_routed.rpt -pb design_led_power_summary_routed.pb -rpx design_led_power_routed.rpx
+WARNING: [Power 33-232] No user defined clocks were found in the design!
+Resolution: Please specify clocks using create_clock/create_generated_clock for sequential elements. For pure combinatorial circuits, please specify a virtual clock, otherwise the vectorless estimation might be inaccurate
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+Running Vector-less Activity Propagation...
+
+Finished Running Vector-less Activity Propagation
+64 Infos, 26 Warnings, 25 Critical Warnings and 0 Errors encountered.
+report_power completed successfully
+INFO: [runtcl-4] Executing : report_route_status -file design_led_route_status.rpt -pb design_led_route_status.pb
+INFO: [runtcl-4] Executing : report_timing_summary -max_paths 10 -file design_led_timing_summary_routed.rpt -rpx design_led_timing_summary_routed.rpx -warn_on_violation 
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+WARNING: [Timing 38-313] There are no user specified timing constraints. Timing constraints are needed for proper timing analysis.
+INFO: [runtcl-4] Executing : report_incremental_reuse -file design_led_incremental_reuse_routed.rpt
+INFO: [Vivado_Tcl 4-545] No incremental reuse to report, no incremental placement and routing data was found.
+INFO: [runtcl-4] Executing : report_clock_utilization -file design_led_clock_utilization_routed.rpt
+INFO: [Common 17-206] Exiting Vivado at Tue Nov 20 02:03:22 2018...

@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2017.4 (64-bit)
+# SW Build 2086221 on Fri Dec 15 20:55:39 MST 2017
+# IP Build 2085800 on Fri Dec 15 22:25:07 MST 2017
+# Start of session at: Tue Apr 16 13:42:43 2019
+# Process ID: 74320
+# Current directory: D:/Projects/vivado/project/or_gate/or_gate.runs/impl_1
+# Command line: vivado.exe -log orgate.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source orgate.tcl -notrace
+# Log file: D:/Projects/vivado/project/or_gate/or_gate.runs/impl_1/orgate.vdi
+# Journal file: D:/Projects/vivado/project/or_gate/or_gate.runs/impl_1\vivado.jou
+#-----------------------------------------------------------
+source orgate.tcl -notrace

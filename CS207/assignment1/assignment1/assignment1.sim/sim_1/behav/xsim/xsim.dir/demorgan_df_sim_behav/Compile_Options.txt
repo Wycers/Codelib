@@ -1,0 +1,1 @@
+-wto "6babca91c0fa4d3f9d9d50a692243489" --incr --debug "typical" --relax --mt "2" -L "xil_defaultlib" -L "unisims_ver" -L "unimacro_ver" -L "secureip" -L "xpm" --snapshot "demorgan_df_sim_behav" "xil_defaultlib.demorgan_df_sim" "xil_defaultlib.glbl" -log "elaborate.log" 

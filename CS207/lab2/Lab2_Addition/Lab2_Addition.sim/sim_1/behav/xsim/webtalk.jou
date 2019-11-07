@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Webtalk v2017.4 (64-bit)
+# SW Build 2086221 on Fri Dec 15 20:55:39 MST 2017
+# IP Build 2085800 on Fri Dec 15 22:25:07 MST 2017
+# Start of session at: Thu Oct  4 16:27:51 2018
+# Process ID: 64008
+# Current directory: D:/Projects/vivado/lab2/Lab2_Addition/Lab2_Addition.sim/sim_1/behav/xsim
+# Command line: wbtcv.exe -mode batch -source D:/Projects/vivado/lab2/Lab2_Addition/Lab2_Addition.sim/sim_1/behav/xsim/xsim.dir/addition_sim_behav/webtalk/xsim_webtalk.tcl -notrace
+# Log file: D:/Projects/vivado/lab2/Lab2_Addition/Lab2_Addition.sim/sim_1/behav/xsim/webtalk.log
+# Journal file: D:/Projects/vivado/lab2/Lab2_Addition/Lab2_Addition.sim/sim_1/behav/xsim\webtalk.jou
+#-----------------------------------------------------------
+source D:/Projects/vivado/lab2/Lab2_Addition/Lab2_Addition.sim/sim_1/behav/xsim/xsim.dir/addition_sim_behav/webtalk/xsim_webtalk.tcl -notrace

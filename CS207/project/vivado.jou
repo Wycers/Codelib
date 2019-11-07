@@ -1,0 +1,14 @@
+#-----------------------------------------------------------
+# Vivado v2017.4 (64-bit)
+# SW Build 2086221 on Fri Dec 15 20:55:39 MST 2017
+# IP Build 2085800 on Fri Dec 15 22:25:07 MST 2017
+# Start of session at: Sat Jan  5 23:37:45 2019
+# Process ID: 44276
+# Current directory: D:/Projects/vivado/project
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent44568 D:\Projects\vivado\project\digital_design_final_project.xpr
+# Log file: D:/Projects/vivado/project/vivado.log
+# Journal file: D:/Projects/vivado/project\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project D:/Projects/vivado/project/digital_design_final_project.xpr
+update_compile_order -fileset sources_1

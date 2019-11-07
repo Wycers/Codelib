@@ -1,0 +1,471 @@
+#-----------------------------------------------------------
+# Vivado v2017.4 (64-bit)
+# SW Build 2086221 on Fri Dec 15 20:55:39 MST 2017
+# IP Build 2085800 on Fri Dec 15 22:25:07 MST 2017
+# Start of session at: Thu May 30 14:11:58 2019
+# Process ID: 16352
+# Current directory: D:/Desktop/CPU
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent7972 D:\Desktop\CPU\CPU.xpr
+# Log file: D:/Desktop/CPU/vivado.log
+# Journal file: D:/Desktop/CPU\vivado.jou
+#-----------------------------------------------------------
+start_guiopen_project D:/Desktop/CPU/CPU.xpr
+update_compile_order -fileset sources_1
+sopen_hw
+connect_hw_server
+open_hw_target
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a100t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+reset_run synth_1
+reset_run prgrom_synth_1
+reset_run RAM_synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property -dict [list CONFIG.Coe_File {D:/Desktop/CPU/testcase1/prgmip32.coe}] [get_ips prgrom]
+generate_target all [get_files  D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci]
+catch { config_ip_cache -export [get_ips -all prgrom] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -no_script -sync -force -quiet
+reset_run prgrom_synth_1
+launch_runs -jobs 6 prgrom_synth_1
+export_simulation -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -directory D:/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir D:/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+set_property -dict [list CONFIG.Coe_File {D:/Desktop/CPU/testcase1/dmem32.coe}] [get_ips RAM]
+generate_target all [get_files  D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci]
+catch { config_ip_cache -export [get_ips -all RAM] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -no_script -sync -force -quiet
+reset_run RAM_synth_1
+launch_runs -jobs 6 RAM_synth_1
+export_simulation -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -directory D:/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir D:/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+reset_run synth_1
+reset_run prgrom_synth_1
+reset_run RAM_synth_1
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+reset_run impl_1 -prev_step 
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU/testcase1/prgmip32.coe}] [get_ips prgrom]
+generate_target all [get_files  D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci]
+catch { config_ip_cache -export [get_ips -all prgrom] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -no_script -sync -force -quiet
+reset_run prgrom_synth_1
+launch_runs -jobs 6 prgrom_synth_1
+export_simulation -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -directory D:/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir D:/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU/testcase1/dmem32.coe}] [get_ips RAM]
+generate_target all [get_files  D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci]
+catch { config_ip_cache -export [get_ips -all RAM] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -no_script -sync -force -quiet
+reset_run RAM_synth_1
+launch_runs -jobs 6 RAM_synth_1
+export_simulation -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -directory D:/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir D:/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU/testcase1/prgmip32.coe}] [get_ips prgrom]
+generate_target all [get_files  D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci]
+catch { config_ip_cache -export [get_ips -all prgrom] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -no_script -sync -force -quiet
+reset_run prgrom_synth_1
+launch_runs -jobs 6 prgrom_synth_1
+export_simulation -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -directory D:/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir D:/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU/testcase1/dmem32.coe}] [get_ips RAM]
+generate_target all [get_files  D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci]
+catch { config_ip_cache -export [get_ips -all RAM] }
+catch { [ delete_ip_run [get_ips -all RAM] ] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci]
+export_simulation -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -directory D:/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir D:/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU/testcase1/dmem32.coe}] [get_ips RAM]
+generate_target all [get_files  D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci]
+catch { config_ip_cache -export [get_ips -all RAM] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci]
+export_simulation -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -directory D:/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir D:/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU/testcase1/prgmip32.coe}] [get_ips prgrom]
+generate_target all [get_files  D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci]
+catch { config_ip_cache -export [get_ips -all prgrom] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -no_script -sync -force -quiet
+reset_run prgrom_synth_1
+launch_runs -jobs 6 prgrom_synth_1
+export_simulation -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -directory D:/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir D:/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU/testcase1/prgmip32.coe}] [get_ips prgrom]
+generate_target all [get_files  D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci]
+catch { config_ip_cache -export [get_ips -all prgrom] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -no_script -sync -force -quiet
+reset_run prgrom_synth_1
+launch_runs -jobs 6 prgrom_synth_1
+export_simulation -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -directory D:/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir D:/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU/testcase1/dmem32.coe}] [get_ips RAM]
+generate_target all [get_files  D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci]
+catch { config_ip_cache -export [get_ips -all RAM] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci]
+export_simulation -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -directory D:/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir D:/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+disconnect_hw_server localhost:3121
+connect_hw_server
+open_hw_target
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a100t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU/testcase1/dmem32.coe}] [get_ips RAM]
+generate_target all [get_files  D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci]
+catch { config_ip_cache -export [get_ips -all RAM] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci]
+export_simulation -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -directory D:/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir D:/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU/testcase1/prgmip32.coe}] [get_ips prgrom]
+generate_target all [get_files  D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci]
+catch { config_ip_cache -export [get_ips -all prgrom] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -no_script -sync -force -quiet
+reset_run prgrom_synth_1
+launch_runs -jobs 6 prgrom_synth_1
+export_simulation -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -directory D:/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir D:/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU/testcase1/dmem32.coe}] [get_ips RAM]
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU/testcase1/dmem32.coe}] [get_ips RAM]
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+reset_run impl_1 -prev_step 
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU/testcase1/prgmip32.coe}] [get_ips prgrom]
+generate_target all [get_files  D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci]
+catch { config_ip_cache -export [get_ips -all prgrom] }
+catch { [ delete_ip_run [get_ips -all prgrom] ] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci]
+export_simulation -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -directory D:/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir D:/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU/testcase1/dmem32.coe}] [get_ips RAM]
+generate_target all [get_files  D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci]
+catch { config_ip_cache -export [get_ips -all RAM] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci]
+export_simulation -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -directory D:/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir D:/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+disconnect_hw_server localhost:3121
+connect_hw_server
+open_hw_target
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a100t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU/testcase1/prgmip32.coe}] [get_ips prgrom]
+generate_target all [get_files  D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci]
+catch { config_ip_cache -export [get_ips -all prgrom] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci]
+launch_runs -jobs 6 prgrom_synth_1
+export_simulation -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -directory D:/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir D:/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU/testcase1/dmem32.coe}] [get_ips RAM]
+generate_target all [get_files  D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci]
+catch { config_ip_cache -export [get_ips -all RAM] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci]
+launch_runs -jobs 6 RAM_synth_1
+export_simulation -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -directory D:/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir D:/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU/testcase1/prgmip32.coe}] [get_ips prgrom]
+generate_target all [get_files  D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci]
+catch { config_ip_cache -export [get_ips -all prgrom] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -no_script -sync -force -quiet
+reset_run prgrom_synth_1
+launch_runs -jobs 6 prgrom_synth_1
+export_simulation -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -directory D:/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir D:/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU/testcase1/dmem32.coe}] [get_ips RAM]
+generate_target all [get_files  D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci]
+catch { config_ip_cache -export [get_ips -all RAM] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -no_script -sync -force -quiet
+reset_run RAM_synth_1
+launch_runs -jobs 6 RAM_synth_1
+export_simulation -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -directory D:/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir D:/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU/testcase1/prgmip32.coe}] [get_ips prgrom]
+generate_target all [get_files  D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci]
+catch { config_ip_cache -export [get_ips -all prgrom] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -no_script -sync -force -quiet
+reset_run prgrom_synth_1
+launch_runs -jobs 6 prgrom_synth_1
+export_simulation -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -directory D:/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir D:/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU/testcase1/dmem32.coe}] [get_ips RAM]
+generate_target all [get_files  D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci]
+catch { config_ip_cache -export [get_ips -all RAM] }
+catch { [ delete_ip_run [get_ips -all RAM] ] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci]
+export_simulation -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -directory D:/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir D:/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU/testcase1/prgmip32.coe}] [get_ips prgrom]
+generate_target all [get_files  D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci]
+catch { config_ip_cache -export [get_ips -all prgrom] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -no_script -sync -force -quiet
+reset_run prgrom_synth_1
+launch_runs -jobs 6 prgrom_synth_1
+export_simulation -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -directory D:/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir D:/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU/testcase1/dmem32.coe}] [get_ips RAM]
+generate_target all [get_files  D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci]
+catch { config_ip_cache -export [get_ips -all RAM] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci]
+export_simulation -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -directory D:/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir D:/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU/testcase1/prgmip32.coe}] [get_ips prgrom]
+generate_target all [get_files  D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci]
+catch { config_ip_cache -export [get_ips -all prgrom] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -no_script -sync -force -quiet
+reset_run prgrom_synth_1
+launch_runs -jobs 6 prgrom_synth_1
+export_simulation -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -directory D:/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir D:/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU/testcase1/dmem32.coe}] [get_ips RAM]
+generate_target all [get_files  D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci]
+catch { config_ip_cache -export [get_ips -all RAM] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci]
+launch_runs -jobs 6 RAM_synth_1
+export_simulation -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -directory D:/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir D:/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU/testcase1/dmem32.coe}] [get_ips RAM]
+generate_target all [get_files  D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci]
+catch { config_ip_cache -export [get_ips -all RAM] }
+catch { [ delete_ip_run [get_ips -all RAM] ] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci]
+export_simulation -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -directory D:/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir D:/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+update_compile_order -fileset sources_1
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU/testcase1/prgmip32.coe}] [get_ips prgrom]
+generate_target all [get_files  D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci]
+catch { config_ip_cache -export [get_ips -all prgrom] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -no_script -sync -force -quiet
+reset_run prgrom_synth_1
+launch_runs -jobs 6 prgrom_synth_1
+export_simulation -of_objects [get_files D:/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -directory D:/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir D:/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {D:/Desktop/CPU/CPU.runs/impl_1/CPU.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]

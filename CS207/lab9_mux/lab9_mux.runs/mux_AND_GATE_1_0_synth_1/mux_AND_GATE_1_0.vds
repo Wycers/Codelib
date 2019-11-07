@@ -1,0 +1,14 @@
+#-----------------------------------------------------------
+# Vivado v2017.4 (64-bit)
+# SW Build 2086221 on Fri Dec 15 20:55:39 MST 2017
+# IP Build 2085800 on Fri Dec 15 22:25:07 MST 2017
+# Start of session at: Wed Apr 17 09:21:15 2019
+# Process ID: 138020
+# Current directory: D:/Projects/vivado/lab9_mux/lab9_mux.runs/mux_AND_GATE_1_0_synth_1
+# Command line: vivado.exe -log mux_AND_GATE_1_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source mux_AND_GATE_1_0.tcl
+# Log file: D:/Projects/vivado/lab9_mux/lab9_mux.runs/mux_AND_GATE_1_0_synth_1/mux_AND_GATE_1_0.vds
+# Journal file: D:/Projects/vivado/lab9_mux/lab9_mux.runs/mux_AND_GATE_1_0_synth_1\vivado.jou
+#-----------------------------------------------------------
+source mux_AND_GATE_1_0.tcl -notrace
+INFO: [IP_Flow 19-4838] Using cached IP synthesis design for IP mux_AND_GATE_1_0, cache-ID = 8586b2f424ce098d.
+INFO: [Common 17-206] Exiting Vivado at Wed Apr 17 09:21:19 2019...

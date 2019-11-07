@@ -1,0 +1,9 @@
+mux.v,verilog,xil_defaultlib,../../../bd/mux/sim/mux.v,
+not_gate.v,verilog,xil_defaultlib,../../../bd/mux/ipshared/2bc0/not_gate.v,
+mux_NOT_GATE_0_0.v,verilog,xil_defaultlib,../../../bd/mux/ip/mux_NOT_GATE_0_0_1/sim/mux_NOT_GATE_0_0.v,
+and_gate.v,verilog,xil_defaultlib,../../../bd/mux/ipshared/aa0d/and_gate.v,
+mux_AND_GATE_0_1.v,verilog,xil_defaultlib,../../../bd/mux/ip/mux_AND_GATE_0_1_2/sim/mux_AND_GATE_0_1.v,
+mux_AND_GATE_1_0.v,verilog,xil_defaultlib,../../../bd/mux/ip/mux_AND_GATE_1_0_1/sim/mux_AND_GATE_1_0.v,
+nor_gate.v,verilog,xil_defaultlib,../../../bd/mux/ipshared/dd31/nor_gate.v,
+mux_OR_GATE_0_0.v,verilog,xil_defaultlib,../../../bd/mux/ip/mux_OR_GATE_0_0/sim/mux_OR_GATE_0_0.v,
+glbl.v,Verilog,xil_defaultlib,glbl.v

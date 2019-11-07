@@ -1,0 +1,175 @@
+#-----------------------------------------------------------
+# Vivado v2017.4 (64-bit)
+# SW Build 2086221 on Fri Dec 15 20:55:39 MST 2017
+# IP Build 2085800 on Fri Dec 15 22:25:07 MST 2017
+# Start of session at: Tue Dec 25 13:12:29 2018
+# Process ID: 193780
+# Current directory: D:/Projects/vivado/project
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent165508 D:\Projects\vivado\project\digital_design_final_project.xpr
+# Log file: D:/Projects/vivado/project/vivado.log
+# Journal file: D:/Projects/vivado/project\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project D:/Projects/vivado/project/digital_design_final_project.xpr
+update_compile_order -fileset sources_1
+launch_simulation
+launch_simulation
+launch_simulation
+source timer_sim.tcl
+close_sim
+launch_simulation
+source timer_sim.tcl
+close_sim
+launch_simulation
+source timer_sim.tcl
+close_sim
+launch_simulation
+source timer_sim.tcl
+close_sim
+launch_simulation
+source timer_sim.tcl
+close_sim
+launch_simulation
+source timer_sim.tcl
+close_sim
+launch_simulation
+source timer_sim.tcl
+close_sim
+launch_simulation
+launch_simulation
+source timer_sim.tcl
+close_sim
+launch_simulation
+source timer_sim.tcl
+close_sim
+launch_simulation
+source timer_sim.tcl
+close_sim
+launch_simulation
+source timer_sim.tcl
+close_sim
+launch_simulation
+source timer_sim.tcl
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+export_ip_user_files -of_objects  [get_files D:/Projects/vivado/project/digital_design_final_project.srcs/sources_1/new/button.v] -no_script -reset -force -quiet
+remove_files  D:/Projects/vivado/project/digital_design_final_project.srcs/sources_1/new/button.v
+export_ip_user_files -of_objects  [get_files D:/Projects/vivado/project/digital_design_final_project.srcs/sources_1/new/button_sim.v] -no_script -reset -force -quiet
+remove_files  -fileset sim_1 D:/Projects/vivado/project/digital_design_final_project.srcs/sources_1/new/button_sim.v
+synth_design -rtl -name rtl_1
+synth_design -rtl -name rtl_1
+synth_design -rtl -name rtl_1
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+close_sim
+launch_simulation
+source timer_sim.tcl
+reset_run synth_1
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+add_files -fileset sim_1 -norecurse D:/Projects/vivado/project/digital_design_final_project.srcs/sources_1/new/elevator_sim.v
+update_compile_order -fileset sim_1
+set_property SOURCE_SET sources_1 [get_filesets sclose_sim
+files -fileset sim_1 -norecurse D:/Projects/vivado/project/digital_design_final_project.srcs/sources_1/new/elevator_sim.v
+export_ip_user_files -of_objects  [get_files D:/Projects/vivado/project/digital_design_final_project.srcs/sources_1/new/elevator_sim.v] -no_script -reset -force -quiet
+remove_files  -fileset sim_1 D:/Projects/vivado/project/digital_design_final_project.srcs/sources_1/new/elevator_sim.v
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+add_files -fileset sim_1 -norecurse D:/Projects/vivado/project/digital_design_final_project.srcs/sources_1/new/elevator_sim.v
+update_compile_order -fileset sim_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top elevator_sim [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sim_1
+launch_simulation
+source elevator_sim.tcl
+close_sim
+launch_simulation
+source elevator_sim.tcl
+update_compile_order -fileset sim_1
+close_sim
+launch_simulation
+update_compile_order -fileset sim_1
+launch_simulation
+reset_run synth_1
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+update_compile_order -fileset sim_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top elevator_sim [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+launch_simulation
+source elevator_sim.tcl
+update_compile_order -fileset sim_1
+reset_run synth_1
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+close_sim
+launch_simulation
+source elevator_sim.tcl
+reset_run synth_1
+close_sim
+launch_simulation
+source elevator_sim.tcl
+close_sim
+launch_simulation
+source elevator_sim.tcl
+close_sim
+launch_simulation
+source elevator_sim.tcl
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+close_sim
+close_sim

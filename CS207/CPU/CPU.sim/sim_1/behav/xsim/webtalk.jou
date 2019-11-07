@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Webtalk v2017.4 (64-bit)
+# SW Build 2086221 on Fri Dec 15 20:55:39 MST 2017
+# IP Build 2085800 on Fri Dec 15 22:25:07 MST 2017
+# Start of session at: Wed May 29 00:26:09 2019
+# Process ID: 22384
+# Current directory: E:/Users/99084/Desktop/CPU/CPU.sim/sim_1/behav/xsim
+# Command line: wbtcv.exe -mode batch -source E:/Users/99084/Desktop/CPU/CPU.sim/sim_1/behav/xsim/xsim.dir/cpu_sim_behav/webtalk/xsim_webtalk.tcl -notrace
+# Log file: E:/Users/99084/Desktop/CPU/CPU.sim/sim_1/behav/xsim/webtalk.log
+# Journal file: E:/Users/99084/Desktop/CPU/CPU.sim/sim_1/behav/xsim\webtalk.jou
+#-----------------------------------------------------------
+source E:/Users/99084/Desktop/CPU/CPU.sim/sim_1/behav/xsim/xsim.dir/cpu_sim_behav/webtalk/xsim_webtalk.tcl -notrace

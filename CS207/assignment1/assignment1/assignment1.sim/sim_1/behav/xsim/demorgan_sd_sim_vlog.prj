@@ -1,0 +1,16 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../assignment1.srcs/sources_1/ip/orgate_0_1/orgate.v" \
+"../../../../assignment1.srcs/sources_1/ip/orgate_0_1/sim/orgate_0.v" \
+"../../../../assignment1.srcs/sources_1/ip/notgate_0/notgate.v" \
+"../../../../assignment1.srcs/sources_1/ip/notgate_0/sim/notgate_0.v" \
+"../../../../assignment1.srcs/sources_1/ip/andgate_0/andgate.v" \
+"../../../../assignment1.srcs/sources_1/ip/andgate_0/sim/andgate_0.v" \
+"../../../../assignment1.srcs/sources_1/new/demorgan_sd.v" \
+"../../../../assignment1.srcs/sim_1/new/demorgan_sd_sim.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

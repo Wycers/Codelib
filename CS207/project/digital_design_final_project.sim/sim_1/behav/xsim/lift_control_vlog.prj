@@ -1,0 +1,11 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../digital_design_final_project.srcs/sources_1/new/floor_timeCounter.v" \
+"../../../../digital_design_final_project.srcs/sources_1/new/frequency_divider.v" \
+"../../../../digital_design_final_project.srcs/sources_1/new/lift_control.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

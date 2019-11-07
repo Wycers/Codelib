@@ -1,0 +1,24 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  --include "../../../../CPU.srcs/sources_1/ip/cpuclk" --include "E:/vivado/Vivado/2017.4/data/xilinx_vip/include" \
+"../../../../CPU.srcs/sources_1/ip/RAM/sim/RAM.v" \
+"../../../../CPU.srcs/sources_1/ip/prgrom/sim/prgrom.v" \
+"../../../../CPU.srcs/sources_1/new/Executs32.v" \
+"../../../../CPU.srcs/sources_1/new/control32.v" \
+"../../../../CPU.srcs/sources_1/new/dmemory32.v" \
+"../../../../CPU.srcs/sources_1/new/ioread.v" \
+"../../../../CPU.srcs/sources_1/new/leds.v" \
+"../../../../CPU.srcs/sources_1/new/lfetc32.v" \
+"../../../../CPU.srcs/sources_1/new/memio.v" \
+"../../../../CPU.srcs/sources_1/new/memorio.v" \
+"../../../../CPU.srcs/sources_1/new/switchs.v" \
+
+sv xil_defaultlib  --include "../../../../CPU.srcs/sources_1/ip/cpuclk" --include "E:/vivado/Vivado/2017.4/data/xilinx_vip/include" \
+"../../../../CPU.srcs/sources_1/new/CPU.v" \
+"../../../../CPU.srcs/sources_1/new/Idecode32.v" \
+"../../../../CPU.srcs/sim_1/new/cpu_sim.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="impl_1" LaunchPart="xc7a100tfgg484-1" LaunchTime="1555393333">
+  <File Type="PWROPT-DCP" Name="orgate_pwropt.dcp"/>
+  <File Type="ROUTE-PWR" Name="orgate_power_routed.rpt"/>
+  <File Type="PA-TCL" Name="orgate.tcl"/>
+  <File Type="ROUTE-PWR-SUM" Name="orgate_power_summary_routed.pb"/>
+  <File Type="REPORTS-TCL" Name="orgate_reports.tcl"/>
+  <File Type="BG-DRC" Name="orgate.drc"/>
+  <File Type="OPT-METHODOLOGY-DRC" Name="orgate_methodology_drc_opted.rpt"/>
+  <File Type="INIT-TIMING" Name="orgate_timing_summary_init.rpt"/>
+  <File Type="OPT-HWDEF" Name="orgate.hwdef"/>
+  <File Type="OPT-DCP" Name="orgate_opt.dcp"/>
+  <File Type="OPT-DRC" Name="orgate_drc_opted.rpt"/>
+  <File Type="OPT-TIMING" Name="orgate_timing_summary_opted.rpt"/>
+  <File Type="PWROPT-DRC" Name="orgate_drc_pwropted.rpt"/>
+  <File Type="PWROPT-TIMING" Name="orgate_timing_summary_pwropted.rpt"/>
+  <File Type="PLACE-DCP" Name="orgate_placed.dcp"/>
+  <File Type="PLACE-IO" Name="orgate_io_placed.rpt"/>
+  <File Type="PLACE-CLK" Name="orgate_clock_utilization_placed.rpt"/>
+  <File Type="PLACE-UTIL" Name="orgate_utilization_placed.rpt"/>
+  <File Type="PLACE-UTIL-PB" Name="orgate_utilization_placed.pb"/>
+  <File Type="PLACE-CTRL" Name="orgate_control_sets_placed.rpt"/>
+  <File Type="PLACE-SIMILARITY" Name="orgate_incremental_reuse_placed.rpt"/>
+  <File Type="PLACE-PRE-SIMILARITY" Name="orgate_incremental_reuse_pre_placed.rpt"/>
+  <File Type="PLACE-TIMING" Name="orgate_timing_summary_placed.rpt"/>
+  <File Type="POSTPLACE-PWROPT-DCP" Name="orgate_postplace_pwropt.dcp"/>
+  <File Type="POSTPLACE-PWROPT-TIMING" Name="orgate_timing_summary_postplace_pwropted.rpt"/>
+  <File Type="PHYSOPT-DCP" Name="orgate_physopt.dcp"/>
+  <File Type="PHYSOPT-DRC" Name="orgate_drc_physopted.rpt"/>
+  <File Type="BG-BIT" Name="orgate.bit"/>
+  <File Type="PHYSOPT-TIMING" Name="orgate_timing_summary_physopted.rpt"/>
+  <File Type="ROUTE-ERROR-DCP" Name="orgate_routed_error.dcp"/>
+  <File Type="ROUTE-DCP" Name="orgate_routed.dcp"/>
+  <File Type="ROUTE-BLACKBOX-DCP" Name="orgate_routed_bb.dcp"/>
+  <File Type="ROUTE-DRC" Name="orgate_drc_routed.rpt"/>
+  <File Type="ROUTE-DRC-PB" Name="orgate_drc_routed.pb"/>
+  <File Type="BITSTR-MSK" Name="orgate.msk"/>
+  <File Type="ROUTE-DRC-RPX" Name="orgate_drc_routed.rpx"/>
+  <File Type="BG-BGN" Name="orgate.bgn"/>
+  <File Type="ROUTE-METHODOLOGY-DRC" Name="orgate_methodology_drc_routed.rpt"/>
+  <File Type="BITSTR-RBT" Name="orgate.rbt"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="orgate_methodology_drc_routed.rpx"/>
+  <File Type="BG-BIN" Name="orgate.bin"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="orgate_methodology_drc_routed.pb"/>
+  <File Type="ROUTE-PWR-RPX" Name="orgate_power_routed.rpx"/>
+  <File Type="ROUTE-STATUS" Name="orgate_route_status.rpt"/>
+  <File Type="ROUTE-STATUS-PB" Name="orgate_route_status.pb"/>
+  <File Type="ROUTE-TIMINGSUMMARY" Name="orgate_timing_summary_routed.rpt"/>
+  <File Type="ROUTE-TIMING-PB" Name="orgate_timing_summary_routed.pb"/>
+  <File Type="ROUTE-TIMING-RPX" Name="orgate_timing_summary_routed.rpx"/>
+  <File Type="ROUTE-SIMILARITY" Name="orgate_incremental_reuse_routed.rpt"/>
+  <File Type="RDI-RDI" Name="orgate.vdi"/>
+  <File Type="ROUTE-CLK" Name="orgate_clock_utilization_routed.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-DCP" Name="orgate_postroute_physopt.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-BLACKBOX-DCP" Name="orgate_postroute_physopt_bb.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING" Name="orgate_timing_summary_postroute_physopted.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-PB" Name="orgate_timing_summary_postroute_physopted.pb"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-RPX" Name="orgate_timing_summary_postroute_physopted.rpx"/>
+  <File Type="BITSTR-NKY" Name="orgate.nky"/>
+  <File Type="BITSTR-BMM" Name="orgate_bd.bmm"/>
+  <File Type="BITSTR-MMI" Name="orgate.mmi"/>
+  <File Type="BITSTR-LTX" Name="debug_nets.ltx"/>
+  <File Type="BITSTR-LTX" Name="orgate.ltx"/>
+  <File Type="BITSTR-SYSDEF" Name="orgate.sysdef"/>
+  <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
+    <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/new/or_gate.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="DesignMode" Val="RTL"/>
+      <Option Name="TopModule" Val="orgate"/>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
+    <Filter Type="Constrs"/>
+    <Config>
+      <Option Name="ConstrsType" Val="XDC"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2017"/>
+    <Step Id="init_design"/>
+    <Step Id="opt_design"/>
+    <Step Id="power_opt_design"/>
+    <Step Id="place_design"/>
+    <Step Id="post_place_power_opt_design"/>
+    <Step Id="phys_opt_design"/>
+    <Step Id="route_design"/>
+    <Step Id="post_route_phys_opt_design"/>
+    <Step Id="write_bitstream"/>
+  </Strategy>
+</GenRun>

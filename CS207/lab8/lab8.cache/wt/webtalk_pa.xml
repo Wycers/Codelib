@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<document>
+<!--The data in this file is primarily intended for consumption by Xilinx tools.
+The structure and the elements are likely to change over the next few releases.
+This means code written to parse this file will need to be revisited each subsequent release.-->
+<application name="pa" timeStamp="Wed Apr 17 11:15:56 2019">
+<section name="Project Information" visible="false">
+<property name="ProjectID" value="ce79d7352635491cb5898761ad608f5e" type="ProjectID"/>
+<property name="ProjectIteration" value="8" type="ProjectIteration"/>
+</section>
+<section name="PlanAhead Usage" visible="true">
+<item name="Project Data">
+<property name="SrcSetCount" value="1" type="SrcSetCount"/>
+<property name="ConstraintSetCount" value="1" type="ConstraintSetCount"/>
+<property name="DesignMode" value="RTL" type="DesignMode"/>
+<property name="SynthesisStrategy" value="Vivado Synthesis Defaults" type="SynthesisStrategy"/>
+<property name="ImplStrategy" value="Vivado Implementation Defaults" type="ImplStrategy"/>
+</item>
+<item name="Java Command Handlers">
+<property name="AddSources" value="3" type="JavaHandler"/>
+<property name="AutoConnectTarget" value="1" type="JavaHandler"/>
+<property name="LaunchProgramFpga" value="1" type="JavaHandler"/>
+<property name="NewProject" value="1" type="JavaHandler"/>
+<property name="OpenHardwareManager" value="2" type="JavaHandler"/>
+<property name="ReportIO" value="1" type="JavaHandler"/>
+<property name="RunBitgen" value="5" type="JavaHandler"/>
+<property name="RunImplementation" value="3" type="JavaHandler"/>
+<property name="RunSynthesis" value="4" type="JavaHandler"/>
+<property name="SaveDesign" value="2" type="JavaHandler"/>
+<property name="ShowView" value="1" type="JavaHandler"/>
+<property name="SimulationRun" value="7" type="JavaHandler"/>
+<property name="ToolsSettings" value="1" type="JavaHandler"/>
+<property name="ViewLayoutCmd" value="1" type="JavaHandler"/>
+<property name="ViewTaskImplementation" value="3" type="JavaHandler"/>
+<property name="ViewTaskProjectManager" value="3" type="JavaHandler"/>
+</item>
+<item name="Gui Handlers">
+<property name="AddSrcWizard_SPECIFY_HDL_NETLIST_BLOCK_DESIGN" value="1" type="GuiHandlerData"/>
+<property name="AddSrcWizard_SPECIFY_OR_CREATE_CONSTRAINT_FILES" value="2" type="GuiHandlerData"/>
+<property name="AddSrcWizard_SPECIFY_SIMULATION_SPECIFIC_HDL_FILES" value="1" type="GuiHandlerData"/>
+<property name="BaseDialog_CANCEL" value="10" type="GuiHandlerData"/>
+<property name="BaseDialog_OK" value="18" type="GuiHandlerData"/>
+<property name="BaseDialog_YES" value="1" type="GuiHandlerData"/>
+<property name="CmdMsgDialog_OK" value="1" type="GuiHandlerData"/>
+<property name="CreateConstraintsFilePanel_FILE_NAME" value="1" type="GuiHandlerData"/>
+<property name="CreateSrcFileDialog_FILE_NAME" value="3" type="GuiHandlerData"/>
+<property name="DefineModulesDialog_DEFINE_MODULES_AND_SPECIFY_IO_PORTS" value="1" type="GuiHandlerData"/>
+<property name="FileSetPanel_FILE_SET_PANEL_TREE" value="44" type="GuiHandlerData"/>
+<property name="FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE" value="56" type="GuiHandlerData"/>
+<property name="GettingStartedView_CREATE_NEW_PROJECT" value="1" type="GuiHandlerData"/>
+<property name="GraphicalView_ZOOM_FIT" value="2" type="GuiHandlerData"/>
+<property name="GraphicalView_ZOOM_IN" value="10" type="GuiHandlerData"/>
+<property name="MainWinToolbarMgr_SELECT_OR_SAVE_WINDOW_LAYOUT" value="1" type="GuiHandlerData"/>
+<property name="PACommandNames_ADD_SOURCES" value="2" type="GuiHandlerData"/>
+<property name="PACommandNames_AUTO_CONNECT_TARGET" value="1" type="GuiHandlerData"/>
+<property name="PACommandNames_OPEN_HARDWARE_MANAGER" value="1" type="GuiHandlerData"/>
+<property name="PACommandNames_SIMULATION_RUN_BEHAVIORAL" value="7" type="GuiHandlerData"/>
+<property name="PartChooser_PARTS" value="1" type="GuiHandlerData"/>
+<property name="ProgramDebugTab_OPEN_TARGET" value="1" type="GuiHandlerData"/>
+<property name="ProgramDebugTab_PROGRAM_DEVICE" value="1" type="GuiHandlerData"/>
+<property name="ProgramFpgaDialog_PROGRAM" value="1" type="GuiHandlerData"/>
+<property name="ProjectNameChooser_CHOOSE_PROJECT_LOCATION" value="1" type="GuiHandlerData"/>
+<property name="ProjectNameChooser_PROJECT_NAME" value="1" type="GuiHandlerData"/>
+<property name="RDIViews_WAVEFORM_VIEWER" value="64" type="GuiHandlerData"/>
+<property name="SearchCommandComponent_QUICK_ACCESS" value="7" type="GuiHandlerData"/>
+<property name="SignalTreePanel_SIGNAL_TREE_TABLE" value="34" type="GuiHandlerData"/>
+<property name="SimulationScopesPanel_SIMULATE_SCOPE_TABLE" value="2" type="GuiHandlerData"/>
+<property name="SrcChooserPanel_CREATE_FILE" value="5" type="GuiHandlerData"/>
+<property name="TclConsoleView_TCL_CONSOLE_CODE_EDITOR" value="1" type="GuiHandlerData"/>
+<property name="WaveformNameTree_WAVEFORM_NAME_TREE" value="6" type="GuiHandlerData"/>
+</item>
+<item name="Other">
+<property name="GuiMode" value="42" type="GuiMode"/>
+<property name="BatchMode" value="0" type="BatchMode"/>
+<property name="TclMode" value="32" type="TclMode"/>
+</item>
+</section>
+</application>
+</document>

@@ -1,0 +1,37 @@
+#-----------------------------------------------------------
+# Vivado v2017.4 (64-bit)
+# SW Build 2086221 on Fri Dec 15 20:55:39 MST 2017
+# IP Build 2085800 on Fri Dec 15 22:25:07 MST 2017
+# Start of session at: Fri May 31 10:03:26 2019
+# Process ID: 2112
+# Current directory: D:/Desktop/lab13
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent5756 D:\Desktop\lab13\lab13.xpr
+# Log file: D:/Desktop/lab13/vivado.log
+# Journal file: D:/Desktop/lab13\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project D:/Desktop/lab13/lab13.xpr
+update_compile_order -fileset sources_1
+launch_simulation
+source fuck_sim.tcl
+set_property -name {xsim.simulate.runtime} -value {2500ns} -objects [get_filesets sim_1]
+close_sim
+launch_simulation
+source fuck_sim.tcl
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top control32 [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top ControlIO32_sim [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sim_1
+launch_simulation
+source ControlIO32_sim.tcl
+close_sim
+close_sim

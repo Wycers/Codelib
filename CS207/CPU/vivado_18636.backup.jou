@@ -1,0 +1,33 @@
+#-----------------------------------------------------------
+# Vivado v2017.4 (64-bit)
+# SW Build 2086221 on Fri Dec 15 20:55:39 MST 2017
+# IP Build 2085800 on Fri Dec 15 22:25:07 MST 2017
+# Start of session at: Wed May 29 00:19:42 2019
+# Process ID: 18636
+# Current directory: E:/Users/99084/Desktop/CPU
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent15016 E:\Users\99084\Desktop\CPU\CPU.xpr
+# Log file: E:/Users/99084/Desktop/CPU/vivado.log
+# Journal file: E:/Users/99084/Desktop/CPU\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project E:/Users/99084/Desktop/CPU/CPU.xpr
+update_compile_order -fileset sources_1
+set_property -dict [list CONFIG.Coe_File {E:/Users/99084/Desktop/CPU/output/prgmip32.coe}] [get_ips prgrom]
+generate_target all [get_files  E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci]
+catch { config_ip_cache -export [get_ips -all prgrom] }
+export_ip_user_files -of_objects [get_files E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -no_script -sync -force -quiet
+reset_run prgrom_synth_1
+launch_runs -jobs 4 prgrom_synth_1
+export_simulation -of_objects [get_files E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/prgrom.xci] -directory E:/Users/99084/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir E:/Users/99084/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir E:/Users/99084/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=E:/Users/99084/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=E:/Users/99084/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=E:/Users/99084/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=E:/Users/99084/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+set_property -dict [list CONFIG.Coe_File {E:/Users/99084/Desktop/CPU/output/dmem32.coe}] [get_ips RAM]
+generate_target all [get_files  E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci]
+catch { config_ip_cache -export [get_ips -all RAM] }
+export_ip_user_files -of_objects [get_files E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -no_script -sync -force -quiet
+reset_run RAM_synth_1
+launch_runs -jobs 4 RAM_synth_1
+export_simulation -of_objects [get_files E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/RAM.xci] -directory E:/Users/99084/Desktop/CPU/CPU.ip_user_files/sim_scripts -ip_user_files_dir E:/Users/99084/Desktop/CPU/CPU.ip_user_files -ipstatic_source_dir E:/Users/99084/Desktop/CPU/CPU.ip_user_files/ipstatic -lib_map_path [list {modelsim=E:/Users/99084/Desktop/CPU/CPU.cache/compile_simlib/modelsim} {questa=E:/Users/99084/Desktop/CPU/CPU.cache/compile_simlib/questa} {riviera=E:/Users/99084/Desktop/CPU/CPU.cache/compile_simlib/riviera} {activehdl=E:/Users/99084/Desktop/CPU/CPU.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+set_property -name {xsim.simulate.runtime} -value {2000ns} -objects [get_filesets sim_1]
+launch_simulation
+open_wave_config E:/Users/99084/Desktop/CPU/cpu_sim_behav.wcfg
+source cpu_sim.tcl
+close_sim
