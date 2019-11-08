@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Tue Apr 16 15:18:42 2019" VIVADOVERSION="2017.4">
+
+  <SYSTEMINFO ARCH="artix7" DEVICE="7a100t" NAME="design_1" PACKAGE="fgg484" SPEEDGRADE="-1"/>
+
+  <EXTERNALPORTS>
+    <PORT DIR="I" NAME="a" SIGIS="undef" SIGNAME="External_Ports_a">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="AND_GATE_1" PORT="a"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" NAME="b" SIGIS="undef" SIGNAME="External_Ports_b">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="AND_GATE_0" PORT="b"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="0" NAME="q" RIGHT="0" SIGIS="undef" SIGNAME="OR_GATE_0_q">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="OR_GATE_0" PORT="q"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" NAME="sel" SIGIS="undef" SIGNAME="External_Ports_sel">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="NOT_GATE_0" PORT="a"/>
+        <CONNECTION INSTANCE="AND_GATE_0" PORT="a"/>
+      </CONNECTIONS>
+    </PORT>
+  </EXTERNALPORTS>
+
+  <EXTERNALINTERFACES/>
+
+  <MODULES>
+    <MODULE FULLNAME="/AND_GATE_0" HWVERSION="1.0" INSTANCE="AND_GATE_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="AND_GATE" VLNV="WYCER:GATES:AND_GATE:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Port_Num" VALUE="2"/>
+        <PARAMETER NAME="WIDTH" VALUE="1"/>
+        <PARAMETER NAME="Component_Name" VALUE="design_1_AND_GATE_0_2"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" LEFT="0" NAME="a" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_sel">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="sel"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="0" NAME="b" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_b">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="b"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="0" NAME="q" RIGHT="0" SIGIS="undef" SIGNAME="AND_GATE_0_q">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="OR_GATE_0" PORT="b"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE FULLNAME="/AND_GATE_1" HWVERSION="1.0" INSTANCE="AND_GATE_1" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="AND_GATE" VLNV="WYCER:GATES:AND_GATE:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Port_Num" VALUE="2"/>
+        <PARAMETER NAME="WIDTH" VALUE="1"/>
+        <PARAMETER NAME="Component_Name" VALUE="design_1_AND_GATE_1_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" LEFT="0" NAME="a" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_a">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="a"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="0" NAME="b" RIGHT="0" SIGIS="undef" SIGNAME="NOT_GATE_0_q">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="NOT_GATE_0" PORT="q"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="0" NAME="q" RIGHT="0" SIGIS="undef" SIGNAME="AND_GATE_1_q">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="OR_GATE_0" PORT="a"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE FULLNAME="/NOT_GATE_0" HWVERSION="1.0" INSTANCE="NOT_GATE_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="NOT_GATE" VLNV="WYCER:GATES:NOT_GATE:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="WIDTH" VALUE="1"/>
+        <PARAMETER NAME="Component_Name" VALUE="design_1_NOT_GATE_0_1"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" LEFT="0" NAME="a" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_sel">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="sel"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="0" NAME="q" RIGHT="0" SIGIS="undef" SIGNAME="NOT_GATE_0_q">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="AND_GATE_1" PORT="b"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE FULLNAME="/OR_GATE_0" HWVERSION="1.0" INSTANCE="OR_GATE_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="OR_GATE" VLNV="WYCER:GATES:OR_GATE:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Port_Num" VALUE="2"/>
+        <PARAMETER NAME="WIDTH" VALUE="1"/>
+        <PARAMETER NAME="Component_Name" VALUE="design_1_OR_GATE_0_1"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" LEFT="0" NAME="a" RIGHT="0" SIGIS="undef" SIGNAME="AND_GATE_1_q">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="AND_GATE_1" PORT="q"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="0" NAME="b" RIGHT="0" SIGIS="undef" SIGNAME="AND_GATE_0_q">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="AND_GATE_0" PORT="q"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="0" NAME="q" RIGHT="0" SIGIS="undef" SIGNAME="OR_GATE_0_q">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="q"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+  </MODULES>
+
+</EDKSYSTEM>

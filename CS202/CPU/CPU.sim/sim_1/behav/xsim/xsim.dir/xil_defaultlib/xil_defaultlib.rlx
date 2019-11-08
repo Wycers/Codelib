@@ -1,0 +1,19 @@
+0.6
+2017.4
+Dec 15 2017
+21:07:18
+E:/Users/99084/Desktop/CPU/CPU.sim/sim_1/behav/xsim/glbl.v,1513215259,verilog,,,,glbl,,xil_defaultlib,,,,,,
+E:/Users/99084/Desktop/CPU/CPU.srcs/sim_1/new/cpu_sim.v,1558959969,systemVerilog,,,,cpu_sim,,xil_defaultlib,../../../../CPU.srcs/sources_1/ip/cpuclk;E:/vivado/Vivado/2017.4/data/xilinx_vip/include,,,,,
+E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/ip/RAM/sim/RAM.v,1559060610,verilog,,E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/sim/prgrom.v,,RAM,,xil_defaultlib,../../../../CPU.srcs/sources_1/ip/cpuclk;E:/vivado/Vivado/2017.4/data/xilinx_vip/include,,,,,
+E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/ip/prgrom/sim/prgrom.v,1559060568,verilog,,E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/new/Executs32.v,,prgrom,,xil_defaultlib,../../../../CPU.srcs/sources_1/ip/cpuclk;E:/vivado/Vivado/2017.4/data/xilinx_vip/include,,,,,
+E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/new/CPU.v,1559060679,systemVerilog,,E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/new/Idecode32.v,,CPU,,xil_defaultlib,../../../../CPU.srcs/sources_1/ip/cpuclk;E:/vivado/Vivado/2017.4/data/xilinx_vip/include,,,,,
+E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/new/Executs32.v,1559066186,verilog,,E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/new/control32.v,,Executs32,,xil_defaultlib,../../../../CPU.srcs/sources_1/ip/cpuclk;E:/vivado/Vivado/2017.4/data/xilinx_vip/include,,,,,
+E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/new/Idecode32.v,1558976343,systemVerilog,,E:/Users/99084/Desktop/CPU/CPU.srcs/sim_1/new/cpu_sim.v,,Idecode32,,xil_defaultlib,../../../../CPU.srcs/sources_1/ip/cpuclk;E:/vivado/Vivado/2017.4/data/xilinx_vip/include,,,,,
+E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/new/control32.v,1558975759,verilog,,E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/new/dmemory32.v,,control32,,xil_defaultlib,../../../../CPU.srcs/sources_1/ip/cpuclk;E:/vivado/Vivado/2017.4/data/xilinx_vip/include,,,,,
+E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/new/dmemory32.v,1558956227,verilog,,E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/new/ioread.v,,dmemory32,,xil_defaultlib,../../../../CPU.srcs/sources_1/ip/cpuclk;E:/vivado/Vivado/2017.4/data/xilinx_vip/include,,,,,
+E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/new/ioread.v,1558956128,verilog,,E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/new/leds.v,,ioread,,xil_defaultlib,../../../../CPU.srcs/sources_1/ip/cpuclk;E:/vivado/Vivado/2017.4/data/xilinx_vip/include,,,,,
+E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/new/leds.v,1558956246,verilog,,E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/new/lfetc32.v,,leds,,xil_defaultlib,../../../../CPU.srcs/sources_1/ip/cpuclk;E:/vivado/Vivado/2017.4/data/xilinx_vip/include,,,,,
+E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/new/lfetc32.v,1558977125,verilog,,E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/new/memio.v,,lfetc32,,xil_defaultlib,../../../../CPU.srcs/sources_1/ip/cpuclk;E:/vivado/Vivado/2017.4/data/xilinx_vip/include,,,,,
+E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/new/memio.v,1558956362,verilog,,E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/new/memorio.v,,memio,,xil_defaultlib,../../../../CPU.srcs/sources_1/ip/cpuclk;E:/vivado/Vivado/2017.4/data/xilinx_vip/include,,,,,
+E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/new/memorio.v,1558956431,verilog,,E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/new/switchs.v,,memorio,,xil_defaultlib,../../../../CPU.srcs/sources_1/ip/cpuclk;E:/vivado/Vivado/2017.4/data/xilinx_vip/include,,,,,
+E:/Users/99084/Desktop/CPU/CPU.srcs/sources_1/new/switchs.v,1558956262,verilog,,,,switchs,,xil_defaultlib,../../../../CPU.srcs/sources_1/ip/cpuclk;E:/vivado/Vivado/2017.4/data/xilinx_vip/include,,,,,

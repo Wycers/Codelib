@@ -1,0 +1,7 @@
+0.6
+2017.4
+Dec 15 2017
+21:07:18
+D:/Projects/vivado/lab10_decoder/lab10_decoder.sim/sim_1/behav/xsim/glbl.v,1513215259,verilog,,,,glbl,,xil_defaultlib,,,,,,
+D:/Projects/vivado/lab10_decoder/lab10_decoder.srcs/sim_1/new/idecode32_sim.v,1556588229,systemVerilog,,,,idcode32_sim,,xil_defaultlib,D:/Xilinx/Vivado/2017.4/data/xilinx_vip/include,,,,,
+D:/Projects/vivado/lab10_decoder/lab10_decoder.srcs/sources_1/new/idecode32.v,1556587821,systemVerilog,,D:/Projects/vivado/lab10_decoder/lab10_decoder.srcs/sim_1/new/idecode32_sim.v,,Idecode32,,xil_defaultlib,D:/Xilinx/Vivado/2017.4/data/xilinx_vip/include,,,,,

@@ -1,0 +1,14 @@
+0.6
+2017.4
+Dec 15 2017
+21:07:18
+D:/Projects/vivado/lab9_mux/lab9_mux.ip_user_files/bd/mux/ip/mux_AND_GATE_0_1_2/sim/mux_AND_GATE_0_1.v,1555404132,verilog,,D:/Projects/vivado/lab9_mux/lab9_mux.ip_user_files/bd/mux/ip/mux_AND_GATE_1_0_1/sim/mux_AND_GATE_1_0.v,,mux_AND_GATE_0_1,,,,,,,,
+D:/Projects/vivado/lab9_mux/lab9_mux.ip_user_files/bd/mux/ip/mux_AND_GATE_1_0_1/sim/mux_AND_GATE_1_0.v,1555404132,verilog,,D:/Projects/vivado/lab9_mux/lab9_mux.ip_user_files/bd/mux/ipshared/dd31/nor_gate.v,,mux_AND_GATE_1_0,,,,,,,,
+D:/Projects/vivado/lab9_mux/lab9_mux.ip_user_files/bd/mux/ip/mux_NOT_GATE_0_0_1/sim/mux_NOT_GATE_0_0.v,1555404132,verilog,,D:/Projects/vivado/lab9_mux/lab9_mux.ip_user_files/bd/mux/ipshared/aa0d/and_gate.v,,mux_NOT_GATE_0_0,,,,,,,,
+D:/Projects/vivado/lab9_mux/lab9_mux.ip_user_files/bd/mux/ip/mux_OR_GATE_0_0/sim/mux_OR_GATE_0_0.v,1555404708,verilog,,D:/Projects/vivado/lab9_mux/lab9_mux.srcs/sim_1/new/mux_sim.v,,mux_OR_GATE_0_0,,,,,,,,
+D:/Projects/vivado/lab9_mux/lab9_mux.ip_user_files/bd/mux/ipshared/2bc0/not_gate.v,1555403781,verilog,,D:/Projects/vivado/lab9_mux/lab9_mux.ip_user_files/bd/mux/ip/mux_NOT_GATE_0_0_1/sim/mux_NOT_GATE_0_0.v,,not_gate,,,,,,,,
+D:/Projects/vivado/lab9_mux/lab9_mux.ip_user_files/bd/mux/ipshared/aa0d/and_gate.v,1555403781,verilog,,D:/Projects/vivado/lab9_mux/lab9_mux.ip_user_files/bd/mux/ip/mux_AND_GATE_0_1_2/sim/mux_AND_GATE_0_1.v,,and_gate,,,,,,,,
+D:/Projects/vivado/lab9_mux/lab9_mux.ip_user_files/bd/mux/ipshared/dd31/nor_gate.v,1555404708,verilog,,D:/Projects/vivado/lab9_mux/lab9_mux.ip_user_files/bd/mux/ip/mux_OR_GATE_0_0/sim/mux_OR_GATE_0_0.v,,orgate,,,,,,,,
+D:/Projects/vivado/lab9_mux/lab9_mux.ip_user_files/bd/mux/sim/mux.v,1555404707,verilog,,D:/Projects/vivado/lab9_mux/lab9_mux.ip_user_files/bd/mux/ipshared/2bc0/not_gate.v,,mux,,,,,,,,
+D:/Projects/vivado/lab9_mux/lab9_mux.sim/sim_1/behav/xsim/glbl.v,1513215259,verilog,,,,glbl,,,,,,,,
+D:/Projects/vivado/lab9_mux/lab9_mux.srcs/sim_1/new/mux_sim.v,1555469233,verilog,,,,mux_sim,,,,,,,,

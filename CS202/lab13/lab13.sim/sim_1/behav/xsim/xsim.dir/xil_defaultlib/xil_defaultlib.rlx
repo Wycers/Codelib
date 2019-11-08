@@ -1,0 +1,14 @@
+0.6
+2017.4
+Dec 15 2017
+21:07:18
+D:/Desktop/lab13/ControlIO32_sim.v,1558356130,verilog,,,,ControlIO32_sim,,,,,,,,
+D:/Desktop/lab13/control32.v,1558367832,verilog,,D:/Desktop/lab13/ControlIO32_sim.v,,control32,,,,,,,,
+D:/Desktop/lab13/dmemory32.v,1558104496,verilog,,D:/Desktop/lab13/ioread.v,,dmemory32,,,,,,,,
+D:/Desktop/lab13/ioread.v,1517212940,verilog,,D:/Desktop/lab13/leds.v,,ioread,,,,,,,,
+D:/Desktop/lab13/lab13.sim/sim_1/behav/xsim/glbl.v,1513215260,verilog,,,,glbl,,,,,,,,
+D:/Desktop/lab13/lab13.srcs/sim_1/new/fuck_sim.v,1558367536,verilog,,,,fuck_sim,,,,,,,,
+D:/Desktop/lab13/lab13.srcs/sources_1/ip/RAM/sim/RAM.v,1558072028,verilog,,D:/Desktop/lab13/dmemory32.v,,RAM,,,,,,,,
+D:/Desktop/lab13/leds.v,1517212940,verilog,,D:/Desktop/lab13/memorio.v,,leds,,,,,,,,
+D:/Desktop/lab13/memorio.v,1558367132,verilog,,D:/Desktop/lab13/switchs.v,,memorio,,,,,,,,
+D:/Desktop/lab13/switchs.v,1527930600,verilog,,D:/Desktop/lab13/lab13.srcs/sim_1/new/fuck_sim.v,,switchs,,,,,,,,
