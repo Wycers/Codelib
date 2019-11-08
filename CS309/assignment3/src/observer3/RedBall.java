@@ -3,8 +3,8 @@ package observer3;
 import java.awt.*;
 
 public class RedBall extends Ball {
-    public RedBall(MainPanel panel, Color color, int xSpeed, int ySpeed, int ballSize) {
-        super(panel, color, xSpeed, ySpeed, ballSize);
+    public RedBall(MainPanel panel, int xSpeed, int ySpeed, int ballSize) {
+        super(panel, Color.RED, xSpeed, ySpeed, ballSize);
     }
 
     @Override

@@ -28,7 +28,6 @@ public class JipaTest {
     }
 
     @Test(timeout = 4000)
-
     public void test() {
 
         int int0 = Jipa.getValue("");
