@@ -8,25 +8,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainPanel extends JPanel implements KeyListener {
-    private List<Ball> paintingBallList = new ArrayList<>();
-
+    private List<Ball> observers = new ArrayList<>();
     public void registerObserver(Ball ball) {
-        paintingBallList.add(ball);
+        observers.add(ball);
     }
-
     public void notifyObservers(char keyChar) {
-        for (Ball ball : paintingBallList) {
+        for (Ball ball : observers) {
             ball.update(keyChar);
         }
     }
 
+
+    private List<Ball> paintingBallList = new ArrayList<>();
     private boolean start = false;
     private int score = 0;
 
     public MainPanel() {
-        new RedBall(this, Color.RED, 3, 10, 50);
-        new GreenBall(this, Color.GREEN, 5, 7, 100);
-        new BlueBall(this, Color.BLUE, 8, 10, 80);
+        RedBall redBall = new RedBall(this, 3, 10, 50);
+        GreenBall greenBall = new GreenBall(this, 5, 7, 100);
+        BlueBall blueBall = new BlueBall(this, 8, 10, 80);
+        paintingBallList.add(redBall);
+        paintingBallList.add(greenBall);
+        paintingBallList.add(blueBall);
 
         // WHAT GOES HERE?
         // You need to make it possible for the app to get the keyboard values.

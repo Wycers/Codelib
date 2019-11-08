@@ -24,9 +24,15 @@ public class MainPanel extends JPanel implements KeyListener {
     private int score = 0;
 
     public MainPanel() {
-        GreenBall vip = new GreenBall(this, Color.GREEN, 5, 7, 100);
-        vip.registerObserver(new RedBall(this, Color.RED, 3, 10, 50));
-        vip.registerObserver(new BlueBall(this, Color.BLUE, 8, 10, 80));
+        RedBall redBall = new RedBall(this, 3, 10, 50);
+        GreenBall greenBall = new GreenBall(this, 5, 7, 100);
+        BlueBall blueBall = new BlueBall(this, 8, 10, 80);
+        paintingBallList.add(redBall);
+        paintingBallList.add(greenBall);
+        paintingBallList.add(blueBall);
+
+        greenBall.registerObserver(redBall);
+        greenBall.registerObserver(blueBall);
 
         // WHAT GOES HERE?
         // You need to make it possible for the app to get the keyboard values.
