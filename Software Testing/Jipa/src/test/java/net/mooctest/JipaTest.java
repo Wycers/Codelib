@@ -10,6 +10,7 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import org.junit.contrib.java.lang.system.ExpectedSystemExit;
+import org.junit.contrib.java.lang.system.SystemErrRule;
 import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.junit.contrib.java.lang.system.TextFromStandardInputStream;
 
@@ -1020,6 +1021,9 @@ public class JipaTest {
     @Rule
     public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
 
+    @Rule
+    public final SystemErrRule systemErrorRule = new SystemErrRule().enableLog();
+
     @Test(timeout = 4000)
     public void test90() throws java.lang.Throwable {
         Jipa jipa = new Jipa();
@@ -1163,8 +1167,10 @@ public class JipaTest {
         jipa.processInstruction("jne 1,0,label");
         assertEquals(1, jipa.iPtr);
 
+        jipa.processInstruction("set a,2");
         jipa.processInstruction("cmp 1,2,a");
         jipa.processInstruction("out a");
+        jipa.processInstruction("set a,2");
         jipa.processInstruction("cmp 1,1,a");
         jipa.processInstruction("out a");
 
@@ -1198,6 +1204,7 @@ public class JipaTest {
         Jipa jipa = new Jipa();
 
         assertFalse(jipa.loadInstructions("qaq.txt"));
+        assertTrue(systemErrorRule.getLog().replaceAll("\r\n", "\n").contains("java.io.FileNotFoundException: qaq.txt"));
 
         exit.expectSystemExit();
         assertFalse(jipa.loadInstructions("q"));
@@ -1212,6 +1219,10 @@ public class JipaTest {
         jipa.processInstruction("out a");
         assertEquals("5\n", systemOutRule.getLog().replaceAll("\r\n", "\n"));
         jipa.processInstruction("del a");
+
+        assertEquals(";\"",jipa.removeComment(";\""));
+        assertEquals("\"",jipa.removeComment("\";"));
+        assertEquals("0asd000a",jipa.getStringValue("\"\"\"asd\"asd\"\"a\"\"a\"a\""));
     }
 }
 
