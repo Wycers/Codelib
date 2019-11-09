@@ -37,12 +37,10 @@ void readin(char* network, char* seed) {
 	fclose(stdin);
 }
 
-queue<int> q;
+queue<int> q, tmp;
 bool acted[N];
 int _IC() {
-	// printf("%d\n", rand());
-	while (!q.empty())
-		q.pop();
+	q = tmp;
 	memset(acted, false, sizeof(acted));
 	for (const int &i : seeds) {
 		q.push(i);
@@ -67,12 +65,48 @@ int _IC() {
 		res += acted[i];
 	return res;
 }
+double threshold[N];
+int _LT() {
+	q = tmp;
+	memset(acted, false, sizeof(acted));
+	for (int i = 0; i < n; ++i)
+		threshold[i] = (double)(rand() % 1000) / 1000.0;
+	for (const int &i : seeds) {
+		q.push(i);
+	}
+
+	while (!q.empty()) {
+		int u = q.front();
+		acted[u] = true;
+		for (int i = head[u]; i; i = edge[i].next) {
+			int v = edge[i].to;
+			if (acted[v])
+				continue;
+
+			if ((threshold[v] -= edge[i].w)> 0)
+				continue;
+			q.push(v);
+			acted[v] = true;
+		}
+		q.pop();
+	}
+	int res = 0;
+	for (int i = 0; i < n; ++i)
+		res += acted[i];
+	return res;
+}
 extern "C" {
 	int IC(int seed) {
 		srand(seed);
 		return _IC();
 	}
+	int LT(int seed) {
+		srand(seed);
+		return _LT();
+	}
 	void init(char* network, char* seed) {
+		while (!tmp.empty())
+			tmp.pop();
 		memset(head, 0, sizeof head);
 		cnt = 0;
 		readin(network, seed);

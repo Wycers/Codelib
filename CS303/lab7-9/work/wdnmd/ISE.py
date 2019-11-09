@@ -17,6 +17,13 @@ start = time.time()
 
 def IC_model(time_budget):
     model_start = time.time()
+
+    global network, seed
+    nmd = ctypes.cdll.LoadLibrary('./nmd.so')
+    c_network = ctypes.c_char_p(network)
+    c_seed = ctypes.c_char_p(seed)
+    nmd.init(c_network, c_seed)
+
     res, cnt = 0, 0
     while time.time() - model_start < time_budget - 3:
         seed = int(os.getpid() + time.time() * 1e3 + random.randint(0, 114514)) & 0x0FFFFFFF
@@ -26,6 +33,13 @@ def IC_model(time_budget):
 
 def LT_model(time_budget):
     model_start = time.time()
+
+    global network, seed
+    nmd = ctypes.cdll.LoadLibrary('./nmd.so')
+    c_network = ctypes.c_char_p(network)
+    c_seed = ctypes.c_char_p(seed)
+    nmd.init(c_network, c_seed)
+
     res, cnt = 0, 0
     while time.time() - model_start < time_budget - 3:
         seed = int(os.getpid() + time.time() * 1e3 + random.randint(0, 114514)) & 0x0FFFFFFF
@@ -46,13 +60,6 @@ if __name__ == '__main__':
     seed = args.seed.encode()
     model = args.model
     time_limit = args.time_limit
-
-
-    # global network, seed
-    nmd = ctypes.cdll.LoadLibrary('./nmd.so')
-    c_network = ctypes.c_char_p(network)
-    c_seed = ctypes.c_char_p(seed)
-    nmd.init(c_network, c_seed)
 
     with Pool(worker_num) as p:
         if model == 'IC':
