@@ -2,7 +2,7 @@
 # written by mark zeng 2018-11-14
 # modified by Yao Zhao 2019-10-30
 
-import multiprocessing as mp
+from multiprocessing import Pool
 import time
 import sys
 import argparse
@@ -13,29 +13,25 @@ import copy
 import ctypes
 
 worker_num = 8
-epoch = 1900000
+start = time.time()
 
-def IC():
-    a = nmd.IC()
-    # print(a)
-    return a
+def IC_model(time_budget):
+    model_start = time.time()
+    res, cnt = 0, 0
+    while time.time() - model_start < time_budget - 3:
+        seed = int(os.getpid() + time.time() * 1e3 + random.randint(0, 114514)) & 0x0FFFFFFF
+        res += nmd.IC(ctypes.c_int(seed))
+        cnt += 1
+    return res, cnt
 
-def LT():
-    return 0
-
-class Worker(mp.Process):
-    def __init__ (self):
-        super(Worker, self).__init__(target=self.start)
-        self.inQ = mp.Queue()
-        self.outQ = mp.Queue()
-
-    def run (self):
-        while True:
-            model = self.inQ.get()  # 取出任务， 如果队列为空， 这一步会阻塞直到队列有元素
-            if model=='IC':
-                self.outQ.put(IC())
-            elif model=='LT':
-                self.outQ.put(LT())
+def LT_model(time_budget):
+    model_start = time.time()
+    res, cnt = 0, 0
+    while time.time() - model_start < time_budget - 3:
+        seed = int(os.getpid() + time.time() * 1e3 + random.randint(0, 114514)) & 0x0FFFFFFF
+        res += nmd.LT(ctypes.c_int(seed))
+        cnt += 1
+    return res, cnt
 
 
 if __name__ == '__main__':
@@ -46,34 +42,27 @@ if __name__ == '__main__':
     parser.add_argument('-t', '--time_limit', type=int, default=120)
 
     args = parser.parse_args()
-    file_name = args.file_name
-    seed = args.seed
+    network = args.file_name.encode()
+    seed = args.seed.encode()
     model = args.model
     time_limit = args.time_limit
 
+
+    # global network, seed
     nmd = ctypes.cdll.LoadLibrary('./nmd.so')
-    network = file_name.encode()
     c_network = ctypes.c_char_p(network)
-    seed = seed.encode()
     c_seed = ctypes.c_char_p(seed)
     nmd.init(c_network, c_seed)
 
-    sys.setrecursionlimit(1000000)
-
-    worker = []
-    for i in range(worker_num):
-        worker.append(Worker())
-        worker[i].start()
-
-    for i in range(epoch):
-        worker[i % worker_num].inQ.put(model)  # 根据编号取模， 将任务平均分配到子进程上
-    totalsum=0
-    for i in range(epoch):
-        totalsum+=worker[i % worker_num].outQ.get() # 用同样的规则取回结果， 如果任务尚未完成，此处会阻塞等待子进程完成任务
-    print(totalsum/epoch)
-
-
-    for w in worker:
-        w.terminate()
-
+    with Pool(worker_num) as p:
+        if model == 'IC':
+            res = p.map(IC_model, [(time_limit - (time.time() - start)) for i in range(worker_num)])
+        elif model == 'LT':
+            res = p.map(LT_model, [(time_limit - (time.time() - start)) for i in range(worker_num)])
+        total_sum = 0
+        cnt = 0
+        for r, c in res:
+            total_sum += r
+            cnt += c
+        print(total_sum / cnt)
     sys.stdout.flush()

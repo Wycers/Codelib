@@ -40,7 +40,8 @@ void readin(char* network, char* seed) {
 queue<int> q;
 bool acted[N];
 int _IC() {
-	while (!q.empty()) 
+	// printf("%d\n", rand());
+	while (!q.empty())
 		q.pop();
 	memset(acted, false, sizeof(acted));
 	for (const int &i : seeds) {
@@ -67,18 +68,13 @@ int _IC() {
 	return res;
 }
 extern "C" {
-	int IC() {
+	int IC(int seed) {
+		srand(seed);
 		return _IC();
-	}
-	char* test(char* str) {
-		printf("%s\n", str);
-		str[0] = '1';
-		return str;
 	}
 	void init(char* network, char* seed) {
 		memset(head, 0, sizeof head);
 		cnt = 0;
-		srand( (unsigned)time( NULL ) );
 		readin(network, seed);
 	}
 }
