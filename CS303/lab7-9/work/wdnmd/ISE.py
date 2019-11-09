@@ -19,7 +19,7 @@ def IC_model(time_budget):
     model_start = time.time()
 
     global network, seed
-    nmd = ctypes.cdll.LoadLibrary('./nmd.so')
+    nmd = ctypes.cdll.LoadLibrary('./ic.so')
     c_network = ctypes.c_char_p(network)
     c_seed = ctypes.c_char_p(seed)
     nmd.init(c_network, c_seed)
@@ -35,7 +35,7 @@ def LT_model(time_budget):
     model_start = time.time()
 
     global network, seed
-    nmd = ctypes.cdll.LoadLibrary('./nmd.so')
+    nmd = ctypes.cdll.LoadLibrary('./lt.so')
     c_network = ctypes.c_char_p(network)
     c_seed = ctypes.c_char_p(seed)
     nmd.init(c_network, c_seed)
