@@ -1,7 +1,7 @@
 from rdt import socket
 import time
 
-text = 'wdnmd'
+text = 'wdnmdwsma'
 
 if __name__ == '__main__':
     client = socket()

@@ -1,13 +1,18 @@
-from udp import UDPsocket, timeout # import provided class
+from udp import UDPsocket, timeout  # import provided class
 from enum import Enum, unique
 import logging
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s')
 
+WINDOWS_SIZE = 2
+MAX_LENGTH = 2
+MAX_TIMEOUT_RETRY = 5
+
 SYN = 0b0100
 FIN = 0b0010
 ACK = 0b0001
+
 
 @unique
 class STATE(Enum):
@@ -18,6 +23,7 @@ class STATE(Enum):
     CLOSING = 4
     CLOSED = 5
 
+
 @unique
 class EVENT(Enum):
     bind = 0
@@ -27,6 +33,7 @@ class EVENT(Enum):
     connect = 4
     close_requested = 5
     close = 6
+
 
 class FSM(object):
     def __init__(self, state=None):
@@ -39,6 +46,7 @@ class FSM(object):
             self._current = STATE.OPENED
         else:
             raise ValueError("Invalid state")
+
     @property
     def current(self):
         return self._current
@@ -122,8 +130,8 @@ class datagram(object):
     @seq_ack.setter
     def seq_ack(self, seq_ack):
         if type(seq_ack) == int:
-            self._seq_ack = seq_ack
-            self._set_header(5, self._seq_ack.to_bytes(4, 'big'))
+            self._seq_ack = seq_ack.to_bytes(4, 'big')
+            self._set_header(5, self._seq_ack)
         else:
             raise ValueError("SEQ_ACK number must be an integer")
 
@@ -162,7 +170,7 @@ class datagram(object):
     @payload.setter
     def payload(self, payload):
         if type(payload) == bytes:
-            self._length = len(payload)
+            self._length = len(payload).to_bytes(4, 'big')
             self._payload = payload
         else:
             raise TypeError("a bytes-like object is expected")
@@ -207,6 +215,7 @@ class datagram(object):
                 self.dtype, self.seq, self.seq_ack, self.length, self.checksum, self.payload)
             return res
         except Exception as e:
+            raise e
             return "Invalid"
 
 
@@ -214,6 +223,9 @@ class socket(UDPsocket):
     def __init__(self, ):
         super().__init__()
         self.state = FSM(STATE.OPENED)
+
+        self.seq = 0
+        self.seq_ack = 0
 
     def bind(self, addr):
         self.state.dispatch(EVENT.bind)
@@ -294,46 +306,149 @@ class socket(UDPsocket):
     def close_requested(self):
         logging.info("close")
 
-
     def recvfrom(self, bufsize):
-        while True:
-            data, addr = super().recvfrom(bufsize)
-            data = datagram(data)
-            if data.valid:
-                if data.dtype & FIN:
-                    self.close_requested()
-                return data, addr
+        QvQ = super().recvfrom(bufsize)
+        if QvQ is None:
+            raise timeout
+
+        data, addr = QvQ
+        data = datagram(data)
+        if data.valid:
+            if data.dtype & FIN:
+                self.close_requested()
+            return data, addr
+        raise Exception("Invalid packet")
 
     def recv(self, bufsize: int):
+        rcvd_data = b''
+        # self.settimeout(socket.TIMEOUT)
+        timeout_count = -1
+        logging.info('ready to receive...')
+        expected = self.seq_ack
+
+        ack = datagram()
+
         while True:
             try:
-                logging.info("Waiting for data")
-                req, addr = self.recvfrom(bufsize)
-                logging.info("Data received")
-                logging.info(req)
+                # segment_raw, remote_address = super().recvfrom(RDTSegment.SEGMENT_LEN)
+                data, addr = self.recvfrom(bufsize)
 
-                res = datagram()
-                res.dtype = ACK
-                self.sendto(res(), addr)
-                return req.payload
-            except timeout as e:
-                logging.debug(e)
+                assert addr == self.to
+
+                logging.debug('received raw segment')
+                timeout_count = 0  # no timeout, reset
+
+                logging.info('expected: #%d, received: #%d',
+                             expected, data.seq)
+                if data.seq == expected:
+                    if data.dtype & FIN:
+                        pass
+                    else:
+                        rcvd_data += data.payload
+                    ack.seq_ack = expected
+                    expected += 1
+                super().sendto(ack(), self.to)
+                # if data.fin:
+                #     break
+            except timeout:
+                if timeout_count < 0:
+                    continue
+                timeout_count += 1
+                logging.info('timed out, count=%d', timeout_count)
+                if timeout_count > MAX_TIMEOUT_RETRY:
+                    raise ConnectionAbortedError('timed out')
+            except ValueError:
+                super().sendto(ack(), self.to)
             except Exception as e:
-                logging.error(e)
+                logging.warning(e)
 
+        # self.setblocking(True)
+        logging.info('----------- receipt finished -----------')
+        return rcvd_data, addr
 
     def send(self, content: bytes):
-        data = datagram()
-        data.payload = content
+        # So grass...
+        acked = []
+        buffer = []
+
+        now = 0
+        base = self.seq
+
+        for i in range(0, len(content), MAX_LENGTH):
+            chunk_len = min(MAX_LENGTH, len(content) - i)
+            data = datagram()
+            data.payload = content[i:i+chunk_len]
+            data.seq = base + now
+            now += 1
+            buffer.append(data)
+            acked.append(False)
+
+        timeout_count = 0
+        l, r = 0, 0
+        while l < len(buffer):
+            r = min(len(buffer), l + WINDOWS_SIZE)
+
+            for i in range(l, r):
+                pkt = buffer[i]
+                self.sendto(pkt(), self.to)
+                logging.info('Send packet %d' % pkt.seq)
+
+            while True:
+                try:
+                    # assumption: no truncated packets
+                    data, addr = self.recvfrom(2048)
+                    # data, remote_address = self._timeout_recvfrom(RDTSegment.SEGMENT_LEN)
+                    assert addr == self.to
+
+                    timeout_count = 0  # no error, reset counter
+
+                    # assert data.seq_ack
+                    logging.info('#%d acked', data.seq_ack)
+
+                    # cumulative ack
+                    assert buffer[l].seq <= data.seq_ack <= buffer[r - 1].seq
+
+                    l = data.seq_ack + 1 - base
+                    logging.debug('base=%d', base)
+                    logging.debug('Window length = %d', r - l)
+
+                    # all acked
+                    if r - l == 0:
+                        break
+                except ValueError:
+                    logging.info('corrupted ack, ignored')
+                except AssertionError:
+                    logging.info(
+                        'duplicate ack or unexpected segment received')
+                except timeout:
+                    timeout_count += 1
+                    logging.info('timed out, count=%d', timeout_count)
+                    if timeout_count > MAX_TIMEOUT_RETRY:
+                        raise ConnectionError('timed out')
+                    break
+                except Exception as e:
+                    logging.warning(e)
+
+        # Finish
+        fin = datagram()
+        fin.dtype |= FIN
+        fin.seq = now
+        fin_err_count = 0
         while True:
             try:
-                logging.info("Trying to send %s" % content)
-                self.sendto(data(), self.to)
-
-                logging.info("Waining for ACK")
+                self.sendto(fin(), self.to)
+                # data, remote_address = super().recvfrom(RDTSegment.SEGMENT_LEN)
                 data, addr = self.recvfrom(2048)
-                return
-            except timeout as e:
-                logging.debug(e)
+
+                # limited by the required APIs to provide, the receipt of the last FINACK
+                # is not guaranteed, though a high probability is provided
+                if data.dtype & ACK and data.seq_ack == now:
+                    break
+            except (timeout, ValueError):
+                fin_err_count += 1
+                if fin_err_count > MAX_TIMEOUT_RETRY:
+                    break
             except Exception as e:
-                logging.error(e)
+                logging.warning(e)
+        # self.setblocking(True)
+        logging.info('----------- all sent -----------')
