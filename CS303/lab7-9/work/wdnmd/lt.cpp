@@ -27,7 +27,6 @@ void readin(char* network, char* seed) {
 	for (int i = 0; i < m; ++i) {
 		scanf("%d%d%lf", &u, &v, &w);
 		insert(u, v, w);
-		// printf("%d %d\n", u,v );
 	}
 	fclose(stdin);
 

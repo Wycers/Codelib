@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-# written by mark zeng 2018-11-14
-# modified by Yao Zhao 2019-10-30
-
 from queue import Queue
 import multiprocessing as mp
 import time
@@ -11,7 +7,7 @@ import os
 import random
 import numpy as np
 
-worker_num = 32
+worker_num = 8
 epoch = 2000
 
 
