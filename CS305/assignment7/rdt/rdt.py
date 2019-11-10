@@ -9,8 +9,6 @@ SYN = 0b0100
 FIN = 0b0010
 ACK = 0b0001
 
-
-
 @unique
 class STATE(Enum):
     OPENED = 0
