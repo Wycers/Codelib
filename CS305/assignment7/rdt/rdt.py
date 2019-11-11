@@ -275,6 +275,7 @@ class socket(UDPsocket):
                     req = datagram()
                     req.dtype = SYN + ACK
                     req.seq = res.seq + 1
+                    logging.info('Send ACK')
                     self.sendto(req(), addr)
                 else:
                     continue
@@ -282,6 +283,7 @@ class socket(UDPsocket):
                 # Data is ACK
                 res, addr = self.recvfrom(2048)
                 if res.dtype & ACK:
+                    logging.info('Recieved ACK')
                     self.to = addr
                     break
                 else:
@@ -303,9 +305,6 @@ class socket(UDPsocket):
         req.dtype = FIN
         self.sendto(req(), self.to)
 
-    def close_requested(self):
-        logging.info("close")
-
     def recvfrom(self, bufsize):
         QvQ = super().recvfrom(bufsize)
         if QvQ is None:
@@ -314,8 +313,7 @@ class socket(UDPsocket):
         data, addr = QvQ
         data = datagram(data)
         if data.valid:
-            if data.dtype & FIN:
-                self.close_requested()
+            print(data.seq, data.seq_ack)
             return data, addr
         raise Exception("Invalid packet")
 
@@ -342,14 +340,15 @@ class socket(UDPsocket):
                              expected, data.seq)
                 if data.seq == expected:
                     if data.dtype & FIN:
-                        pass
+                        logging.info('FIN Recieved')
+                        break
                     else:
                         rcvd_data += data.payload
-                    ack.seq_ack = expected
+                        print(rcvd_data)
                     expected += 1
+                ack.seq = self.seq
+                ack.seq_ack = expected - 1
                 super().sendto(ack(), self.to)
-                # if data.fin:
-                #     break
             except timeout:
                 if timeout_count < 0:
                     continue
@@ -358,13 +357,15 @@ class socket(UDPsocket):
                 if timeout_count > MAX_TIMEOUT_RETRY:
                     raise ConnectionAbortedError('timed out')
             except ValueError:
+                ack.seq = self.seq
+                ack.seq_ack = expected
                 super().sendto(ack(), self.to)
             except Exception as e:
                 logging.warning(e)
 
-        # self.setblocking(True)
+        self.seq_ack = expected + 1
         logging.info('----------- receipt finished -----------')
-        return rcvd_data, addr
+        return rcvd_data
 
     def send(self, content: bytes):
         # So grass...
@@ -388,10 +389,11 @@ class socket(UDPsocket):
         while l < len(buffer):
             r = min(len(buffer), l + WINDOWS_SIZE)
 
+            logging.info('Send packet from [%d, %d]' % (buffer[l].seq, buffer[r - 1].seq))
             for i in range(l, r):
                 pkt = buffer[i]
+                pkt.seq_ack = self.seq_ack
                 self.sendto(pkt(), self.to)
-                logging.info('Send packet %d' % pkt.seq)
 
             while True:
                 try:
@@ -432,7 +434,8 @@ class socket(UDPsocket):
         # Finish
         fin = datagram()
         fin.dtype |= FIN
-        fin.seq = now
+        fin.seq = base + now
+        fin.seq_ack = self.seq_ack
         fin_err_count = 0
         while True:
             try:
@@ -451,4 +454,5 @@ class socket(UDPsocket):
             except Exception as e:
                 logging.warning(e)
         # self.setblocking(True)
+        self.seq = base + now + 1
         logging.info('----------- all sent -----------')
