@@ -313,7 +313,6 @@ class socket(UDPsocket):
         data, addr = QvQ
         data = datagram(data)
         if data.valid:
-            print(data.seq, data.seq_ack)
             return data, addr
         raise Exception("Invalid packet")
 
@@ -336,18 +335,16 @@ class socket(UDPsocket):
                 logging.debug('received raw segment')
                 timeout_count = 0  # no timeout, reset
 
-                logging.info('expected: #%d, received: #%d',
-                             expected, data.seq)
+                logging.info('expected: #%d, received: #%d', expected, data.seq)
                 if data.seq == expected:
                     if data.dtype & FIN:
                         logging.info('FIN Recieved')
                         break
                     else:
                         rcvd_data += data.payload
-                        print(rcvd_data)
                     expected += 1
                 ack.seq = self.seq
-                ack.seq_ack = expected - 1
+                ack.seq_ack = expected
                 super().sendto(ack(), self.to)
             except timeout:
                 if timeout_count < 0:
@@ -372,8 +369,8 @@ class socket(UDPsocket):
         acked = []
         buffer = []
 
-        now = 0
         base = self.seq
+        now = 0
 
         for i in range(0, len(content), MAX_LENGTH):
             chunk_len = min(MAX_LENGTH, len(content) - i)
@@ -408,14 +405,15 @@ class socket(UDPsocket):
                     logging.info('#%d acked', data.seq_ack)
 
                     # cumulative ack
-                    assert buffer[l].seq <= data.seq_ack <= buffer[r - 1].seq
+                    assert buffer[l].seq <= data.seq_ack <= buffer[r - 1].seq + 1
 
-                    l = data.seq_ack + 1 - base
+                    l = max(l, data.seq_ack - base)
                     logging.debug('base=%d', base)
-                    logging.debug('Window length = %d', r - l)
+                    logging.info('Window length = %d', r - l)
 
                     # all acked
                     if r - l == 0:
+                        logging.info('Finish sending')
                         break
                 except ValueError:
                     logging.info('corrupted ack, ignored')
@@ -445,7 +443,7 @@ class socket(UDPsocket):
 
                 # limited by the required APIs to provide, the receipt of the last FINACK
                 # is not guaranteed, though a high probability is provided
-                if data.dtype & ACK and data.seq_ack == now:
+                if data.dtype & ACK and data.seq_ack == base + now:
                     break
             except (timeout, ValueError):
                 fin_err_count += 1
