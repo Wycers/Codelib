@@ -369,7 +369,19 @@ class socket(UDPsocket):
             except Exception as e:
                 logging.warning(e)
 
+        self.seq += 1
         self.seq_ack = expected + 1
+
+        fin_ack = datagram()
+        fin_ack.dtype |= FIN
+        fin_ack.dtype |= ACK
+        fin_ack.seq = self.seq
+        fin_ack.seq_ack = self.seq_ack
+        fin_err_count = 0
+        self.sendto(fin_ack(), addr)
+
+        # self.seq_ack = expected + 1
+
         logging.info('----------- receipt finished -----------')
         return rcvd_data
 
@@ -451,7 +463,7 @@ class socket(UDPsocket):
 
                 # limited by the required APIs to provide, the receipt of the last FINACK
                 # is not guaranteed, though a high probability is provided
-                if data.dtype & ACK and data.seq_ack == base + now:
+                if data.dtype & ACK and data.dtype & FIN and data.seq_ack == base + now + 1:
                     break
             except (timeout, ValueError):
                 fin_err_count += 1
@@ -459,6 +471,6 @@ class socket(UDPsocket):
                     break
             except Exception as e:
                 logging.warning(e)
-        # self.setblocking(True)
+
         self.seq = base + now + 1
         logging.info('----------- all sent -----------')
