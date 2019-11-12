@@ -171,6 +171,7 @@ class datagram(object):
     def payload(self, payload):
         if type(payload) == bytes:
             self._length = len(payload).to_bytes(4, 'big')
+            self._set_header(9, self._length)
             self._payload = payload
         else:
             raise TypeError("a bytes-like object is expected")
@@ -351,7 +352,7 @@ class socket(UDPsocket):
                         break
                     else:
                         rcvd_data += data.payload
-                    expected += 1
+                    expected += data.length
                 ack.seq = self.seq
                 ack.seq_ack = expected
                 super().sendto(ack(), addr)
@@ -387,37 +388,27 @@ class socket(UDPsocket):
 
     def send(self, content: bytes, reciver_addr):
         # So grass...
-        acked = []
-        buffer = []
-
         base = self.seq
-        now = 0
-
-        for i in range(0, len(content), MAX_LENGTH):
-            chunk_len = min(MAX_LENGTH, len(content) - i)
-            data = datagram()
-            data.payload = content[i:i+chunk_len]
-            data.seq = base + now
-            now += 1
-            buffer.append(data)
-            acked.append(False)
 
         timeout_count = 0
         l, r = 0, 0
-        while l < len(buffer):
-            r = min(len(buffer), l + WINDOWS_SIZE)
+        while l < len(content):
+            r = min(len(content), l + WINDOWS_SIZE * MAX_LENGTH)
 
-            logging.info('Send packet from [%d, %d]' % (buffer[l].seq, buffer[r - 1].seq))
-            for i in range(l, r):
-                pkt = buffer[i]
-                pkt.seq_ack = self.seq_ack
-                self.sendto(pkt(), reciver_addr)
+            buffer = list(range(l, r, MAX_LENGTH))
+            for i in buffer:
+                chunk_len = min(MAX_LENGTH, len(content) - i)
+                data = datagram()
+                data.payload = content[i:i+chunk_len]
+                data.seq = base + i
+                data.seq_ack = self.seq_ack
+                self.sendto(data(), reciver_addr)
+            logging.info('Send packet from [%d, %d]' % (buffer[0], buffer[-1]))
 
             while True:
                 try:
                     # assumption: no truncated packets
                     data, addr = self.recvfrom(2048)
-                    assert addr == reciver_addr
 
                     timeout_count = 0  # no error, reset counter
 
@@ -425,11 +416,9 @@ class socket(UDPsocket):
                     logging.info('#%d acked', data.seq_ack)
 
                     # cumulative ack
-                    assert buffer[l].seq <= data.seq_ack <= buffer[r - 1].seq + 1
+                    assert buffer[0] <= data.seq_ack - base <= buffer[-1] + MAX_LENGTH + 1
 
                     l = max(l, data.seq_ack - base)
-                    logging.debug('base=%d', base)
-                    logging.info('Window length = %d', r - l)
 
                     # all acked
                     if r - l == 0:
@@ -452,7 +441,7 @@ class socket(UDPsocket):
         # Finish
         fin = datagram()
         fin.dtype |= FIN
-        fin.seq = base + now
+        fin.seq = base + len(content)
         fin.seq_ack = self.seq_ack
         fin_err_count = 0
         while True:
@@ -463,7 +452,7 @@ class socket(UDPsocket):
 
                 # limited by the required APIs to provide, the receipt of the last FINACK
                 # is not guaranteed, though a high probability is provided
-                if data.dtype & ACK and data.dtype & FIN and data.seq_ack == base + now + 1:
+                if data.dtype & ACK and data.dtype & FIN and data.seq_ack == base + len(content) + 1:
                     break
             except (timeout, ValueError):
                 fin_err_count += 1
@@ -472,5 +461,5 @@ class socket(UDPsocket):
             except Exception as e:
                 logging.warning(e)
 
-        self.seq = base + now + 1
+        self.seq = base + len(content) + 1
         logging.info('----------- all sent -----------')
