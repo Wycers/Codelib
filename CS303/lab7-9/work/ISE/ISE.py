@@ -110,7 +110,6 @@ if __name__ == '__main__':
         for i in range(N+1):
             nodes.append(Node(int(i)))
 
-        firstline = True
         for line in f:
             tmp = line.split(' ')
 
