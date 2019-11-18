@@ -65,9 +65,9 @@ void SystemClock_Config(void);
 int flag = 0;
 
 void HAL_WWDG_EarlyWakeupCallback(WWDG_HandleTypeDef *hwwdg) {
-    char res[20];
+    char res[50];
     if (flag == 1) {
-        sprintf(res, "Refresh!\r\n");
+        sprintf(res, "Refresh!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\r\n");
         HAL_UART_Transmit(&huart1, (uint8_t *)res, strlen(res), HAL_MAX_DELAY);
         HAL_WWDG_Refresh(hwwdg);
     }
@@ -134,18 +134,18 @@ int main(void) {
         float value = (1.43 - raw * (3.3 / 4096)) / 4.3 + 25;
 
         int tmp, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
-//        tmp = (int) value;
-//        tmp1 = (int) ((value - tmp) * 10) % 10;
-//        tmp2 = (int) ((value - tmp) * 100) % 10;
-//        tmp3 = (int) ((value - tmp) * 1000) % 10;
-//        tmp4 = (int) ((value - tmp) * 10000) % 10;
-//        tmp5 = (int) ((value - tmp) * 100000) % 10;
-//        tmp6 = (int) ((value - tmp) * 1000000) % 10;
+        tmp = (int) value;
+        tmp1 = (int) ((value - tmp) * 10) % 10;
+        tmp2 = (int) ((value - tmp) * 100) % 10;
+        tmp3 = (int) ((value - tmp) * 1000) % 10;
+        tmp4 = (int) ((value - tmp) * 10000) % 10;
+        tmp5 = (int) ((value - tmp) * 100000) % 10;
+        tmp6 = (int) ((value - tmp) * 1000000) % 10;
         i ++;
-//        sprintf(msg, "%d %d.%d%d%d%d%d%d\r\n", i, tmp, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6);
-        sprintf(msg, "%d\r\n", i);
+        sprintf(msg, "%d %d.%d%d%d%d%d%d\r\n", i, tmp, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6);
+//        sprintf(msg, "%d\r\n", i);
         HAL_UART_Transmit(&huart1, (uint8_t *) msg, strlen(msg), HAL_MAX_DELAY);
-        HAL_Delay(10);
+        HAL_Delay(2);
     }
     /* USER CODE END 3 */
 }
