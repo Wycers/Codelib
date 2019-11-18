@@ -1,4 +1,5 @@
 .exe
+.idea
 .vscode
 *.pdf
 *.pyc
