@@ -67,9 +67,9 @@ int flag = 0;
 void HAL_WWDG_EarlyWakeupCallback(WWDG_HandleTypeDef *hwwdg) {
     char res[50];
     if (flag == 1) {
-        sprintf(res, "Refresh!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\r\n");
-        HAL_UART_Transmit(&huart1, (uint8_t *)res, strlen(res), HAL_MAX_DELAY);
         HAL_WWDG_Refresh(hwwdg);
+        sprintf(res, "Refresh!!\r\n");
+        HAL_UART_Transmit(&huart1, (uint8_t *)res, strlen(res), HAL_MAX_DELAY);
     }
     flag = 0;
 }
