@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="LCD"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/mnt/c/Users/licia/Desktop/LCD"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/licia/Desktop/LCD/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/licia/Desktop/LCD/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/licia/Desktop/LCD/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/licia/Desktop/LCD/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/mnt/c/Users/licia/Desktop/LCD"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/licia/Desktop/LCD/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/licia/Desktop/LCD/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/licia/Desktop/LCD/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/licia/Desktop/LCD/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="LCD.elf">
+				<Option output="/mnt/c/Users/licia/Desktop/LCD/LCD.elf" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/c/Users/licia/Desktop/LCD"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D__weak=__attribute__((weak))"/>
+					<Add option="-D__packed=__attribute__((__packed__))"/>
+					<Add option="-DUSE_HAL_DRIVER"/>
+					<Add option="-DSTM32F103xE"/>
+					<Add directory="/mnt/c/Users/licia/Desktop/LCD/Inc"/>
+					<Add directory="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Inc"/>
+					<Add directory="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy"/>
+					<Add directory="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Device/ST/STM32F1xx/Include"/>
+					<Add directory="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Include"/>
+					<Add directory="/usr/lib/gcc/arm-none-eabi/6.3.1/../../../arm-none-eabi/include/c++/6.3.1"/>
+					<Add directory="/usr/lib/gcc/arm-none-eabi/6.3.1/../../../arm-none-eabi/include/c++/6.3.1/arm-none-eabi"/>
+					<Add directory="/usr/lib/gcc/arm-none-eabi/6.3.1/../../../arm-none-eabi/include/c++/6.3.1/backward"/>
+					<Add directory="/usr/lib/gcc/arm-none-eabi/6.3.1/include"/>
+					<Add directory="/usr/lib/gcc/arm-none-eabi/6.3.1/include-fixed"/>
+					<Add directory="/usr/lib/gcc/arm-none-eabi/6.3.1/../../../arm-none-eabi/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/licia/Desktop/LCD/Makefile&quot;  VERBOSE=1 LCD.elf"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/licia/Desktop/LCD/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/licia/Desktop/LCD/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/licia/Desktop/LCD/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="LCD.elf/fast">
+				<Option output="/mnt/c/Users/licia/Desktop/LCD/LCD.elf" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/c/Users/licia/Desktop/LCD"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D__weak=__attribute__((weak))"/>
+					<Add option="-D__packed=__attribute__((__packed__))"/>
+					<Add option="-DUSE_HAL_DRIVER"/>
+					<Add option="-DSTM32F103xE"/>
+					<Add directory="/mnt/c/Users/licia/Desktop/LCD/Inc"/>
+					<Add directory="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Inc"/>
+					<Add directory="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy"/>
+					<Add directory="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Device/ST/STM32F1xx/Include"/>
+					<Add directory="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Include"/>
+					<Add directory="/usr/lib/gcc/arm-none-eabi/6.3.1/../../../arm-none-eabi/include/c++/6.3.1"/>
+					<Add directory="/usr/lib/gcc/arm-none-eabi/6.3.1/../../../arm-none-eabi/include/c++/6.3.1/arm-none-eabi"/>
+					<Add directory="/usr/lib/gcc/arm-none-eabi/6.3.1/../../../arm-none-eabi/include/c++/6.3.1/backward"/>
+					<Add directory="/usr/lib/gcc/arm-none-eabi/6.3.1/include"/>
+					<Add directory="/usr/lib/gcc/arm-none-eabi/6.3.1/include-fixed"/>
+					<Add directory="/usr/lib/gcc/arm-none-eabi/6.3.1/../../../arm-none-eabi/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/licia/Desktop/LCD/Makefile&quot;  VERBOSE=1 LCD.elf/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/licia/Desktop/LCD/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/licia/Desktop/LCD/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/licia/Desktop/LCD/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/mnt/c/Users/licia/Desktop/LCD"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/licia/Desktop/LCD/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/licia/Desktop/LCD/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/licia/Desktop/LCD/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/mnt/c/Users/licia/Desktop/LCD/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Include/cmsis_armcc.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Include/cmsis_armclang.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Include/cmsis_compiler.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Include/cmsis_gcc.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Include/cmsis_iccarm.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Include/cmsis_version.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Include/core_armv8mbl.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Include/core_armv8mml.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Include/core_cm0.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Include/core_cm0plus.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Include/core_cm1.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Include/core_cm23.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Include/core_cm3.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Include/core_cm33.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Include/core_cm4.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Include/core_cm7.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Include/core_sc000.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Include/core_sc300.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Include/mpu_armv7.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Include/mpu_armv8.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/CMSIS/Include/tz_context.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_adc.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_adc_ex.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_exti.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio_ex.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc.c">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc_ex.c">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.c">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.c">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.c">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/STM32F103RCTx_FLASH.ld">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Src/adc.c">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Src/gpio.c">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Src/main.c">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Src/stm32f1xx_hal_msp.c">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Src/stm32f1xx_it.c">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Src/sys.c">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Src/syscalls.c">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Src/system_stm32f1xx.c">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Src/tim.c">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/Src/usart.c">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/startup/startup_stm32f103xe.s">
+			<Option target="LCD.elf"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/licia/Desktop/LCD/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
