@@ -1,0 +1,239 @@
+%!TEX program = pdflatex
+% Full chain: pdflatex -> bibtex -> pdflatex -> pdflatex
+\documentclass[lang=en,12pt]{elegantpaper}
+\usepackage{url}
+\usepackage[binary-units=true]{siunitx}
+\newcommand{\mysec}[1] {
+  \SI[per-mode=symbol]{#1}{\second}
+}
+
+
+\title{Project Report of ISE \& IMP}
+\author{WU Yechang}
+\institute{11711918}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+Social network is a multidisciplinary research area for both academia and industry, including social network modeling, social network analysis, and data mining.
+\textbf{ISE} and \textbf{IMP} are two interesting and important problems in the area.
+
+Relative code can be found on \href{https://github.com/Wycers/Codelib/tree/master/CS303/lab7-9}{https://github.com/Wycers/Codelib/tree/master/CS303/lab7-9}
+\keywords{ISE, IMP}
+\end{abstract}
+
+
+\section{Preliminary}
+\subsection{Prerequisites}
+\textbf{ISE} and \textbf{IMP} are two kinds of problems with similar background. Here are some definitions in these two types of problems.
+
+\begin{enumerate}
+  \item \textbf{Vertex}, in ISE and IMP, a vertex is a independent node with its own properties such as name and activation status.
+  \item \textbf{Edge}, in ISE and IMP, a edge is a tuple like $(u, v, w)$, where u and v are the vertices and w is the corresponding weight, means that vertex $u$ has a effect probability $w$ to $v$.
+  Noticed that this effect is directed.
+  \item \textbf{Graph}, is the basement of the ISE and IMP. A graph is a tuple like $(V, E)$, where V is the vertex set and E is the edge set. The edge in $E$ connects two vertices in $V$.
+  \item \textbf{Seed}, the initial activated vertices. The activation procedure always starts from the seeds.
+  \item \textbf{Reverse reachable set}, if $v$ is a vertex in Graph $G$,
+   and graph $g$ is a graph obtained by removing each edge $(u, v, w)$ in $G$ with $1 - w$ probability.
+   The reverse reachable (RR) set for $v$ in $g$ is the set of vertices in $g$ that can reach $v$.
+   (That is, for each vertex $u$ in the RR set, there is a directed path from $u$ to $v$ in $g$.)\cite{7733128}
+\end{enumerate}
+
+There are two estimation models of the process that one activated vertex effect the other one.
+
+\begin{enumerate}
+  \item \textbf{IC model}, independent cascade model. In an IC model, if there is an edge $u, v, w$ in $E$ and $u$ is activated, the $v$ has possbility $w$ to be activated.\cite{survey}
+  Virus is an example in real world.
+  \item \textbf{LT model}, linear threshold model. In a LT model, every vertex $i$ has a activate threshold value $t_i$. For vertex $v$, if $\sum_{u \text{ is activated}} w_{(u, v)} > t_{v}$, the $v$ is activated.\cite{survey}
+  Product adoption is an example in real world.
+\end{enumerate}
+
+\subsection{Description of ISE}
+\textbf{ISE}, Influence Spread Estimation, is a kind of problem that calculates the expected number of activated vertices with \textbf{Graph} $(V, E)$  and \textbf{seeds} $S$ are given.
+
+\subsection{Applications of ISE}
+
+\begin{enumerate}
+  \item Estimate information spreading in the social network.
+  \item Simulate virus spreading procedure.
+\end{enumerate}
+
+\subsection{Description of IMP}
+\textbf{IMP}, Influence Maximization Problems, is a kind of problem that works out a seeds that can maximize the number of activated vertices with \textbf{Graph} $(V, E)$ and the limitation of the number of seeds $k$ are given.
+
+
+\subsection{Applications of IMP}
+\begin{enumerate}
+  \item viral marketing
+  \item rumour blocking
+  \item online advertisements
+\end{enumerate}
+
+For example, \href{https://www.taobao.com}{Taobao} is the biggest online shopping platform in China.
+It has a service named \href{https://try.taobao.com}{Taobao Try}, on where businessers can provide some trial product for consumers to try as long as testers post a using feedback.
+In fact, it is a way that businessers make their products get advertised. However, the number of trial products is limited.
+Under these conditions, the decision of consumers to get trial products has a direct impact on the quality of the ``advertisement''.
+If there is an modeled network of consumers, we can apply IMP algorithm to work out the best ``seeds'' and distribute the limited number of trial products to ``seeds''.
+In this way, the advertising effect of this trial activity can achieve a theoretical maximum.
+
+\section{Methodology}
+\subsection{Notation}
+\begin{itemize}
+  \item \textbf{IC}: Run IC algorithm for a single round. Return the number of activated vertices.
+  \item \textbf{LT}: Run LT algorithm for a single round. Return the number of activated vertices.
+  \item \textbf{IC\_model(timeout)}: Work out influence spread of based on the global seeds on IC model as more as possible in $timeout$ seconds.
+  Return a tuple $(a, b)$ where $b$ is the number of running times and $a$ is the sum of the number of activated vertices in the $b$ times.
+  \item \textbf{LT\_model(timeout)}: Work out influence spread of based on the global seeds on LT model as more as possible in $timeout$ seconds.
+  Return a tuple $(a, b)$ where $b$ is the number of running times and $a$ is the sum of the number of activated vertices in the $b$ times.
+  \item \textbf{insert(u, v, w)}: Insert an edge from $u$ to $v$ and the weight is $w$.
+  \item \textbf{init(graph\_filename, seeds\_filename)}: Readin graph data, seeds data from corresponding files; Build graph.
+\end{itemize}
+
+\subsection{Data structure}
+\begin{itemize}
+  \item \textbf{Vertex}: An object has oen properties: $activated$.
+  $activated$ marks the vertex whether it has been activated.
+  \item \textbf{Edge}: An object has three properties: $to$, $next$, $w$.
+  $to$ is the destination vertex of the edge.
+  $next$ is the index of the next edge that has a same source vertex.
+  $w$ is the weight of the edge.
+  \item \textbf{Graph}: An object has three properties: $n$, $Edges$, $head$.
+  $n$ is the number of vertices. $Edges$ is an array of edges.
+  $head$ is an array with size $n$ and $head_i$ is the index of the last edge from vertex $i$.
+  It can store an graph in $O(m)$ space complexity, where $m$ is the number of edges.
+  \item \textbf{q}: A queues stores vertices need to be processed.
+\end{itemize}
+
+
+\subsection{Model design}
+\begin{itemize}
+  \item For \textbf{ISE} problem, with network, seeds, model are given, the expected number of activated vertices is required.
+  The main step is running IC or LT model as many times as possible to get a average activated vertices amount which is the answer.
+
+  \item For \textbf{IMP} problem, with network, limit number, model is given, the seeds which can maximize the expected number of activated vertices is required.
+  I used \textbf{BKRIS}\cite{7733128} to solve this problem. The main step is sampling reverse reachable sets, use the occurrence amount of each vertices to evaluate the value of vertices.
+  The most k vertices is the answer.
+\end{itemize}
+
+\subsection{Detail of algorithms}
+For \textbf{ISE}, the basic algorithm is
+\begin{lstlisting}
+start = now_time
+readin graph and seed
+build graph
+res = 0, cnt = 0
+while now_time - start < time_limit - 3 # Force quit when the rest time less than 3 seconds
+  res += result of ic or lt model
+  cnt += 1
+return res, cnt
+\end{lstlisting}
+Main program will parallelly run worker\_num processes above and collect the res, cnt data from all workers.
+The final result is $\frac{\sum{res}}{\sum{cnt}}$.
+
+For \textbf{IMP}, the basic algorithm is
+\begin{lstlisting}
+start = now_time
+readin graph and seed
+build graph
+calculate sample amount based on sample rate e and graph size n.
+while sampled amount < sample amount
+  rr = generate a reverse reachable sets.
+  add rr to collections.
+  count the number of occurrences of all vertices in collections.
+
+  result = []
+  tmp = collections
+  while len(result) < k
+    pick up a vertex which has most occurrences count
+    remove this vertex from tmp, cancel effect of this vertex
+\end{lstlisting}
+
+\section{Empirical Verification}
+\subsection{Dataset}
+For small data sets, I use data sets provided on Sakai.
+
+For big data sets, besides data sets provided on Sakai, I also generate some special graph data sets by scripts.
+The special graphs are all contains 100000 vertices and consist of situations that 1. a chain of vertices, 2. all vertices has effect on other vertices 3. a vertex can be effected by all other vertices and so on.
+\subsection{Performance measure}
+My test environment is Windows 10 Professional Edition (version 1909) with Intel® Core™ i7-8700. Before uploading, the dependencies libraries will be compiled on Ubuntu Server.
+
+Performance measured by calculating the time of running 16 epoches with 8 workers. A variable $t_0$ assigned the beggining time of my program and the running time is the difference between the end time of my program and $t_0$.
+
+\subsection{Hyperparameters}
+\begin{itemize}
+  \item For \textbf{ISE}, the worker\_num is the only parameter. There are worker\_num processes working parallelly.
+  The bigger the worker\_num, the higher performance. But if it bigger than the number of cores, the performance will drop down for cost of context switching.
+  \item For \textbf{IMP}, besides the worker\_num, there is only one parameter $e$ which stands for the sample rate.
+  Porgram will sample more vertices if the $e$ is bigger, which can improve accuracy but lower performance.
+  I manually perform a binary search on $e$ with specific graph to adjust the $e$ to a good level.
+\end{itemize}
+
+\subsection{Experimental results}
+
+\begin{table}[htbp]
+  \small
+  \centering
+  \caption{Final values and local results \label{tab:reg}}
+    \begin{tabular}{cccc}
+    \toprule
+               Data Set Name  &   Accepted Amount     &     Total Amount    &    Average Time      \\
+    \midrule
+    \textbf{random-graph50000-50000-seeds-100-IC}		&5	&5 & 118.690389 \\
+    \textbf{random-graph50000-50000-seeds-100-LT}		&5	&5 & 118.673800\\
+    \textbf{random-graph1000-1000-seeds-10-LT}		  &5	&5 & 58.766590\\
+    \textbf{random-graph15000-15000-seeds-50-LT}		&5	&5 & 58.792388\\
+    \textbf{random-graph500-500-seeds-10-LT}		    &5	&5 & 58.938032\\
+    \textbf{random-graph15000-15000-seeds-50-IC}		&5	&5 & 58.656687\\
+    \textbf{random-graph5000-5000-seeds-50-IC}		  &5	&5 & 58.880270\\
+    \textbf{random-graph50-50-seeds-5-LT}		        &0	&5 & 59.841796\\
+    \textbf{random-graph5000-5000-seeds-50-LT}		  &5	&5 & 58.782142\\
+    \textbf{random-graph1000-1000-seeds-10-IC}		  &5	&5 & 58.784985\\
+    \textbf{random-graph50-50-seeds-5-IC}		        &5	&5 & 58.737054\\
+    \textbf{random-graph500-500-seeds-10-IC}		    &5	&5 & 58.609482\\
+    \bottomrule
+    \end{tabular}%
+\end{table}%
+\begin{table}[htbp]
+  \small
+  \centering
+  \caption{Final values and local results \label{tab:reg}}
+    \begin{tabular}{cccc}
+    \toprule
+               Data Set Name            & Average Result & Average time           \\
+    \midrule
+    \textbf{random-graph100000-100-IC}	& 4892.193340	& 98.236776 \\
+    \textbf{random-graph50-5-IC}		    & 30.824300	  & 1.705961 \\
+    \textbf{random-graph50000-100-IC}		& 4201.616320	& 45.000076 \\
+    \textbf{random-graph50000-100-LT}		& 4431.901340	& 46.010972 \\
+    \textbf{random-graph5000-50-IC}		  & 994.552040	& 8.613031 \\
+    \textbf{random-graph5000-50-LT}		  & 1092.584900	& 8.261144 \\
+    \textbf{random-graph100000-100-LT}	& 5051.312920	& 96.173317 \\
+    \textbf{random-graph15000-50-LT}		& 1788.092540	& 20.291894 \\
+    \textbf{random-graph1000-10-IC}		  & 176.555540	& 3.083755 \\
+    \textbf{random-graph50-5-LT}		    & 41.277900	  & 1.858779 \\
+    \textbf{random-graph1000-10-LT}		  & 190.929420	& 2.927419 \\
+    \textbf{random-graph500-10-LT}		  & 208.944280	& 2.258223 \\
+    \textbf{random-graph500-10-IC}		  & 167.755800	& 2.220243 \\
+    \textbf{random-graph15000-50-IC}		& 1657.751920	& 20.343857 \\
+    \bottomrule
+    \end{tabular}%
+\end{table}%
+
+\subsection{Conclusion}
+From experimental results:
+\begin{itemize}
+  \item For \textbf{ISE}, among the 12 datasets, my program passed all cases in 11 datasets of them.
+  It almost used all of the given time but not timeouted. That is an advantage of my program to sample as many times as possible within the allowed time to improve the accuracy of the answer.
+  But my program failed all cases in \textbf{random-graph50-50-seeds-5-LT} which is just a small graph. It is an very disappointing disadvantage and I would try to fix it.
+  \item For \textbf{IMP}, the advantage is that my program can work out a answer in a few seconds (but I don't know how is the answer).
+  If it can sample as many times as possible, the result will be better. I believe that would be a disadvantage.
+\end{itemize}
+
+\nocite{*}
+\bibliography{wpref}
+
+\end{document}
