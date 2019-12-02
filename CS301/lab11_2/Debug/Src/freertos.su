@@ -1,0 +1,5 @@
+freertos.c:77:6:MX_FREERTOS_Init	112	static
+freertos.c:143:6:PeriodicTask	16	static
+freertos.c:168:6:HandleTask	16	static
+freertos.c:189:6:FuncProducer	80	static
+freertos.c:213:6:FuncConsumer	80	static
