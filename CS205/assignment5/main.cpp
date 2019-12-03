@@ -1,5 +1,5 @@
 #include <iostream>
-#include "UTF8string.cpp"
+#include "UTF8string.hpp"
 
 using namespace std;
 
