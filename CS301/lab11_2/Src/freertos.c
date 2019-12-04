@@ -24,6 +24,8 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "usart.h"
+#include "stdio.h"
+#include "string.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -144,12 +146,6 @@ void MX_FREERTOS_Init(void) {
   */
 /* USER CODE END Header_PeriodicTask */
 void PeriodicTask(void const *argument) {
-
-
-
-
-
-
     /* USER CODE BEGIN PeriodicTask */
     /* Infinite loop */
     for (;;) {
@@ -173,7 +169,6 @@ void HandleTask(void const *argument) {
         osSemaphoreWait(bSem01Handle, osWaitForever);
         HAL_GPIO_TogglePin(LED0_GPIO_Port, LED0_Pin);
         HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
-
     }
     /* USER CODE END HandleTask */
 }
@@ -188,15 +183,13 @@ void HandleTask(void const *argument) {
 void FuncProducer(void const *argument) {
     /* USER CODE BEGIN FuncProducer */
     /* Infinite loop */
+    char msg[50] = "Producer produceed data\r\n";
     for (;;) {
-        char msg[50];
         osSemaphoreWait(bSemEmptyHandle, osWaitForever);
-        sprintf(msg, "Producer produce data\r\n");
-        HAL_UART_Transmit(&huart1, (uint8_t *) msg, strlen(msg), HAL_MAX_DELAY);
+        HAL_UART_Transmit(&huart1, msg, strlen(msg), HAL_MAX_DELAY);
         HAL_Delay(500);
         osSemaphoreRelease(bSemFilledHandle);
-//  osSemaphoreRelease(bSemFilledHandle);
-        osDelay(600);
+        osDelay(500);
     }
     /* USER CODE END FuncProducer */
 }
@@ -211,14 +204,13 @@ void FuncProducer(void const *argument) {
 void FuncConsumer(void const *argument) {
     /* USER CODE BEGIN FuncConsumer */
     /* Infinite loop */
+    char msg[50] = "Consumer consumed data\r\n";
     for (;;) {
-        char msg[50];
         osSemaphoreWait(bSemFilledHandle, osWaitForever);
-        sprintf(msg, "Consumer consume data\r\n");
-        HAL_UART_Transmit(&huart1, (uint8_t *) msg, strlen(msg), HAL_MAX_DELAY);
+        HAL_UART_Transmit(&huart1, msg, strlen(msg), HAL_MAX_DELAY);
         HAL_Delay(500);
         osSemaphoreRelease(bSemEmptyHandle);
-        osDelay(1300);
+        osDelay(750);
     }
     /* USER CODE END FuncConsumer */
 }
