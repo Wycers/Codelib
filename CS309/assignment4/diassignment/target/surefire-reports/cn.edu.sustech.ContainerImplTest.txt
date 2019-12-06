@@ -1,0 +1,60 @@
+-------------------------------------------------------------------------------
+Test set: cn.edu.sustech.ContainerImplTest
+-------------------------------------------------------------------------------
+Tests run: 17, Failures: 14, Errors: 0, Skipped: 0, Time elapsed: 0.329 s <<< FAILURE! - in cn.edu.sustech.ContainerImplTest
+testResolveWithNoDependency  Time elapsed: 0.179 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: not <null>
+	at cn.edu.sustech.ContainerImplTest.testResolveWithNoDependency(ContainerImplTest.java:68)
+
+testWithDependencyNotFound  Time elapsed: 0.008 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Expected cn.edu.sustech.ServiceNotFoundException to be thrown, but nothing was thrown.
+	at cn.edu.sustech.ContainerImplTest.testWithDependencyNotFound(ContainerImplTest.java:97)
+
+testServiceNotFound  Time elapsed: 0.022 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Expected cn.edu.sustech.ServiceNotFoundException to be thrown, but nothing was thrown.
+	at cn.edu.sustech.ContainerImplTest.testServiceNotFound(ContainerImplTest.java:104)
+
+testImplTypeForInterface  Time elapsed: 0.004 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: not <null>
+	at cn.edu.sustech.ContainerImplTest.testImplTypeForInterface(ContainerImplTest.java:124)
+
+testRegisterNull  Time elapsed: 0.012 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+	at cn.edu.sustech.ContainerImplTest.testRegisterNull(ContainerImplTest.java:36)
+
+testWithConstructorDependency  Time elapsed: 0.002 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: not <null>
+	at cn.edu.sustech.ContainerImplTest.testWithConstructorDependency(ContainerImplTest.java:77)
+
+testMixedDependencies  Time elapsed: 0.003 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: not <null>
+	at cn.edu.sustech.ContainerImplTest.testMixedDependencies(ContainerImplTest.java:115)
+
+testImplTypeForAbstractClass  Time elapsed: 0.011 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: not <null>
+	at cn.edu.sustech.ContainerImplTest.testImplTypeForAbstractClass(ContainerImplTest.java:132)
+
+testRegisterAbstractClassOrInterface  Time elapsed: 0.01 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+	at cn.edu.sustech.ContainerImplTest.testRegisterAbstractClassOrInterface(ContainerImplTest.java:56)
+
+testResolveNull  Time elapsed: 0.003 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+	at cn.edu.sustech.ContainerImplTest.testResolveNull(ContainerImplTest.java:49)
+
+testFieldWithoutInject  Time elapsed: 0.002 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: not <null>
+	at cn.edu.sustech.ContainerImplTest.testFieldWithoutInject(ContainerImplTest.java:161)
+
+testRegisterClassWithMultipleConstructors  Time elapsed: 0.003 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+	at cn.edu.sustech.ContainerImplTest.testRegisterClassWithMultipleConstructors(ContainerImplTest.java:151)
+
+testDependencyImpl  Time elapsed: 0.002 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: not <null>
+	at cn.edu.sustech.ContainerImplTest.testDependencyImpl(ContainerImplTest.java:142)
+
+testWithAnnotationDependency  Time elapsed: 0.003 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: not <null>
+	at cn.edu.sustech.ContainerImplTest.testWithAnnotationDependency(ContainerImplTest.java:88)
+

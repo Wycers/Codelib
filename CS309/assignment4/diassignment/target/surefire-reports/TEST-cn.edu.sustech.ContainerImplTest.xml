@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="cn.edu.sustech.ContainerImplTest" time="0.329" tests="17" errors="0" skipped="0" failures="14">
+  <properties>
+    <property name="java.specification.version" value="13"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/Users/wycer/Codelib/CS309/assignment4/diassignment/target/test-classes:/Users/wycer/Codelib/CS309/assignment4/diassignment/target/classes:/Users/wycer/.m2/repository/org/junit/jupiter/junit-jupiter/5.5.2/junit-jupiter-5.5.2.jar:/Users/wycer/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.5.2/junit-jupiter-api-5.5.2.jar:/Users/wycer/.m2/repository/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar:/Users/wycer/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/wycer/.m2/repository/org/junit/platform/junit-platform-commons/1.5.2/junit-platform-commons-1.5.2.jar:/Users/wycer/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.5.2/junit-jupiter-params-5.5.2.jar:/Users/wycer/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.5.2/junit-jupiter-engine-5.5.2.jar:/Users/wycer/.m2/repository/org/junit/platform/junit-platform-engine/1.5.2/junit-platform-engine-1.5.2.jar:"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://java.oracle.com/"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="java.vm.specification.version" value="13"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="CN"/>
+    <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk-13.0.1.jdk/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/wycer/Codelib/CS309/assignment4/diassignment/target/surefire/surefirebooter12173369576318011831.jar /Users/wycer/Codelib/CS309/assignment4/diassignment/target/surefire 2019-12-06T11-55-12_495-jvmRun1 surefire6509660117795853217tmp surefire_014104127444155691253tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/Users/wycer/Codelib/CS309/assignment4/diassignment/target/test-classes:/Users/wycer/Codelib/CS309/assignment4/diassignment/target/classes:/Users/wycer/.m2/repository/org/junit/jupiter/junit-jupiter/5.5.2/junit-jupiter-5.5.2.jar:/Users/wycer/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.5.2/junit-jupiter-api-5.5.2.jar:/Users/wycer/.m2/repository/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar:/Users/wycer/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/wycer/.m2/repository/org/junit/platform/junit-platform-commons/1.5.2/junit-platform-commons-1.5.2.jar:/Users/wycer/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.5.2/junit-jupiter-params-5.5.2.jar:/Users/wycer/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.5.2/junit-jupiter-engine-5.5.2.jar:/Users/wycer/.m2/repository/org/junit/platform/junit-platform-engine/1.5.2/junit-platform-engine-1.5.2.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/Users/wycer"/>
+    <property name="user.language" value="zh"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2019-10-15"/>
+    <property name="java.home" value="/Library/Java/JavaVirtualMachines/jdk-13.0.1.jdk/Contents/Home"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/Users/wycer/Codelib/CS309/assignment4/diassignment"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="/Users/wycer/Codelib/CS309/assignment4/diassignment/target/surefire/surefirebooter12173369576318011831.jar"/>
+    <property name="user.script" value="Hans"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="13.0.1+9"/>
+    <property name="user.name" value="wycer"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="10.15.1"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="localRepository" value="/Users/wycer/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="/var/folders/sb/by8b5dmj4q7_rtl4x16g9yvw0000gn/T/"/>
+    <property name="java.version" value="13.0.1"/>
+    <property name="user.dir" value="/Users/wycer/Codelib/CS309/assignment4/diassignment"/>
+    <property name="os.arch" value="x86_64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="java.library.path" value="/Users/wycer/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.version" value="13.0.1+9"/>
+    <property name="idea.version2019.3" value="true"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="java.class.version" value="57.0"/>
+  </properties>
+  <testcase name="testResolveWithNoDependency" classname="cn.edu.sustech.ContainerImplTest" time="0.179">
+    <failure message="expected: not &lt;null&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: not <null>
+	at cn.edu.sustech.ContainerImplTest.testResolveWithNoDependency(ContainerImplTest.java:68)
+]]></failure>
+  </testcase>
+  <testcase name="testWithDependencyNotFound" classname="cn.edu.sustech.ContainerImplTest" time="0.008">
+    <failure message="Expected cn.edu.sustech.ServiceNotFoundException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: Expected cn.edu.sustech.ServiceNotFoundException to be thrown, but nothing was thrown.
+	at cn.edu.sustech.ContainerImplTest.testWithDependencyNotFound(ContainerImplTest.java:97)
+</failure>
+  </testcase>
+  <testcase name="testServiceNotFound" classname="cn.edu.sustech.ContainerImplTest" time="0.022">
+    <failure message="Expected cn.edu.sustech.ServiceNotFoundException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: Expected cn.edu.sustech.ServiceNotFoundException to be thrown, but nothing was thrown.
+	at cn.edu.sustech.ContainerImplTest.testServiceNotFound(ContainerImplTest.java:104)
+</failure>
+  </testcase>
+  <testcase name="testImplTypeForInterface" classname="cn.edu.sustech.ContainerImplTest" time="0.004">
+    <failure message="expected: not &lt;null&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: not <null>
+	at cn.edu.sustech.ContainerImplTest.testImplTypeForInterface(ContainerImplTest.java:124)
+]]></failure>
+  </testcase>
+  <testcase name="testRegisterNull" classname="cn.edu.sustech.ContainerImplTest" time="0.012">
+    <failure message="Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+	at cn.edu.sustech.ContainerImplTest.testRegisterNull(ContainerImplTest.java:36)
+</failure>
+  </testcase>
+  <testcase name="testWithConstructorDependency" classname="cn.edu.sustech.ContainerImplTest" time="0.002">
+    <failure message="expected: not &lt;null&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: not <null>
+	at cn.edu.sustech.ContainerImplTest.testWithConstructorDependency(ContainerImplTest.java:77)
+]]></failure>
+  </testcase>
+  <testcase name="testMixedDependencies" classname="cn.edu.sustech.ContainerImplTest" time="0.003">
+    <failure message="expected: not &lt;null&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: not <null>
+	at cn.edu.sustech.ContainerImplTest.testMixedDependencies(ContainerImplTest.java:115)
+]]></failure>
+  </testcase>
+  <testcase name="testRegister" classname="cn.edu.sustech.ContainerImplTest" time="0.002"/>
+  <testcase name="testImplTypeForAbstractClass" classname="cn.edu.sustech.ContainerImplTest" time="0.011">
+    <failure message="expected: not &lt;null&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: not <null>
+	at cn.edu.sustech.ContainerImplTest.testImplTypeForAbstractClass(ContainerImplTest.java:132)
+]]></failure>
+  </testcase>
+  <testcase name="testRegisterAbstractClassOrInterface" classname="cn.edu.sustech.ContainerImplTest" time="0.01">
+    <failure message="Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+	at cn.edu.sustech.ContainerImplTest.testRegisterAbstractClassOrInterface(ContainerImplTest.java:56)
+</failure>
+  </testcase>
+  <testcase name="testResolveNull" classname="cn.edu.sustech.ContainerImplTest" time="0.003">
+    <failure message="Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+	at cn.edu.sustech.ContainerImplTest.testResolveNull(ContainerImplTest.java:49)
+</failure>
+  </testcase>
+  <testcase name="testFieldWithoutInject" classname="cn.edu.sustech.ContainerImplTest" time="0.002">
+    <failure message="expected: not &lt;null&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: not <null>
+	at cn.edu.sustech.ContainerImplTest.testFieldWithoutInject(ContainerImplTest.java:161)
+]]></failure>
+  </testcase>
+  <testcase name="testRegisterClassWithMultipleConstructors" classname="cn.edu.sustech.ContainerImplTest" time="0.003">
+    <failure message="Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+	at cn.edu.sustech.ContainerImplTest.testRegisterClassWithMultipleConstructors(ContainerImplTest.java:151)
+</failure>
+  </testcase>
+  <testcase name="testDependencyImpl" classname="cn.edu.sustech.ContainerImplTest" time="0.002">
+    <failure message="expected: not &lt;null&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: not <null>
+	at cn.edu.sustech.ContainerImplTest.testDependencyImpl(ContainerImplTest.java:142)
+]]></failure>
+  </testcase>
+  <testcase name="testWithAnnotationDependency" classname="cn.edu.sustech.ContainerImplTest" time="0.003">
+    <failure message="expected: not &lt;null&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: not <null>
+	at cn.edu.sustech.ContainerImplTest.testWithAnnotationDependency(ContainerImplTest.java:88)
+]]></failure>
+  </testcase>
+  <testcase name="createNewContainer" classname="cn.edu.sustech.ContainerImplTest" time="0.002"/>
+  <testcase name="testRegisterWithImpl" classname="cn.edu.sustech.ContainerImplTest" time="0.001"/>
+</testsuite>
