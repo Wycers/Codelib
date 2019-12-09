@@ -263,7 +263,7 @@ class TrainPipeline():
 
 
 if __name__ == '__main__':
-    training_pipeline = TrainPipeline(init_model='model/model.model', transfer_model=None)
+    training_pipeline = TrainPipeline(init_model='model/model.ckpt', transfer_model=None)
     # training_pipeline = TrainPipeline(init_model=None, transfer_model='transfer_model/best_policy.model')
     # training_pipeline = TrainPipeline()
     training_pipeline.run()
