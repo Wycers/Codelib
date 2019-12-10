@@ -1,12 +1,6 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Sat Dec  8 15:31:39 2018
-
-@author: initial-h
-"""
 
 from __future__ import print_function
-import random
 import numpy as np
 import os
 import time
@@ -22,8 +16,8 @@ class TrainPipeline():
     def __init__(self, init_model=None, transfer_model=None):
         self.resnet_block = 19  # num of block structures in resnet
         # params of the board and the game
-        self.board_width = 11
-        self.board_height = 11
+        self.board_width = 15
+        self.board_height = 15
         self.n_in_row = 5
         self.board = Board(width=self.board_width,
                            height=self.board_height,
@@ -263,7 +257,7 @@ class TrainPipeline():
 
 
 if __name__ == '__main__':
-    training_pipeline = TrainPipeline(init_model='model/model.ckpt', transfer_model=None)
+    training_pipeline = TrainPipeline(init_model='model/best_policy.model', transfer_model=None)
     # training_pipeline = TrainPipeline(init_model=None, transfer_model='transfer_model/best_policy.model')
     # training_pipeline = TrainPipeline()
     training_pipeline.run()
