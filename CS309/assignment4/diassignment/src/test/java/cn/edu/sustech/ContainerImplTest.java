@@ -161,4 +161,14 @@ public class ContainerImplTest {
         assertNotNull(instance);
         assertNull(instance.getCDep());
     }
+
+    @Test
+    public void testInjectFieldsInSuperClass() {
+        container.register(P.class, PEnhanced.class);
+        container.register(Q.class);
+        P instance = container.resolve(P.class);
+        assertNotNull(instance);
+        assertTrue(instance instanceof PEnhanced);
+        assertNotNull(instance.getQDep());
+    }
 }
