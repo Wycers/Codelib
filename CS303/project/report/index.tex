@@ -1,0 +1,45 @@
+%!TEX program = pdflatex
+% Full chain: pdflatex -> bibtex -> pdflatex -> pdflatex
+\documentclass[lang=en,12pt]{elegantpaper}
+\usepackage{url}
+\usepackage[binary-units=true]{siunitx}
+\newcommand{\mysec}[1] {
+  \SI[per-mode=symbol]{#1}{\second}
+}
+
+
+\title{Gomoku AI Based On Deep Learning}
+\author{Yechang WU (11711918), You Lin (11711809)}
+\institute{Southern University of Science and Technology}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  Gomoku, also called Five in a Row, is an abstract strategy board game.
+  It is traditionally played with Go pieces (black and white stones) on a Go board, using 15$\times$15 of the 19$\times$19 grid intersections.
+  The game is known in several countries under different names.While playing Gomoku, players alternate turns placing a stone of their color on an empty intersection. The winner is the first player to form an unbroken chain of five stones horizontally, vertically, or diagonally.
+
+  \keywords{Gomoku, Game AI, Deep neural network, Reinforcement learning}
+\end{abstract}
+
+\section{Introduction}
+\subsection{topic selected}
+a)	 : the application of the Gomoku based on the tensorflow.
+\subsection{data selection}
+\subsection{model selection}
+\subsection{performance goal}
+a)	can win AI on the internet.
+\subsection{Prerequisites}
+\subsection{training process}
+a)	deploy the program of AI written in tensorflow into the ModelArt,
+b)	test the performance of the model with the times go
+\subsection{the method of evaluation}
+a)	let the AI play with another AI on the internet and take the win rate of a large number of competition into consideration
+
+% \nocite{*}
+% \bibliography{wpref}
+
+\end{document}
