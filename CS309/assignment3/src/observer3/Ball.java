@@ -77,6 +77,7 @@ public abstract class Ball {
     }
 
     public void draw(Graphics g) {
+        Thread.currentThread();
         if (isVisible()) {
             g.setColor(this.getColor());
             g.fillOval(this.getX(), this.getY(), this.getBallSize(), this.getBallSize());
