@@ -1,0 +1,256 @@
+\documentclass[12pt,letterpaper]{ctexart}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage[binary-units=true]{siunitx}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx} %插入图片的宏包
+\usepackage{float} %设置图片浮动位置的宏包
+\usepackage{subfigure} %插入多图时用子图显示的宏包
+\usepackage{listings}
+\usepackage{afterpage}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+}
+
+\newcommand\blankpage{%
+  \null
+  \thispagestyle{empty}%
+  \addtocounter{page}{-1}%
+  \newpage
+}
+
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\renewcommand\lstlistingname{Algorithm}
+\renewcommand\lstlistlistingname{Algorithms}
+\def\lstlistingautorefname{Alg.}
+
+\lstdefinestyle{Python}{
+    language        = Python,
+    frame           = lines,
+    basicstyle      = \footnotesize,
+    keywordstyle    = \color{blue},
+    stringstyle     = \color{green},
+    commentstyle    = \color{red}\ttfamily
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+% Edit these as appropriate
+\newcommand\course{CS305}
+\newcommand\hwnumber{3}                  % <-- homework number
+\newcommand\NetIDa{11711918}           % <-- NetID of person #1
+\newcommand\NetIDb{吴烨昌}           % <-- NetID of person #2 (Comment this line out for problem sets)
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}                 % <-- Comment this line out for problem sets (make sure you are person #1)
+\chead{\textbf{\Large Homework \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\section*{Problem 1}
+
+{\bf Description}
+
+Consider a datagram network using 8-bit host addresses. Suppose a router uses longest prefix matching and has the following forwarding table:
+
+\begin{table}[htbp]
+  \small
+  \centering
+  \begin{tabular}{|c|c|}
+  \hline
+  Prefix & Match \\ \hline
+  00     & 0     \\ \hline
+  01     & 1     \\ \hline
+  10     & 1     \\ \hline
+  110    & 2     \\ \hline
+  111    & 3     \\ \hline
+  \end{tabular}
+\end{table}
+{\bf Solution}
+
+\begin{table}[htbp]
+  \small
+  \centering
+  \begin{tabular}{|c|c|c|}
+  \hline
+  Interface & Range of destination                                  & Number of addresses  \\ \hline
+  0         & 0b00000000$\sim$0b00111111                            & 64    \\ \hline
+  1         & 0b10000000$\sim$0b10111111,0b01000000$\sim$0b01111111 & 128   \\ \hline
+  2         & 0b11000000$\sim$0b11011111                            & 32    \\ \hline
+  3         & 0b11100000$\sim$0b11111111                            & 32    \\ \hline
+  \end{tabular}
+\end{table}
+
+\newpage
+
+\section*{Problem 2}
+
+{\bf Description}
+
+Consider a router that interconnects three subnets: Subnet 1, Subnet 2, and Subnet 3.
+Suppose all interfaces in these three subnets are required to have the prefix 222.1.16/24. Also
+suppose that Subnet 1 is required to support at least 60 interfaces, Subnet 2 is to support at least
+90 interfaces, and Subnet 3 is to support at least 12 interfaces. Provide three network addresses
+(of the form a.b.c.d/x) that satisfy these constraints, please show the calculation procedure.
+
+{\bf Solution}
+
+Subnet 1 needs at least 60 interfaces, which means that subnet 1 needs at least 62 addresses. Because $2^6 >= 62$, network address of subnet 1 is \textbf{222.1.16.128/26}.
+
+Subnet 2 needs at least 90 interfaces, which means that subnet 1 needs at least 92 addresses. Because $2^7 >= 92$, network address of subnet 2 is \textbf{222.1.16.0/25}.
+
+Subnet 3 needs at least 12 interfaces, which means that subnet 1 needs at least 14 addresses. Because $2^4 >= 14$, network address of subnet 3 is \textbf{222.1.16.192/28}.
+
+\newpage
+
+\section*{Problem 3}
+
+{\bf Description}
+
+Consider the network setup in the figure below. Suppose that the ISP instead assigns the
+router the address 24.34.112.232 and that the network address of the home network is
+192.168.2.0/25.
+
+\begin{enumerate}
+  \item Assign addresses to all interfaces in the home network.
+  \item Suppose each host has two ongoing TCP connections, all to port 80 at host 128.119.40.87.
+\end{enumerate}
+
+Provide the six corresponding entries in the NAT translation table.
+
+{\bf Solution}
+
+\begin{enumerate}
+  \item The router interfaces assigned as \textbf{192.168.2.4}. The rest assigned as follows:
+  \begin{enumerate}
+    \item \textbf{192.168.2.1}
+    \item \textbf{192.168.2.2}
+    \item \textbf{192.168.2.3}
+  \end{enumerate}
+  \item As follows
+  \begin{table}[htbp]
+    \small
+    \centering
+    \begin{tabular}{|c|c|c|}
+    \hline
+        WAN Side        &      LAN Side     \\ \hline
+    24.34.112.232, 1145 & 192.168.2.1, 2333 \\ \hline
+    24.34.112.232, 1141 & 192.168.2.1, 23333 \\ \hline
+    24.34.112.232, 1144 & 192.168.2.2, 2333 \\ \hline
+    24.34.112.232, 1149 & 192.168.2.2, 23333 \\ \hline
+    24.34.112.232, 1148 & 192.168.2.3, 2333 \\ \hline
+    24.34.112.232, 1140 & 192.168.2.3, 23333 \\ \hline
+    \end{tabular}
+  \end{table}
+
+
+\end{enumerate}
+\newpage
+
+\section*{Problem 4}
+{\bf Description}
+
+What is the difference between a forwarding table that we encountered in destinationbased forwarding in Section 4.1 and OpenFlow's flow table that we encountered in Section 4.4?
+
+{\bf Solution}
+
+A forwarding table uses IP address or MAC addresses to decide the next hop for the packet.
+
+A flow table may use any of the information within the packet to decide the next hop for it.
+
+
+\section*{Problem 5}
+{\bf Description}
+
+Consider the following network. With the indicated link costs, use Dijkstra’s shortest-path
+algorithm to compute the shortest path from x to all network nodes. Show how the algorithm
+works and show the final forwarding table in x.
+
+{\bf Solution}
+
+\begin{table}[htbp]
+  \small
+  \centering
+  \begin{tabular}{|c|c|c|c|c|c|c|}
+  \hline
+   x & y & z & w & u & v & t \\ \hline
+   0 & * & * & * & * & * & * \\ \hline
+   0 & 6 & 8 & 6 & * & 2 & * \\ \hline
+   0 &   &   &   & 5 &   & 6 \\ \hline
+  \end{tabular}
+\end{table}
+
+Final forwarding table is
+
+\begin{table}[htbp]
+  \small
+  \centering
+  \begin{tabular}{|c|c|c|c|c|c|c|}
+  \hline
+  Destination & Link \\ \hline
+       t      &  (x, v)  \\ \hline
+       u      &  (x, v)  \\ \hline
+       v      &  (x, v)  \\ \hline
+       w      &  (x, w)  \\ \hline
+       y      &  (x, y)  \\ \hline
+       z      &  (x, z)  \\ \hline
+  \end{tabular}
+\end{table}
+
+
+\section*{Problem 6}
+Consider the network fragment shown below. x has only two attached neighbors, w and y. w
+has a minimum-cost path to destination u (not shown) of 5, and y has a minimum-cost path to u
+of 6. The complete paths from w and y to u (and between w and y) are not shown. All link costs
+in the network have strictly positive integer values.
+\begin{enumerate}
+  \item Give x’s distance vector for destinations w, y, and u.
+  \item Give a link-cost change for either c(x,w) or c(x,y) such that x will inform its neighbors of a new
+  minimum-cost path to u as a result of executing the distance-vector algorithm.
+  \item Give a link-cost change for either c(x,w) or c(x,y) such that x will not inform its neighbors of a
+  new minimum-cost path to u as a result of executing the distance-vector algorithm.
+\end{enumerate}
+
+{\bf Solution}
+
+\begin{enumerate}
+  \item As follows:
+  \begin{table}[htbp]
+    \small
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    Distance-vector  & Value \\ \hline
+         c(x, w)     &  2    \\ \hline
+         c(x, y)     &  $min(2 + 2, 5) = 4$ \\ \hline
+         c(x, u)     &  $min(2 + 5, 4 + 6) = 7$  \\ \hline
+    \end{tabular}
+  \end{table}
+  \item set $c(x, w)$ a value $\geq 7$, such as $7$.
+  \item set $c(x, y)$ a value $\geq 1$, such as $2$.
+\end{enumerate}
+
+\end{document}
