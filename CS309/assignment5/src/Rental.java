@@ -1,5 +1,3 @@
-import range.DateRange;
-
 class Rental {
     private Movie _movie;
 
