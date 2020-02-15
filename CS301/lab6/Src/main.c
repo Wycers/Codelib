@@ -60,6 +60,7 @@ void SystemClock_Config(void);
 
 void USART1_IRQHandler(void) {
     /* USER CODE BEGIN USART1_IRQn 0 */
+    HAL_UART_Transmit(&huart1, "interrupt\r\n", 11, 0xffff);
 
     /* USER CODE END USART1_IRQn 0 */
     HAL_UART_IRQHandler(&huart1);
@@ -72,12 +73,13 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
     if (huart->Instance == USART1) {
         static unsigned char uRx_Data[1024] = {0};
         static unsigned char uLength = 0;
+        HAL_UART_Transmit(&huart1, rxBuffer, strlen(rxBuffer), 0xffff);
         if (rxBuffer[0] == '\n') {
             uRx_Data[uLength - 1] = '\0';
             if (strcmp(uRx_Data, "interrupt") == 0) {
                 HAL_UART_Transmit(&huart1, "interrupt\r\n", 11, 0xffff);
             } else {
-//                HAL_UART_Transmit(&huart1, "Not interrupt\r\n", 15, 0xffff);
+                HAL_UART_Transmit(&huart1, "Not interrupt\r\n", 15, 0xffff);
             }
             uLength = 0;
         } else {
@@ -149,6 +151,7 @@ int main(void) {
 
     /* USER CODE END 2 */
     HAL_UART_Receive_IT(&huart1, (uint8_t *) rxBuffer, 1);
+    HAL_UART_Transmit(&huart1, "key0 pressed\r\n", 14, 0xffff);
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
     while (1) {
