@@ -14,7 +14,7 @@ void getnext()
             nx[++i] = ++j;
         else
             j = nx[j];
-    } 
+    }
 }
 
 void KMP()
