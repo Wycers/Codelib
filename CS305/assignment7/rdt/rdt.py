@@ -36,6 +36,9 @@ class EVENT(Enum):
 
 
 class FSM(object):
+    """
+    FSM, but it is useless for connectionless rdt
+    """
     def __init__(self, state=None):
         self._current = None
         if type(state) == STATE:
@@ -237,84 +240,10 @@ class socket(UDPsocket):
 
     def connect(self, addr):
         self.to = addr
-        # print("Connect is not implemented for connectionless rdt")
-        # raise NotImplementedError
-
-    # def connect(self, addr):
-    #     while True:
-    #         try:
-    #             # send syn;
-    #             req = datagram()
-    #             req.dtype = SYN
-    #             self.sendto(req(), addr)
-    #             logging.info("SYN sent")
-
-    #             # receive syn, ack;
-    #             res, addr = self.recvfrom(2048)
-    #             if res.dtype == SYN + ACK and res.seq == 1:
-    #                 logging.info('Recived %s' % res)
-    #                 # send ack
-    #                 req = datagram()
-    #                 req.dtype = ACK
-    #                 self.sendto(req(), addr)
-
-    #                 self.to = addr
-    #                 logging.info("Connected!")
-    #                 break
-    #             else:
-    #                 raise Exception("Failed to connect to server")
-    #         except Exception as e:
-    #             logging.error(e)
-    #     self.state.dispatch(EVENT.connect)
-
-    # def accept(self):
-    #     if self.state.current == STATE.CLOSED:
-    #         raise Exception("Server is closed")
-    #     if self.state.current != STATE.LISTENING:
-    #         return
-    #     logging.info("Waiting for connection")
-    #     self.state.dispatch(EVENT.connect_requested)
-    #     while True:
-    #         try:
-    #             # Recieve data
-    #             res, addr = self.recvfrom(2048)
-    #             if res.dtype & SYN:
-    #                 logging.info('Recieved SYN')
-    #                 logging.debug(res)
-    #                 req = datagram()
-    #                 req.dtype = SYN + ACK
-    #                 req.seq = res.seq + 1
-    #                 logging.info('Send ACK')
-    #                 self.sendto(req(), addr)
-    #             else:
-    #                 continue
-
-    #             # Data is ACK
-    #             res, addr = self.recvfrom(2048)
-    #             if res.dtype & ACK:
-    #                 logging.info('Recieved ACK')
-    #                 self.to = addr
-    #                 break
-    #             else:
-    #                 continue
-    #         except timeout as e:
-    #             logging.debug(e)
-    #         except Exception as e:
-    #             logging.error(e)
-
-    #     logging.info("Connected")
-    #     self.state.dispatch(EVENT.accept)
-    #     return self, self.to
 
     def close(self):
         print("Close is not implemented for connectionless ")
         raise NotImplementedError
-        # if self.state.current != STATE.CONNECTED:
-        #     return
-        # # send fin; receive ack; receive fin; send ack
-        # req = datagram()
-        # req.dtype = FIN
-        # self.sendto(req(), self.to)
 
     def recvfrom(self, bufsize=2048):
         QvQ = super().recvfrom(bufsize)
@@ -328,9 +257,7 @@ class socket(UDPsocket):
         raise Exception("Invalid packet")
 
     def recv(self, bufsize: int):
-
         rcvd_data = b''
-        # self.settimeout(socket.TIMEOUT)
         timeout_count = -1
         expected = self.seq_ack
 
@@ -339,7 +266,6 @@ class socket(UDPsocket):
         logging.info('ready to receive...')
         while True:
             try:
-                # segment_raw, remote_address = super().recvfrom(RDTSegment.SEGMENT_LEN)
                 data, addr = self.recvfrom(bufsize)
 
                 logging.debug('received raw segment')
@@ -395,6 +321,7 @@ class socket(UDPsocket):
         while l < len(content):
             r = min(len(content), l + WINDOWS_SIZE * MAX_LENGTH)
 
+            # Calculate all the bytes need to send
             buffer = list(range(l, r, MAX_LENGTH))
             for i in buffer:
                 chunk_len = min(MAX_LENGTH, len(content) - i)
@@ -412,10 +339,9 @@ class socket(UDPsocket):
 
                     timeout_count = 0  # no error, reset counter
 
-                    # assert data.seq_ack
                     logging.info('#%d acked', data.seq_ack)
 
-                    # cumulative ack
+                    # cumulative ack, it should be in the window
                     assert buffer[0] <= data.seq_ack - base <= buffer[-1] + MAX_LENGTH + 1
 
                     l = max(l, data.seq_ack - base)
@@ -438,7 +364,7 @@ class socket(UDPsocket):
                 except Exception as e:
                     logging.warning(e)
 
-        # Finish
+        # Finish, send FIN
         fin = datagram()
         fin.dtype |= FIN
         fin.seq = base + len(content)
@@ -447,11 +373,8 @@ class socket(UDPsocket):
         while True:
             try:
                 self.sendto(fin(), reciver_addr)
-                # data, remote_address = super().recvfrom(RDTSegment.SEGMENT_LEN)
                 data, addr = self.recvfrom(2048)
 
-                # limited by the required APIs to provide, the receipt of the last FINACK
-                # is not guaranteed, though a high probability is provided
                 if data.dtype & ACK and data.dtype & FIN and data.seq_ack == base + len(content) + 1:
                     break
             except (timeout, ValueError):
