@@ -206,7 +206,6 @@ RIP for process `444`.
 
 # Conclusion
 
-
-
-
-
+1. Basic Linux commands. Such as cd, ls, man...
+2. How does the optimistic level affect the assembly code compiled from the same C code.
+3. How to code a simple bash script.

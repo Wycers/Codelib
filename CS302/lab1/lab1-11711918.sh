@@ -2,18 +2,18 @@
 # Author: 11711918
 
 # copy arguments
-TARGET_DIRECTORY=$(realpath $1)
-OUTPUT_FILE=$(realpath $2)
+TARGET_DIRECTORY=$(realpath "$1")
+OUTPUT_FILE=$(realpath "$2")
 
 recho() {
-  echo "$@" >>$OUTPUT_FILE
+  echo "$@" >>"$OUTPUT_FILE"
 }
 
 # clean OUTPUT_FILE
 : >$2
 
 # check directory
-if ! [ -d $TARGET_DIRECTORY ]; then
+if ! [ -d "$TARGET_DIRECTORY" ]; then
   recho "Maybe that is not a directory ?"
   exit -1
 fi
