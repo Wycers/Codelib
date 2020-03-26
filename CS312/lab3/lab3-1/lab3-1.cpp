@@ -110,7 +110,7 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "11711918 Yechang WU Lab3", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "11711918 Yechang WU Lab3-1", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -138,10 +138,6 @@ int main()
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 3);
         glDrawArrays(GL_TRIANGLES, 1, 3);
-        glDrawArrays(GL_TRIANGLES, 2, 3);
-        glDrawArrays(GL_TRIANGLES, 5, 3);
-        glDrawArrays(GL_TRIANGLES, 6, 3);
-        glDrawArrays(GL_TRIANGLES, 7, 3);
         glBindVertexArray(0);
 
         /* Swap front and back buffers */

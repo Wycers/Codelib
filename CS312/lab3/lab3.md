@@ -34,7 +34,10 @@ openGL 3.3
 
 8. Call `glDrawArrays` to draw 12 triangles
 
-    ```
+### Basic 
+
+
+```c++
     #include <GLFW/glfw3.h>
     
     float vertices[] = {
@@ -178,12 +181,72 @@ openGL 3.3
         glfwTerminate();
         return 0;
     }
-    ```
+```
+
+### Rectangle
+
+``` c++
+
+        while (!glfwWindowShouldClose(window))
+        {
+            /* Render here */
+            glClear(GL_COLOR_BUFFER_BIT);
+            
+            /*draw a triangle*/
+            glUseProgram(programme);
+            glBindVertexArray(VAO);
+            glDrawArrays(GL_TRIANGLES, 0, 3);
+            glDrawArrays(GL_TRIANGLES, 1, 3);
+            glBindVertexArray(0);
+    
+            /* Swap front and back buffers */
+            glfwSwapBuffers(window);
+    
+            /* Poll for and process events */
+            glfwPollEvents();
+        }
+```
 
 
+
+### Cube
+
+``` c++
+
+        /* Loop until the user closes the window */
+        while (!glfwWindowShouldClose(window))
+        {
+            /* Render here */
+            glClear(GL_COLOR_BUFFER_BIT);
+            
+            /*draw a triangle*/
+            glUseProgram(programme);
+            glBindVertexArray(VAO);
+            glDrawArrays(GL_TRIANGLES, 0, 3);
+            glDrawArrays(GL_TRIANGLES, 1, 3);
+            glDrawArrays(GL_TRIANGLES, 2, 3);
+            glDrawArrays(GL_TRIANGLES, 5, 3);
+            glDrawArrays(GL_TRIANGLES, 6, 3);
+            glDrawArrays(GL_TRIANGLES, 7, 3);
+            glBindVertexArray(0);
+    
+            /* Swap front and back buffers */
+            glfwSwapBuffers(window);
+    
+            /* Poll for and process events */
+            glfwPollEvents();
+        }
+```
 
 ## Experimental results
 
 screenshot of testing examples
 
-![image-20200323011639969](image-20200323011639969.png)
+### Rectangle
+
+![image-20200326205138234](image-20200326205138234.png)
+
+### Cube
+
+![image-20200326205242805](image-20200326205242805.png)
+
