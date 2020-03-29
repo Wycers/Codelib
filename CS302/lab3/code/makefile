@@ -4,11 +4,14 @@ targets = 'scheduler' 'enq' 'deq' 'stat'
 clean:
 	for target in $(targets) ;\
 	do \
-		rm $$target; \
+		rm build/$$target; \
 	done
 
 all:
 	for target in $(targets) ;\
 	do \
-		gcc $$target.c -o $$target; \
+		gcc $$target.c -o build/$$target; \
 	done
+
+work:
+	gcc work.c -o build/work

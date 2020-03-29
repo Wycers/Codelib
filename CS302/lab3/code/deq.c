@@ -6,42 +6,42 @@
 #include <fcntl.h>
 #include "job.h"
 
-/* 
+/*
 * command syntax
 *     deq jid
 */
-//×÷Òµ³ö¶ÓÃüÁîdeq
+//ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½deq
 void usage()
 {
 	printf("Usage:  deq jid\n"
-		"\tjid\t\t the job id\n");
+		   "\tjid\t\t the job id\n");
 }
 
-int main(int argc,char *argv[])
+int main(int argc, char *argv[])
 {
 	struct jobcmd deqcmd;
 	int fd;
-	
-	if (argc != 2) 
+
+	if (argc != 2)
 	{
 		usage();
 		return 1;
 	}
-	
+
 	deqcmd.type = DEQ;
 	deqcmd.defpri = 0;
 	deqcmd.owner = getuid();
 	deqcmd.argnum = 1;
-	
-	strcpy(deqcmd.data,*++argv);
-	printf("jid %s\n",deqcmd.data);
-	
-	if ((fd = open(FIFO,O_WRONLY)) < 0)
+
+	strcpy(deqcmd.data, *++argv);
+	printf("jid %s\n", deqcmd.data);
+
+	if ((fd = open(FIFO, O_WRONLY)) < 0)
 		error_sys("deq open fifo failed");
-	
-	if (write(fd,&deqcmd,DATALEN)< 0)
+
+	if (write(fd, &deqcmd, DATALEN) < 0)
 		error_sys("deq write failed");
-	
+
 	close(fd);
 	return 0;
 }

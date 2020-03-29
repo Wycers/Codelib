@@ -8,66 +8,73 @@
 #include <signal.h>
 #include <sys/types.h>
 
-#define	FIFO "/tmp/schedule.fifo"
+#define FIFO "/tmp/schedule.fifo"
 
 #ifndef DEBUG
- #define DEBUG
+#define DEBUG
 #endif
 
 #undef DEBUG
 
 #define BUFLEN 100
 #define GLOBALFILE "screendump"
-//Ã¶¾Ù×÷Òµ×´Ì¬£º¾ÍÐ÷£¬ÔËÐÐ£¬Íê³É
-enum jobstate 
+//Ã¶ï¿½ï¿½ï¿½ï¿½Òµ×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½
+enum jobstate
 {
-  READY, RUNNING, DONE
+  READY,
+  RUNNING,
+  DONE
 };
-//Ã¶¾ÙÃüÁîÀàÐÍ£º½ø¶Ó£¬³ö¶Ó£¬µ±Ç°×´Ì¬²éÑ¯
-enum cmdtype 
+//Ã¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½Ç°×´Ì¬ï¿½ï¿½Ñ¯
+enum cmdtype
 {
-  ENQ = -1, DEQ = -2, STAT = -3
+  ENQ = -1,
+  DEQ = -2,
+  STAT = -3
 };
 
 /* this is data passed in fifo */
-//×÷Òµµ÷¶ÈÃüÁî½á¹¹
-struct jobcmd {
-  enum	cmdtype type;//×÷ÒµÃüÁîÀàÐÍ
-  int	argnum;//²ÎÊýÀàÐÍ
-  int	owner;//×÷ÒµµÄowner
-  int	defpri;//Ä¬ÈÏÓÅÏÈ¼¶
-  char	data[BUFLEN];//Êý¾ÝÀàÐÍ
+//ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á¹¹
+struct jobcmd
+{
+  enum cmdtype type; //ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  int argnum;        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  int owner;         //ï¿½ï¿½Òµï¿½ï¿½owner
+  int defpri;        //Ä¬ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½
+  char data[BUFLEN]; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 };
 
 #define DATALEN sizeof(struct jobcmd)
 #define error_sys printf
 
-struct jobinfo {
-  int    jid;                 /* ×÷Òµid */
-  int    pid;                 /* ½ø³Ìid */
-  char** cmdarg;              /* Ö´ÐÐµÄÃüÁî»òÕß²ÎÊýthe command & args to execute */
-  int    defpri;              /* Ä¬ÈÏÓÅÏÈÈ¨   default priority */
-  int    curpri;              /* µ±ÆÚµÄÓÅÏÈÈ¨ current priority */
-  int    ownerid;             /* ×÷ÒµÓµÓÐÕßid the job owner id */
-  int    wait_time;           /* ÔÚµÈ´ý¶ÓÁÐÖÐµÈ´ýµÄÊ±¼äthe time job in waitqueue */
-  time_t create_time;         /* ´´½¨×÷ÒµµÄÊ±¼äthe time job create */
-  int    run_time;            /* ×÷ÒµÔËÐÐµÄÊ±¼äthe time job running */
-  enum   jobstate state;      /* ×÷Òµ×´Ì¬job state */
+struct jobinfo
+{
+  int jid;             /* ï¿½ï¿½Òµid */
+  int pid;             /* ï¿½ï¿½ï¿½ï¿½id */
+  char **cmdarg;       /* Ö´ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß²ï¿½ï¿½ï¿½the command & args to execute */
+  int defpri;          /* Ä¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¨   default priority */
+  int curpri;          /* ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½È¨ current priority */
+  int ownerid;         /* ï¿½ï¿½ÒµÓµï¿½ï¿½ï¿½ï¿½id the job owner id */
+  int wait_time;       /* ï¿½ÚµÈ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÈ´ï¿½ï¿½ï¿½Ê±ï¿½ï¿½the time job in waitqueue */
+  time_t create_time;  /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½Ê±ï¿½ï¿½the time job create */
+  int run_time;        /* ï¿½ï¿½Òµï¿½ï¿½ï¿½Ðµï¿½Ê±ï¿½ï¿½the time job running */
+  enum jobstate state; /* ï¿½ï¿½Òµ×´Ì¬job state */
 };
 
-struct waitqueue {            /* Ë«ÏòµÄÁ´±í double link list */
-  struct waitqueue *next;    //ÏÂÒ»¸öµÈ´ý×÷Òµ
-  struct jobinfo *job;       //µ±Ç°µÈ´ý×÷ÒµµÄÐÅÏ¢
+struct waitqueue
+{                         /* Ë«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ double link list */
+  struct waitqueue *next; //ï¿½ï¿½Ò»ï¿½ï¿½ï¿½È´ï¿½ï¿½ï¿½Òµ
+  struct jobinfo *job;    //ï¿½ï¿½Ç°ï¿½È´ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½Ï¢
 };
 
-void schedule();//µ÷¶Èº¯Êý
-void sig_handler(int sig, siginfo_t *info, void *notused);//ÐÅºÅ´¦Àí
-int  allocjid();//·ÖÅä×÷Òµid
-void do_enq(struct jobinfo *newjob, struct jobcmd enqcmd);//Èë¶Óº¯Êý
-void do_deq(struct jobcmd deqcmd);//³ö¶Óº¯Êý
-void do_stat();//ÏÔÊ¾×÷Òµ×´Ì¬
-void updateall();//¸üÐÂËùÓÐ×÷ÒµÐÅÏ¢
-struct waitqueue* jobselect();//µÈ´ý¶ÓÁÐÖÐÑ¡Ôñ×÷Òµ
-void jobswitch();//×÷Òµ×ª»»
+void schedule();                                           //ï¿½ï¿½ï¿½Èºï¿½ï¿½ï¿½
+void sig_handler(int sig, siginfo_t *info, void *notused); //ï¿½ÅºÅ´ï¿½ï¿½ï¿½
+int allocjid();                                            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµid
+void do_enq(struct jobinfo *newjob, struct jobcmd enqcmd); //ï¿½ï¿½Óºï¿½ï¿½ï¿½
+void do_deq(struct jobcmd deqcmd);                         //ï¿½ï¿½ï¿½Óºï¿½ï¿½ï¿½
+void do_stat();                                            //ï¿½ï¿½Ê¾ï¿½ï¿½Òµ×´Ì¬
+void updateall();                                          //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½Ï¢
+struct waitqueue *jobselect();                             //ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½Òµ
+void jobswitch();                                          //ï¿½ï¿½Òµ×ªï¿½ï¿½
 
 #endif
