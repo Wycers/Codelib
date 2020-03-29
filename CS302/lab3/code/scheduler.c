@@ -84,7 +84,11 @@ void updateall()
 	/* update ready job's wait_time */
 	for (p = head; p != NULL; p = p->next)
 	{
-		p->job->wait_time += 1ï¼›
+		// printf("%d -> %d\n", p->job->jid, );
+		p->job->wait_time += 1;
+		p->job->curpri += (p->job->wait_time == 1);
+		if (p->job->curpri > 3)
+			p->job->curpri = 3;
 	}
 }
 
@@ -101,7 +105,7 @@ struct waitqueue *jobselect()
 		for (prev = head, p = head; p != NULL; prev = p, p = p->next)
 		{
 
-			if (p->job->curpri > highest)
+			if (p->job->curpri > highest || (p->job->curpri == highest && p->job->wait_time > select->job->wait_time))
 			{
 				select = p;
 				selectprev = prev;
@@ -109,10 +113,10 @@ struct waitqueue *jobselect()
 			}
 		}
 
-		selectprev->next = select->next;
-
 		if (select == selectprev)
-			head = NULL;
+			head = select->next;
+		else
+			selectprev->next = select->next;
 	}
 
 	return select;
@@ -175,13 +179,14 @@ void jobswitch()
 			head = current;
 		}
 
+		current->next = NULL;
 		current = next;
 		next = NULL;
 		current->job->state = RUNNING;
 		kill(current->job->pid, SIGCONT);
 
-		//printf("\nbegin switch: current jid=%d, pid=%d\n",
-		//		 current->job->jid, current->job->pid);
+		// printf("\nbegin switch: current jid=%d, pid=%d\n",
+		// 	   current->job->jid, current->job->pid);
 		return;
 	}
 	else
@@ -261,10 +266,8 @@ void do_enq(struct jobinfo *newjob, struct jobcmd enqcmd)
 	argvec = enqcmd.data;
 	while (i < enqcmd.argnum)
 	{
-
 		if (*offset == ':')
 		{
-
 			*offset++ = '\0';
 			q = (char *)malloc(offset - argvec);
 			strcpy(q, argvec);
@@ -295,7 +298,6 @@ void do_enq(struct jobinfo *newjob, struct jobcmd enqcmd)
 	{
 		for (p = head; p->next != NULL; p = p->next)
 			;
-
 		p->next = newnode;
 	}
 	else
@@ -388,9 +390,10 @@ void do_deq(struct jobcmd deqcmd)
 				}
 			}
 
-			selectprev->next = select->next;
 			if (select == selectprev)
-				head = NULL;
+				head = select->next;
+			else
+				selectprev->next = select->next;
 		}
 
 		if (select)
@@ -426,18 +429,21 @@ void do_stat()
 	struct waitqueue *p;
 	char timebuf[BUFLEN];
 
-	printf("JID\tPID\tOWNER\tRUNTIME\tWAITTIME\tCREATTIME\tSTATE\n");
+	printf("JID\tPID\tOWNER\tRUNTIME\tWAITTIME\tNAME\tCURPRI\tDEFPRI\tCREATTIME\t\t\tSTATE\n");
 
 	if (current)
 	{
 		strcpy(timebuf, ctime(&(current->job->create_time)));
 		timebuf[strlen(timebuf) - 1] = '\0';
-		printf("%d\t%d\t%d\t%d\t%d\t%s\t%s\n",
+		printf("%d\t%d\t%d\t%d\t%d\t%s\t%d\t%d\t%s\t%s\n",
 			   current->job->jid,
 			   current->job->pid,
 			   current->job->ownerid,
 			   current->job->run_time,
 			   current->job->wait_time,
+			   current->job->cmdarg[0],
+			   current->job->curpri,
+			   current->job->defpri,
 			   timebuf,
 			   "RUNNING");
 	}
@@ -446,12 +452,15 @@ void do_stat()
 	{
 		strcpy(timebuf, ctime(&(p->job->create_time)));
 		timebuf[strlen(timebuf) - 1] = '\0';
-		printf("%d\t%d\t%d\t%d\t%d\t%s\t%s\n",
+		printf("%d\t%d\t%d\t%d\t%d\t%s\t%d\t%d\t%s\t%s\n",
 			   p->job->jid,
 			   p->job->pid,
 			   p->job->ownerid,
 			   p->job->run_time,
 			   p->job->wait_time,
+			   current->job->cmdarg[0],
+			   current->job->curpri,
+			   current->job->defpri,
 			   timebuf,
 			   "READY");
 	}
@@ -499,7 +508,7 @@ int main()
 	/* timer interval: 0s, 100ms */
 
 	interval.tv_sec = 0;
-	interval.tv_usec = 100;
+	interval.tv_usec = 100 * 1000;
 
 	new.it_interval = interval;
 	new.it_value = interval;
