@@ -10,7 +10,7 @@
 * command syntax
 *     deq jid
 */
-//��ҵ��������deq
+//作业出队命令deq
 void usage()
 {
 	printf("Usage:  deq jid\n"

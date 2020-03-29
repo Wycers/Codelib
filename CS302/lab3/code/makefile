@@ -13,5 +13,5 @@ all:
 		gcc $$target.c -o build/$$target; \
 	done
 
-work:
-	gcc work.c -o build/work
+sample:
+	gcc sample.c -o build/sample

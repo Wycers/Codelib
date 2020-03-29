@@ -84,7 +84,7 @@ void updateall()
 	/* update ready job's wait_time */
 	for (p = head; p != NULL; p = p->next)
 	{
-		p->job->wait_time += 1;
+		p->job->wait_time += 1ï¼›
 	}
 }
 
