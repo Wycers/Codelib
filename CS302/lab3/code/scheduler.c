@@ -144,22 +144,15 @@ void jobswitch()
 		current = NULL;
 	}
 
-	if (next == NULL && current == NULL) /* no job to run */
-
-		return;
-
-	else if (next != NULL && current == NULL)
-	{ /* start new job */
-
-		printf("begin start new job\n");
-		current = next;
-		next = NULL;
-		current->job->state = RUNNING;
-		kill(current->job->pid, SIGCONT);
+	if (next == NULL)
+	{
+		/* No more jobs */
 		return;
 	}
-	else if (next != NULL && current != NULL)
-	{ /* do switch */
+	/* Has more jobs */
+	if (current)
+	{
+		/* If a job is running, set it to read*/
 
 		kill(current->job->pid, SIGSTOP);
 		current->job->curpri = current->job->defpri;
@@ -179,21 +172,16 @@ void jobswitch()
 			head = current;
 		}
 
-		current->next = NULL;
-		current = next;
-		next = NULL;
-		current->job->state = RUNNING;
-		kill(current->job->pid, SIGCONT);
-
-		// printf("\nbegin switch: current jid=%d, pid=%d\n",
-		// 	   current->job->jid, current->job->pid);
-		return;
+		current->next = NULL; // In counter of endless loop
 	}
 	else
-	{ /* next == NULL && current != NULL, no switch */
-
-		return;
+	{
+		printf("begin start new job\n");
 	}
+	current = next;
+	next = NULL;
+	current->job->state = RUNNING;
+	kill(current->job->pid, SIGCONT);
 }
 
 void sig_handler(int sig, siginfo_t *info, void *notused)
@@ -458,9 +446,9 @@ void do_stat()
 			   p->job->ownerid,
 			   p->job->run_time,
 			   p->job->wait_time,
-			   current->job->cmdarg[0],
-			   current->job->curpri,
-			   current->job->defpri,
+			   p->job->cmdarg[0],
+			   p->job->curpri,
+			   p->job->defpri,
 			   timebuf,
 			   "READY");
 	}
