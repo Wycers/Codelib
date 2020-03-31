@@ -5,7 +5,7 @@ int main()
 {
     int t = 0;
     clock_t startTime = clock();
-    while (clock() - startTime < 1145141919810)
+    while (clock() - startTime < 11451419191810)
         ;
     printf("%lfs\n", (double)(clock() - startTime) / CLOCKS_PER_SEC);
     return 0;
