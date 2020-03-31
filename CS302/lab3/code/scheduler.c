@@ -173,10 +173,12 @@ void jobswitch()
 
 		current->next = NULL; // In counter of endless loop
 	}
-	else
+
+	if (next->job->run_time == 0)
 	{
 		printf("begin start new job\n");
 	}
+
 	current = next;
 	next = NULL;
 	current->job->state = RUNNING;
