@@ -115,7 +115,7 @@ int main() {
 List the bugs you found and your fix (Describe the cause of bugs in detail and how to modify it)?
 
 1. Full-width semicolon. **Fix**: Change it to half-width semicolon.
-2. Time interval. The time interval of scheduler is 100 microseconds bud not 100 milliseconds. **Fix**: Change it to 100 \* 1000 microseconds.
+2. Time interval. The time interval of scheduler is 100 microseconds but not 100 milliseconds. **Fix**: Change it to 100 \* 1000 microseconds.
 
 ```c
 	/* timer interval: 0s, 100ms */
