@@ -2,9 +2,9 @@
 
 What is a process? What is a program? And what is the difference?
 
-- A process is the instance of a computer program that is being executed by one or many threads. It contains the program code and its activity. (With Runtime data and context)
+- A process is an execution instance of a computer program that is being executed by one or many threads with CPU, memory and other resouces. It contains the program code and its activity. (With Runtime data and context)
 
-- A program is a collection of instructions that can be executed by a computer to perform a specific task. (With static data.)
+- A program, a program is a collection of instructions that can be executed by a computer to perform a specific task. (With static data.)
 
 - Difference:
 
@@ -16,13 +16,14 @@ What is a process? What is a program? And what is the difference?
 
 What is job? And what is the difference between process and job?
 
-- A job is a unit of work or unit of execution. A component of a job (as a unit of work) is called a task or a step (if sequential, as in a job stream). As a unit of execution, a job may be concretely identified with a single process, which may in turn have subprocesses (child processes; the process corresponding to the job being the parent process) which perform the tasks or steps that comprise the work of the job; or with a process group; or with an abstract reference to a process or process group, as in Unix job control.
+A job is a unit of work or unit of execution. A component of a job (as a unit of work) is called a task or a step (if sequential, as in a job stream). As a unit of execution, a job may be concretely identified with a single process, which may in turn have subprocesses (child processes; the process corresponding to the job being the parent process) which perform the tasks or steps that comprise the work of the job; or with a process group; or with an abstract reference to a process or process group, as in Unix job control.
 
 ## Question 3
 
 What are the differences between job scheduling and process scheduling?
 
-A job can include multiple processes.
+- Job scheduling is to select jobs from external job backup queues to be transferred to memory according to certain principles, allocate resources to them, create corresponding processes, and enter the ready queue.
+- Process scheduling is to select a process from the ready queue and assign a processor to it according to some strategy or method.
 
 ## Question 4
 
@@ -40,6 +41,43 @@ How many statuses are in a job? And what are they?
 
 What programs for job control are used in this experiment? And their function?
 
+1.  `scheduler`
+
+    1.  Create a process for a new job. Set its state to READY and put it in the waiting
+        queue.
+
+    2.  Handle `ENQ` requests:
+
+        - assigns a unique jid to each job;
+        - create a process for it and set its status to READY;
+        - put this process into the waiting queue.
+
+    3.  Handle `DEQ` requests:
+
+        - A job will dequeue when receive dequeue request, and the relevant data
+          structure will be cleared. (If the job is currently running, it will first stop running and then dequeue.)
+
+    4.  Handle `STAT` requests:
+
+        - If status request, it outputs information about the currently running job and
+          all jobs in the waiting queue.
+        - `pid, user name, execution time, waiting time, create time, job status` and `job_name, curpri, defpri` will be printed.
+
+2.  `enq`:
+
+    - **Usage**: `enq [-p num] e_file args`
+    - **Function**: Send a enqueue request to the scheduler and submit the job for running.
+
+3.  `deq`:
+
+    - **Usage**: `deq job_id`
+    - **Function**: Send a dequeue request to the scheduler.
+
+4.  `stat`:
+
+    - **Usage**: `stat`
+    - **Function**: Send a stat request to the scheduler.
+
 ## Question 7
 
 What is used for inter-process communication in this experiment? And its function?
@@ -50,7 +88,7 @@ FIFO, its function are:
 
 2. The rest program (`enq, deq, stat`) write the command in `struct jobcmd` format to the FIFO file.
 
-3. The scheduler reads the commands tuned by the user.
+3. The scheduler reads the commands from FIFO file.
 
 ## Question 8
 
