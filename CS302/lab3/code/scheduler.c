@@ -86,8 +86,7 @@ void updateall()
 	{
 		// printf("%d -> %d\n", p->job->jid, );
 		p->job->wait_time += 1;
-		p->job->curpri += (p->job->wait_time == 1);
-		if (p->job->curpri > 3)
+		if ((++p->job->curpri) > 3)
 			p->job->curpri = 3;
 	}
 }
