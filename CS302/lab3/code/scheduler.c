@@ -325,7 +325,7 @@ void do_enq(struct jobinfo *newjob, struct jobcmd enqcmd)
 	}
 	else
 	{
-		waitpid(pid, &status, 0);
+		waitpid(pid, NULL, 0);
 		newjob->pid = pid;
 		printf("\nnew job: jid=%d, pid=%d\n", newjob->jid, newjob->pid);
 	}
