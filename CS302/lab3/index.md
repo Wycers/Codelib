@@ -2,7 +2,7 @@
 
 What is a process? What is a program? And what is the difference?
 
-- A process is an execution instance of a computer program that is being executed by one or many threads with CPU, memory and other resouces. It contains the program code and its activity. (With Runtime data and context)
+- A process is an execution instance of a computer program that is being executed by one or many threads with CPU, memory and other resources. It contains the program code and its activity. (With Runtime data and context)
 
 - A program, a program is a collection of instructions that can be executed by a computer to perform a specific task. (With static data.)
 
@@ -10,7 +10,7 @@ What is a process? What is a program? And what is the difference?
 
   1. A program is static, but a program is dynamic.
   2. A program can be stored in hard disk alone without a operating system, but a process has a life cycle which corresponding to a (specific) operating system.
-  3. A program only consume storage resouces, but a program will consume CPU \& memory resouces.
+  3. A program only consume storage resources, but a program will consume CPU \& memory resources.
 
 ## Question 2
 
@@ -28,6 +28,16 @@ What are the differences between job scheduling and process scheduling?
 ## Question 4
 
 What are the similarities and differences among structures, classes, and unions?
+
+Similarities:
+
+They all can have their own member variables.
+
+Differences:
+
+1. Between structures and classes: Structure does not support inheritance, that is, a structure cannot inherit from another structure or class, and cannot be used as the base class of a class.
+
+2. Between structures and unions: At any one time, only one selected member is stored in the union, and all members of the struct exist. In the struct, each member occupies its own memory space, they exist at the same time. The total length of a struct variable is equal to the sum of all member lengths. In Union, all members cannot occupy its memory space at the same time, they cannot exist at the same time. The length of the Union variable is equal to the length of the longest member.
 
 ## Question 5
 
@@ -75,8 +85,8 @@ What programs for job control are used in this experiment? And their function?
 
 4.  `stat`:
 
-    - **Usage**: `stat`
-    - **Function**: Send a stat request to the scheduler.
+- **Usage**: `stat`
+  - **Function**: Send a stat request to the scheduler.
 
 ## Question 7
 
@@ -94,7 +104,7 @@ FIFO, its function are:
 
 What should be noted when printing out the job name?
 
-According to task request, adding NAME, CURPRI, DEFPRI fileds as follows:
+According to task request, adding NAME, CURPRI, DEFPRI fields as follows:
 
 ```c
 printf("JID\tPID\tOWNER\tRUNTIME\tWAITTIME\tNAME\tCURPRI\tDEFPRI\tCREATTIME\t\t\tSTATE\n");
@@ -105,27 +115,27 @@ printf("JID\tPID\tOWNER\tRUNTIME\tWAITTIME\tNAME\tCURPRI\tDEFPRI\tCREATTIME\t\t\
 
 Make corresponding modify (add `job->cmdarg[0]`, `job->curpri`, `job->defpri`) to output statements as follows:
 
-```
+```c
 // for current running job:
-    ...
-		printf("%d\t%d\t%d\t%d\t%d\t%s\t%d\t%d\t%s\t%s\n",
-            ...
-            current->job->cmdarg[0],
-            current->job->curpri,
-            current->job->defpri,
-            timebuf,
-            "RUNNING");
-    ...
+...
+    printf("%d\t%d\t%d\t%d\t%d\t%s\t%d\t%d\t%s\t%s\n",
+           ...
+           current->job->cmdarg[0],
+           current->job->curpri,
+           current->job->defpri,
+           timebuf,
+           "RUNNING");
+...
 
 // for other jobs:
-
-		printf("%d\t%d\t%d\t%d\t%d\t%s\t%d\t%d\t%s\t%s\n",
-            ...
-            p->job->cmdarg[0],
-            p->job->curpri,
-            p->job->defpri,
-            timebuf,
-            "READY");
+...
+    printf("%d\t%d\t%d\t%d\t%d\t%s\t%d\t%d\t%s\t%s\n",
+           ...
+           p->job->cmdarg[0],
+           p->job->curpri,
+           p->job->defpri,
+           timebuf,
+           "READY");
 
 ```
 
@@ -133,7 +143,7 @@ Make corresponding modify (add `job->cmdarg[0]`, `job->curpri`, `job->defpri`) t
 
 Submit a job that takes more than 100 milliseconds to run（pleas paste your code?
 
-Sometimes simple loop will be optimized by compiler, I think timer is a good choice.
+Sometimes simple loop will be optimized by the compiler, I think the timer is a good choice.
 
 ```c
 #include <stdio.h>
@@ -196,6 +206,17 @@ List the bugs you found and your fix (Describe the cause of bugs in detail and h
 		current->next = NULL; // In counter of endless loop  <=== Look here !
 ```
 
+5. Unexpected long running time when only 1 job in scheduler: different triggering sequence will cause scheduler mistakenly thinking that the job is running but not in fact. **Fix**: wait child process to STOP itself first.
+
+   ```c
+   ...
+   {
+       waitpid(pid, NULL, 0);  // <==== wait for child process!
+       newjob->pid = pid;
+       printf("\nnew job: jid=%d, pid=%d\n", newjob->jid, newjob->pid);
+   }
+   ```
+
 ## Question 11
 
 Run the job scheduler program, And analyze the execution of the submitted job?
@@ -225,9 +246,9 @@ When multiple jobs are in scheduling, in every time slice, there will be a job s
    3. Set status of the current job to `READY`.
 
 3. **RUNNING -> DONE**:
-   1. When a `RUNNING` process exits, the status of the corresponding job will be changed to `DONE`, and be imediately removed.
+   1. When a `RUNNING` process exits, the status of the corresponding job will be changed to `DONE`, and be immediately removed.
 
-And in every interval, the current priority and wait time of each job will be updaetd to support the scheduling strategy.
+And in every interval, the current priority and wait time of each job will be updated to support the scheduling strategy.
 
 ## Question 12
 
@@ -262,35 +283,125 @@ Understand the process of job scheduling——Submit a new job (Execution result
 
 ```
 
-2. Enq program: Generate cmd message; Result: Parse an ENQ command with owner_id and arguments of the program will be executed.
+2.  Enq program: Generate cmd message; Result: Parse an ENQ command with owner_id and arguments of the program will be executed.
 
-```c
-  enqcmd.type = ENQ;
-	enqcmd.defpri = p;
-	enqcmd.owner = getuid();
-	enqcmd.argnum = argc;
-	offset = enqcmd.data;
+    ```c
+    enqcmd.type = ENQ;
+    enqcmd.defpri = p;
+    enqcmd.owner = getuid();
+    enqcmd.argnum = argc;
+    offset = enqcmd.data;
 
-	while (argc-- > 0)
-	{
-		strcpy(offset, *argv);
-		strcat(offset, ":");
-		offset = offset + strlen(*argv) + 1;
-		argv++;
-	}
-```
+    while (argc-- > 0)
+    {
+    	strcpy(offset, *argv);
+    	strcat(offset, ":");
+    	offset = offset + strlen(*argv) + 1;
+    	argv++;
+    }
+    ```
 
-3. Enq program: Send it through FIFO. Result: Abort when get error to FIFO. Otherwise, put the ENQ command in the FIFO file.
+3.  Enq program: Send it through FIFO. Result: Abort when get error to FIFO. Otherwise, put the ENQ command in the FIFO file.
 
-```c
-	if ((fd = open(FIFO, O_WRONLY)) < 0)
-		error_sys("enq open fifo failed");
+    ```c
+    if ((fd = open(FIFO, O_WRONLY)) < 0)
+    	error_sys("enq open fifo failed");
 
-	if (write(fd, &enqcmd, DATALEN) < 0)
-		error_sys("enq write failed");
+    if (write(fd, &enqcmd, DATALEN) < 0)
+    	error_sys("enq write failed");
 
-	close(fd);
-```
+    close(fd);
+    ```
+
+4.  Scheduler：When recive a `ENQ` requests, it will
+
+    First, construct a jobinfo instance.
+
+    ```c
+    /* fill jobinfo struct */
+
+    newjob = (struct jobinfo *)malloc(sizeof(struct jobinfo));
+    newjob->jid = allocjid();
+    newjob->defpri = enqcmd.defpri;
+    newjob->curpri = enqcmd.defpri;
+    newjob->ownerid = enqcmd.owner;
+    newjob->state = READY;
+    newjob->create_time = time(NULL);
+    newjob->wait_time = 0;
+    newjob->run_time = 0;
+    arglist = (char **)malloc(sizeof(char *) * (enqcmd.argnum + 1));
+    newjob->cmdarg = arglist;
+    offset = enqcmd.data;
+    argvec = enqcmd.data;
+    while (i < enqcmd.argnum)
+    {
+    	if (*offset == ':')
+    	{
+    		*offset++ = '\0';
+    		q = (char *)malloc(offset - argvec);
+    		strcpy(q, argvec);
+    		arglist[i++] = q;
+    		argvec = offset;
+    	}
+    	else
+    		offset++;
+    }
+
+    arglist[i] = NULL;
+
+    ```
+
+    Second, add the new job to end of the queue
+
+    ```c
+    /* add new job to the queue */
+    newnode = (struct waitqueue *)malloc(sizeof(struct waitqueue));
+    newnode->next = NULL;
+    newnode->job = newjob;
+    if (head)
+    {
+    	for (p = head; p->next != NULL; p = p->next)
+    	;
+    	p->next = newnode;
+    }
+    else
+    	head = newnode;
+    ```
+
+    Finally, create a child process to execute the job. The child process will immediately stop itself to wait for the scheduler's signals.
+
+    ```c
+    /* create process for the job */
+
+    if ((pid = fork()) < 0)
+    	error_sys("enq fork failed");
+
+    /* In child process */
+
+    if (pid == 0)
+    {
+
+    	newjob->pid = getpid();
+
+    	/* block the child wait for run */
+
+    	raise(SIGSTOP);  	 	// <= Stop the job immediately!
+
+    	/* dup the globalfile descriptor to stdout */
+    	dup2(globalfd, 1);
+    	if (execv(arglist[0], arglist) < 0)
+    		printf("exec failed\n");
+
+    	exit(1);
+    }
+    else
+    {
+    	waitpid(pid, NULL, 0);	// wait for child process to stop itself!
+    	newjob->pid = pid;
+    	printf("\nnew job: jid=%d, pid=%d\n", newjob->jid, newjob->pid);
+    }
+
+    ```
 
 ## Question 13
 
@@ -298,20 +409,213 @@ Understand the process of job scheduling——End of job execution (Execution re
 
 There are two kinds of end of job execution: 1. A job is finished 2. A job is requested to be dequeued (deq).
 
-1. Finished
-2. Dequeued
+1.  Finished
+
+1.  System: When a job is finished, the scheduler will receive a `SIGCHLD` signal, then it can check the job's process exists or not. If the process of the job exited, the scheduler will set the status of the job instance to `DONE`.
+
+    ```c
+    void sig_handler(int sig, siginfo_t *info, void *notused)
+    {
+    	...
+    	case SIGCHLD:
+    		...
+    		if (WIFEXITED(status))
+    		{
+    			...
+    			current->job->state = DONE;					// <<===
+    			printf("normal termation, exit status = %d\tjid = %d, pid = %d\n\n",
+    				WEXITSTATUS(status), current->job->jid, current->job->pid);
+    		}
+    		...
+    }
+
+    ```
+
+1.  Scheduler: While doing job swtich, it will automatically remove the job with status `DONE`
+
+    ```c
+    void jobswitch()
+    {
+    	struct waitqueue \*p;
+    	int i;
+
+    	if (current && current->job->state == DONE)
+    	{ /* current job finished */
+
+    		/* job has been done, remove it */
+    		for (i = 0; (current->job->cmdarg)[i] != NULL; i++)
+    		{
+    			free((current->job->cmdarg)[i]);
+    			(current->job->cmdarg)[i] = NULL;
+    		}
+
+    		free(current->job->cmdarg);
+    		free(current->job);
+    		free(current);
+
+    		current = NULL;
+    	}
+    	...
+    }
+    ```
+
+1.  Dequeued
+
+1.  Deq program: Process and validate job parameters; Result: Abort unrecognized parameter name and invalid parameter range
+
+    ```c
+    // Processing and Validating parameters
+    if (argc != 2)
+    {
+    	usage();
+    	return 1;
+    }
+
+    ```
+
+1.  Deq program: Generate cmd message; Result: Parse an `DEQ` command with owner_id and arguments of the program will be executed.
+
+    ```c
+    deqcmd.type = DEQ;
+    deqcmd.defpri = 0;
+    deqcmd.owner = getuid();
+    deqcmd.argnum = 1;
+
+    strcpy(deqcmd.data, *++argv);
+    ```
+
+1.  Deq program: Send it through FIFO. Result: Abort when get error to FIFO. Otherwise, put the ENQ command in the FIFO file.
+
+    ```c
+    if ((fd = open(FIFO, O_WRONLY)) < 0)
+    	error_sys("deq open fifo failed");
+
+    if (write(fd, &deqcmd, DATALEN) < 0)
+    	error_sys("deq write failed");
+
+    close(fd);
+    ```
+
+1.  Scheduler:
+
+    If the current job will be dequeued, the scheduler will stop it and remove it.
+
+    ```c
+    /* current jodid == deqid, terminate current job */
+    if (current && current->job->jid == deqid)
+    {
+
+    	printf("terminate job: %d\n", current->job->jid);
+    	kill(SIGTERM, current->job->pid);		// <=Terminate it!
+
+    	/* free the job */
+    	for (i = 0; (current->job->cmdarg)[i] != NULL; i++)
+    	{
+
+    		free((current->job->cmdarg)[i]);
+    		(current->job->cmdarg)[i] = NULL;
+    	}
+
+    	free(current->job->cmdarg);
+    	free(current->job);
+    	free(current);
+
+    	current = NULL;
+    }
+    ```
+
+    If a waiting job will be dequeued, the scheduler will remove it.
+
+    ```c
+    else
+    { /* maybe in waitqueue, search it */
+    	select = NULL;
+    	selectprev = NULL;
+
+    	if (head)
+    	{
+    		for (prev = head, p = head; p != NULL; prev = p, p = p->next)
+    		{
+    			if (p->job->jid == deqid)
+    			{
+    				select = p;
+    				selectprev = prev;
+    				break;
+    			}
+    		}
+
+    		if (select == selectprev)
+    			head = select->next;
+    		else
+    			selectprev->next = select->next;
+    	}
+
+    	if (select)
+    	{
+    		/* free the job */
+    		for (i = 0; (select->job->cmdarg)[i] != NULL; i++)
+    		{
+    			free((select->job->cmdarg)[i]);
+    			(select->job->cmdarg)[i] = NULL;
+    		}
+
+    		free(select->job->cmdarg);
+    		free(select->job);
+    		free(select);
+
+    		select = NULL;
+    	}
+    }
+    ```
 
 ## Question 14
 
 Understand the process of job scheduling——job scheduling due to Priority(Execution results and corresponding code)?
 
-When select next job to execute, scheduler will select the most highest priority job
+Frist, every job has a default priority, which can be specified by argument `p` in `enq` program.
+
+And every 100ms, the scheduler will upgrade the priority of waiting jobs by 1, but the priority will not exceed 3.
+
+```c
+void updateall()
+{
+struct waitqueue *p;
+
+/* update running job's run_time */
+if (current)
+current->job->run_time += 1;
+
+/* update ready job's wait_time */
+for (p = head; p != NULL; p = p->next)  // <== for all (waiting) jobs
+{
+p->job->wait_time += 1;
+if ((++p->job->curpri) > 3)         // <== upgrade current priority
+p->job->curpri = 3;             // <== priority's upper bound is 3
+}
+}
+```
+
+And when do job selection, scheduler will use **priority** as the first keyword and **wait_time** as the second keyword to select the job.
+
+```c
+for (prev = head, p = head; p != NULL; prev = p, p = p->next)
+{
+
+	//  ↓ First keyword: Priority
+	if (p->job->curpri > highest || (p->job->curpri == highest && p->job->wait_time > select->job->wait_time))
+	{
+		select = p;
+		selectprev = prev;
+		highest = p->job->curpri;
+	}
+}
+```
 
 ## Question 15
 
 Understand the process of job scheduling——Job scheduling due to time slice (Execution results and corresponding code)?
 
-In every time slice, scheduler add 100ms to the job in `READY` status. When a job waits for 100ms, scheduler will upgrade the priority of the job.
+In every time slice, scheduler add 100ms to the waittime of all jobs in `READY` status.When a job waits for every 100ms, scheduler will upgrade the priority of the job.
 
 ```c
 void updateall()
@@ -326,13 +630,27 @@ void updateall()
 	for (p = head; p != NULL; p = p->next)  // <== for all (waiting) jobs
 	{
 		p->job->wait_time += 1;             // <== update wait time
-		if ((++p->job->curpri) > 3)         // <== upgrade current priority
-			p->job->curpri = 3;             // <== priority's upper bound is 3
+		if ((++p->job->curpri) > 3)
+			p->job->curpri = 3;
 	}
 }
 ```
 
-And when do job selection,
+And when do job selection, scheduler will use **priority** as the first keyword and **wait_time** as the second keyword to select the job.
+
+```c
+for (prev = head, p = head; p != NULL; prev = p, p = p->next)
+{
+
+	//                                      Second keyword: Wait_time ↓
+	if (p->job->curpri > highest || (p->job->curpri == highest && p->job->wait_time > select->job->wait_time))
+	{
+		select = p;
+		selectprev = prev;
+		highest = p->job->curpri;
+	}
+}
+```
 
 ## Conclusion
 
