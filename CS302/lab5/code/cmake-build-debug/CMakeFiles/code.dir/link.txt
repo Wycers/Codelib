@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/code.dir/Banker.cpp.o  -o code 
