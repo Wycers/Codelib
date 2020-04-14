@@ -2,7 +2,6 @@
 // Created by Wycer on 2020/4/14.
 //
 
-
 #include <iostream>
 #include <vector>
 #include <map>
@@ -137,9 +136,6 @@ bool isSafe(vint *rest) {
             continue;
         vint *delta = *(now->max) - *(now->used);
 
-
-//        debug(delta);
-
         if (!satisfy(*rest, *delta)) {
             delete delta;
             continue;
@@ -162,9 +158,7 @@ bool isSafe(node *now, vint *vec) {
     *now->used += *vec;
     vint *rest = *all - *used;
     *rest -= *vec;
-
-    debug(rest);
-
+//    debug(rest);
     bool res = isSafe(rest);
 
     delete rest;
@@ -183,21 +177,15 @@ int main() {
 
     string name, opt;
     while (cin >> name >> opt) {
-        cout << name << " " << opt << endl;
+//        cout << name << " " << opt << endl;
         if (opt == "new") {
             node *now = mp[name];
-            if (now == nullptr) {
+            if (now != nullptr) {
                 printf("Initialize %s twice.\n", name.c_str());
                 return -1;
             }
             vint *vec = read_vector();
-            bool flag = true;
-            for (int i = 0; i < n; ++i)
-                if (vec->at(i) > all->at(i)) {
-                    flag = false;
-                    break;
-                }
-            if (flag) {
+            if (satisfy(*all, *vec)) {
                 ins(name, vec);
                 puts("OK");
             } else {
