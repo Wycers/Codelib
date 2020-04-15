@@ -12,6 +12,7 @@ typedef vector<int> vint;
 int n;
 
 void debug(vint *vec) {
+    return;
     for (auto i:*vec) {
         cout << i << " ";
     }
@@ -158,12 +159,16 @@ bool isSafe(node *now, vint *vec) {
     *now->used += *vec;
     vint *rest = *all - *used;
     *rest -= *vec;
-//    debug(rest);
+    debug(rest);
     bool res = isSafe(rest);
 
     delete rest;
     for (node *i = head; i != nullptr; i = i->next) {
         i->dealt = false;
+    }
+
+    if (!res) {
+        *now->used -= *vec;
     }
 
     return res;
@@ -178,6 +183,8 @@ int main() {
     string name, opt;
     while (cin >> name >> opt) {
 //        cout << name << " " << opt << endl;
+        debug(used);
+        debug(all);
         if (opt == "new") {
             node *now = mp[name];
             if (now != nullptr) {
@@ -194,6 +201,9 @@ int main() {
         } else if (opt == "request") {
             node *now = mp[name];
             vint *vec = read_vector();
+            debug(now->used);
+            debug(now->max);
+            debug(vec);
             if (!verify(now, vec)) {
                 puts("NOT OK");
                 continue;
