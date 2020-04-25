@@ -477,6 +477,10 @@ int dispose(allocated_block *ab) { //释放结构体所占的内存
 }
 
 void display_mem_usage() {
+    if (alc == nullptr) {
+        puts("Set memory allocation algorithm first!");
+        return;
+    }
     puts("*********************Free Memory*********************");
     alc->free_status();
     puts("");
