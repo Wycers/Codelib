@@ -8,6 +8,8 @@ using namespace std;
 #define DEFAULT_MEM_SIZE 1024 // 总内存大小
 #define DEFAULT_MEM_START 0   // 内存开始分配时的起始地址
 
+const int K = floor(log(DEFAULT_MEM_SIZE) / log(2));
+
 int mem_size = DEFAULT_MEM_SIZE;
 static int global_pid = 0;
 
@@ -71,20 +73,21 @@ void remove_allocate_block(allocated_block *target) {
     delete target;
 }
 
-void insert_free_block(free_block *target) {
-    if (free_block_head == nullptr) {
-        free_block_head = target;
+void insert_free_block(free_block *&head, free_block *target) {
+    if (head == nullptr) {
+        target->next = nullptr;
+        head = target;
     } else {
-        target->next = free_block_head;
-        free_block_head = target;
+        target->next = head;
+        head = target;
     }
 }
 
-void remove_free_block(free_block *target) {
-    if (free_block_head == target) {
-        free_block_head = free_block_head->next;
+void remove_free_block(free_block *&head, free_block *target) {
+    if (head == target) {
+        head = target->next;
     } else {
-        for (free_block *now = free_block_head; now->next != nullptr; now = now->next) {
+        for (free_block *now = head; now->next != nullptr; now = now->next) {
             if (now->next == target) {
                 now->next = target->next;
                 break;
@@ -119,7 +122,7 @@ int Allocator::free_mem(allocated_block *ab) { // 释放分配块
         front->size += ab->size;
         if (back != nullptr) {
             front->size += back->size;
-            remove_free_block(back);
+            remove_free_block(free_block_head, back);
         }
         return 1;
     }
@@ -134,8 +137,16 @@ int Allocator::free_mem(allocated_block *ab) { // 释放分配块
     newFree->start_addr = ab->start_addr;
     newFree->next = nullptr;
     // 插入空内存
-    insert_free_block(newFree);
+    insert_free_block(free_block_head, newFree);
     return 1;
+}
+
+void Allocator::free_status() {
+
+}
+
+void Allocator::used_status() {
+
 }
 
 class FirstFitAllocator : public Allocator {
@@ -153,7 +164,7 @@ class FirstFitAllocator : public Allocator {
         }
 
         if (ptr->size == need) {
-            remove_free_block(ptr);
+            remove_free_block(free_block_head, ptr);
         } else {
             ptr->size -= need;
             ab->start_addr = ptr->start_addr;
@@ -181,7 +192,7 @@ class WorstFitAllocator : public Allocator {
         }
 
         if (ptr->size == need) {
-            remove_free_block(ptr);
+            remove_free_block(free_block_head, ptr);
         } else {
             ptr->size -= need;
             ab->start_addr = ptr->start_addr;
@@ -209,7 +220,7 @@ class BestFitAllocator : public Allocator {
         }
 
         if (ptr->size == need) {
-            remove_free_block(ptr);
+            remove_free_block(free_block_head, ptr);
         } else {
             ptr->size -= need;
             ab->start_addr = ptr->start_addr;
@@ -221,10 +232,100 @@ class BestFitAllocator : public Allocator {
 };
 
 class BuddySystemAllocator : public Allocator {
-    int free_mem(allocated_block *ab) override {
+    free_block **mem = new free_block *[K + 1];
+
+    void debug() {
+        for (int k = 0; k <= K; ++k) {
+            printf("%d\n", k);
+            for (free_block *now = mem[k]; now != nullptr; now = now->next) {
+                printf("%d %d\n", now->start_addr, now->size);
+            }
+            puts("");
+        }
+    }
+
+public:
+    BuddySystemAllocator() {
+        mem[K] = new free_block;
+        mem[K]->size = mem_size;
+        mem[K]->start_addr = 0;
+    }
+
+    free_block *request(int k) {
+        if (k == K + 1) {
+            return nullptr;
+        }
+        if (mem[k] == nullptr) {
+            free_block *ptr = request(k + 1);
+            if (ptr == nullptr) {
+                return nullptr;
+            }
+            auto first = new free_block, second = new free_block;
+            first->size = second->size = (ptr->size >> 1);
+
+            first->start_addr = ptr->start_addr;
+            second->start_addr = first->start_addr + first->size;
+
+            first->next = second;
+            second->next = mem[k];
+            mem[k] = first;
+
+            remove_free_block(mem[k + 1], ptr);
+        }
+        return mem[k];
+    }
+    static int cal_k(int size) {
+        int k = 0;
+        for (k = 0; k <= K && (1 << k) < size; ++k);
+        return k;
     }
 
     int allocate_mem(allocated_block *ab) override {
+        int k = cal_k(ab->size);
+        if (k > K) {
+            return -1;
+        }
+
+        free_block *ptr = request(k);
+        if (ptr == nullptr) {
+            return -1;
+        }
+
+        ab->start_addr = ptr->start_addr;
+        remove_free_block(mem[k], ptr);
+        insert_allocate_block(ab);
+
+        debug();
+        return 0;
+    }
+
+    void release(int k, free_block *target) {
+        if (k == K) {
+            insert_free_block(mem[k], target);
+            return;
+        }
+        bool flag = false;
+        for (free_block *now = mem[k]; now != nullptr; now = now->next) {
+            if ((now->start_addr >> (k + 1)) == (target->start_addr >> (k + 1))) {
+                remove_free_block(mem[k], now);
+                target->start_addr = min(target->start_addr, now->start_addr);
+                target->size <<= 1;
+                release(k + 1, target);
+                flag = true;
+                break;
+            }
+        }
+        if (flag)
+            return;
+        insert_free_block(mem[k], target);
+    }
+    int free_mem(allocated_block *ab) override {
+        int k = cal_k(ab->size);
+        auto released = new free_block;
+        released->start_addr = ab->start_addr;
+        released->size = (1 << k);
+        release(k, released);
+        debug();
     }
 };
 
@@ -260,7 +361,7 @@ int main() {
             kill_process(arg);
         } else if (opt == 5) {
             display_mem_usage();
-        } else if (opt == 5) {
+        } else if (opt == 233) {
             puts("Bye....");
             return 0;
         } else {
