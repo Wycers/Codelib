@@ -44,6 +44,10 @@ void kill_process(int pid);       //杀死对应进程并释放其空间与结�
 
 class Allocator {
 public:
+    virtual void free_status();
+
+    virtual void used_status();
+
     virtual int free_mem(allocated_block *ab);
 
     virtual int allocate_mem(allocated_block *ab) = 0; //为制定块分配内存
@@ -142,11 +146,29 @@ int Allocator::free_mem(allocated_block *ab) { // 释放分配块
 }
 
 void Allocator::free_status() {
-
+    printf("%20s %20s\n", "start_addr", "size");
+    int cnt = 0;
+    for (free_block *now = free_block_head; now != nullptr; now = now->next) {
+        cnt++;
+        printf("%20d %20d\n", now->start_addr, now->size);
+    }
+    if (!cnt)
+        puts("No Free Memory");
+    else
+        printf("Totaly %d free blocks\n", cnt);
 }
 
 void Allocator::used_status() {
-
+    printf("%10s %10s %20s\n", "PID", "start_addr", "size");
+    int cnt = 0;
+    for (allocated_block *now = allocated_block_head; now != nullptr; now = now->next) {
+        cnt++;
+        printf("%10d %10d %20d\n", now->pid, now->start_addr, now->size);
+    }
+    if (!cnt)
+        puts("No allocated block");
+    else
+        printf("Totaly %d allocated blocks\n", cnt);
 }
 
 class FirstFitAllocator : public Allocator {
@@ -234,21 +256,26 @@ class BestFitAllocator : public Allocator {
 class BuddySystemAllocator : public Allocator {
     free_block **mem = new free_block *[K + 1];
 
-    void debug() {
-        for (int k = 0; k <= K; ++k) {
-            printf("%d\n", k);
-            for (free_block *now = mem[k]; now != nullptr; now = now->next) {
-                printf("%d %d\n", now->start_addr, now->size);
-            }
-            puts("");
-        }
-    }
-
 public:
     BuddySystemAllocator() {
         mem[K] = new free_block;
         mem[K]->size = mem_size;
         mem[K]->start_addr = 0;
+    }
+
+    void free_status() override {
+        printf("%20s %20s\n", "start_addr", "size");
+        int cnt = 0;
+        for (int k = 0; k <= K; ++k) {
+            for (free_block *now = mem[k]; now != nullptr; now = now->next) {
+                cnt++;
+                printf("%20d %20d\n", now->start_addr, now->size);
+            }
+        }
+        if (!cnt)
+            puts("No Free Memory");
+        else
+            printf("Totaly %d free blocks\n", cnt);
     }
 
     free_block *request(int k) {
@@ -274,6 +301,7 @@ public:
         }
         return mem[k];
     }
+
     static int cal_k(int size) {
         int k = 0;
         for (k = 0; k <= K && (1 << k) < size; ++k);
@@ -294,8 +322,6 @@ public:
         ab->start_addr = ptr->start_addr;
         remove_free_block(mem[k], ptr);
         insert_allocate_block(ab);
-
-        debug();
         return 0;
     }
 
@@ -307,9 +333,9 @@ public:
         bool flag = false;
         for (free_block *now = mem[k]; now != nullptr; now = now->next) {
             if ((now->start_addr >> (k + 1)) == (target->start_addr >> (k + 1))) {
-                remove_free_block(mem[k], now);
                 target->start_addr = min(target->start_addr, now->start_addr);
                 target->size <<= 1;
+                remove_free_block(mem[k], now);
                 release(k + 1, target);
                 flag = true;
                 break;
@@ -319,13 +345,13 @@ public:
             return;
         insert_free_block(mem[k], target);
     }
+
     int free_mem(allocated_block *ab) override {
         int k = cal_k(ab->size);
         auto released = new free_block;
         released->start_addr = ab->start_addr;
         released->size = (1 << k);
         release(k, released);
-        debug();
     }
 };
 
@@ -451,33 +477,12 @@ int dispose(allocated_block *ab) { //释放结构体所占的内存
 }
 
 void display_mem_usage() {
-    free_block *fb = free_block_head;
-    allocated_block *ab = allocated_block_head;
     puts("*********************Free Memory*********************");
-    printf("%20s %20s\n", "start_addr", "size");
-    int cnt = 0;
-    while (fb != nullptr) {
-        cnt++;
-        printf("%20d %20d\n", fb->start_addr, fb->size);
-        fb = fb->next;
-    }
-    if (!cnt)
-        puts("No Free Memory");
-    else
-        printf("Totaly %d free blocks\n", cnt);
+    alc->free_status();
     puts("");
     puts("*******************Used Memory*********************");
-    printf("%10s %10s %20s\n", "PID", "start_addr", "size");
-    cnt = 0;
-    while (ab != nullptr) {
-        cnt++;
-        printf("%10d %10d %20d\n", ab->pid, ab->start_addr, ab->size);
-        ab = ab->next;
-    }
-    if (!cnt)
-        puts("No allocated block");
-    else
-        printf("Totaly %d allocated blocks\n", cnt);
+    alc->used_status();
+    puts("");
 }
 
 allocated_block *find_process(int id) { //循环遍历分配块链表，寻找pid=id的进程所对应的块
