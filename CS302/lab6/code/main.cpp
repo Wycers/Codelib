@@ -8,8 +8,6 @@ using namespace std;
 #define DEFAULT_MEM_SIZE 1024 // 总内存大小
 #define DEFAULT_MEM_START 0   // 内存开始分配时的起始地址
 
-const int K = floor(log(DEFAULT_MEM_SIZE) / log(2));
-
 int mem_size = DEFAULT_MEM_SIZE;
 static int global_pid = 0;
 
@@ -254,10 +252,13 @@ class BestFitAllocator : public Allocator {
 };
 
 class BuddySystemAllocator : public Allocator {
-    free_block **mem = new free_block *[K + 1];
+    int K;
+    free_block **mem;
 
 public:
     BuddySystemAllocator() {
+        K = floor(log(mem_size) / log(2));
+        mem = new free_block *[K + 1];
         mem[K] = new free_block;
         mem[K]->size = mem_size;
         mem[K]->start_addr = 0;
@@ -302,7 +303,7 @@ public:
         return mem[k];
     }
 
-    static int cal_k(int size) {
+    int cal_k(int size) {
         int k = 0;
         for (k = 0; k <= K && (1 << k) < size; ++k);
         return k;
