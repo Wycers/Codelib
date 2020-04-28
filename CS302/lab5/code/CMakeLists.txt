@@ -3,4 +3,4 @@ project(untitled)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(code Banker.cpp)
+add_executable(untitled Banker.cpp)
