@@ -1,0 +1,28 @@
+@startuml
+
+Customer -> App: Scan QR code to open app
+activate App
+App -> Server: Register (invalid) plate number
+Server --> App: [plate number is invalid] Error Message
+Server --> App: [plate number is valid] Parking Time and Cost
+App --> Customer: Show information
+deactivate App
+
+Customer -> App: Click payment button
+note left of App: Payment process
+activate App
+App -> Server: Request payment information
+Server --> App: Payment information(Cost and Supported payment method)
+App --> Customer: Show information
+Customer -> App: [Customer is VIP] Choose to use VIP points or not
+App -> App: Recalculate payment amount
+Customer -> App: Comfirm Payment
+App -> Server: pay
+Server ->]: Contact with payment agency to confirm Payment
+Server <--] : Response
+Server -> Server: [if use VIP points] \n consume VIP points
+Server --> App: Done
+App --> Customer: [Payment is done] indicate to leave in 15 mins
+App --> Customer: [Error occurred] Show error message
+deactivate App
+@enduml

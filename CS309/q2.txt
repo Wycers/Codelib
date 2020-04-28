@@ -1,0 +1,99 @@
+@startuml
+enum CarStatus {
+  Normal
+  Deny
+}
+
+class Payment {
+  - cash : int
+  - vipPoint: int
+  + int getCash()
+  + void setCash(int cash)
+  + int getVipPoint()
+  + void setVipPoint(int vipPoint)
+}
+
+class Car {
+  plateNumber : String
+  status: CarStatus
+  void enter(ParkingLot)
+  void leave(ParkingLot)
+}
+Car --> CarStatus
+Car ..> ParkingLot
+
+class CarRecord {
+  - plateNumber: String
+  - status: CarStatus
+  - enterTime: DateTime
+  - leaveTime: DateTime
+  + void setPlateNumber(plateNumber: String)
+  + String getPlateNumber()
+  + void setCarStatus(carStatus CarStatus)
+  + CarStatus getCarStatus()
+  + void setEnterTime(time DateTime)
+  + DateTime getEnterTime()
+  + void setLeaveTime(time DateTime)
+  + DateTime getLeaveTime()
+}
+CarRecord --> CarStatus
+
+class Control {
+  - carRecords : CarRecord[]
+  - users: User[]
+  - payments: Payment[]
+  + Car getCarObjectByPlateNumber(plateNumber: String)
+  + int calculateFee(carRecord: CarRecord)
+  + void payment(cash, vipPoint)
+  + void sendvipPoints(amount: int)
+  + void createCarRecord(car: Car)
+}
+Control *--> Payment
+Control *--> CarRecord
+Control *--> User
+Control ..> Car
+
+class ParkingLot {
+  - control: Control
+  + void checkIn(car: Car)
+  + void checkOut(car: Car)
+  + int queryFee(carRecord: CarRecord)
+  + void payFee(carRecord: CarRecord)
+}
+ParkingLot -> Control
+ParkingLot ..> Car
+ParkingLot ..> CarRecord
+
+
+
+interface pay
+abstract class User
+User <|.. VIP
+pay <|..VIP
+class VIP {
+  int vipPoint;
+  void consumevipPoints(amount: int)
+  void pay(carRecord: CarRecord)
+}
+User <|.. NormalUser
+pay <|.. NormalUser
+class NormalUser {
+  void pay(carRecord: CarRecord)
+}
+User <|.. Administrastor
+
+class Administrastor {
+  + CarRecord[] findAllCarRecord()
+  + CarRecord findOneCarRecord(keyword: String)
+  + void modifyOneCarRecord(\n  carRecord: CarRecord,\n  enterTime: DateTime,\n  leaveTime: DateTime\n)
+  + void changeCarStatus(carStatus: CarStatus)
+}
+
+Administrastor ..> CarStatus
+Administrastor ..> CarRecord
+NormalUser ..> CarRecord
+VIP ..> CarRecord
+
+
+
+@enduml
