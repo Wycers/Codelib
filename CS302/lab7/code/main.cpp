@@ -21,11 +21,15 @@ inline int read() {
     return x * f;
 }
 
-int cache_size = 100, n;
+int n;
 
 class Cache {
 public:
-    int cnt = 0;
+    int cache_size, cnt = 0;
+
+    Cache(int size) {
+        this->cache_size = size;
+    }
 
     virtual void clear() = 0;
 
@@ -33,7 +37,13 @@ public:
         return this->cnt;
     }
 
-    virtual void push(int v) = 0;
+    virtual bool contains(int v);
+
+    virtual bool isFull();
+
+    virtual void push(int v);
+
+    virtual int pop();
 
     virtual void work() {
         this->clear();
@@ -48,6 +58,9 @@ class Fifo_cache : public Cache {
     unordered_map<int, int> mp;
     queue<int> q;
 
+public:
+    Fifo_cache(int n) : Cache(n) {}
+
     void clear() override {
         this->cnt = 0;
         mp.clear();
@@ -56,18 +69,30 @@ class Fifo_cache : public Cache {
         }
     }
 
+    bool contains(int v) override {
+        return mp.find(v) != mp.end();
+    }
+
+    bool isFull() override {
+        return q.size() == cache_size;
+    }
+
+    int pop() override {
+        int x = q.front();
+        q.pop();
+        --mp[x];
+    }
+
     void push(int v) override {
-        if (mp[v]) {
+        if (this->contains(v)) {
             ++this->cnt;
-            return;
+        } else {
+            if (isFull()) {
+                this->pop();
+            }
+            q.push(v);
+            ++mp[v];
         }
-        if (q.size() == cache_size) {
-            int x = q.front();
-            q.pop();
-            --mp[x];
-        }
-        q.push(v);
-        ++mp[v];
     }
 };
 
@@ -81,9 +106,11 @@ class Lru_cache : public Cache {
             prev = next = nullptr;
         }
     };
-
     unordered_map<int, node *> mp;
     node *head, *tail;
+
+public:
+    Lru_cache(int n) : Cache(n) {}
 
     void clear() override {
         this->cnt = 0;
@@ -114,22 +141,42 @@ class Lru_cache : public Cache {
             now->next->prev = now->prev;
     }
 
-    void push(int v) override {
+
+    bool contains(int v) override {
+        return mp.find(v) != mp.end();
+    }
+
+    bool isFull() override {
+        return mp.size() == cache_size;
+    }
+
+    int pop() override {
+        node *tmp = tail;
+        mp.erase(tmp->v);
+        remove(tmp);
+        delete tmp;
+    }
+
+    node* pop(int v) {
         auto pair = mp.find(v);
-        node *now;
         if (pair != mp.end()) {
-            now = pair->second;
-            ++this->cnt;
-            remove(now);
-        } else {
-            now = new node(v);
-            if (mp.size() == cache_size) {
-                node *tmp = tail;
-                mp.erase(tmp->v);
-                remove(tmp);
-                delete tmp;
+            remove(pair->second);
+            return pair->second;
+        }
+        return nullptr;
+    }
+
+
+    void push(int v) override {
+        node *now = pop(v);
+        if (now == nullptr) {
+            if (this->isFull()) {
+                this->pop();
             }
+            now = new node(v);
             mp[v] = now;
+        } else {
+            ++this->cnt;
         }
         insert(now);
     }
@@ -139,6 +186,9 @@ class Min_cache : public Cache {
     unordered_map<int, int> mp;
     priority_queue<pair<int, int> > pq;
     vector<int> a, nx;
+
+public:
+    Min_cache(int n) : Cache(n) {}
 
     void clear() override {
         this->cnt = 0;
@@ -150,7 +200,19 @@ class Min_cache : public Cache {
         }
     }
 
-    void push(int v) override {
+    void push(int v, int next) {
+        auto pair = mp.find(v);
+        if (pair != mp.end()) {
+            ++this->cnt;
+        } else {
+            if (mp.size() == cache_size) {
+                auto tp = pq.top();
+                pq.pop();
+                mp.erase(tp.second);
+            }
+            mp[v] = 1;
+        }
+        pq.push(make_pair(next, v));
     }
 
     void work() override {
@@ -169,19 +231,7 @@ class Min_cache : public Cache {
         }
         mp.clear();
         for (int i = 0; i < n; ++i) {
-            int v = a[i];
-            auto pair = mp.find(v);
-            if (pair != mp.end()) {
-                ++this->cnt;
-            } else {
-                if (mp.size() == cache_size) {
-                    auto tp = pq.top();
-                    pq.pop();
-                    mp.erase(tp.second);
-                }
-                mp[v] = 1;
-            }
-            pq.push(make_pair(nx[i], v));
+            this->push(a[i], nx[i]);
         }
     }
 
@@ -202,6 +252,9 @@ class Clock_cache : public Cache {
 
     unordered_map<int, node *> mp;
     node *ptr;
+
+public:
+    Clock_cache(int n) : Cache(n) {}
 
     void clear() override {
         this->cnt = 0;
@@ -256,18 +309,29 @@ class Clock_cache : public Cache {
         }
         now->valid = true;
     }
+
 };
 
 class SecondChance_cache : public Cache {
+    Fifo_cache *fifoCache;
+    Lru_cache *lruCache;
+
     map<int, int> mp;
     queue<int> q;
+public:
+    SecondChance_cache(int n) : Cache(n) {
+        int hn = (n >> 1);
+        this->fifoCache = new Fifo_cache(hn);
+        this->lruCache = new Lru_cache(n - hn);
+    }
 
     void clear() override {
-        this->cnt = 0;
-        mp.clear();
-        while (!q.empty()) {
-            q.pop();
-        }
+        fifoCache->clear();
+        lruCache->clear();
+    }
+
+    bool contains(int v) override {
+        return fifoCache.contains(v) || lruCache.contains(v);
     }
 
     void push(int v) override {
@@ -283,23 +347,53 @@ class SecondChance_cache : public Cache {
         q.push(v);
         ++mp[v];
     }
+
+    void work() override {
+        this->clear();
+        n = read();
+        for (int i = 0; i < n; ++i) {
+            int v = read();
+            if (fifoCache->contains(v)) {
+                ++this->cnt;
+                continue;
+            }
+            if (lruCache->contains(v)) {
+                ++this->cnt;
+                lruCache->pop(v);
+                int tmp = fifoCache->pop();
+                fifoCache->push(v);
+                lruCache->push(tmp);
+                continue;
+            }
+            if (!fifoCache->isFull()) {
+                fifoCache->push(v);
+                continue;
+            }
+            int tmp = fifoCache->pop();
+            fifoCache->push(v);
+            if (lruCache->isFull()) {
+                lruCache->pop();
+            }
+            lruCache->push(tmp);
+        }
+    }
 };
 
 
 int main() {
-    cache_size = read();
+    int cache_size = read();
     int algorithm = read();
     Cache *cache = nullptr;
     if (algorithm == 0) {
-        cache = new Fifo_cache;
+        cache = new Fifo_cache(cache_size);
     } else if (algorithm == 1) {
-        cache = new Lru_cache;
+        cache = new Lru_cache(cache_size);
     } else if (algorithm == 2) {
-        cache = new Min_cache;
+        cache = new Min_cache(cache_size);
     } else if (algorithm == 3) {
-        cache = new Clock_cache;
+        cache = new Clock_cache(cache_size);
     } else if (algorithm == 4) {
-        cache = new SecondChance_cache;
+        cache = new SecondChance_cache(cache_size);
     }
     if (cache == nullptr) {
         puts("?");
