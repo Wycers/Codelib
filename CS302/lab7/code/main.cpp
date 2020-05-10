@@ -47,6 +47,7 @@ public:
 
     virtual void work() {
         this->clear();
+        n = read();
         for (int i = 0; i < n; ++i) {
             this->push(read());
         }
@@ -216,6 +217,7 @@ public:
 
     void work() override {
         this->clear();
+        n = read();
         for (int i = 0; i < n; ++i) {
             a.push_back(read());
             nx.push_back(0x7fffffff);
@@ -348,6 +350,7 @@ public:
 
     void work() override {
         this->clear();
+        n = read();
         for (int i = 0; i < n; ++i) {
             int v = read();
             if (fifoCache->contains(v)) {
@@ -396,7 +399,6 @@ int main() {
         puts("?");
         return 0;
     }
-    n = read();
     cache->work();
     printf("Hit ratio = %05.2lf%%", (double) cache->count() / n * 100);
     return 0;
