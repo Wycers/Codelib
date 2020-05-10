@@ -21,6 +21,11 @@ In this lab, we can only use an offline approach to implement the algorithm.
 
 Behavior:
 
+Hit: return the page in the cache.
+
+Miss: If the cache is not full, simply put the required page in the cache. If the cache is full, the page which will be use after the longest time will be removed and the required page will be put into the cache.
+
+
 ## Question 3
 
 Briefly describe the LRU page-replacement algorithm and analyze its algorithm complexity
@@ -33,7 +38,9 @@ Miss: If the cache is not full, put the required page to the top of the cache. I
 
 Briefly describe the clock algorithm and analyze its algorithm complexity
 
-Hit: 
+Hit: return the page in the cache, and set the valid bit for that page into 1.
+
+Miss: If the page which the hand point to have valid bit 1, then set the valid bit into 0 and move the hand to the next page and do the same thing, until the the page which the hand point to is already 0. If the page which the hand point to already have valid bit 0, then put the page here and set the valid bit into 1.
 
 ## Question 5
 
