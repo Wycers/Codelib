@@ -1,3 +1,4 @@
+#pragma GCC optimize ("O3")
 #include <iostream>
 #include <map>
 #include <cstdio>
@@ -37,13 +38,13 @@ public:
         return this->cnt;
     }
 
-    virtual bool contains(int v);
+    virtual bool contains(int v) { return false; }
 
-    virtual bool isFull();
+    virtual bool isFull() { return false; }
 
-    virtual void push(int v);
+    virtual void push(int v) {}
 
-    virtual int pop();
+    virtual int pop() { return 0; }
 
     virtual void work() {
         this->clear();
@@ -106,8 +107,9 @@ class Lru_cache : public Cache {
             prev = next = nullptr;
         }
     };
+
     unordered_map<int, node *> mp;
-    node *head, *tail;
+    node *head{}, *tail{};
 
 public:
     Lru_cache(int n) : Cache(n) {}
@@ -157,7 +159,7 @@ public:
         delete tmp;
     }
 
-    node* pop(int v) {
+    node *pop(int v) {
         auto pair = mp.find(v);
         if (pair != mp.end()) {
             remove(pair->second);
@@ -188,7 +190,7 @@ class Min_cache : public Cache {
     vector<int> a, nx;
 
 public:
-    Min_cache(int n) : Cache(n) {}
+    explicit Min_cache(int n) : Cache(n) {}
 
     void clear() override {
         this->cnt = 0;
@@ -285,6 +287,26 @@ public:
             ptr = now->next;
     }
 
+    bool contains(int v) override {
+        return mp.find(v) != mp.end();
+    }
+
+    bool isFull() override {
+        return mp.size() == cache_size;
+    }
+
+    int pop() override {
+        node *tmp = ptr;
+        while (tmp != nullptr && tmp->valid) {
+            tmp->valid = false;
+            tmp = tmp->next;
+        }
+        ptr = tmp->next;
+        mp.erase(tmp->v);
+        remove(tmp);
+        delete tmp;
+    }
+
     void push(int v) override {
         auto pair = mp.find(v);
         node *now;
@@ -292,18 +314,10 @@ public:
             now = pair->second;
             ++this->cnt;
         } else {
-            now = new node(v);
-            if (mp.size() == cache_size) {
-                node *tmp = ptr;
-                while (tmp != nullptr && tmp->valid) {
-                    tmp->valid = false;
-                    tmp = tmp->next;
-                }
-                ptr = tmp->next;
-                mp.erase(tmp->v);
-                remove(tmp);
-                delete tmp;
+            if (this->isFull()) {
+                this->pop();
             }
+            now = new node(v);
             mp[v] = now;
             insert(now);
         }
@@ -319,7 +333,7 @@ class SecondChance_cache : public Cache {
     map<int, int> mp;
     queue<int> q;
 public:
-    SecondChance_cache(int n) : Cache(n) {
+    explicit SecondChance_cache(int n) : Cache(n) {
         int hn = (n >> 1);
         this->fifoCache = new Fifo_cache(hn);
         this->lruCache = new Lru_cache(n - hn);
@@ -331,7 +345,15 @@ public:
     }
 
     bool contains(int v) override {
-        return fifoCache.contains(v) || lruCache.contains(v);
+        return fifoCache->contains(v) || lruCache->contains(v);
+    }
+
+    bool isFull() override {
+        return fifoCache->isFull() && lruCache->isFull();
+    }
+
+    int pop() override {
+
     }
 
     void push(int v) override {
