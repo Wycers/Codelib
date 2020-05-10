@@ -38,3 +38,7 @@ Hit:
 ## Question 5
 
 Briefly describe the second-chance algorithm and analyze its algorithm complexity
+
+Hit: if hit in fifo cache, return the hit page. if hit in lru cache, then move the page into fifo, and the earliest page put in the fifo cache will be moved into lru cache.
+
+Miss:If fifo cache is not full then, put the required page to the fifo cache. If fifo cache is full and lru cache not full, then remove the earliest page in fifo cache to lru cache, then put the required page to the fifo cache. If fifo cache is full and lru cache full, remove the most bottom page in the lru cache, and remove the earliest page in fifo cache to lru cache, then put the required page to the fifo cache. 
