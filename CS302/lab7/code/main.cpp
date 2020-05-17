@@ -1,4 +1,5 @@
 #pragma GCC optimize ("O3")
+
 #include <iostream>
 #include <map>
 #include <cstdio>
@@ -40,9 +41,9 @@ public:
 
     virtual bool contains(int v) { return false; }
 
-    virtual bool isFull() { return false; }
+    virtual bool isFull() { return false; };
 
-    virtual void push(int v) {}
+    virtual void push(int v) {};
 
     virtual int pop() { return 0; }
 
@@ -81,7 +82,10 @@ public:
     int pop() override {
         int x = q.front();
         q.pop();
-        --mp[x];
+        if ((--mp[x]) == 0) {
+            mp.erase(x);
+        }
+        return x;
     }
 
     void push(int v) override {
@@ -340,6 +344,7 @@ public:
     }
 
     void clear() override {
+        this->cnt = 0;
         fifoCache->clear();
         lruCache->clear();
     }
