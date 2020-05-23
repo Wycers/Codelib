@@ -42,9 +42,9 @@ int main() {
     sort(l.begin(), l.end());
     sort(r.begin(), r.end());
 
-    if (!l.empty() && s != l.back()) {
+//    if (!l.empty() && s != l.back()) {
         printf("%d ", s);
-    }
+//    }
 
     for (auto i = l.rbegin(); i != l.rend(); ++i) {
         printf("%d ", *i);
