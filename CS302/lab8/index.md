@@ -40,5 +40,11 @@ If at some point, the head is located at track 100 and moves in the direction in
    2. How much time is required in total? The calculation process is required. (15 points).
 2. If using SSD, which scheduling algorithm do you think should be used, and explain why? (10 points)
 
-1) If the C-SCAN algorithm is used to read the six sectors, the track sequence is 100, 120, 199, 0, 20, 30, 60, 70, 90. Time required in total is 388. (388 = 120 - 100 + 199 - 120 + 199 - 0 + 20 - 0 + 30 - 20 + 60 - 30 + 70 - 60 + 90 - 70)
-2) SSD has no rotational latency and low seek time, so request sequence does not that much matter when using SSD. In that situation, I think FIFO is the best algorithm because it can read/write data as soon as possible and it is very simple and efficient.
+1) If the C-SCAN algorithm is used to read the six sectors, the track sequence is 100, 120, 199, 0, 20, 30, 60, 70, 90.
+
+   So the total is 403ms.
+
+   1. The seek time is 388ms. (388 = 120 - 100 + 199 - 120 + 199 - 0 + 20 - 0 + 30 - 20 + 60 - 30 + 70 - 60 + 90 - 70).
+   2. The rotational latency is 15ms. (15 = 1 / 2 \* 60000 / 12000 \* 6)
+
+2) SSD has no rotational latency and low seek time, so request sequence does not that much matter when using SSD. In that situation, I think FCFS is the best algorithm because it can read/write data as soon as possible and it is very simple and efficient.
