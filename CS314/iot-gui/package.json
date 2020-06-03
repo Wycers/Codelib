@@ -1,0 +1,19 @@
+{
+  "name": "bubble_tea",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Wycers/BubbleTea.git",
+  "author": "Wycer <wycers@gmail.com>",
+  "license": "GPLv3",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "start": "npm run build && electron ./dist/main.js"
+  },
+  "devDependencies": {
+    "electron": "^8.2.5",
+    "tslint": "^6.1.2",
+    "typescript": "^3.8.3"
+  }
+}
