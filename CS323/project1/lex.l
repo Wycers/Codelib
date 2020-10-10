@@ -30,6 +30,7 @@ int|float|char {
 #ifdef debug
     puts("INT (hex)");
     printf("text: %s\n", yytext);
+    NEW_NODE(INT, yytext);
 #endif
     NEW_NODE(INT, yytext);
 #ifndef debug
