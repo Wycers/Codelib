@@ -89,9 +89,6 @@
 
     struct Node* p;
     int EXE_FAIL = 0;
-
-    #define newNode(w, y, z, x) new_node((z), (w), (x), (y))
-
 %}
 
 %union{ struct Node *token_p;}
@@ -149,8 +146,8 @@
 Program
        	:	ExtDefList	{
        		          	    /*printf("Program\n");*/
-       		          	    p = newNode("Program", $1 -> lineno, 233, "NULL");
-       		          	    insert(p, $1);
+       		          	    p = new_node(233, "Program", "NULL", $1->lineno);
+                                 insert(p, $1);
        		          	    $$ = p;
        		          	}
        	;
@@ -159,15 +156,15 @@ Program
 ExtDefList
           	:	ExtDef ExtDefList	{
           		                 	    /* printf("ExtDefList\n");*/
-          		                 	    p = newNode("ExtDefList", $1 -> lineno, 233, "NULL");
-          		                 	    insert(p, $1);
+          		                 	    p = new_node(233, "ExtDefList", "NULL", $1->lineno);
+                                        insert(p, $1);
           		                 	    insert(p, $2);
           		                 	    $$ = p;
           		                 	}
           	|	                 	{
           		                 	    /*printf("ExtDefList\n");*/
-          		                 	    p = newNode("NULL", 0, 0, "NULL");
-          		                 	    $$ = p;
+          		                 	    p = new_node(0, "NULL", "NULL", 0);
+                                        $$ = p;
           		                 	}
           	;
 
@@ -175,23 +172,24 @@ ExtDefList
 ExtDef
       	:	Specifier ExtDecList SEMI 	{
       		                          	    /*printf("ExtDef\n"); */
-      		                          	    p = newNode("ExtDef", $1 -> lineno, 233, "NULL");
-      		                          	    insert(p, $1);
+                                            // printf("%d\n", ExtDef);
+      		                          	    p = new_node(233, "ExtDef", "NULL", $1->lineno);
+                                            insert(p, $1);
       		                          	    insert(p, $2);
       		                          	    insert(p, $3);
       		                          	    $$ = p;
       		                          	}
       	|	Specifier SEMI            	{
       		                          	    /*printf("ExtDef\n"); */
-      		                          	    p = newNode("ExtDef", $1 -> lineno, 233, "NULL");
-      		                          	    insert(p, $1);
+      		                          	    p = new_node(233, "ExtDef", "NULL", $1->lineno);
+                                                insert(p, $1);
       		                          	    insert(p, $2);
       		                          	    $$ = p;
       		                          	}
       	|	Specifier FunDec CompSt   	{
       		                          	    /*printf("ExtDef\n"); */
-      		                          	    p = newNode("ExtDef", $1 -> lineno, 233, "NULL");
-      		                          	    insert(p, $1);
+      		                          	    p = new_node(233, "ExtDef", "NULL", $1->lineno);
+                                                insert(p, $1);
       		                          	    insert(p, $2);
       		                          	    insert(p, $3);
       		                          	    $$ = p;
@@ -210,14 +208,14 @@ ExtDef
 ExtDecList
           	:	VarDec                 	{
           		                       	    /*printf("ExtDecList\n"); */
-          		                       	    p = newNode("ExtDecList", $1 -> lineno, 233, "NULL");
-          		                       	    insert(p, $1);
+          		                       	    p = new_node(233, "ExtDecList", "NULL", $1->lineno);
+                                                 insert(p, $1);
           		                       	    $$ = p;
           		                       	}
           	|	VarDec COMMA ExtDecList	{
           		                       	    /*printf("ExtDecList\n"); */
-          		                       	    p = newNode("ExtDecList", $1 -> lineno, 233, "NULL");
-          		                       	    insert(p, $1);
+          		                       	    p = new_node(233, "ExtDecList", "NULL", $1->lineno);
+                                                 insert(p, $1);
           		                       	    insert(p, $2);
           		                       	    insert(p, $3);
           		                       	    $$ = p;
@@ -229,14 +227,14 @@ ExtDecList
 Specifier
          	:	TYPE           	{
          		               	    /*printf("Specifier\n"); */
-         		               	    p = newNode("Specifier", $1 -> lineno, 233, "NULL");
-         		               	    insert(p, $1);
+         		               	    p = new_node(233, "Specifier", "NULL", $1->lineno);
+                                        insert(p, $1);
          		               	    $$ = p;
          		               	}
          	|	StructSpecifier	{
          		               	    /*printf("Specifier\n"); */
-         		               	    p = newNode("Specifier", $1 -> lineno, 233, "NULL");
-         		               	    insert(p, $1);
+         		               	    p = new_node(233, "Specifier", "NULL", $1->lineno);
+                                        insert(p, $1);
          		               	    $$ = p;
          		               	}
          	;
@@ -245,8 +243,8 @@ Specifier
 StructSpecifier
                	:	STRUCT ID LC DefList RC	{
                		                       	    /*printf("StructSpecifier\n"); */
-               		                       	    p = newNode("StructSpecifier", $1 -> lineno, 233, "NULL");
-               		                       	    insert(p, $1);
+               		                       	    p = new_node(233, "StructSpecifier", "NULL", $1->lineno);
+                                                      insert(p, $1);
                		                       	    insert(p, $2);
                		                       	    insert(p, $3);
                		                       	    insert(p, $4);
@@ -255,8 +253,8 @@ StructSpecifier
                		                       	}
                	|	STRUCT ID              	{
                		                       	    /*printf("StructSpecifier\n"); */
-               		                       	    p = newNode("StructSpecifier", $1 -> lineno, 233, "NULL");
-               		                       	    insert(p, $1);
+               		                       	    p = new_node(233, "StructSpecifier", "NULL", $1->lineno);
+                                                      insert(p, $1);
                		                       	    insert(p, $2);
                		                       	    $$ = p;
                		                       	}
@@ -267,14 +265,14 @@ StructSpecifier
 VarDec
       	:	ID              	{
       		                	    /*printf("VarDec\n"); */
-      		                	    p = newNode("VarDec", $1 -> lineno, 233, "NULL");
-      		                	    insert(p, $1);
+      		                	    p = new_node(233, "VarDec", "NULL", $1->lineno);
+                                      insert(p, $1);
       		                	    $$ = p;
       		                	}
       	|	VarDec LB INT RB	{
       		                	    /*printf("VarDec\n"); */
-      		                	    p = newNode("VarDec", $1 -> lineno, 233, "NULL");
-      		                	    insert(p, $1);
+      		                	    p = new_node(233, "VarDec", "NULL", $1->lineno);
+                                      insert(p, $1);
       		                	    insert(p, $2);
       		                	    insert(p, $3);
       		                	    insert(p, $4);
@@ -289,8 +287,8 @@ VarDec
 FunDec
       	:	ID LP VarList RP      	{
       		                      	    /*printf("FunDec\n"); */
-      		                      	    p = newNode("FunDec", $1 -> lineno, 233, "NULL");
-      		                      	    insert(p, $1);
+      		                      	    p = new_node(233, "FunDec", "NULL", $1->lineno);
+                                            insert(p, $1);
       		                      	    insert(p, $2);
       		                      	    insert(p, $3);
       		                      	    insert(p, $4);
@@ -308,8 +306,8 @@ FunDec
       		                      	}
       	|	ID LP RP              	{
       		                      	    /*printf("FunDec\n"); */
-      		                      	    p = newNode("FunDec", $1 -> lineno, 233, "NULL");
-      		                      	    insert(p, $1);
+      		                      	    p = new_node(233, "FunDec", "NULL", $1->lineno);
+                                            insert(p, $1);
       		                      	    insert(p, $2);
       		                      	    insert(p, $3);
       		                      	    $$ = p;
@@ -320,16 +318,16 @@ FunDec
 VarList
        	:	ParamDec COMMA VarList	{
        		                      	    /*printf("VarList\n"); */
-       		                      	    p = newNode("VarList", $1 -> lineno, 233, "NULL");
-       		                      	    insert(p, $1);
+       		                      	    p = new_node(233, "VarList", "NULL", $1->lineno);
+                                             insert(p, $1);
        		                      	    insert(p, $2);
        		                      	    insert(p, $3);
        		                      	    $$ = p;
        		                      	}
        	|	ParamDec              	{
        		                      	    /*printf("VarList\n"); */
-       		                      	    p = newNode("VarList", $1 -> lineno, 233, "NULL");
-       		                      	    insert(p, $1);
+       		                      	    p = new_node(233, "VarList", "NULL", $1->lineno);
+                                             insert(p, $1);
        		                      	    $$ = p;
        		                      	}
        	;
@@ -338,8 +336,8 @@ VarList
 ParamDec
         	:	Specifier VarDec	{
         		                	    /*printf("ParamDec\n");  */
-        		                	    p = newNode("ParamDec", $1 -> lineno, 233, "NULL");
-        		                	    insert(p, $1);
+        		                	    p = new_node(233, "ParamDec", "NULL", $1->lineno);
+                                        insert(p, $1);
         		                	    insert(p, $2);
         		                	    $$ = p;
         		                	}
@@ -354,8 +352,8 @@ ParamDec
 CompSt
       	:	LC DefList StmtList RC	{
       		                      	    /*printf("CompSt\n"); */
-      		                      	    p = newNode("CompSt", $1 -> lineno, 233, "NULL");
-      		                      	    insert(p, $1);
+      		                      	    p = new_node(233, "CompSt", "NULL", $1->lineno);
+                                            insert(p, $1);
       		                      	    insert(p, $2);
       		                      	    insert(p, $3);
       		                      	    insert(p, $4);
@@ -367,15 +365,15 @@ CompSt
 StmtList
         	:	Stmt StmtList	{
         		             	    /*printf("StmtList\n");  */
-        		             	    p = newNode("StmtList", $1 -> lineno, 233, "NULL");
-        		             	    insert(p, $1);
+        		             	    p = new_node(233, "StmtList", "NULL", $1->lineno);
+                                     insert(p, $1);
         		             	    insert(p, $2);
         		             	    $$ = p;
         		             	}
         	|	             	{
         		             	    /*printf("StmtList NULL\n"); */
-        		             	    p = newNode("NULL", 0, 0, "NULL");
-        		             	    $$ = p;
+        		             	    p = new_node(0, "NULL", "NULL", 0);
+                                     $$ = p;
         		             	}
         	;
 
@@ -383,21 +381,21 @@ StmtList
 Stmt
     	:	Exp SEMI                    	{
     		                            	    /*printf("Stmt\n"); */
-    		                            	    p = newNode("Stmt", $1 -> lineno, 233, "NULL");
-    		                            	    insert(p, $1);
+    		                            	    p = new_node(233, "Stmt", "NULL", $1->lineno);
+                                                insert(p, $1);
     		                            	    insert(p, $2);
     		                            	    $$ = p;
     		                            	}
     	|	CompSt                      	{
     		                            	    /*printf("Stmt\n"); */
-    		                            	    p = newNode("Stmt", $1 -> lineno, 233, "NULL");
-    		                            	    insert(p, $1);
+    		                            	    p = new_node(233, "Stmt", "NULL", $1->lineno);
+                                                insert(p, $1);
     		                            	    $$ = p;
     		                            	}
     	|	RETURN Exp SEMI             	{
     		                            	    /*printf("Stmt\n"); */
-    		                            	    p = newNode("Stmt", $1 -> lineno, 233, "NULL");
-    		                            	    insert(p, $1);
+    		                            	    p = new_node(233, "Stmt", "NULL", $1->lineno);
+                                                insert(p, $1);
     		                            	    insert(p, $2);
     		                            	    insert(p, $3);
     		                            	    $$ = p;
@@ -412,8 +410,8 @@ Stmt
     		                            	}
     	|	IF LP Exp RP Stmt %prec THEN	{
     		                            	    /*printf("Stmt\n"); */
-    		                            	    p = newNode("Stmt", $1 -> lineno, 233, "NULL");
-    		                            	    insert(p, $1);
+    		                            	    p = new_node(233, "Stmt", "NULL", $1->lineno);
+                                                insert(p, $1);
     		                            	    insert(p, $2);
     		                            	    insert(p, $3);
     		                            	    insert(p, $4);
@@ -422,8 +420,8 @@ Stmt
     		                            	}
     	|	IF LP Exp RP Stmt ELSE Stmt 	{
     		                            	    /*printf("Stmt\n"); */
-    		                            	    p = newNode("Stmt", $1 -> lineno, 233, "NULL");
-    		                            	    insert(p, $1);
+    		                            	    p = new_node(233, "Stmt", "NULL", $1->lineno);
+                                                insert(p, $1);
     		                            	    insert(p, $2);
     		                            	    insert(p, $3);
     		                            	    insert(p, $4);
@@ -434,8 +432,8 @@ Stmt
     		                            	}
     	|	WHILE LP Exp RP Stmt        	{
     		                            	    /*printf("Stmt\n"); */
-    		                            	    p = newNode("Stmt", $1 -> lineno, 233, "NULL");
-    		                            	    insert(p, $1);
+    		                            	    p = new_node(233, "Stmt", "NULL", $1->lineno);
+                                                insert(p, $1);
     		                            	    insert(p, $2);
     		                            	    insert(p, $3);
     		                            	    insert(p, $4);
@@ -449,15 +447,15 @@ Stmt
 DefList
        	:	Def DefList	{
        		           	    /*printf("DefList\n"); */
-       		           	    p = newNode("DefList", $1 -> lineno, 233, "NULL");
-       		           	    insert(p, $1);
+       		           	    p = new_node(233, "DefList", "NULL", $1->lineno);
+                            insert(p, $1);
        		           	    insert(p, $2);
        		           	    $$ = p;
        		           	}
        	|	           	{
        		           	    /*printf("DefList\n"); */
-       		           	    p = newNode("NULL", 0, 0, "NULL");
-       		           	    $$ = p;
+       		           	    p = new_node(0, "NULL", "NULL", 0);
+                            $$ = p;
        		           	}
        	;
 
@@ -465,8 +463,8 @@ DefList
 Def
    	:	Specifier DecList SEMI      	{
    		                            	    /*printf("Def\n"); */
-   		                            	    p = newNode("Def", $1 -> lineno, 233, "NULL");
-   		                            	    insert(p, $1);
+   		                            	    p = new_node(233, "Def", "NULL", $1->lineno);
+                                               insert(p, $1);
    		                            	    insert(p, $2);
    		                            	    insert(p, $3);
    		                            	    $$ = p;
@@ -489,14 +487,14 @@ Def
 DecList
        	:	Dec              	{
        		                 	    /*printf("DecList\n"); */
-       		                 	    p = newNode("DecList", $1 -> lineno, 233, "NULL");
-       		                 	    insert(p, $1);
+       		                 	    p = new_node(233, "DecList", "NULL", $1->lineno);
+                                        insert(p, $1);
        		                 	    $$ = p;
        		                 	}
        	|	Dec COMMA DecList	{
        		                 	    /*printf("DecList\n"); */
-       		                 	    p = newNode("DecList", $1 -> lineno, 233, "NULL");
-       		                 	    insert(p, $1);
+       		                 	    p = new_node(233, "DecList", "NULL", $1->lineno);
+                                        insert(p, $1);
        		                 	    insert(p, $2);
        		                 	    insert(p, $3);
        		                 	    $$ = p;
@@ -507,14 +505,14 @@ DecList
 Dec
    	:	VarDec           	{
    		                 	    /*printf("Dec\n");  */
-   		                 	    p = newNode("Dec", $1 -> lineno, 233, "NULL");
-   		                 	    insert(p, $1);
+   		                 	    p = new_node(233, "Dec", "NULL", $1->lineno);
+                                    insert(p, $1);
    		                 	    $$ = p;
    		                 	}
    	|	VarDec ASSIGN Exp	{
    		                 	    /*printf("Dec\n"); */
-   		                 	    p = newNode("Dec", $1 -> lineno, 233, "NULL");
-   		                 	    insert(p, $1);
+   		                 	    p = new_node(233, "Dec", "NULL", $1->lineno);
+                                    insert(p, $1);
    		                 	    insert(p, $2);
    		                 	    insert(p, $3);
    		                 	    $$ = p;
@@ -529,8 +527,8 @@ Dec
 Exp
    	:	Exp ASSIGN Exp          	{
    		                        	    /*printf("Exp\n"); */
-   		                        	    p = newNode("Exp", $1 -> lineno, 233, "NULL");
-   		                        	    insert(p, $1);
+   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
+                                           insert(p, $1);
    		                        	    insert(p, $2);
    		                        	    insert(p, $3);
    		                        	    $$ = p;
@@ -543,104 +541,104 @@ Exp
    		                        	}
    	|	Exp AND Exp             	{
    		                        	    /*printf("Exp\n"); */
-   		                        	    p = newNode("Exp", $1 -> lineno, 233, "NULL");
-   		                        	    insert(p, $1);
+   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
+                                           insert(p, $1);
    		                        	    insert(p, $2);
    		                        	    insert(p, $3);
    		                        	    $$ = p;
    		                        	}
    	|	Exp OR Exp              	{
    		                        	    /*printf("Exp\n"); */
-   		                        	    p = newNode("Exp", $1 -> lineno, 233, "NULL");
-   		                        	    insert(p, $1);
+   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
+                                           insert(p, $1);
    		                        	    insert(p, $2);
    		                        	    insert(p, $3);
    		                        	    $$ = p;
    		                        	}
    	|	Exp LT Exp              	{
    		                        	    /*printf("Exp\n"); */
-   		                        	    p = newNode("Exp", $1 -> lineno, 233, "NULL");
-   		                        	    insert(p, $1);
+   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
+                                           insert(p, $1);
    		                        	    insert(p, $2);
    		                        	    insert(p, $3);
    		                        	    $$ = p;
    		                        	}
    	|	Exp LE Exp              	{
    		                        	    /*printf("Exp\n"); */
-   		                        	    p = newNode("Exp", $1 -> lineno, 233, "NULL");
-   		                        	    insert(p, $1);
+   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
+                                           insert(p, $1);
    		                        	    insert(p, $2);
    		                        	    insert(p, $3);
    		                        	    $$ = p;
    		                        	}
    	|	Exp GT Exp              	{
    		                        	    /*printf("Exp\n"); */
-   		                        	    p = newNode("Exp", $1 -> lineno, 233, "NULL");
-   		                        	    insert(p, $1);
+   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
+                                           insert(p, $1);
    		                        	    insert(p, $2);
    		                        	    insert(p, $3);
    		                        	    $$ = p;
    		                        	}
    	|	Exp GE Exp              	{
    		                        	    /*printf("Exp\n"); */
-   		                        	    p = newNode("Exp", $1 -> lineno, 233, "NULL");
-   		                        	    insert(p, $1);
+   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
+                                           insert(p, $1);
    		                        	    insert(p, $2);
    		                        	    insert(p, $3);
    		                        	    $$ = p;
    		                        	}
    	|	Exp NE Exp              	{
    		                        	    /*printf("Exp\n"); */
-   		                        	    p = newNode("Exp", $1 -> lineno, 233, "NULL");
-   		                        	    insert(p, $1);
+   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
+                                           insert(p, $1);
    		                        	    insert(p, $2);
    		                        	    insert(p, $3);
    		                        	    $$ = p;
    		                        	}
    	|	Exp EQ Exp              	{
    		                        	    /*printf("Exp\n"); */
-   		                        	    p = newNode("Exp", $1 -> lineno, 233, "NULL");
-   		                        	    insert(p, $1);
+   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
+                                           insert(p, $1);
    		                        	    insert(p, $2);
    		                        	    insert(p, $3);
    		                        	    $$ = p;
    		                        	}
    	|	Exp PLUS Exp            	{
    		                        	    /*printf("Exp\n"); */
-   		                        	    p = newNode("Exp", $1 -> lineno, 233, "NULL");
-   		                        	    insert(p, $1);
+   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
+                                           insert(p, $1);
    		                        	    insert(p, $2);
    		                        	    insert(p, $3);
    		                        	    $$ = p;
    		                        	}
    	|	Exp MINUS Exp  %prec SUB	{
    		                        	    /*printf("Exp\n"); */
-   		                        	    p = newNode("Exp", $1 -> lineno, 233, "NULL");
-   		                        	    insert(p, $1);
+   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
+                                           insert(p, $1);
    		                        	    insert(p, $2);
    		                        	    insert(p, $3);
    		                        	    $$ = p;
    		                        	}
    	|	Exp MUL Exp             	{
    		                        	    /*printf("Exp\n"); */
-   		                        	    p = newNode("Exp", $1 -> lineno, 233, "NULL");
-   		                        	    insert(p, $1);
+   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
+                                           insert(p, $1);
    		                        	    insert(p, $2);
    		                        	    insert(p, $3);
    		                        	    $$ = p;
    		                        	}
    	|	Exp DIV Exp             	{
    		                        	    /*printf("Exp\n"); */
-   		                        	    p = newNode("Exp", $1 -> lineno, 233, "NULL");
-   		                        	    insert(p, $1);
+   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
+                                           insert(p, $1);
    		                        	    insert(p, $2);
    		                        	    insert(p, $3);
    		                        	    $$ = p;
    		                        	}
    	|	LP Exp RP               	{
    		                        	    /*printf("Exp\n"); */
-   		                        	    p = newNode("Exp", $1 -> lineno, 233, "NULL");
-   		                        	    insert(p, $1);
+   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
+                                           insert(p, $1);
    		                        	    insert(p, $2);
    		                        	    insert(p, $3);
    		                        	    $$ = p;
@@ -651,22 +649,22 @@ Exp
    		                        	}
    	|	SUB Exp %prec MINUS     	{
    		                        	    /*printf("Exp\n"); */
-   		                        	    p = newNode("Exp", $1 -> lineno, 233, "NULL");
-   		                        	    insert(p, $1);
+   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
+                                           insert(p, $1);
    		                        	    insert(p, $2);
    		                        	    $$ = p;
    		                        	}
    	|	NOT Exp                 	{
    		                        	    /*printf("Exp\n"); */
-   		                        	    p = newNode("Exp", $1 -> lineno, 233, "NULL");
-   		                        	    insert(p, $1);
+   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
+                                           insert(p, $1);
    		                        	    insert(p, $2);
    		                        	    $$ = p;
    		                        	}
    	|	ID LP Args RP           	{
    		                        	    /*printf("Exp\n"); */
-   		                        	    p = newNode("Exp", $1 -> lineno, 233, "NULL");
-   		                        	    insert(p, $1);
+   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
+                                           insert(p, $1);
    		                        	    insert(p, $2);
    		                        	    insert(p, $3);
    		                        	    insert(p, $4);
@@ -679,8 +677,8 @@ Exp
    		                        	}
    	|	ID LP RP                	{
    		                        	    /*printf("Exp\n"); */
-   		                        	    p = newNode("Exp", $1 -> lineno, 233, "NULL");
-   		                        	    insert(p, $1);
+   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
+                                           insert(p, $1);
    		                        	    insert(p, $2);
    		                        	    insert(p, $3);
    		                        	    $$ = p;
@@ -691,8 +689,8 @@ Exp
    		                        	}
    	|	Exp LB Exp RB           	{
    		                        	    /*printf("Exp\n"); */
-   		                        	    p = newNode("Exp", $1 -> lineno, 233, "NULL");
-   		                        	    insert(p, $1);
+   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
+                                           insert(p, $1);
    		                        	    insert(p, $2);
    		                        	    insert(p, $3);
    		                        	    insert(p, $4);
@@ -700,34 +698,34 @@ Exp
    		                        	}
    	|	Exp DOT ID              	{
    		                        	    /*printf("Exp\n"); */
-   		                        	    p = newNode("Exp", $1 -> lineno, 233, "NULL");
-   		                        	    insert(p, $1);
+   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
+                                           insert(p, $1);
    		                        	    insert(p, $2);
    		                        	    insert(p, $3);
    		                        	    $$ = p;
    		                        	}
    	|	ID                      	{
    		                        	    /*printf("Exp\n"); */
-   		                        	    p = newNode("Exp", $1 -> lineno, 233, "NULL");
-   		                        	    insert(p, $1);
+   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
+                                           insert(p, $1);
    		                        	    $$ = p;
    		                        	}
    	|	INT                     	{
    		                        	    /*printf("Exp\n"); */
-   		                        	    p = newNode("Exp", $1 -> lineno, 233, "NULL");
-   		                        	    insert(p, $1);
+   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
+                                           insert(p, $1);
    		                        	    $$ = p;
    		                        	}
    	|	FLOAT                   	{
    		                        	    /*printf("Exp\n"); */
-   		                        	    p = newNode("Exp", $1 -> lineno, 233, "NULL");
-   		                        	    insert(p, $1);
+   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
+                                           insert(p, $1);
    		                        	    $$ = p;
    		                        	}
    	|	CHAR                    	{
    		                        	    /*printf("Exp\n"); */
-   		                        	    p = newNode("Exp", $1 -> lineno, 233, "NULL");
-   		                        	    insert(p, $1);
+   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
+                                           insert(p, $1);
    		                        	    $$ = p;
    		                        	}
    	;
@@ -736,16 +734,16 @@ Exp
 Args
     	:	Exp COMMA Args	{
     		              	    /*printf("Args\n"); */
-    		              	    p = newNode("Args", $1 -> lineno, 233, "NULL");
-    		              	    insert(p, $1);
+    		              	    p = new_node(233, "Args", "NULL", $1->lineno);
+                                insert(p, $1);
     		              	    insert(p, $2);
     		              	    insert(p, $3);
     		              	    $$ = p;
     		              	}
     	|	Exp           	{
     		              	    /*printf("Args\n"); */
-    		              	    p = newNode("Args", $1 -> lineno, 233, "NULL");
-    		              	    insert(p, $1);
+    		              	    p = new_node(233, "Args", "NULL", $1->lineno);
+                                insert(p, $1);
     		              	    $$ = p;
     		              	}
     	;
