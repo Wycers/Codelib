@@ -1,6 +1,6 @@
 %{
     #include "syntax.tab.h"
-    #define debug
+    // #define debug
 
     struct Node* new_node(int token, const char* name, char* text, int lineno);
 
@@ -30,7 +30,6 @@ int|float|char {
 #ifdef debug
     puts("INT (hex)");
     printf("text: %s\n", yytext);
-    NEW_NODE(INT, yytext);
 #endif
     NEW_NODE(INT, yytext);
 #ifndef debug
@@ -81,13 +80,12 @@ int|float|char {
 }
 
 
-
 "struct" {
 #ifdef debug
     puts("STRUCT");
     printf("text: %s\n", yytext);
-    NEW_NODE(STRUCT, yytext);
 #endif
+    NEW_NODE(STRUCT, yytext);
 #ifndef debug
     return STRUCT;
 #endif
@@ -96,8 +94,8 @@ int|float|char {
 #ifdef debug
     puts("IF");
     printf("text: %s\n", yytext);
-    NEW_NODE(IF, yytext);
 #endif
+    NEW_NODE(IF, yytext);
 #ifndef debug
     return IF;
 #endif
@@ -106,8 +104,8 @@ int|float|char {
 #ifdef debug
     puts("ELSE");
     printf("text: %s\n", yytext);
-    NEW_NODE(ELSE, yytext);
 #endif
+    NEW_NODE(ELSE, yytext);
 #ifndef debug
     return ELSE;
 #endif
@@ -116,8 +114,8 @@ int|float|char {
 #ifdef debug
     puts("WHILE");
     printf("text: %s\n", yytext);
-    NEW_NODE(WHILE, yytext);
 #endif
+    NEW_NODE(WHILE, yytext);
 #ifndef debug
     return WHILE;
 #endif
@@ -126,20 +124,19 @@ int|float|char {
 #ifdef debug
     puts("RETURN");
     printf("text: %s\n", yytext);
-    NEW_NODE(RETURN, yytext);
 #endif
+    NEW_NODE(RETURN, yytext);
 #ifndef debug
     return RETURN;
 #endif
 }
 
-
 "<" {
 #ifdef debug
     puts("LT");
     printf("text: %s\n", yytext);
-    NEW_NODE(LT, yytext);
 #endif
+    NEW_NODE(LT, yytext);
 #ifndef debug
     return LT;
 #endif
@@ -149,8 +146,8 @@ int|float|char {
 #ifdef debug
     puts("LE");
     printf("text: %s\n", yytext);
-    NEW_NODE(LE, yytext);
 #endif
+    NEW_NODE(LE, yytext);
 #ifndef debug
     return LE;
 #endif
@@ -160,8 +157,8 @@ int|float|char {
 #ifdef debug
     puts("GT");
     printf("text: %s\n", yytext);
-    NEW_NODE(GT, yytext);
 #endif
+    NEW_NODE(GT, yytext);
 #ifndef debug
     return GT;
 #endif
@@ -171,8 +168,8 @@ int|float|char {
 #ifdef debug
     puts("GE");
     printf("text: %s\n", yytext);
-    NEW_NODE(GE, yytext);
 #endif
+    NEW_NODE(GE, yytext);
 #ifndef debug
     return GE;
 #endif
@@ -182,8 +179,8 @@ int|float|char {
 #ifdef debug
     puts("EQ");
     printf("text: %s\n", yytext);
-    NEW_NODE(EQ, yytext);
 #endif
+    NEW_NODE(EQ, yytext);
 #ifndef debug
     return EQ;
 #endif
@@ -193,8 +190,8 @@ int|float|char {
 #ifdef debug
     puts("NE");
     printf("text: %s\n", yytext);
-    NEW_NODE(NE, yytext);
 #endif
+    NEW_NODE(NE, yytext);
 #ifndef debug
     return NE;
 #endif
@@ -206,8 +203,8 @@ int|float|char {
 #ifdef debug
     puts("COMMA");
     printf("text: %s\n", yytext);
-    NEW_NODE(COMMA, yytext);
 #endif
+    NEW_NODE(COMMA, yytext);
 #ifndef debug
     return COMMA;
 #endif
@@ -217,8 +214,8 @@ int|float|char {
 #ifdef debug
     puts("SEMI");
     printf("text: %s\n", yytext);
-    NEW_NODE(SEMI, yytext);
 #endif
+    NEW_NODE(SEMI, yytext);
 #ifndef debug
     return SEMI;
 #endif
@@ -228,8 +225,8 @@ int|float|char {
 #ifdef debug
     puts("DOT");
     printf("text: %s\n", yytext);
-    NEW_NODE(DOT, yytext);
 #endif
+    NEW_NODE(DOT, yytext);
 #ifndef debug
     return DOT;
 #endif
@@ -241,8 +238,8 @@ int|float|char {
 #ifdef debug
     puts("LP");
     printf("text: %s\n", yytext);
-    NEW_NODE(LP, yytext);
 #endif
+    NEW_NODE(LP, yytext);
 #ifndef debug
     return LP;
 #endif
@@ -252,8 +249,8 @@ int|float|char {
 #ifdef debug
     puts("RP");
     printf("text: %s\n", yytext);
-    NEW_NODE(RP, yytext);
 #endif
+    NEW_NODE(RP, yytext);
 #ifndef debug
     return RP;
 #endif
@@ -263,8 +260,8 @@ int|float|char {
 #ifdef debug
     puts("LB");
     printf("text: %s\n", yytext);
-    NEW_NODE(LB, yytext);
 #endif
+    NEW_NODE(LB, yytext);
 #ifndef debug
     return LB;
 #endif
@@ -274,8 +271,8 @@ int|float|char {
 #ifdef debug
     puts("RB");
     printf("text: %s\n", yytext);
-    NEW_NODE(RB, yytext);
 #endif
+    NEW_NODE(RB, yytext);
 #ifndef debug
     return RB;
 #endif
@@ -285,8 +282,8 @@ int|float|char {
 #ifdef debug
     puts("LC");
     printf("text: %s\n", yytext);
-    NEW_NODE(LC, yytext);
 #endif
+    NEW_NODE(LC, yytext);
 #ifndef debug
     return LC;
 #endif
@@ -296,8 +293,8 @@ int|float|char {
 #ifdef debug
     puts("RC");
     printf("text: %s\n", yytext);
-    NEW_NODE(RC, yytext);
 #endif
+    NEW_NODE(RC, yytext);
 #ifndef debug
     return RC;
 #endif
@@ -308,8 +305,8 @@ int|float|char {
 #ifdef debug
     puts("AND");
     printf("text: %s\n", yytext);
-    NEW_NODE(AND, yytext);
 #endif
+    NEW_NODE(AND, yytext);
 #ifndef debug
     return AND;
 #endif
@@ -318,8 +315,8 @@ int|float|char {
 #ifdef debug
     puts("OR");
     printf("text: %s\n", yytext);
-    NEW_NODE(OR, yytext);
 #endif
+    NEW_NODE(OR, yytext);
 #ifndef debug
     return OR;
 #endif
@@ -328,8 +325,8 @@ int|float|char {
 #ifdef debug
     puts("NOT");
     printf("text: %s\n", yytext);
-    NEW_NODE(NOT, yytext);
 #endif
+    NEW_NODE(NOT, yytext);
 #ifndef debug
     return NOT;
 #endif
@@ -340,8 +337,8 @@ int|float|char {
 #ifdef debug
     puts("PLUS");
     printf("text: %s\n", yytext);
-    NEW_NODE(PLUS, yytext);
 #endif
+    NEW_NODE(PLUS, yytext);
 #ifndef debug
     return PLUS;
 #endif
@@ -350,8 +347,8 @@ int|float|char {
 #ifdef debug
     puts("MINUS");
     printf("text: %s\n", yytext);
-    NEW_NODE(MINUS, yytext);
 #endif
+    NEW_NODE(MINUS, yytext);
 #ifndef debug
     return MINUS;
 #endif
@@ -360,8 +357,8 @@ int|float|char {
 #ifdef debug
     puts("MUL");
     printf("text: %s\n", yytext);
-    NEW_NODE(MUL, yytext);
 #endif
+    NEW_NODE(MUL, yytext);
 #ifndef debug
     return MUL;
 #endif
@@ -370,8 +367,8 @@ int|float|char {
 #ifdef debug
     puts("DIV");
     printf("text: %s\n", yytext);
-    NEW_NODE(DIV, yytext);
 #endif
+    NEW_NODE(DIV, yytext);
 #ifndef debug
     return DIV;
 #endif
@@ -380,8 +377,8 @@ int|float|char {
 #ifdef debug
     puts("ASSIGN");
     printf("text: %s\n", yytext);
-    NEW_NODE(ASSIGN, yytext);
 #endif
+    NEW_NODE(ASSIGN, yytext);
 #ifndef debug
     return ASSIGN;
 #endif
