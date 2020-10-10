@@ -10,11 +10,9 @@
         struct Node* brother;
         struct Node* child;
         int lineno;
-        int No_Child;
-        int IsBegin;
     };
 
-#define debug
+// #define debug
     struct Node* new_node(int token, const char* name, char* text, int lineno) {
 #ifdef debug
         printf("[new node] name: %s text: %s line: %d\n", name, text, lineno);
@@ -32,8 +30,6 @@
         p->lineno = lineno;
         p->brother=NULL;
         p->child=NULL;
-        p->No_Child=0;
-        p->IsBegin=0;
         return p;
     }
 
@@ -45,28 +41,18 @@
             child->_token_name, child->lineno
         );
 #endif
-        struct Node *p;
-        if (child==NULL)
+        if (child == NULL)
             return;
-        if(parent->No_Child==0)
-        {
-            parent->child=child;
-            child->IsBegin=1;
-            parent->No_Child=1;
-        }
-        else
-        {
-            p=parent->child;
-            while(p->brother!=NULL)
-                p=p->brother;
-            p->brother=child;
-            child->IsBegin=0;
-            parent->No_Child++;
+        if (parent->child == NULL) {
+            parent->child = child;
+        } else {
+            struct Node *p = parent->child;
+            while (p->brother != NULL) {
+                p = p->brother;
+            }
+            p->brother = child;
         }
     }
-
-    struct Node* p;
-    int EXE_FAIL = 0;
 
     void display(struct Node *root, int depth){
 
@@ -92,15 +78,17 @@
             printf("%s\r\n",root->_token_name);
         else
             printf("%s (%d)\r\n",root->_token_name,root->lineno);
-        if(root->No_Child == 0) return;
+
         struct Node *p  = root->child;
-        for(int i  = 0; i < root->No_Child; ++i) {
+        while (p != NULL) {
             display(p, depth + 1);
             p = p->brother;
         }
         return ;
     }
 
+    struct Node* p;
+    int EXE_FAIL = 0;
 
     #define newNode(w, y, z, x) new_node((z), (w), (x), (y))
 
