@@ -1,7 +1,6 @@
 %{
     #include "lex.yy.c"
-
-    void yyerror(const char *s);
+    void yyerror(const char* msg) {}
 
     struct Node{
         int _token;
@@ -17,40 +16,38 @@
 #ifdef debug
         printf("[new node] name: %s text: %s line: %d\n", name, text, lineno);
 #endif
-        struct Node *p = (struct Node*)malloc(sizeof(struct Node));
-        if (p==NULL)
+        struct Node *node = (struct Node*)malloc(sizeof(struct Node));
+        if (node == NULL)
         {
             printf("Error:out of memory.\n");
             exit(1);
         }
-        p->_token = token;
+        node->_token = token;
         if(name != NULL)
-            p->_token_name = strdup(name);
-        p->text = strdup(text);
-        p->lineno = lineno;
-        p->brother=NULL;
-        p->child=NULL;
-        return p;
+            node->_token_name = strdup(name);
+        node->text = strdup(text);
+        node->lineno = lineno;
+        node->brother=NULL;
+        node->child=NULL;
+        return node;
     }
 
 
-    void insert(struct Node *parent, struct Node *child) {
+    void insert_node(struct Node *parent, struct Node *child) {
 #ifdef debug
         printf("[insert] parent: (%s, %d), child: (%s, %d)\n",
             parent->_token_name, parent->lineno,
             child->_token_name, child->lineno
         );
 #endif
-        if (child == NULL)
-            return;
         if (parent->child == NULL) {
             parent->child = child;
         } else {
-            struct Node *p = parent->child;
-            while (p->brother != NULL) {
-                p = p->brother;
+            struct Node *node = parent->child;
+            while (node->brother != NULL) {
+                node = node->brother;
             }
-            p->brother = child;
+            node->brother = child;
         }
     }
 
@@ -62,14 +59,8 @@
         for(int i = 0; i < depth; ++i)
             printf("  ");
 
-        if (root->_token == TYPE) {
-            printf("TYPE: %s\r\n", root->text);
-        }
-        else if(root->_token == ID) {
-            printf("ID: %s\r\n", root->text);
-        }
-        else if (root->_token == CHAR) {
-            printf("%s: %c\r\n",root->_token_name, *(root->text + 1));
+        if (root->_token == TYPE || root->_token == ID) {
+            printf("%s: %s\r\n",root->_token_name, root->text);
         }
         else if(root->_token >= INT && root->_token <= FLOAT){
             printf("%s: %s\r\n",root->_token_name, root->text);
@@ -79,46 +70,77 @@
         else
             printf("%s (%d)\r\n",root->_token_name,root->lineno);
 
-        struct Node *p  = root->child;
-        while (p != NULL) {
-            display(p, depth + 1);
-            p = p->brother;
+        struct Node *node = root->child;
+        while (node != NULL) {
+            display(node, depth + 1);
+            node = node->brother;
         }
         return ;
     }
 
-    struct Node* p;
-    int EXE_FAIL = 0;
+    struct Node *root_node = NULL;
+
+	struct Error {
+		struct Error* next;
+		int type;
+		int lineno;
+		char* msg;
+	};
+
+	struct Error *root_err = NULL, *last_err = NULL;
+
+	void insert_err(int type, int line, const char* msg) {
+        struct Error *err = (struct Error*)malloc(sizeof(struct Error));
+
+		err->type = type;
+		err->lineno = line;
+		err->msg = strdup(msg);
+		err->next = NULL;
+
+		if (root_err == NULL) {
+			root_err = err;
+		} else {
+			last_err->next = err;
+		}
+		last_err = err;
+    }
+
+	void print_err(struct Error* err) {
+		if (err->lineno == 0)
+			return;
+		printf("Error type %c at Line %d: %s\n", 'A' + err->type, err->lineno, err->msg);
+	}
+
 %}
 
-%union{ struct Node *token_p;}
+%union{ struct Node *node; }
 
 %nonassoc THEN
-%nonassoc<token_p> ELSE
+%nonassoc<node> ELSE
 
-%type <token_p>  Program ExtDefList ExtDef ExtDecList Specifier StructSpecifier VarDec FunDec VarList ParamDec CompSt StmtList Stmt DefList Def DecList Dec Exp Args
+%type <node>  Program ExtDefList ExtDef ExtDecList Specifier StructSpecifier VarDec FunDec VarList ParamDec CompSt StmtList Stmt DefList Def DecList Dec Exp Args
 
-%right<token_p> TYPE;
+%right<node> TYPE;
 
-%token<token_p> INT CHAR FLOAT STRUCT IF WHILE RETURN
+%token<node> INT CHAR FLOAT STRUCT IF WHILE RETURN
 
-%left<token_p> LT LE GT GE NE EQ
+%left<node> LT LE GT GE NE EQ
 
-%token<token_p> SEMI COMMA
-%left<token_p>  DOT LP RP LB RB
-%token<token_p> LC RC
+%token<node> SEMI COMMA
+%left<node>  DOT LP RP LB RB
+%token<node> LC RC
 
 
-%left<token_p> AND OR
-%right<token_p> NOT
+%left<node> AND OR
+%right<node> NOT
 
-%right<token_p> ASSIGN
-%left<token_p>  PLUS SUB MUL DIV
-%right<token_p> MINUS
+%right<node> ASSIGN
+%left<node>  PLUS SUB MUL DIV
+%right<node> MINUS
 
-%token<token_p> ID
+%token<node> ID
 
-%token<token_p> ERR
+%token<node> ERR
 %nonassoc ERR
 
 
@@ -145,80 +167,69 @@
 /* high-level definition */
 Program
        	:	ExtDefList	{
-       		          	    /*printf("Program\n");*/
-       		          	    p = new_node(233, "Program", "NULL", $1->lineno);
-                                 insert(p, $1);
-       		          	    $$ = p;
+       		          	    root_node = new_node(233, "Program", "NULL", $1->lineno);
+                                 insert_node(root_node, $1);
+       		          	    $$ = root_node;
        		          	}
        	;
 
 
 ExtDefList
           	:	ExtDef ExtDefList	{
-          		                 	    /* printf("ExtDefList\n");*/
-          		                 	    p = new_node(233, "ExtDefList", "NULL", $1->lineno);
-                                        insert(p, $1);
-          		                 	    insert(p, $2);
-          		                 	    $$ = p;
+          		                 	    root_node = new_node(233, "ExtDefList", "NULL", $1->lineno);
+                                        insert_node(root_node, $1);
+          		                 	    insert_node(root_node, $2);
+          		                 	    $$ = root_node;
           		                 	}
           	|	                 	{
-          		                 	    /*printf("ExtDefList\n");*/
-          		                 	    p = new_node(0, "NULL", "NULL", 0);
-                                        $$ = p;
+          		                 	    root_node = new_node(0, "NULL", "NULL", 0);
+                                        $$ = root_node;
           		                 	}
           	;
 
 
 ExtDef
       	:	Specifier ExtDecList SEMI 	{
-      		                          	    /*printf("ExtDef\n"); */
-                                            // printf("%d\n", ExtDef);
-      		                          	    p = new_node(233, "ExtDef", "NULL", $1->lineno);
-                                            insert(p, $1);
-      		                          	    insert(p, $2);
-      		                          	    insert(p, $3);
-      		                          	    $$ = p;
+      		                          	    root_node = new_node(233, "ExtDef", "NULL", $1->lineno);
+                                            insert_node(root_node, $1);
+      		                          	    insert_node(root_node, $2);
+      		                          	    insert_node(root_node, $3);
+      		                          	    $$ = root_node;
       		                          	}
       	|	Specifier SEMI            	{
-      		                          	    /*printf("ExtDef\n"); */
-      		                          	    p = new_node(233, "ExtDef", "NULL", $1->lineno);
-                                                insert(p, $1);
-      		                          	    insert(p, $2);
-      		                          	    $$ = p;
+      		                          	    root_node = new_node(233, "ExtDef", "NULL", $1->lineno);
+											insert_node(root_node, $1);
+      		                          	    insert_node(root_node, $2);
+      		                          	    $$ = root_node;
       		                          	}
       	|	Specifier FunDec CompSt   	{
-      		                          	    /*printf("ExtDef\n"); */
-      		                          	    p = new_node(233, "ExtDef", "NULL", $1->lineno);
-                                                insert(p, $1);
-      		                          	    insert(p, $2);
-      		                          	    insert(p, $3);
-      		                          	    $$ = p;
+      		                          	    root_node = new_node(233, "ExtDef", "NULL", $1->lineno);
+											insert_node(root_node, $1);
+      		                          	    insert_node(root_node, $2);
+      		                          	    insert_node(root_node, $3);
+      		                          	    $$ = root_node;
       		                          	}
       	|	Specifier ExtDecList error	{
-      		                          	    printf("Error type B at Line %d: Missing semicolon ';'\n", $2 -> lineno);
-      		                          	    EXE_FAIL = 1;
+											insert_err(1, $2 -> lineno, "Missing semicolon ';'");
       		                          	}
       	|	error SEMI                	{
-      		                          	    printf("Error type B at Line %d: Missing specifier\n", $2 -> lineno);
-      		                          	    EXE_FAIL = 1;
+											insert_err(1, $2 -> lineno, "Missing specifier");
       		                          	}
       	;
 
 
 ExtDecList
           	:	VarDec                 	{
-          		                       	    /*printf("ExtDecList\n"); */
-          		                       	    p = new_node(233, "ExtDecList", "NULL", $1->lineno);
-                                                 insert(p, $1);
-          		                       	    $$ = p;
+          		                       	    root_node = new_node(233, "ExtDecList", "NULL", $1->lineno);
+											insert_node(root_node, $1);
+          		                       	    $$ = root_node;
           		                       	}
           	|	VarDec COMMA ExtDecList	{
-          		                       	    /*printf("ExtDecList\n"); */
-          		                       	    p = new_node(233, "ExtDecList", "NULL", $1->lineno);
-                                                 insert(p, $1);
-          		                       	    insert(p, $2);
-          		                       	    insert(p, $3);
-          		                       	    $$ = p;
+          		                       	    root_node = new_node(233, "ExtDecList", "NULL", $1->lineno);
+											insert_node(root_node, $1);
+          		                       	    insert_node(root_node, $2);
+          		                       	    insert_node(root_node, $3);
+          		                       	    $$ = root_node;
           		                       	}
           	;
 
@@ -226,37 +237,33 @@ ExtDecList
 /* specifier */
 Specifier
          	:	TYPE           	{
-         		               	    /*printf("Specifier\n"); */
-         		               	    p = new_node(233, "Specifier", "NULL", $1->lineno);
-                                        insert(p, $1);
-         		               	    $$ = p;
+         		               	    root_node = new_node(233, "Specifier", "NULL", $1->lineno);
+                                        insert_node(root_node, $1);
+         		               	    $$ = root_node;
          		               	}
          	|	StructSpecifier	{
-         		               	    /*printf("Specifier\n"); */
-         		               	    p = new_node(233, "Specifier", "NULL", $1->lineno);
-                                        insert(p, $1);
-         		               	    $$ = p;
+         		               	    root_node = new_node(233, "Specifier", "NULL", $1->lineno);
+                                        insert_node(root_node, $1);
+         		               	    $$ = root_node;
          		               	}
          	;
 
 
 StructSpecifier
                	:	STRUCT ID LC DefList RC	{
-               		                       	    /*printf("StructSpecifier\n"); */
-               		                       	    p = new_node(233, "StructSpecifier", "NULL", $1->lineno);
-                                                      insert(p, $1);
-               		                       	    insert(p, $2);
-               		                       	    insert(p, $3);
-               		                       	    insert(p, $4);
-               		                       	    insert(p, $5);
-               		                       	    $$ = p;
+               		                       	    root_node = new_node(233, "StructSpecifier", "NULL", $1->lineno);
+												insert_node(root_node, $1);
+               		                       	    insert_node(root_node, $2);
+               		                       	    insert_node(root_node, $3);
+               		                       	    insert_node(root_node, $4);
+               		                       	    insert_node(root_node, $5);
+               		                       	    $$ = root_node;
                		                       	}
                	|	STRUCT ID              	{
-               		                       	    /*printf("StructSpecifier\n"); */
-               		                       	    p = new_node(233, "StructSpecifier", "NULL", $1->lineno);
-                                                      insert(p, $1);
-               		                       	    insert(p, $2);
-               		                       	    $$ = p;
+               		                       	    root_node = new_node(233, "StructSpecifier", "NULL", $1->lineno);
+												insert_node(root_node, $1);
+               		                       	    insert_node(root_node, $2);
+               		                       	    $$ = root_node;
                		                       	}
                	;
 
@@ -264,86 +271,76 @@ StructSpecifier
 /* declarator */
 VarDec
       	:	ID              	{
-      		                	    /*printf("VarDec\n"); */
-      		                	    p = new_node(233, "VarDec", "NULL", $1->lineno);
-                                      insert(p, $1);
-      		                	    $$ = p;
+      		                	    root_node = new_node(233, "VarDec", "NULL", $1->lineno);
+									insert_node(root_node, $1);
+      		                	    $$ = root_node;
       		                	}
       	|	VarDec LB INT RB	{
-      		                	    /*printf("VarDec\n"); */
-      		                	    p = new_node(233, "VarDec", "NULL", $1->lineno);
-                                      insert(p, $1);
-      		                	    insert(p, $2);
-      		                	    insert(p, $3);
-      		                	    insert(p, $4);
-      		                	    $$ = p;
+      		                	    root_node = new_node(233, "VarDec", "NULL", $1->lineno);
+									insert_node(root_node, $1);
+      		                	    insert_node(root_node, $2);
+      		                	    insert_node(root_node, $3);
+      		                	    insert_node(root_node, $4);
+      		                	    $$ = root_node;
       		                	}
       	|	ERR             	{
-      		                	    EXE_FAIL = 1;
+			  						insert_err(1, 0, "error");
       		                	}
       	;
 
 
 FunDec
       	:	ID LP VarList RP      	{
-      		                      	    /*printf("FunDec\n"); */
-      		                      	    p = new_node(233, "FunDec", "NULL", $1->lineno);
-                                            insert(p, $1);
-      		                      	    insert(p, $2);
-      		                      	    insert(p, $3);
-      		                      	    insert(p, $4);
-      		                      	    $$ = p;
+      		                      	    root_node = new_node(233, "FunDec", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+      		                      	    insert_node(root_node, $2);
+      		                      	    insert_node(root_node, $3);
+      		                      	    insert_node(root_node, $4);
+      		                      	    $$ = root_node;
       		                      	}
       	|	ID LP VarList error LC	{
       		                      	    unput('{');
-      		                      	    printf("Error type B at Line %d: Missing closing parenthesis ')'\n", $1 -> lineno);
-      		                      	    EXE_FAIL = 1;
+										insert_err(1, $1 -> lineno, "Missing closing parenthesis ')'");
       		                      	}
       	|	ID LP  error LC       	{
       		                      	    unput('{');
-      		                      	    printf("Error type B at Line %d: Missing closing parenthesis ')'\n", $1 -> lineno);
-      		                      	    EXE_FAIL = 1;
+										insert_err(1, $1 -> lineno, "Missing closing parenthesis ')'");
       		                      	}
       	|	ID LP RP              	{
-      		                      	    /*printf("FunDec\n"); */
-      		                      	    p = new_node(233, "FunDec", "NULL", $1->lineno);
-                                            insert(p, $1);
-      		                      	    insert(p, $2);
-      		                      	    insert(p, $3);
-      		                      	    $$ = p;
+      		                      	    root_node = new_node(233, "FunDec", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+      		                      	    insert_node(root_node, $2);
+      		                      	    insert_node(root_node, $3);
+      		                      	    $$ = root_node;
       		                      	}
       	;
 
 
 VarList
        	:	ParamDec COMMA VarList	{
-       		                      	    /*printf("VarList\n"); */
-       		                      	    p = new_node(233, "VarList", "NULL", $1->lineno);
-                                             insert(p, $1);
-       		                      	    insert(p, $2);
-       		                      	    insert(p, $3);
-       		                      	    $$ = p;
+       		                      	    root_node = new_node(233, "VarList", "NULL", $1->lineno);
+											insert_node(root_node, $1);
+       		                      	    insert_node(root_node, $2);
+       		                      	    insert_node(root_node, $3);
+       		                      	    $$ = root_node;
        		                      	}
        	|	ParamDec              	{
-       		                      	    /*printf("VarList\n"); */
-       		                      	    p = new_node(233, "VarList", "NULL", $1->lineno);
-                                             insert(p, $1);
-       		                      	    $$ = p;
+       		                      	    root_node = new_node(233, "VarList", "NULL", $1->lineno);
+											insert_node(root_node, $1);
+       		                      	    $$ = root_node;
        		                      	}
        	;
 
 
 ParamDec
         	:	Specifier VarDec	{
-        		                	    /*printf("ParamDec\n");  */
-        		                	    p = new_node(233, "ParamDec", "NULL", $1->lineno);
-                                        insert(p, $1);
-        		                	    insert(p, $2);
-        		                	    $$ = p;
+        		                	    root_node = new_node(233, "ParamDec", "NULL", $1->lineno);
+                                        insert_node(root_node, $1);
+        		                	    insert_node(root_node, $2);
+        		                	    $$ = root_node;
         		                	}
         	|	error VarDec    	{
-        		                	    printf("Error type B at Line %d: Missing semicolon ';'\n", $2 -> lineno);
-        		                	    EXE_FAIL = 1;
+										insert_err(1, $2 -> lineno, "Missing semicolon ';'");
         		                	}
         	;
 
@@ -351,94 +348,83 @@ ParamDec
 /* statement */
 CompSt
       	:	LC DefList StmtList RC	{
-      		                      	    /*printf("CompSt\n"); */
-      		                      	    p = new_node(233, "CompSt", "NULL", $1->lineno);
-                                            insert(p, $1);
-      		                      	    insert(p, $2);
-      		                      	    insert(p, $3);
-      		                      	    insert(p, $4);
-      		                      	    $$ = p;
+      		                      	    root_node = new_node(233, "CompSt", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+      		                      	    insert_node(root_node, $2);
+      		                      	    insert_node(root_node, $3);
+      		                      	    insert_node(root_node, $4);
+      		                      	    $$ = root_node;
       		                      	}
       	;
 
 
 StmtList
         	:	Stmt StmtList	{
-        		             	    /*printf("StmtList\n");  */
-        		             	    p = new_node(233, "StmtList", "NULL", $1->lineno);
-                                     insert(p, $1);
-        		             	    insert(p, $2);
-        		             	    $$ = p;
+        		             	    root_node = new_node(233, "StmtList", "NULL", $1->lineno);
+									insert_node(root_node, $1);
+        		             	    insert_node(root_node, $2);
+        		             	    $$ = root_node;
         		             	}
         	|	             	{
-        		             	    /*printf("StmtList NULL\n"); */
-        		             	    p = new_node(0, "NULL", "NULL", 0);
-                                     $$ = p;
+        		             	    root_node = new_node(0, "NULL", "NULL", 0);
+									$$ = root_node;
         		             	}
         	;
 
 
 Stmt
     	:	Exp SEMI                    	{
-    		                            	    /*printf("Stmt\n"); */
-    		                            	    p = new_node(233, "Stmt", "NULL", $1->lineno);
-                                                insert(p, $1);
-    		                            	    insert(p, $2);
-    		                            	    $$ = p;
+    		                            	    root_node = new_node(233, "Stmt", "NULL", $1->lineno);
+												insert_node(root_node, $1);
+    		                            	    insert_node(root_node, $2);
+    		                            	    $$ = root_node;
     		                            	}
     	|	CompSt                      	{
-    		                            	    /*printf("Stmt\n"); */
-    		                            	    p = new_node(233, "Stmt", "NULL", $1->lineno);
-                                                insert(p, $1);
-    		                            	    $$ = p;
+    		                            	    root_node = new_node(233, "Stmt", "NULL", $1->lineno);
+                                                insert_node(root_node, $1);
+    		                            	    $$ = root_node;
     		                            	}
     	|	RETURN Exp SEMI             	{
-    		                            	    /*printf("Stmt\n"); */
-    		                            	    p = new_node(233, "Stmt", "NULL", $1->lineno);
-                                                insert(p, $1);
-    		                            	    insert(p, $2);
-    		                            	    insert(p, $3);
-    		                            	    $$ = p;
+    		                            	    root_node = new_node(233, "Stmt", "NULL", $1->lineno);
+                                                insert_node(root_node, $1);
+    		                            	    insert_node(root_node, $2);
+    		                            	    insert_node(root_node, $3);
+    		                            	    $$ = root_node;
     		                            	}
     	|	Exp error SEMI              	{
-    		                            	    printf("Error type B at Line %d: Missing semicolon ';'\n", $1 -> lineno);
-    		                            	    EXE_FAIL = 1;
+												insert_err(1, $1 -> lineno, "Missing semicolon ';'");
     		                            	}
     	|	RETURN Exp error SEMI       	{
-    		                            	    printf("Error type B at Line %d: Missing semicolon ';'\n", $1 -> lineno);
-    		                            	    EXE_FAIL = 1;
+												insert_err(1, $1 -> lineno, "Missing semicolon ';'");
     		                            	}
     	|	IF LP Exp RP Stmt %prec THEN	{
-    		                            	    /*printf("Stmt\n"); */
-    		                            	    p = new_node(233, "Stmt", "NULL", $1->lineno);
-                                                insert(p, $1);
-    		                            	    insert(p, $2);
-    		                            	    insert(p, $3);
-    		                            	    insert(p, $4);
-    		                            	    insert(p, $5);
-    		                            	    $$ = p;
+    		                            	    root_node = new_node(233, "Stmt", "NULL", $1->lineno);
+                                                insert_node(root_node, $1);
+    		                            	    insert_node(root_node, $2);
+    		                            	    insert_node(root_node, $3);
+    		                            	    insert_node(root_node, $4);
+    		                            	    insert_node(root_node, $5);
+    		                            	    $$ = root_node;
     		                            	}
     	|	IF LP Exp RP Stmt ELSE Stmt 	{
-    		                            	    /*printf("Stmt\n"); */
-    		                            	    p = new_node(233, "Stmt", "NULL", $1->lineno);
-                                                insert(p, $1);
-    		                            	    insert(p, $2);
-    		                            	    insert(p, $3);
-    		                            	    insert(p, $4);
-    		                            	    insert(p, $5);
-    		                            	    insert(p, $6);
-    		                            	    insert(p, $7);
-    		                            	    $$ = p;
+    		                            	    root_node = new_node(233, "Stmt", "NULL", $1->lineno);
+                                                insert_node(root_node, $1);
+    		                            	    insert_node(root_node, $2);
+    		                            	    insert_node(root_node, $3);
+    		                            	    insert_node(root_node, $4);
+    		                            	    insert_node(root_node, $5);
+    		                            	    insert_node(root_node, $6);
+    		                            	    insert_node(root_node, $7);
+    		                            	    $$ = root_node;
     		                            	}
     	|	WHILE LP Exp RP Stmt        	{
-    		                            	    /*printf("Stmt\n"); */
-    		                            	    p = new_node(233, "Stmt", "NULL", $1->lineno);
-                                                insert(p, $1);
-    		                            	    insert(p, $2);
-    		                            	    insert(p, $3);
-    		                            	    insert(p, $4);
-    		                            	    insert(p, $5);
-    		                            	    $$ = p;
+    		                            	    root_node = new_node(233, "Stmt", "NULL", $1->lineno);
+                                                insert_node(root_node, $1);
+    		                            	    insert_node(root_node, $2);
+    		                            	    insert_node(root_node, $3);
+    		                            	    insert_node(root_node, $4);
+    		                            	    insert_node(root_node, $5);
+    		                            	    $$ = root_node;
     		                            	}
     	;
 
@@ -446,79 +432,69 @@ Stmt
 /* local definition */
 DefList
        	:	Def DefList	{
-       		           	    /*printf("DefList\n"); */
-       		           	    p = new_node(233, "DefList", "NULL", $1->lineno);
-                            insert(p, $1);
-       		           	    insert(p, $2);
-       		           	    $$ = p;
+       		           	    root_node = new_node(233, "DefList", "NULL", $1->lineno);
+                            insert_node(root_node, $1);
+       		           	    insert_node(root_node, $2);
+       		           	    $$ = root_node;
        		           	}
        	|	           	{
-       		           	    /*printf("DefList\n"); */
-       		           	    p = new_node(0, "NULL", "NULL", 0);
-                            $$ = p;
+       		           	    root_node = new_node(0, "NULL", "NULL", 0);
+                            $$ = root_node;
        		           	}
        	;
 
 
 Def
    	:	Specifier DecList SEMI      	{
-   		                            	    /*printf("Def\n"); */
-   		                            	    p = new_node(233, "Def", "NULL", $1->lineno);
-                                               insert(p, $1);
-   		                            	    insert(p, $2);
-   		                            	    insert(p, $3);
-   		                            	    $$ = p;
+   		                            	    root_node = new_node(233, "Def", "NULL", $1->lineno);
+                                               insert_node(root_node, $1);
+   		                            	    insert_node(root_node, $2);
+   		                            	    insert_node(root_node, $3);
+   		                            	    $$ = root_node;
    		                            	}
    	|	Specifier DecList error SEMI	{
-   		                            	    printf("Error type B at Line %d: Missing semicolon ';'\n", $1 -> lineno);
-   		                            	    EXE_FAIL = 1;
+											insert_err(1, $1 -> lineno, "Missing semicolon ';'");
    		                            	}
    	|	error DecList SEMI          	{
-   		                            	    printf("Error type B at Line %d: Missing specifier\n", $2 -> lineno);
-   		                            	    EXE_FAIL = 1;
+											insert_err(1, $2 -> lineno, "Missing specifier");
    		                            	}
    	|	error FunDec CompSt         	{
-   		                            	    printf("Error type B at Line %d: Missing specifier\n", $2 -> lineno);
-   		                            	    EXE_FAIL = 1;
+											insert_err(1, $2 -> lineno, "Missing specifier");
    		                            	}
    	;
 
 
 DecList
        	:	Dec              	{
-       		                 	    /*printf("DecList\n"); */
-       		                 	    p = new_node(233, "DecList", "NULL", $1->lineno);
-                                        insert(p, $1);
-       		                 	    $$ = p;
+       		                 	    root_node = new_node(233, "DecList", "NULL", $1->lineno);
+                                        insert_node(root_node, $1);
+       		                 	    $$ = root_node;
        		                 	}
        	|	Dec COMMA DecList	{
-       		                 	    /*printf("DecList\n"); */
-       		                 	    p = new_node(233, "DecList", "NULL", $1->lineno);
-                                        insert(p, $1);
-       		                 	    insert(p, $2);
-       		                 	    insert(p, $3);
-       		                 	    $$ = p;
+       		                 	    root_node = new_node(233, "DecList", "NULL", $1->lineno);
+                                        insert_node(root_node, $1);
+       		                 	    insert_node(root_node, $2);
+       		                 	    insert_node(root_node, $3);
+       		                 	    $$ = root_node;
        		                 	}
        	;
 
 
 Dec
    	:	VarDec           	{
-   		                 	    /*printf("Dec\n");  */
-   		                 	    p = new_node(233, "Dec", "NULL", $1->lineno);
-                                    insert(p, $1);
-   		                 	    $$ = p;
+   		                 	    root_node = new_node(233, "Dec", "NULL", $1->lineno);
+                                    insert_node(root_node, $1);
+   		                 	    $$ = root_node;
    		                 	}
    	|	VarDec ASSIGN Exp	{
-   		                 	    /*printf("Dec\n"); */
-   		                 	    p = new_node(233, "Dec", "NULL", $1->lineno);
-                                    insert(p, $1);
-   		                 	    insert(p, $2);
-   		                 	    insert(p, $3);
-   		                 	    $$ = p;
+   		                 	    root_node = new_node(233, "Dec", "NULL", $1->lineno);
+                                    insert_node(root_node, $1);
+   		                 	    insert_node(root_node, $2);
+   		                 	    insert_node(root_node, $3);
+   		                 	    $$ = root_node;
    		                 	}
    	|	VarDec ASSIGN ERR	{
-   		                 	    EXE_FAIL = 1;
+								insert_err(1, 0, "error");
    		                 	}
    	;
 
@@ -526,268 +502,227 @@ Dec
 /* Expression */
 Exp
    	:	Exp ASSIGN Exp          	{
-   		                        	    /*printf("Exp\n"); */
-   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
-                                           insert(p, $1);
-   		                        	    insert(p, $2);
-   		                        	    insert(p, $3);
-   		                        	    $$ = p;
+   		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+   		                        	    insert_node(root_node, $2);
+   		                        	    insert_node(root_node, $3);
+   		                        	    $$ = root_node;
    		                        	}
    	|	Exp ERR Exp             	{
-   		                        	    EXE_FAIL = 1;
+			  							insert_err(1, 0, "error");
    		                        	}
    	|	Exp ASSIGN ERR          	{
-   		                        	    EXE_FAIL = 1;
+			  							insert_err(1, 0, "error");
    		                        	}
    	|	Exp AND Exp             	{
-   		                        	    /*printf("Exp\n"); */
-   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
-                                           insert(p, $1);
-   		                        	    insert(p, $2);
-   		                        	    insert(p, $3);
-   		                        	    $$ = p;
+   		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+   		                        	    insert_node(root_node, $2);
+   		                        	    insert_node(root_node, $3);
+   		                        	    $$ = root_node;
    		                        	}
    	|	Exp OR Exp              	{
-   		                        	    /*printf("Exp\n"); */
-   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
-                                           insert(p, $1);
-   		                        	    insert(p, $2);
-   		                        	    insert(p, $3);
-   		                        	    $$ = p;
+   		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+   		                        	    insert_node(root_node, $2);
+   		                        	    insert_node(root_node, $3);
+   		                        	    $$ = root_node;
    		                        	}
    	|	Exp LT Exp              	{
-   		                        	    /*printf("Exp\n"); */
-   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
-                                           insert(p, $1);
-   		                        	    insert(p, $2);
-   		                        	    insert(p, $3);
-   		                        	    $$ = p;
+   		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+   		                        	    insert_node(root_node, $2);
+   		                        	    insert_node(root_node, $3);
+   		                        	    $$ = root_node;
    		                        	}
    	|	Exp LE Exp              	{
-   		                        	    /*printf("Exp\n"); */
-   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
-                                           insert(p, $1);
-   		                        	    insert(p, $2);
-   		                        	    insert(p, $3);
-   		                        	    $$ = p;
+   		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+   		                        	    insert_node(root_node, $2);
+   		                        	    insert_node(root_node, $3);
+   		                        	    $$ = root_node;
    		                        	}
    	|	Exp GT Exp              	{
-   		                        	    /*printf("Exp\n"); */
-   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
-                                           insert(p, $1);
-   		                        	    insert(p, $2);
-   		                        	    insert(p, $3);
-   		                        	    $$ = p;
+   		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+   		                        	    insert_node(root_node, $2);
+   		                        	    insert_node(root_node, $3);
+   		                        	    $$ = root_node;
    		                        	}
    	|	Exp GE Exp              	{
-   		                        	    /*printf("Exp\n"); */
-   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
-                                           insert(p, $1);
-   		                        	    insert(p, $2);
-   		                        	    insert(p, $3);
-   		                        	    $$ = p;
+   		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+   		                        	    insert_node(root_node, $2);
+   		                        	    insert_node(root_node, $3);
+   		                        	    $$ = root_node;
    		                        	}
    	|	Exp NE Exp              	{
-   		                        	    /*printf("Exp\n"); */
-   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
-                                           insert(p, $1);
-   		                        	    insert(p, $2);
-   		                        	    insert(p, $3);
-   		                        	    $$ = p;
+   		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+   		                        	    insert_node(root_node, $2);
+   		                        	    insert_node(root_node, $3);
+   		                        	    $$ = root_node;
    		                        	}
    	|	Exp EQ Exp              	{
-   		                        	    /*printf("Exp\n"); */
-   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
-                                           insert(p, $1);
-   		                        	    insert(p, $2);
-   		                        	    insert(p, $3);
-   		                        	    $$ = p;
+   		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+   		                        	    insert_node(root_node, $2);
+   		                        	    insert_node(root_node, $3);
+   		                        	    $$ = root_node;
    		                        	}
    	|	Exp PLUS Exp            	{
-   		                        	    /*printf("Exp\n"); */
-   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
-                                           insert(p, $1);
-   		                        	    insert(p, $2);
-   		                        	    insert(p, $3);
-   		                        	    $$ = p;
+   		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+   		                        	    insert_node(root_node, $2);
+   		                        	    insert_node(root_node, $3);
+   		                        	    $$ = root_node;
    		                        	}
    	|	Exp MINUS Exp  %prec SUB	{
-   		                        	    /*printf("Exp\n"); */
-   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
-                                           insert(p, $1);
-   		                        	    insert(p, $2);
-   		                        	    insert(p, $3);
-   		                        	    $$ = p;
+   		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+   		                        	    insert_node(root_node, $2);
+   		                        	    insert_node(root_node, $3);
+   		                        	    $$ = root_node;
    		                        	}
    	|	Exp MUL Exp             	{
-   		                        	    /*printf("Exp\n"); */
-   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
-                                           insert(p, $1);
-   		                        	    insert(p, $2);
-   		                        	    insert(p, $3);
-   		                        	    $$ = p;
+   		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+   		                        	    insert_node(root_node, $2);
+   		                        	    insert_node(root_node, $3);
+   		                        	    $$ = root_node;
    		                        	}
    	|	Exp DIV Exp             	{
-   		                        	    /*printf("Exp\n"); */
-   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
-                                           insert(p, $1);
-   		                        	    insert(p, $2);
-   		                        	    insert(p, $3);
-   		                        	    $$ = p;
+   		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+   		                        	    insert_node(root_node, $2);
+   		                        	    insert_node(root_node, $3);
+   		                        	    $$ = root_node;
    		                        	}
    	|	LP Exp RP               	{
-   		                        	    /*printf("Exp\n"); */
-   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
-                                           insert(p, $1);
-   		                        	    insert(p, $2);
-   		                        	    insert(p, $3);
-   		                        	    $$ = p;
+   		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+   		                        	    insert_node(root_node, $2);
+   		                        	    insert_node(root_node, $3);
+   		                        	    $$ = root_node;
    		                        	}
    	|	LP Exp error RP         	{
-   		                        	    printf("Error type B at Line %d: Missing closing parenthesis ')'\n", $1 -> lineno);
-   		                        	    EXE_FAIL = 1;
+										insert_err(1, $1 -> lineno, "Missing closing parenthesis ')'");
    		                        	}
    	|	SUB Exp %prec MINUS     	{
-   		                        	    /*printf("Exp\n"); */
-   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
-                                           insert(p, $1);
-   		                        	    insert(p, $2);
-   		                        	    $$ = p;
+   		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+   		                        	    insert_node(root_node, $2);
+   		                        	    $$ = root_node;
    		                        	}
    	|	NOT Exp                 	{
-   		                        	    /*printf("Exp\n"); */
-   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
-                                           insert(p, $1);
-   		                        	    insert(p, $2);
-   		                        	    $$ = p;
+   		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+   		                        	    insert_node(root_node, $2);
+   		                        	    $$ = root_node;
    		                        	}
    	|	ID LP Args RP           	{
-   		                        	    /*printf("Exp\n"); */
-   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
-                                           insert(p, $1);
-   		                        	    insert(p, $2);
-   		                        	    insert(p, $3);
-   		                        	    insert(p, $4);
-   		                        	    $$ = p;
+   		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+   		                        	    insert_node(root_node, $2);
+   		                        	    insert_node(root_node, $3);
+   		                        	    insert_node(root_node, $4);
+   		                        	    $$ = root_node;
    		                        	}
    	|	ID LP Args error SEMI   	{
    		                        	    unput(';');
-   		                        	    printf("Error type B at Line %d: Missing closing parenthesis ')'\n", $1 -> lineno);
-   		                        	    EXE_FAIL = 1;
+										insert_err(1, $1 -> lineno, "Missing closing parenthesis ')'");
    		                        	}
    	|	ID LP RP                	{
-   		                        	    /*printf("Exp\n"); */
-   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
-                                           insert(p, $1);
-   		                        	    insert(p, $2);
-   		                        	    insert(p, $3);
-   		                        	    $$ = p;
+   		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+   		                        	    insert_node(root_node, $2);
+   		                        	    insert_node(root_node, $3);
+   		                        	    $$ = root_node;
    		                        	}
    	|	ID LP error RP          	{
-   		                        	    printf("Error type B at Line %d: Missing closing parenthesis ')'\n", $1 -> lineno);
-   		                        	    EXE_FAIL = 1;
+										insert_err(1, $1 -> lineno, "Missing closing parenthesis ')'");
    		                        	}
    	|	Exp LB Exp RB           	{
-   		                        	    /*printf("Exp\n"); */
-   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
-                                           insert(p, $1);
-   		                        	    insert(p, $2);
-   		                        	    insert(p, $3);
-   		                        	    insert(p, $4);
-   		                        	    $$ = p;
+   		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+   		                        	    insert_node(root_node, $2);
+   		                        	    insert_node(root_node, $3);
+   		                        	    insert_node(root_node, $4);
+   		                        	    $$ = root_node;
    		                        	}
    	|	Exp DOT ID              	{
-   		                        	    /*printf("Exp\n"); */
-   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
-                                           insert(p, $1);
-   		                        	    insert(p, $2);
-   		                        	    insert(p, $3);
-   		                        	    $$ = p;
+   		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+   		                        	    insert_node(root_node, $2);
+   		                        	    insert_node(root_node, $3);
+   		                        	    $$ = root_node;
    		                        	}
    	|	ID                      	{
-   		                        	    /*printf("Exp\n"); */
-   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
-                                           insert(p, $1);
-   		                        	    $$ = p;
+   		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+   		                        	    $$ = root_node;
    		                        	}
    	|	INT                     	{
-   		                        	    /*printf("Exp\n"); */
-   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
-                                           insert(p, $1);
-   		                        	    $$ = p;
+   		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+   		                        	    $$ = root_node;
    		                        	}
    	|	FLOAT                   	{
-   		                        	    /*printf("Exp\n"); */
-   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
-                                           insert(p, $1);
-   		                        	    $$ = p;
+   		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+   		                        	    $$ = root_node;
    		                        	}
    	|	CHAR                    	{
-   		                        	    /*printf("Exp\n"); */
-   		                        	    p = new_node(233, "Exp", "NULL", $1->lineno);
-                                           insert(p, $1);
-   		                        	    $$ = p;
+   		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+   		                        	    $$ = root_node;
    		                        	}
    	;
 
 
 Args
     	:	Exp COMMA Args	{
-    		              	    /*printf("Args\n"); */
-    		              	    p = new_node(233, "Args", "NULL", $1->lineno);
-                                insert(p, $1);
-    		              	    insert(p, $2);
-    		              	    insert(p, $3);
-    		              	    $$ = p;
+    		              	    root_node = new_node(233, "Args", "NULL", $1->lineno);
+                                insert_node(root_node, $1);
+    		              	    insert_node(root_node, $2);
+    		              	    insert_node(root_node, $3);
+    		              	    $$ = root_node;
     		              	}
     	|	Exp           	{
-    		              	    /*printf("Args\n"); */
-    		              	    p = new_node(233, "Args", "NULL", $1->lineno);
-                                insert(p, $1);
-    		              	    $$ = p;
+    		              	    root_node = new_node(233, "Args", "NULL", $1->lineno);
+                                insert_node(root_node, $1);
+    		              	    $$ = root_node;
     		              	}
     	;
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 %%
 
-void yyerror(const char *s){
-    printf("syntax error: %s",s);
-}
 
 int main(int argc, char **argv){
 
-    FILE* fin=NULL;
+    FILE* fin = NULL;
     extern FILE* yyin;
-    fin=fopen(argv[1],"r");
+    fin = fopen(argv[1], "r");
 
-    if(fin==NULL)
+    if(fin == NULL)
     {
         printf("cannot open reading file.\n");
         return -1;
     }
-    yyin=fin;
+    yyin = fin;
     /* yydebug = 1; */
     yyparse();
     fclose(fin);
 
-    if (!EXE_FAIL)
-        display(p,0);
+    if (root_err == NULL)
+        display(root_node, 0);
+	else
+		for (struct Error* now = root_err; now != NULL; now = now->next) {
+			print_err(now);
+		}
     return 0;
 
 }

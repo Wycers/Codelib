@@ -4,12 +4,29 @@
 
     struct Node* new_node(int token, const char* name, char* text, int lineno);
 
-    #define NEW_NODE(x, y) yylval.token_p = new_node((x), (#x), (y), yylineno)
+	void insert_err(int type, int line, const char* msg);
+
+    #define NEW_NODE(x, y) yylval.node = new_node((x), (#x), (y), yylineno)
+
+    #define NEW_ERROR() { \
+        char* msg = malloc(strlen("unknown lexeme") + strlen(yytext) + 1); \
+        if (!msg) {  \
+            fprintf(stderr, "malloc() failed: insufficient memory!\n");  \
+        } else {  \
+            strcpy(msg, "unknown lexeme ");  \
+            strcat(msg, yytext);  \
+            insert_err(0, yylineno, msg);  \
+            free(msg);  \
+        } \
+        return ERR;  \
+    }
+
 %}
 
 %option noyywrap
 %option yylineno
 
+ID [a-zA-Z_][0-9a-zA-Z_]*
 
 %%
 
@@ -26,17 +43,33 @@ int|float|char {
 }
 
 
-0(x|X)([0-9A-F]{1,8}) {
+0[Xx]([1-9a-fA-F][0-9a-fA-F]*) {
 #ifdef debug
     puts("INT (hex)");
     printf("text: %s\n", yytext);
 #endif
-    NEW_NODE(INT, yytext);
+
+    int num = 0;
+    int len = strlen(yytext), base = 1, dight;
+    for (int i = len - 1; i > 1; --i) {
+        char now = *(yytext + i);
+        if (now >= 'A')
+            dight = now - 'A' + 10;
+        else
+            dight = now - '0';
+        num += dight * base;
+        base *= 16;
+    }
+
+    char tmp[20];
+    sprintf(tmp, "%d", num);
+
+    NEW_NODE(INT, tmp);
 #ifndef debug
     return INT;
 #endif
 }
-[0-9]{1,10} {
+0|[1-9][0-9]* {
 #ifdef debug
     puts("INT (dec)");
     printf("text: %s\n", yytext);
@@ -47,7 +80,7 @@ int|float|char {
 #endif
 }
 
-([1-9][0-9]*|[0]{1,1})[.][0-9]* {
+([1-9][0-9]*|[0])[\.][0-9]* {
 #ifdef debug
     puts("FLOAT");
     printf("text: %s\n", yytext);
@@ -74,6 +107,16 @@ int|float|char {
     printf("text: %s\n", yytext);
 #endif
     NEW_NODE(CHAR, yytext);
+#ifndef debug
+    return CHAR;
+#endif
+}
+'\\[xX][0-9g-zG-Z]+' {
+#ifdef debug
+    puts("CHAR (hex)");
+    printf("text: %s\n", yytext);
+#endif
+    NEW_ERROR()
 #ifndef debug
     return CHAR;
 #endif
@@ -392,7 +435,7 @@ int|float|char {
 // #endif
 }
 
-[a-zA-Z_][a-zA-Z_0-9]* {
+{ID} {
 #ifdef debug
     puts("ID");
     printf("text: %s\n", yytext);
@@ -402,8 +445,13 @@ int|float|char {
     return ID;
 #endif
 }
+[0-9]{ID} {
+    NEW_ERROR()
+}
 
-. { fprintf(stdout, "unknown symbol: %s\n", yytext); }
+. {
+    NEW_ERROR()
+}
 
 %%
 
