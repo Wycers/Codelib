@@ -26,6 +26,8 @@
 %option noyywrap
 %option yylineno
 
+
+
 ID [a-zA-Z_][0-9a-zA-Z_]*
 
 %%
@@ -80,7 +82,18 @@ int|float|char {
 #endif
 }
 
-([1-9][0-9]*|[0])[\.][0-9]* {
+
+((([1-9][0-9]*|0)[\.][0-9]*)|([1-9][0-9]*))?[Ee]\-?[1-9][0-9]* {
+#ifdef debug
+    puts("FLOAT");
+    printf("text: %s\n", yytext);
+#endif
+    NEW_NODE(FLOAT, yytext);
+#ifndef debug
+    return FLOAT;
+#endif
+}
+([1-9][0-9]*|0)[\.][0-9]* {
 #ifdef debug
     puts("FLOAT");
     printf("text: %s\n", yytext);
@@ -94,6 +107,16 @@ int|float|char {
 '[a-zA-Z0-9_]' {
 #ifdef debug
     puts("CHAR (char)");
+    printf("text: %s\n", yytext);
+#endif
+    NEW_NODE(CHAR, yytext);
+#ifndef debug
+    return CHAR;
+#endif
+}
+'\\a'|'\\b'|'\\f'|'\\n'|'\\r'|'\\t'|'\\v'|'\\\\'|'\\\''|'\\\"'|'\\\?'|'\\0'|'\\ddd'|'\\xhh' {
+#ifdef debug
+    puts("CHAR (escape char)");
     printf("text: %s\n", yytext);
 #endif
     NEW_NODE(CHAR, yytext);
@@ -151,6 +174,16 @@ int|float|char {
     NEW_NODE(ELSE, yytext);
 #ifndef debug
     return ELSE;
+#endif
+}
+"for" {
+#ifdef debug
+    puts("FOR");
+    printf("text: %s\n", yytext);
+#endif
+    NEW_NODE(FOR, yytext);
+#ifndef debug
+    return FOR;
 #endif
 }
 "while" {

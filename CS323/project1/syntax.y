@@ -118,11 +118,12 @@
 %nonassoc THEN
 %nonassoc<node> ELSE
 
-%type <node>  Program ExtDefList ExtDef ExtDecList Specifier StructSpecifier VarDec FunDec VarList ParamDec CompSt StmtList Stmt DefList Def DecList Dec Exp Args
+%type <node> NullableExp
+%type <node> Program ExtDefList ExtDef ExtDecList Specifier StructSpecifier VarDec FunDec VarList ParamDec CompSt StmtList Stmt DefList Def DecList Dec Exp Args
 
 %right<node> TYPE;
 
-%token<node> INT CHAR FLOAT STRUCT IF WHILE RETURN
+%token<node> INT CHAR FLOAT STRUCT IF FOR WHILE RETURN
 
 %left<node> LT LE GT GE NE EQ
 
@@ -319,11 +320,15 @@ FunDec
 VarList
        	:	ParamDec COMMA VarList	{
        		                      	    root_node = new_node(233, "VarList", "NULL", $1->lineno);
-											insert_node(root_node, $1);
+										insert_node(root_node, $1);
        		                      	    insert_node(root_node, $2);
        		                      	    insert_node(root_node, $3);
        		                      	    $$ = root_node;
        		                      	}
+		| 	ParamDec COMMA error RP {
+										unput(')');
+										insert_err(1, $1->lineno, "Extra Comma");
+									}
        	|	ParamDec              	{
        		                      	    root_node = new_node(233, "VarList", "NULL", $1->lineno);
 											insert_node(root_node, $1);
@@ -426,6 +431,18 @@ Stmt
     		                            	    insert_node(root_node, $5);
     		                            	    $$ = root_node;
     		                            	}
+    	| 	FOR LP Exp SEMI Exp SEMI RP Stmt{
+    		                            	    root_node = new_node(233, "Stmt", "NULL", $1->lineno);
+                                                insert_node(root_node, $1);
+    		                            	    insert_node(root_node, $2);
+    		                            	    insert_node(root_node, $3);
+    		                            	    insert_node(root_node, $4);
+    		                            	    insert_node(root_node, $5);
+    		                            	    insert_node(root_node, $6);
+    		                            	    insert_node(root_node, $7);
+    		                            	    insert_node(root_node, $8);
+    		                            	    $$ = root_node;
+    		                            	}
     	;
 
 
@@ -456,9 +473,6 @@ Def
 											insert_err(1, $1 -> lineno, "Missing semicolon ';'");
    		                            	}
    	|	error DecList SEMI          	{
-											insert_err(1, $2 -> lineno, "Missing specifier");
-   		                            	}
-   	|	error FunDec CompSt         	{
 											insert_err(1, $2 -> lineno, "Missing specifier");
    		                            	}
    	;
@@ -577,6 +591,12 @@ Exp
    		                        	    insert_node(root_node, $3);
    		                        	    $$ = root_node;
    		                        	}
+    | 	MINUS Exp %prec SUB 		{
+   		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
+										insert_node(root_node, $1);
+   		                        	    insert_node(root_node, $2);
+   		                        	    $$ = root_node;
+   		                        	}
    	|	Exp MINUS Exp  %prec SUB	{
    		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
 										insert_node(root_node, $1);
@@ -679,7 +699,6 @@ Exp
    		                        	}
    	;
 
-
 Args
     	:	Exp COMMA Args	{
     		              	    root_node = new_node(233, "Args", "NULL", $1->lineno);
@@ -705,7 +724,7 @@ int main(int argc, char **argv){
 
     FILE* fin = NULL;
     extern FILE* yyin;
-    fin = fopen(argv[1], "r");
+    fin = fopen(argv[1],"r");
 
     if(fin == NULL)
     {
