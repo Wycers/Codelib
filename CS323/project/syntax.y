@@ -6,8 +6,8 @@
         int _token;
         char* _token_name;
         char* text;
-        struct Node* brother;
-        struct Node* child;
+		int childno;
+        struct Node* children[32];
         int lineno;
     };
 
@@ -27,8 +27,8 @@
             node->_token_name = strdup(name);
         node->text = strdup(text);
         node->lineno = lineno;
-        node->brother=NULL;
-        node->child=NULL;
+
+		node->childno = 0;
         return node;
     }
 
@@ -40,15 +40,16 @@
             child->_token_name, child->lineno
         );
 #endif
-        if (parent->child == NULL) {
-            parent->child = child;
-        } else {
-            struct Node *node = parent->child;
-            while (node->brother != NULL) {
-                node = node->brother;
-            }
-            node->brother = child;
-        }
+        // if (parent->child == NULL) {
+        //     parent->child = child;
+        // } else {
+        //     struct Node *node = parent->child;
+        //     while (node->brother != NULL) {
+        //         node = node->brother;
+        //     }
+        //     node->brother = child;
+        // }
+		parent->children[parent->childno++] = child;
     }
 
     void display(struct Node *root, int depth){
@@ -70,11 +71,9 @@
         else
             printf("%s (%d)\r\n",root->_token_name,root->lineno);
 
-        struct Node *node = root->child;
-        while (node != NULL) {
-            display(node, depth + 1);
-            node = node->brother;
-        }
+		for (int i = 0; i < root->childno; ++i) {
+			display(root->children[i], depth + 1);
+		}
         return ;
     }
 
@@ -118,7 +117,6 @@
 %nonassoc THEN
 %nonassoc<node> ELSE
 
-%type <node> NullableExp
 %type <node> Program ExtDefList ExtDef ExtDecList Specifier StructSpecifier VarDec FunDec VarList ParamDec CompSt StmtList Stmt DefList Def DecList Dec Exp Args
 
 %right<node> TYPE;

@@ -5,15 +5,14 @@
 Author: 11711918 吴烨昌
 
 
-
 ## Tools
 
 ### Flex
 
-Flex is used to parse and tokenize the input SPL code with pre-defined regex rules, detecting lexical errors. 
+Flex is used to parse and tokenize the input SPL code with pre-defined regex rules, detecting lexical errors.
 
-### Bison 
-Bison is used to parse the tokens from lexer and build the corresponding syntax tree. 
+### Bison
+Bison is used to parse the tokens from lexer and build the corresponding syntax tree.
 
 ## Design and Implementation
 
@@ -70,7 +69,7 @@ else
 
 When error detected, it will not display syntax tree but output error messages.
 
-#### Test cases 
+#### Test cases
 
 1. The are 5 correct  cases with only basic statements
 
@@ -84,20 +83,20 @@ When error detected, it will not display syntax tree but output error messages.
    int main() {
        float f = 1e10;
        float f = -1e10;
-   
+
        float f = 1e-10;
        float f = -1e-10;
-   
+
        float f = 2.5e5;
        float f = -2.5e5;
-   
+
        float f = 2.5e-10;
        float f = -2.5e-10;
-   
+
        float f = 2.5e-10 + 10;
        float f = -2.5e-10 + 10;
    }
    ```
 
-   
+
 
