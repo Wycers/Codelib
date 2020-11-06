@@ -1,0 +1,12 @@
+#984
+What does it look like?
+
+The @filename entry in the usage help is listed under positional parameters, but when there are no other positional parameters, the Parameters heading won't be shown.
+
+Why did that happen?
+@filename is a positional parameter but it doesn't appear in positionalParameterList because it is introduced by the atFileInUsage argument. When @filename is the only parameter, positionalParameterList is to be empty. In that situation, the heading will not be shown but the parameter list will be.
+
+How to fix it?
+When judge whether to output the heading or not, consider is there any parameters aside from the list. Because the @filename is the only parameter can be aside from the list. So add the logic: if there is atFileParameter, output the corresponding heading.
+
+Besides, extract the logic to a method hasAtFileParameterList to enhance code reuse.

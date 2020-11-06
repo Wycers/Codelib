@@ -1,0 +1,10 @@
+#988
+What does it look like?
+Currently, if an argument group has an option and a nested sub-group, the usage help will only show the options that are directly in the group under the heading for that group.
+Instead, the usage help should also include the options for the nested subgroups, unless this subgroup has its own heading.
+
+Why did that happen?
+The implementation of the group and subgroup is a little strange. The root group has all options of its and its groups’. When generating the usage list, it will remove the options in its subgroups’ but the options in subgroups of subgroups will be ignored, so there the options in subgroups will appear directly under the heading, which is unexpected.
+
+How to fix it?
+Recursively remove all the options of its subgroup and subgroups of subgroups. Make sure the options in subgroups will not appear under the heading.
