@@ -1,0 +1,189 @@
+Program (1)
+  ExtDefList (1)
+    ExtDef (1)
+      Specifier (1)
+        StructSpecifier (1)
+          STRUCT
+          ID: qwq
+          LC
+          DefList (2)
+            Def (2)
+              Specifier (2)
+                TYPE: int
+              DecList (2)
+                Dec (2)
+                  VarDec (2)
+                    ID: a
+              SEMI
+            DefList (3)
+              Def (3)
+                Specifier (3)
+                  TYPE: float
+                DecList (3)
+                  Dec (3)
+                    VarDec (3)
+                      ID: b
+                SEMI
+              DefList (4)
+                Def (4)
+                  Specifier (4)
+                    TYPE: char
+                  DecList (4)
+                    Dec (4)
+                      VarDec (4)
+                        ID: c
+                  SEMI
+          RC
+      SEMI
+    ExtDefList (7)
+      ExtDef (7)
+        Specifier (7)
+          TYPE: int
+        FunDec (7)
+          ID: test_11711918_r01
+          LP
+          RP
+        CompSt (8)
+          LC
+          DefList (9)
+            Def (9)
+              Specifier (9)
+                TYPE: int
+              DecList (9)
+                Dec (9)
+                  VarDec (9)
+                    ID: a
+              SEMI
+            DefList (10)
+              Def (10)
+                Specifier (10)
+                  TYPE: int
+                DecList (10)
+                  Dec (10)
+                    VarDec (10)
+                      ID: a
+                    ASSIGN
+                    Exp (10)
+                      INT: 1
+                SEMI
+              DefList (11)
+                Def (11)
+                  Specifier (11)
+                    TYPE: int
+                  DecList (11)
+                    Dec (11)
+                      VarDec (11)
+                        ID: a
+                      ASSIGN
+                      Exp (11)
+                        MINUS
+                        Exp (11)
+                          INT: 1
+                  SEMI
+                DefList (12)
+                  Def (12)
+                    Specifier (12)
+                      TYPE: int
+                    DecList (12)
+                      Dec (12)
+                        VarDec (12)
+                          ID: a
+                        ASSIGN
+                        Exp (12)
+                          INT: 63
+                    SEMI
+                  DefList (13)
+                    Def (13)
+                      Specifier (13)
+                        TYPE: int
+                      DecList (13)
+                        Dec (13)
+                          VarDec (13)
+                            ID: a
+                          ASSIGN
+                          Exp (13)
+                            MINUS
+                            Exp (13)
+                              INT: 63
+                      SEMI
+                    DefList (15)
+                      Def (15)
+                        Specifier (15)
+                          TYPE: float
+                        DecList (15)
+                          Dec (15)
+                            VarDec (15)
+                              ID: b
+                        SEMI
+                      DefList (16)
+                        Def (16)
+                          Specifier (16)
+                            TYPE: float
+                          DecList (16)
+                            Dec (16)
+                              VarDec (16)
+                                ID: f
+                              ASSIGN
+                              Exp (16)
+                                FLOAT: 1.0
+                          SEMI
+                        DefList (17)
+                          Def (17)
+                            Specifier (17)
+                              TYPE: float
+                            DecList (17)
+                              Dec (17)
+                                VarDec (17)
+                                  ID: f
+                                ASSIGN
+                                Exp (17)
+                                  MINUS
+                                  Exp (17)
+                                    FLOAT: 1.0
+                            SEMI
+                          DefList (19)
+                            Def (19)
+                              Specifier (19)
+                                TYPE: char
+                              DecList (19)
+                                Dec (19)
+                                  VarDec (19)
+                                    ID: ch
+                              SEMI
+                            DefList (20)
+                              Def (20)
+                                Specifier (20)
+                                  TYPE: char
+                                DecList (20)
+                                  Dec (20)
+                                    VarDec (20)
+                                      ID: chh
+                                    ASSIGN
+                                    Exp (20)
+                                      CHAR: '\x0c'
+                                SEMI
+                              DefList (21)
+                                Def (21)
+                                  Specifier (21)
+                                    TYPE: char
+                                  DecList (21)
+                                    Dec (21)
+                                      VarDec (21)
+                                        ID: chh
+                                      ASSIGN
+                                      Exp (21)
+                                        CHAR: '\x23'
+                                  SEMI
+                                DefList (22)
+                                  Def (22)
+                                    Specifier (22)
+                                      TYPE: char
+                                    DecList (22)
+                                      Dec (22)
+                                        VarDec (22)
+                                          ID: chh
+                                        ASSIGN
+                                        Exp (22)
+                                          CHAR: '\n'
+                                    SEMI
+          RC

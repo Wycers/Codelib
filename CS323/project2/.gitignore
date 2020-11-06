@@ -1,0 +1,6 @@
+lex
+lex.yy.c
+
+syntax.tab.*
+
+bin/splc
