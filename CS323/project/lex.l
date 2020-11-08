@@ -2,9 +2,8 @@
     #include "syntax.tab.h"
     // #define debug
 
-    struct Node* new_node(int token, const char* name, char* text, int lineno);
-
-	void insert_err(int type, int line, const char* msg);
+    #include "node.h"
+    #include "error.h"
 
     #define NEW_NODE(x, y) yylval.node = new_node((x), (#x), (y), yylineno)
 
