@@ -15,6 +15,6 @@ struct Node
     int lineno;
 };
 
-struct Node *new_node(int token, const char *name, char *text, int lineno);
+struct Node *new_node(int token, const char *name, const char *text, int lineno);
 void insert_node(struct Node *parent, struct Node *child);
 void display(struct Node *root, int depth);

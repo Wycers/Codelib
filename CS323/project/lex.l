@@ -8,7 +8,7 @@
     #define NEW_NODE(x, y) yylval.node = new_node((x), (#x), (y), yylineno)
 
     #define NEW_ERROR() { \
-        char* msg = malloc(strlen("unknown lexeme") + strlen(yytext) + 1); \
+        char* msg = (char *)malloc(strlen("unknown lexeme") + strlen(yytext) + 1); \
         if (!msg) {  \
             fprintf(stderr, "malloc() failed: insufficient memory!\n");  \
         } else {  \

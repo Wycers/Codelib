@@ -1,7 +1,7 @@
 #include "node.h"
 
 // #define debug
-struct Node *new_node(int token, const char *name, char *text, int lineno)
+struct Node *new_node(int token, const char *name, const char *text, int lineno)
 {
 #ifdef debug
     printf("[new node] name: %s text: %s line: %d\n", name, text, lineno);
