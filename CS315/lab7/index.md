@@ -8,34 +8,34 @@ Author: 11711918 吴烨昌
 
 ### Part 1
 
-Read the lab instructions above and finish all the tasks. 
+Read the lab instructions above and finish all the tasks.
 
 ### Part 2
 
-Answer the questions and justify your answers. Simple yes or no answer will not get any credits. 
+Answer the questions and justify your answers. Simple yes or no answer will not get any credits.
 
-1. What is a zero-day attack? 
+1. What is a zero-day attack?
 
-   An kind of attack that exploits some unknown vulnerability. 
+   An kind of attack that exploits some unknown vulnerability.
 
-2. Can Snort catch zero-day network attacks? If not, why not? If yes, how? 
+2. Can Snort catch zero-day network attacks? If not, why not? If yes, how?
 
-   No, because snort is a Signature-based IDS, which can not catch zero-day network attack. Because there is no signature for a brand new zero-day attack. 
+   No, because snort is a Signature-based IDS, which can not catch zero-day network attack. Because there is no signature for a brand new zero-day attack.
 
-3. Given a network that has 1 million connections daily where 0.1% (not 10%) are attacks. If the IDS has a true positive rate of 95%, and the probability that an alarm is an attack is 95%. What is false alarm rate? (You may use the math approach from the slides.) 
+3. Given a network that has 1 million connections daily where 0.1% (not 10%) are attacks. If the IDS has a true positive rate of 95%, and the probability that an alarm is an attack is 95%. What is false alarm rate? (You may use the math approach from the slides.)
    $$
-   95\% = \frac{n_\text{attack}}{n_\text{alarm}} = \frac{0.1\% \times10^{6}}{0.1\% \times10^{6} + 99.9\% \times10^{6}\times P_{FP}}
+   95\% = \frac{n_\text{alarmed_attack}}{n_\text{alarm}} = \frac{0.1\% \times10^{6} \times 95\%}{0.1\% \times10^{6}\times 95\% + 99.9\% \times10^{6}\times P_{FP}}
    $$
 
    $$
-   P_{FP} \approx 0.953\%
+   P_{FP} \approx 0.005\%
    $$
 
 ### Part 3
 
 Write a rule that will fire when you browse to craigslist.org or another particular website from the machine Snort is running on; it should look for any outbound TCP request to craigslist.org and alert on it.
 
-1. The rule you added (from the rules file) 
+1. The rule you added (from the rules file)
 
    ```snort
    alert tcp $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS (msg:"Craigslist http"; content:"craigslist.org"; http_header; sid:1000001; rev:1;)
@@ -54,7 +54,7 @@ Write a rule that will fire when you browse to craigslist.org or another particu
    	priority: 0	ip source: 192.168.198.136	ip destination: 208.82.237.129
    	src port: 45316	dest port: 80	protocol: 6	impact_flag: 0	blocked: 0
    	mpls label: 0	vland id: 0	policy id: 0
-   
+
    Packet
    	sensor id: 0	event id: 4	event second: 1604489271
    	packet second: 1604489271	packet microsecond: 776266
@@ -70,4 +70,3 @@ Write a rule that will fire when you browse to craigslist.org or another particu
    [  128] 0D 0A 0D 0A                                      ....
    ```
 
-   
