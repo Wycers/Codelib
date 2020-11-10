@@ -17,15 +17,23 @@ node: .lex .syntax
 error: .lex .syntax
 	$(CC) -c src/error/error.c -o src/error/error.o
 
+semantic_analysis: .lex .syntax
+	$(CC) -c src/semantic_analysis.hpp -o semantic_analysis.o -I src
+
+
 splc: node error
 	# @mkdir bin
-	$(CC) syntax.tab.c \
+	$(CC) \
+		-g syntax.tab.c \
 		src/error/error.o \
 		src/node/node.o \
 		-lfl -ly \
 		-o bin/splc \
 		-I src/node \
-		-I src/error
+		-I src/error \
+		-I src \
+		-I src/symbol_table \
+		-I .
 	@chmod +x bin/splc
 
 clean:

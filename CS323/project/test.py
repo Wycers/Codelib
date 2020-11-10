@@ -11,8 +11,10 @@ for file in test_path.rglob("*.spl"):
     os.system(f"./bin/splc {file.resolve()} > {tmp_out_path.resolve()}")
 
     if os.system(f"diff -Z {std_out_path} {tmp_out_path.resolve()}") != 0:
-        print("You:", tmp_out_path.open().read())
-        print("Std:", std_out_path.open().read())
+        print("You:")
+        print(tmp_out_path.open().read())
+        print("Std:")
+        print(std_out_path.open().read())
         print("!")
         input()
     else:

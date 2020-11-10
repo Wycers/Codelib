@@ -42,6 +42,10 @@ void insert_node(struct Node *parent, struct Node *child) {
     parent->children[parent->childno++] = child;
 }
 
+void set_node_type(struct Node *node, NodeType type) {
+    node->type = type;
+}
+
 
 void display(struct Node *root, int depth) {
 

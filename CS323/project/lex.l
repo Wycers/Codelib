@@ -6,20 +6,6 @@
     #include "error.h"
 
     #define NEW_NODE(x, y) yylval.node = new_node((x), (#x), (y), yylineno)
-
-    #define NEW_ERROR() { \
-        char* msg = (char *)malloc(strlen("unknown lexeme") + strlen(yytext) + 1); \
-        if (!msg) {  \
-            fprintf(stderr, "malloc() failed: insufficient memory!\n");  \
-        } else {  \
-            strcpy(msg, "unknown lexeme ");  \
-            strcat(msg, yytext);  \
-            insert_err(0, yylineno, msg);  \
-            free(msg);  \
-        } \
-        return ERR;  \
-    }
-
 %}
 
 %option noyywrap
@@ -103,7 +89,7 @@ int|float|char {
 #endif
 }
 
-'[a-zA-Z0-9_]' {
+'.' {
 #ifdef debug
     puts("CHAR (char)");
     printf("text: %s\n", yytext);
@@ -138,7 +124,7 @@ int|float|char {
     puts("CHAR (hex)");
     printf("text: %s\n", yytext);
 #endif
-    NEW_ERROR()
+    lexical_error(yylineno, yytext);
 #ifndef debug
     return CHAR;
 #endif
@@ -478,11 +464,11 @@ int|float|char {
 #endif
 }
 [0-9]{ID} {
-    NEW_ERROR()
+    lexical_error(yylineno, yytext);
 }
 
 . {
-    NEW_ERROR()
+    lexical_error(yylineno, yytext);
 }
 
 %%

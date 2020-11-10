@@ -7,7 +7,6 @@
 
     void yyerror(const char* msg) {}
 
-	struct Error *root_err = NULL;
     struct Node *root_node = NULL;
 %}
 
@@ -61,12 +60,12 @@ ExtDefList
           		                 	    root_node = new_node(233, "ExtDefList", "NULL", $1->lineno);
                                         insert_node(root_node, $1);
           		                 	    insert_node(root_node, $2);
+										set_node_type(root_node, NodeType::ExtDefList);
           		                 	    $$ = root_node;
           		                 	}
-          	|	                 	{
-          		                 	    root_node = new_node(0, "NULL", "NULL", 0);
-                                        $$ = root_node;
-          		                 	}
+			| 	%empty 				{
+										$$ = NULL;
+									};
           	;
 
 
@@ -76,12 +75,14 @@ ExtDef
                                             insert_node(root_node, $1);
       		                          	    insert_node(root_node, $2);
       		                          	    insert_node(root_node, $3);
+											set_node_type(root_node, NodeType::Declare);
       		                          	    $$ = root_node;
       		                          	}
       	|	Specifier SEMI            	{
       		                          	    root_node = new_node(233, "ExtDef", "NULL", $1->lineno);
 											insert_node(root_node, $1);
       		                          	    insert_node(root_node, $2);
+											set_node_type(root_node, NodeType::StructDef);
       		                          	    $$ = root_node;
       		                          	}
       	|	Specifier FunDec CompSt   	{
@@ -89,13 +90,14 @@ ExtDef
 											insert_node(root_node, $1);
       		                          	    insert_node(root_node, $2);
       		                          	    insert_node(root_node, $3);
+											set_node_type(root_node, NodeType::FuncDef);
       		                          	    $$ = root_node;
       		                          	}
       	|	Specifier ExtDecList error	{
-											insert_err(1, $2 -> lineno, "Missing semicolon ';'");
+											syntax_error($2 -> lineno, "Missing semicolon ';'");
       		                          	}
       	|	error SEMI                	{
-											insert_err(1, $2 -> lineno, "Missing specifier");
+											syntax_error($2 -> lineno, "Missing specifier");
       		                          	}
       	;
 
@@ -104,6 +106,7 @@ ExtDecList
           	:	VarDec                 	{
           		                       	    root_node = new_node(233, "ExtDecList", "NULL", $1->lineno);
 											insert_node(root_node, $1);
+											set_node_type(root_node, NodeType::ExtDecListSingle);
           		                       	    $$ = root_node;
           		                       	}
           	|	VarDec COMMA ExtDecList	{
@@ -111,6 +114,7 @@ ExtDecList
 											insert_node(root_node, $1);
           		                       	    insert_node(root_node, $2);
           		                       	    insert_node(root_node, $3);
+											set_node_type(root_node, NodeType::ExtDecListMultiple);
           		                       	    $$ = root_node;
           		                       	}
           	;
@@ -120,12 +124,14 @@ ExtDecList
 Specifier
          	:	TYPE           	{
          		               	    root_node = new_node(233, "Specifier", "NULL", $1->lineno);
-                                        insert_node(root_node, $1);
+									insert_node(root_node, $1);
+									set_node_type(root_node, NodeType::Specifier);
          		               	    $$ = root_node;
          		               	}
          	|	StructSpecifier	{
          		               	    root_node = new_node(233, "Specifier", "NULL", $1->lineno);
-                                        insert_node(root_node, $1);
+									insert_node(root_node, $1);
+									set_node_type(root_node, NodeType::StructSpecifier);
          		               	    $$ = root_node;
          		               	}
          	;
@@ -155,6 +161,7 @@ VarDec
       	:	ID              	{
       		                	    root_node = new_node(233, "VarDec", "NULL", $1->lineno);
 									insert_node(root_node, $1);
+									set_node_type(root_node, NodeType::VarDec);
       		                	    $$ = root_node;
       		                	}
       	|	VarDec LB INT RB	{
@@ -163,10 +170,11 @@ VarDec
       		                	    insert_node(root_node, $2);
       		                	    insert_node(root_node, $3);
       		                	    insert_node(root_node, $4);
+									set_node_type(root_node, NodeType::VarDecArray);
       		                	    $$ = root_node;
       		                	}
       	|	ERR             	{
-			  						insert_err(1, 0, "error");
+			  						syntax_error(0, "error");
       		                	}
       	;
 
@@ -178,21 +186,23 @@ FunDec
       		                      	    insert_node(root_node, $2);
       		                      	    insert_node(root_node, $3);
       		                      	    insert_node(root_node, $4);
+										set_node_type(root_node, NodeType::FunDecArgs);
       		                      	    $$ = root_node;
       		                      	}
       	|	ID LP VarList error LC	{
       		                      	    unput('{');
-										insert_err(1, $1 -> lineno, "Missing closing parenthesis ')'");
+										syntax_error($1 -> lineno, "Missing closing parenthesis ')'");
       		                      	}
       	|	ID LP  error LC       	{
       		                      	    unput('{');
-										insert_err(1, $1 -> lineno, "Missing closing parenthesis ')'");
+										syntax_error($1 -> lineno, "Missing closing parenthesis ')'");
       		                      	}
       	|	ID LP RP              	{
       		                      	    root_node = new_node(233, "FunDec", "NULL", $1->lineno);
 										insert_node(root_node, $1);
       		                      	    insert_node(root_node, $2);
       		                      	    insert_node(root_node, $3);
+										set_node_type(root_node, NodeType::FunDec);
       		                      	    $$ = root_node;
       		                      	}
       	;
@@ -208,7 +218,7 @@ VarList
        		                      	}
 		| 	ParamDec COMMA error RP {
 										unput(')');
-										insert_err(1, $1->lineno, "Extra Comma");
+										syntax_error($1->lineno, "Extra Comma");
 									}
        	|	ParamDec              	{
        		                      	    root_node = new_node(233, "VarList", "NULL", $1->lineno);
@@ -226,7 +236,7 @@ ParamDec
         		                	    $$ = root_node;
         		                	}
         	|	error VarDec    	{
-										insert_err(1, $2 -> lineno, "Missing semicolon ';'");
+										syntax_error($2 -> lineno, "Missing semicolon ';'");
         		                	}
         	;
 
@@ -251,7 +261,7 @@ StmtList
         		             	    insert_node(root_node, $2);
         		             	    $$ = root_node;
         		             	}
-        	|	             	{
+        	|	%empty      	{
         		             	    root_node = new_node(0, "NULL", "NULL", 0);
 									$$ = root_node;
         		             	}
@@ -278,10 +288,10 @@ Stmt
     		                            	    $$ = root_node;
     		                            	}
     	|	Exp error SEMI              	{
-												insert_err(1, $1 -> lineno, "Missing semicolon ';'");
+												syntax_error($1 -> lineno, "Missing semicolon ';'");
     		                            	}
     	|	RETURN Exp error SEMI       	{
-												insert_err(1, $1 -> lineno, "Missing semicolon ';'");
+												syntax_error($1 -> lineno, "Missing semicolon ';'");
     		                            	}
     	|	IF LP Exp RP Stmt %prec THEN	{
     		                            	    root_node = new_node(233, "Stmt", "NULL", $1->lineno);
@@ -333,9 +343,10 @@ DefList
        		           	    root_node = new_node(233, "DefList", "NULL", $1->lineno);
                             insert_node(root_node, $1);
        		           	    insert_node(root_node, $2);
+							set_node_type(root_node, NodeType::DefList);
        		           	    $$ = root_node;
        		           	}
-       	|	           	{
+       	|	%empty   	{
        		           	    root_node = new_node(0, "NULL", "NULL", 0);
                             $$ = root_node;
        		           	}
@@ -351,10 +362,10 @@ Def
    		                            	    $$ = root_node;
    		                            	}
    	|	Specifier DecList error SEMI	{
-											insert_err(1, $1 -> lineno, "Missing semicolon ';'");
+											syntax_error($1 -> lineno, "Missing semicolon ';'");
    		                            	}
    	|	error DecList SEMI          	{
-											insert_err(1, $2 -> lineno, "Missing specifier");
+											syntax_error($2 -> lineno, "Missing specifier");
    		                            	}
    	;
 
@@ -383,13 +394,13 @@ Dec
    		                 	}
    	|	VarDec ASSIGN Exp	{
    		                 	    root_node = new_node(233, "Dec", "NULL", $1->lineno);
-                                    insert_node(root_node, $1);
+								insert_node(root_node, $1);
    		                 	    insert_node(root_node, $2);
    		                 	    insert_node(root_node, $3);
    		                 	    $$ = root_node;
    		                 	}
    	|	VarDec ASSIGN ERR	{
-								insert_err(1, 0, "error");
+								syntax_error(0, "error");
    		                 	}
    	;
 
@@ -401,19 +412,21 @@ Exp
 										insert_node(root_node, $1);
    		                        	    insert_node(root_node, $2);
    		                        	    insert_node(root_node, $3);
+										set_node_type(root_node, NodeType::ExpAssign);
    		                        	    $$ = root_node;
    		                        	}
    	|	Exp ERR Exp             	{
-			  							insert_err(1, 0, "error");
+			  							syntax_error(0, "error");
    		                        	}
    	|	Exp ASSIGN ERR          	{
-			  							insert_err(1, 0, "error");
+			  							syntax_error(0, "error");
    		                        	}
    	|	Exp AND Exp             	{
    		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
 										insert_node(root_node, $1);
    		                        	    insert_node(root_node, $2);
    		                        	    insert_node(root_node, $3);
+										set_node_type(root_node, NodeType::ExpAnd);
    		                        	    $$ = root_node;
    		                        	}
    	|	Exp OR Exp              	{
@@ -421,6 +434,7 @@ Exp
 										insert_node(root_node, $1);
    		                        	    insert_node(root_node, $2);
    		                        	    insert_node(root_node, $3);
+										set_node_type(root_node, NodeType::ExpOr);
    		                        	    $$ = root_node;
    		                        	}
    	|	Exp LT Exp              	{
@@ -428,6 +442,7 @@ Exp
 										insert_node(root_node, $1);
    		                        	    insert_node(root_node, $2);
    		                        	    insert_node(root_node, $3);
+										set_node_type(root_node, NodeType::ExpLT);
    		                        	    $$ = root_node;
    		                        	}
    	|	Exp LE Exp              	{
@@ -435,6 +450,7 @@ Exp
 										insert_node(root_node, $1);
    		                        	    insert_node(root_node, $2);
    		                        	    insert_node(root_node, $3);
+										set_node_type(root_node, NodeType::ExpLE);
    		                        	    $$ = root_node;
    		                        	}
    	|	Exp GT Exp              	{
@@ -442,6 +458,7 @@ Exp
 										insert_node(root_node, $1);
    		                        	    insert_node(root_node, $2);
    		                        	    insert_node(root_node, $3);
+										set_node_type(root_node, NodeType::ExpGT);
    		                        	    $$ = root_node;
    		                        	}
    	|	Exp GE Exp              	{
@@ -449,6 +466,7 @@ Exp
 										insert_node(root_node, $1);
    		                        	    insert_node(root_node, $2);
    		                        	    insert_node(root_node, $3);
+										set_node_type(root_node, NodeType::ExpGE);
    		                        	    $$ = root_node;
    		                        	}
    	|	Exp NE Exp              	{
@@ -456,6 +474,7 @@ Exp
 										insert_node(root_node, $1);
    		                        	    insert_node(root_node, $2);
    		                        	    insert_node(root_node, $3);
+										set_node_type(root_node, NodeType::ExpNE);
    		                        	    $$ = root_node;
    		                        	}
    	|	Exp EQ Exp              	{
@@ -463,6 +482,7 @@ Exp
 										insert_node(root_node, $1);
    		                        	    insert_node(root_node, $2);
    		                        	    insert_node(root_node, $3);
+										set_node_type(root_node, NodeType::ExpEQ);
    		                        	    $$ = root_node;
    		                        	}
    	|	Exp PLUS Exp            	{
@@ -470,6 +490,7 @@ Exp
 										insert_node(root_node, $1);
    		                        	    insert_node(root_node, $2);
    		                        	    insert_node(root_node, $3);
+										set_node_type(root_node, NodeType::ExpPlus);
    		                        	    $$ = root_node;
    		                        	}
     | 	MINUS Exp %prec SUB 		{
@@ -490,6 +511,7 @@ Exp
 										insert_node(root_node, $1);
    		                        	    insert_node(root_node, $2);
    		                        	    insert_node(root_node, $3);
+										set_node_type(root_node, NodeType::ExpMul);
    		                        	    $$ = root_node;
    		                        	}
    	|	Exp DIV Exp             	{
@@ -497,6 +519,7 @@ Exp
 										insert_node(root_node, $1);
    		                        	    insert_node(root_node, $2);
    		                        	    insert_node(root_node, $3);
+										set_node_type(root_node, NodeType::ExpDiv);
    		                        	    $$ = root_node;
    		                        	}
    	|	LP Exp RP               	{
@@ -504,10 +527,11 @@ Exp
 										insert_node(root_node, $1);
    		                        	    insert_node(root_node, $2);
    		                        	    insert_node(root_node, $3);
+										set_node_type(root_node, NodeType::ExpBracketWrapped);
    		                        	    $$ = root_node;
    		                        	}
    	|	LP Exp error RP         	{
-										insert_err(1, $1 -> lineno, "Missing closing parenthesis ')'");
+										syntax_error($1 -> lineno, "Missing closing parenthesis ')'");
    		                        	}
    	|	SUB Exp %prec MINUS     	{
    		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
@@ -519,6 +543,7 @@ Exp
    		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
 										insert_node(root_node, $1);
    		                        	    insert_node(root_node, $2);
+										set_node_type(root_node, NodeType::ExpNot);
    		                        	    $$ = root_node;
    		                        	}
    	|	ID LP Args RP           	{
@@ -527,21 +552,23 @@ Exp
    		                        	    insert_node(root_node, $2);
    		                        	    insert_node(root_node, $3);
    		                        	    insert_node(root_node, $4);
+										set_node_type(root_node, NodeType::ExpArgsFuncCall);
    		                        	    $$ = root_node;
    		                        	}
    	|	ID LP Args error SEMI   	{
    		                        	    unput(';');
-										insert_err(1, $1 -> lineno, "Missing closing parenthesis ')'");
+										syntax_error($1 -> lineno, "Missing closing parenthesis ')'");
    		                        	}
    	|	ID LP RP                	{
    		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
 										insert_node(root_node, $1);
    		                        	    insert_node(root_node, $2);
    		                        	    insert_node(root_node, $3);
+										set_node_type(root_node, NodeType::ExpFuncCall);
    		                        	    $$ = root_node;
    		                        	}
    	|	ID LP error RP          	{
-										insert_err(1, $1 -> lineno, "Missing closing parenthesis ')'");
+										syntax_error($1 -> lineno, "Missing closing parenthesis ')'");
    		                        	}
    	|	Exp LB Exp RB           	{
    		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
@@ -556,26 +583,31 @@ Exp
 										insert_node(root_node, $1);
    		                        	    insert_node(root_node, $2);
    		                        	    insert_node(root_node, $3);
+										set_node_type(root_node, NodeType::ExpFiledAccess);
    		                        	    $$ = root_node;
    		                        	}
    	|	ID                      	{
    		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
 										insert_node(root_node, $1);
+										set_node_type(root_node, NodeType::ExpId);
    		                        	    $$ = root_node;
    		                        	}
    	|	INT                     	{
    		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
 										insert_node(root_node, $1);
+										set_node_type(root_node, NodeType::ExpInt);
    		                        	    $$ = root_node;
    		                        	}
    	|	FLOAT                   	{
    		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
 										insert_node(root_node, $1);
+										set_node_type(root_node, NodeType::ExpFloat);
    		                        	    $$ = root_node;
    		                        	}
    	|	CHAR                    	{
    		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
 										insert_node(root_node, $1);
+										set_node_type(root_node, NodeType::ExpChar);
    		                        	    $$ = root_node;
    		                        	}
    	;
@@ -600,6 +632,7 @@ Args
 
 %%
 
+#include "semantic_analysis.hpp"
 
 int main(int argc, char **argv){
 
@@ -617,12 +650,17 @@ int main(int argc, char **argv){
     yyparse();
     fclose(fin);
 
-    if (root_err == NULL)
-        display(root_node, 0);
-	else
-		for (struct Error* now = root_err; now != NULL; now = now->next) {
-			print_err(now);
-		}
-    return 0;
+	semantic_analysis(root_node);
+
+    if (has_error()) {
+		print_errors();
+		return -1;
+	}
+
+	display(root_node, 0);
+
+	SYMBOL_TABLE.print();
+
+	return 0;
 
 }
