@@ -145,12 +145,14 @@ StructSpecifier
                		                       	    insert_node(root_node, $3);
                		                       	    insert_node(root_node, $4);
                		                       	    insert_node(root_node, $5);
+												set_node_type(root_node, NodeType::StructSpecifierWithBody);
                		                       	    $$ = root_node;
                		                       	}
                	|	STRUCT ID              	{
                		                       	    root_node = new_node(233, "StructSpecifier", "NULL", $1->lineno);
 												insert_node(root_node, $1);
                		                       	    insert_node(root_node, $2);
+												set_node_type(root_node, NodeType::StructSpecifierNoBody);
                		                       	    $$ = root_node;
                		                       	}
                	;
@@ -214,6 +216,7 @@ VarList
 										insert_node(root_node, $1);
        		                      	    insert_node(root_node, $2);
        		                      	    insert_node(root_node, $3);
+										set_node_type(root_node, NodeType::VarList);
        		                      	    $$ = root_node;
        		                      	}
 		| 	ParamDec COMMA error RP {
@@ -222,7 +225,8 @@ VarList
 									}
        	|	ParamDec              	{
        		                      	    root_node = new_node(233, "VarList", "NULL", $1->lineno);
-											insert_node(root_node, $1);
+										insert_node(root_node, $1);
+										set_node_type(root_node, NodeType::ParamDec);
        		                      	    $$ = root_node;
        		                      	}
        	;
@@ -259,6 +263,7 @@ StmtList
         		             	    root_node = new_node(233, "StmtList", "NULL", $1->lineno);
 									insert_node(root_node, $1);
         		             	    insert_node(root_node, $2);
+									set_node_type(root_node, NodeType::StmtList);
         		             	    $$ = root_node;
         		             	}
         	|	%empty      	{
@@ -273,11 +278,13 @@ Stmt
     		                            	    root_node = new_node(233, "Stmt", "NULL", $1->lineno);
 												insert_node(root_node, $1);
     		                            	    insert_node(root_node, $2);
+												set_node_type(root_node, NodeType::StmtExp);
     		                            	    $$ = root_node;
     		                            	}
     	|	CompSt                      	{
     		                            	    root_node = new_node(233, "Stmt", "NULL", $1->lineno);
                                                 insert_node(root_node, $1);
+												set_node_type(root_node, NodeType::StmtCompSt);
     		                            	    $$ = root_node;
     		                            	}
     	|	RETURN Exp SEMI             	{
@@ -285,6 +292,7 @@ Stmt
                                                 insert_node(root_node, $1);
     		                            	    insert_node(root_node, $2);
     		                            	    insert_node(root_node, $3);
+												set_node_type(root_node, NodeType::StmtReturn);
     		                            	    $$ = root_node;
     		                            	}
     	|	Exp error SEMI              	{
@@ -300,6 +308,7 @@ Stmt
     		                            	    insert_node(root_node, $3);
     		                            	    insert_node(root_node, $4);
     		                            	    insert_node(root_node, $5);
+												set_node_type(root_node, NodeType::StmtIf);
     		                            	    $$ = root_node;
     		                            	}
     	|	IF LP Exp RP Stmt ELSE Stmt 	{
@@ -311,6 +320,7 @@ Stmt
     		                            	    insert_node(root_node, $5);
     		                            	    insert_node(root_node, $6);
     		                            	    insert_node(root_node, $7);
+												set_node_type(root_node, NodeType::StmtIfElse);
     		                            	    $$ = root_node;
     		                            	}
     	|	WHILE LP Exp RP Stmt        	{
@@ -320,6 +330,7 @@ Stmt
     		                            	    insert_node(root_node, $3);
     		                            	    insert_node(root_node, $4);
     		                            	    insert_node(root_node, $5);
+												set_node_type(root_node, NodeType::StmtWhile);
     		                            	    $$ = root_node;
     		                            	}
     	| 	FOR LP Exp SEMI Exp SEMI RP Stmt{
@@ -373,14 +384,16 @@ Def
 DecList
        	:	Dec              	{
        		                 	    root_node = new_node(233, "DecList", "NULL", $1->lineno);
-                                        insert_node(root_node, $1);
+									insert_node(root_node, $1);
+									set_node_type(root_node, NodeType::VarDecListSingle);
        		                 	    $$ = root_node;
        		                 	}
        	|	Dec COMMA DecList	{
        		                 	    root_node = new_node(233, "DecList", "NULL", $1->lineno);
-                                        insert_node(root_node, $1);
+									insert_node(root_node, $1);
        		                 	    insert_node(root_node, $2);
        		                 	    insert_node(root_node, $3);
+									set_node_type(root_node, NodeType::VarDecListMultiple);
        		                 	    $$ = root_node;
        		                 	}
        	;
@@ -618,16 +631,16 @@ Args
                                 insert_node(root_node, $1);
     		              	    insert_node(root_node, $2);
     		              	    insert_node(root_node, $3);
+								set_node_type(root_node, NodeType::ArgsMultiple);
     		              	    $$ = root_node;
     		              	}
     	|	Exp           	{
     		              	    root_node = new_node(233, "Args", "NULL", $1->lineno);
                                 insert_node(root_node, $1);
+								set_node_type(root_node, NodeType::ArgsSingle);
     		              	    $$ = root_node;
     		              	}
     	;
-
-
 
 
 %%

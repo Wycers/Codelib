@@ -5,10 +5,9 @@
 #include "stdio.h"
 #include "stdlib.h"
 
-
-enum class NodeType {
+enum class NodeType
+{
     Default = 0,
-
 
     Declare = 1,
     StructDef = 2,
@@ -61,8 +60,28 @@ enum class NodeType {
 
     FunDecArgs = 34,
     FunDec = 35,
-};
 
+    StmtList = 36,
+
+    StmtExp = 37,
+    StmtCompSt = 38,
+    StmtReturn = 39,
+    StmtIf = 40,
+    StmtIfElse = 41,
+    StmtWhile = 42,
+
+    StructSpecifierWithBody = 43,
+    StructSpecifierNoBody = 44,
+
+    VarDecListSingle = 45,
+    VarDecListMultiple = 46,
+
+    ArgsSingle = 46,
+    ArgsMultiple = 47,
+
+    ParamDec = 48,
+    VarList = 49
+};
 
 struct Node
 {
