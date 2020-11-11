@@ -506,17 +506,12 @@ Exp
 										set_node_type(root_node, NodeType::ExpPlus);
    		                        	    $$ = root_node;
    		                        	}
-    | 	MINUS Exp %prec SUB 		{
-   		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
-										insert_node(root_node, $1);
-   		                        	    insert_node(root_node, $2);
-   		                        	    $$ = root_node;
-   		                        	}
-   	|	Exp MINUS Exp  %prec SUB	{
+   	|	Exp MINUS Exp  				{
    		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
 										insert_node(root_node, $1);
    		                        	    insert_node(root_node, $2);
    		                        	    insert_node(root_node, $3);
+										set_node_type(root_node, NodeType::ExpMinus);
    		                        	    $$ = root_node;
    		                        	}
    	|	Exp MUL Exp             	{
@@ -546,10 +541,11 @@ Exp
    	|	LP Exp error RP         	{
 										syntax_error($1 -> lineno, "Missing closing parenthesis ')'");
    		                        	}
-   	|	SUB Exp %prec MINUS     	{
+    | 	MINUS Exp %prec NOT 		{
    		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
 										insert_node(root_node, $1);
    		                        	    insert_node(root_node, $2);
+										set_node_type(root_node, NodeType::ExpNegative);
    		                        	    $$ = root_node;
    		                        	}
    	|	NOT Exp                 	{

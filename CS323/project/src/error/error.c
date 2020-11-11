@@ -33,7 +33,14 @@ void lexical_error(int line, const char *text) {
 }
 
 void semantic_error(int line, const char *msg1, const char *msg2) {
-    insert_err(ErrorType::Semantic, line, msg1);
+    char* msg = (char *)malloc(strlen(msg1) + strlen(msg2) + 1);
+    if (!msg) {
+        fprintf(stderr, "malloc() failed: insufficient memory!\n");
+        return;
+    }
+    strcpy(msg, msg1);
+    strcat(msg, msg2);
+    insert_err(ErrorType::Semantic, line, msg);
 }
 void semantic_error(int line, const char *msg) {
     insert_err(ErrorType::Semantic, line, msg);

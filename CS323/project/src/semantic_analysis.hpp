@@ -52,10 +52,11 @@ char *id(Node *node)
 
 Type *type(Node *node)
 {
+#ifdef debug
     printf("node_token: %d\n", node->_token);
+#endif
     if (node->_token == TYPE)
     {
-        printf("node_token: %s\n", node->text);
         if (strcmp(node->text, "int") == 0)
             return new Type(Primitive::INT);
         else if (strcmp(node->text, "float") == 0)
@@ -153,7 +154,9 @@ std::vector<Field *> def_list(Node *node, bool insert_now = false)
         auto tail = def_list(node->children[1], insert_now);
         head.insert(head.end(), tail.begin(), tail.end());
     }
+#ifdef debug
     printf("end\n");
+#endif
     return head;
 }
 
@@ -329,7 +332,6 @@ void ext_def(Node *node)
     if (node->type == NodeType::Declare)
     {
         _type_exist(type, node->lineno);
-        printf("lineno: %d\n", node->lineno);
         auto fields = ext_dec_list(node->children[1], type);
         for (auto field : fields)
             SYMBOL_TABLE.insert(new SymbolTableEntry(field));
@@ -381,11 +383,10 @@ Field *exp(Node *node)
         }
         if (!_is_equivalent(oprand_1->type, oprand_2->type))
         {
-            // std::string msg =
-            //     to_str(oprand_1->type) + "!=" + to_str(oprand_2->type);
-            std::string msg = "?";
+            std::string msg =
+                to_str(oprand_1->type) + "!=" + to_str(oprand_2->type);
             semantic_error(node->lineno,
-                           "Two sides of assignment are not of the same type",
+                           "unmatching type on both sides of assignment",
                            msg.c_str());
         }
         return new Field{"RValue", new Type(*oprand_1->type), node->lineno};
@@ -431,7 +432,6 @@ Field *exp(Node *node)
         auto oprand_2 = exp(c[2]);
         auto category_1 = oprand_1->type->category;
         auto category_2 = oprand_2->type->category;
-        printf("===================================\n");
         if (category_1 != Category::PRIMITIVE ||
             category_2 != Category::PRIMITIVE)
         {
@@ -460,13 +460,34 @@ Field *exp(Node *node)
         }
         return new Field{"RValue", new Type(*oprand_1->type), node->lineno};
     }
-    if (node->type == NodeType::ExpNegative)
+    if (node->type == NodeType::ExpNegative || node->type == NodeType::ExpNot)
     {
-
-    }
-    if (node->type == NodeType::ExpNot)
-    {
-
+        auto oprand = exp(c[1]);
+        if (oprand->type->category != Category::PRIMITIVE)
+        {
+            semantic_error(node->lineno,
+                           "Derived type can not be used in negative operator",
+                           "");
+            return default_exp;
+        }
+        else if (node->type == NodeType::ExpNegative &&
+                 oprand->type->primitive == Primitive::CHAR)
+        {
+            semantic_error(node->lineno,
+                           "CHAR type can not be used in negative operator",
+                           "");
+            return default_exp;
+        }
+        else if (node->type == NodeType::ExpNot &&
+                 oprand->type->primitive != Primitive::INT)
+        {
+            semantic_error(node->lineno,
+                           "Only INT type can be used in negative operator",
+                           "");
+            return default_exp;
+        }
+        return new Field{"RValue", new Type(*oprand->type),
+                         node->lineno};
     }
     if (node->type == NodeType::ExpBracketWrapped)
     {

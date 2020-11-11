@@ -115,7 +115,6 @@ struct SymbolTable
     // insert a new symbol to current scope
     void insert(SymbolTableEntry *entry)
     {
-#define debug
 #ifdef debug
         printf("insert\n");
 #endif
