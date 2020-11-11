@@ -51,13 +51,15 @@ char *id(Node *node)
 
 Type *type(Node *node)
 {
+    printf("node_token: %d\n", node->_token);
     if (node->_token == TYPE)
     {
-        if (strcmp(node->_token_name, "int") == 0)
+        printf("node_token: %s\n", node->text);
+        if (strcmp(node->text, "int") == 0)
             return new Type(Primitive::INT);
-        else if (strcmp(node->_token_name, "float") == 0)
+        else if (strcmp(node->text, "float") == 0)
             return new Type(Primitive::FLOAT);
-        else if (strcmp(node->_token_name, "char") == 0)
+        else if (strcmp(node->text, "char") == 0)
             return new Type(Primitive::CHAR);
     }
     return new Type((Primitive)node->type);
@@ -182,7 +184,7 @@ Type *specifier(Node *node)
 {
 #ifdef debug
     printf("specifier\n");
-    printf("%d\n", node->type);
+    printf("%d\n", (int)node->type);
 #endif
     if (node == nullptr)
         return nullptr;
@@ -223,6 +225,9 @@ void comp_st(Node *node, Type *ret_type, std::vector<Field *> params = std::vect
         SYMBOL_TABLE.insert(new SymbolTableEntry(param));
     def_list(node->children[1], true);
     // stmt_list(node->children[2], ret_type);
+
+    SYMBOL_TABLE.print();
+
     SYMBOL_TABLE.scope_pop();
 }
 
@@ -243,7 +248,7 @@ void ext_def(Node *node)
 {
 #ifdef debug
     printf("ext_def\n");
-    printf("%d\n", node->type);
+    printf("%d\n", (int)node->type);
 #endif
     Type *type = specifier(node->children[0]);
     if (node->type == NodeType::Declare)
@@ -307,8 +312,7 @@ Field *exp(Node *node)
                            "Two sides of assignment are not of the same type",
                            msg.c_str());
         }
-        return new Field{"RValue", new Type(*oprand_1->type),
-                         node->lineno};
+        return new Field{"RValue", new Type(*oprand_1->type), node->lineno};
     }
     return default_exp;
 }

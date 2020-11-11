@@ -9,6 +9,7 @@ enum class Category
     ARRAY,
     STRUCT
 };
+
 enum class Primitive
 {
     INT = INT,

@@ -15,7 +15,7 @@ string to_str(Type *type)
             return "INT";
         else if (type->primitive == Primitive::FLOAT)
             return "FLOAT";
-        else if (type->primitive == Primitive::INT)
+        else if (type->primitive == Primitive::CHAR)
             return "CHAR";
         else if (type->primitive == Primitive::NEXP)
             return "NON-EXP";
@@ -28,8 +28,7 @@ string to_str(Type *type)
     }
     else
     {
-        return to_str(type->array->type) + "[" + to_string(type->array->size) +
-               "]";
+        return to_str(type->array->type) + "[" + to_string(type->array->size) + "]";
     }
 }
 
@@ -70,7 +69,8 @@ struct SymbolTable
     vector<vector<SymbolTableEntry *>> scope_stack;
     vector<Type *> scope_ret_stack;
 
-    SymbolTable() {
+    SymbolTable()
+    {
         while (!scope_stack.empty())
             scope_stack.pop_back();
         table_map.clear();
@@ -79,7 +79,8 @@ struct SymbolTable
         scope_push(nullptr);
     }
 
-    SymbolTableEntry *find(const string &name) {
+    SymbolTableEntry *find(const string &name)
+    {
         auto entry_stack_iter = table_map.find(name);
         // there is no such name
         if (entry_stack_iter == table_map.end())
@@ -91,16 +92,20 @@ struct SymbolTable
         return entry;
     }
 
-    SymbolTableEntry *find(const string &name, EntryType entry_type) {
+    SymbolTableEntry *find(const string &name, EntryType entry_type)
+    {
         auto entry_stack_iter = table_map.find(name);
-        if (entry_stack_iter == table_map.end()) {
+        if (entry_stack_iter == table_map.end())
+        {
             return nullptr;
         }
         auto entry_stack = entry_stack_iter->second;
         if (entry_stack.empty())
             return nullptr;
-        for (auto i = entry_stack.rbegin(); i != entry_stack.rend(); ++i) {
-            if ((*i)->entry_type == entry_type) {
+        for (auto i = entry_stack.rbegin(); i != entry_stack.rend(); ++i)
+        {
+            if ((*i)->entry_type == entry_type)
+            {
                 return *i;
             }
         }
@@ -108,13 +113,15 @@ struct SymbolTable
     }
 
     // insert a new symbol to current scope
-    void insert(SymbolTableEntry *entry) {
+    void insert(SymbolTableEntry *entry)
+    {
 #define debug
 #ifdef debug
         printf("insert\n");
 #endif
         auto cur = find(entry->name(), entry->entry_type);
-        if (cur != nullptr) {
+        if (cur != nullptr)
+        {
             // redefine
             // insert_err(...)
             return;
@@ -122,7 +129,8 @@ struct SymbolTable
 
         const string &name = entry->name();
         auto entry_stack_iter = table_map.find(name);
-        if (entry_stack_iter == table_map.end()) {
+        if (entry_stack_iter == table_map.end())
+        {
             auto vec = new vector<SymbolTableEntry *>();
             table_map[name] = *vec;
         }
@@ -131,20 +139,26 @@ struct SymbolTable
         scope_stack.back().push_back(entry);
     }
 
-    void scope_push(Type *type) {
+    void scope_push(Type *type)
+    {
         auto *st = new vector<SymbolTableEntry *>();
         scope_stack.push_back(*st);
         scope_ret_stack.push_back(type);
     }
 
-    void scope_pop() {
-        if (scope_stack.empty()) {
+    void scope_pop()
+    {
+        if (scope_stack.empty())
+        {
             printf("fatal error!");
             exit(-1);
         }
         auto current_scope_stack = scope_stack.back();
-        while (!current_scope_stack.empty()) {
+        while (!current_scope_stack.empty())
+        {
             auto entry = current_scope_stack.back();
+            current_scope_stack.pop_back();
+
             auto name = entry->name();
             auto vec = table_map[name];
             vec.pop_back();
@@ -153,20 +167,28 @@ struct SymbolTable
         scope_stack.pop_back();
     }
 
-    void print() {
+    void print()
+    {
         int indent = 0;
-        for (const auto &t : scope_stack) {
-            for (auto entry : t) {
+        for (const auto &t : scope_stack)
+        {
+            for (auto entry : t)
+            {
 
                 if (entry == nullptr)
                     return;
-               if (entry->entry_type == EntryType::FIELD) {
-                   cout << to_str(entry->field, indent);
-               } else if (entry->entry_type == EntryType::TYPE) {
-                   cout << to_str(entry->type->structure, indent);
-               } else {
-                   cout << to_str(entry->func, indent);
-               }
+                if (entry->entry_type == EntryType::FIELD)
+                {
+                    cout << to_str(entry->field, indent);
+                }
+                else if (entry->entry_type == EntryType::TYPE)
+                {
+                    cout << to_str(entry->type->structure, indent);
+                }
+                else
+                {
+                    cout << to_str(entry->func, indent);
+                }
                 // cout << entry << endl;
                 cout << "\n";
             }
