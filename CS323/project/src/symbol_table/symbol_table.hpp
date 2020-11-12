@@ -6,8 +6,6 @@
 #include <stack>
 #include <vector>
 
-
-
 using namespace std;
 
 string to_str(Type *type)
@@ -95,6 +93,25 @@ struct SymbolTable
         return entry;
     }
 
+    SymbolTableEntry *find_in_scope(const string &name, EntryType entry_type)
+    {
+        if (scope_stack.empty())
+        {
+            printf("fatal error!");
+            exit(-1);
+        }
+        auto current_scope_stack = scope_stack.back();
+
+        for (auto i = current_scope_stack.rbegin(); i != current_scope_stack.rend(); ++i)
+        {
+            if ((*i)->name() == name)
+            {
+                return *i;
+            }
+        }
+        return nullptr;
+    }
+
     SymbolTableEntry *find(const string &name, EntryType entry_type)
     {
         auto entry_stack_iter = table_map.find(name);
@@ -121,13 +138,18 @@ struct SymbolTable
 #ifdef debug
         printf("insert\n");
 #endif
-        auto cur = find(entry->name(), entry->entry_type);
+        auto cur = find_in_scope(entry->name(), entry->entry_type);
         if (cur != nullptr)
         {
             // redefine
             cout << "===========================redefine" << endl;
             cout << "line:" << entry->lineno << endl;
-            semantic_error(ErrorType::SemanticType3, entry->lineno, entry->name().c_str());
+            if (entry->entry_type == EntryType::TYPE && entry->type->category == Category::STRUCT)
+                semantic_error(ErrorType::SemanticType15, entry->lineno, entry->name().c_str());
+            else if (entry->entry_type == EntryType::FUNC)
+                semantic_error(ErrorType::SemanticType4, entry->lineno, entry->name().c_str());
+            else
+                semantic_error(ErrorType::SemanticType3, entry->lineno, entry->name().c_str());
             return;
         }
 
