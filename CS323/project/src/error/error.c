@@ -48,6 +48,11 @@ void semantic_error(int line, const char *msg) {
 void syntax_error(int line, const char *msg) {
     insert_err(ErrorType::Syntax, line, msg);
 }
+void semantic_error(ErrorType type, int line, const char *msg) {
+    printf("==sda=f=asdf=sad=fsa=df");
+    insert_err(type, line, msg);
+    printf("%d\n", has_error());
+}
 
 bool has_error() {
     return root_error != NULL;
@@ -64,8 +69,21 @@ void print_err(struct Error *err)
     if (err->lineno == 0)
         return;
 
-    printf("Error type %c at Line %d: %s\n",
-        'A' + (int)err->type,
+    if (err->type == ErrorType::Lexical ||
+        err->type == ErrorType::Syntax  ||
+        err->type == ErrorType::Semantic)
+     {
+        printf("Error type %c at Line %d: %s\n",
+            'A' + (int)err->type,
+            err->lineno,
+            err->msg
+        );
+        return;
+    }
+
+    // Semantic Error
+    printf("Error type %d at Line %d: %s\n",
+        (int)err->type - (int)ErrorType::SemanticType1 + 1,
         err->lineno,
         err->msg
     );

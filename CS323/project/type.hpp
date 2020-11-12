@@ -48,6 +48,7 @@ struct Type
         this->structure = structure;
     };
 };
+
 struct Field
 {
     char *name;

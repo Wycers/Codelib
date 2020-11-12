@@ -80,7 +80,12 @@ enum class NodeType
     ArgsMultiple = 47,
 
     ParamDec = 48,
-    VarList = 49
+    VarList = 49,
+
+    Dec = 50,
+    DecWithAssign = 51,
+
+    ExpArrayIndex = 52
 };
 
 struct Node

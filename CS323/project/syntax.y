@@ -49,7 +49,7 @@
 Program
        	:	ExtDefList	{
        		          	    root_node = new_node(233, "Program", "NULL", $1->lineno);
-                                 insert_node(root_node, $1);
+							insert_node(root_node, $1);
        		          	    $$ = root_node;
        		          	}
        	;
@@ -367,7 +367,7 @@ DefList
 Def
    	:	Specifier DecList SEMI      	{
    		                            	    root_node = new_node(233, "Def", "NULL", $1->lineno);
-                                               insert_node(root_node, $1);
+											insert_node(root_node, $1);
    		                            	    insert_node(root_node, $2);
    		                            	    insert_node(root_node, $3);
    		                            	    $$ = root_node;
@@ -402,7 +402,8 @@ DecList
 Dec
    	:	VarDec           	{
    		                 	    root_node = new_node(233, "Dec", "NULL", $1->lineno);
-                                    insert_node(root_node, $1);
+								insert_node(root_node, $1);
+								set_node_type(root_node, NodeType::Dec);
    		                 	    $$ = root_node;
    		                 	}
    	|	VarDec ASSIGN Exp	{
@@ -410,6 +411,7 @@ Dec
 								insert_node(root_node, $1);
    		                 	    insert_node(root_node, $2);
    		                 	    insert_node(root_node, $3);
+								set_node_type(root_node, NodeType::DecWithAssign);
    		                 	    $$ = root_node;
    		                 	}
    	|	VarDec ASSIGN ERR	{
@@ -585,6 +587,7 @@ Exp
    		                        	    insert_node(root_node, $2);
    		                        	    insert_node(root_node, $3);
    		                        	    insert_node(root_node, $4);
+										set_node_type(root_node, NodeType::ExpArrayIndex);
    		                        	    $$ = root_node;
    		                        	}
    	|	Exp DOT ID              	{

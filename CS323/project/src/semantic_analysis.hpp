@@ -88,32 +88,43 @@ Field *var_dec(Node *node, Type *type)
 {
 #ifdef debug
     printf("var_dec\n");
+    if (node)
+        printf("lineno: %d\n", node->lineno);
 #endif
     if (node->type == NodeType::VarDec)
         return new Field{node->children[0]->text, type, node->lineno};
 
     if (node->type == NodeType::VarDecArray)
-        return var_dec(node->children[0],
-                       new Type(new Array{type, _int(node->children[2])}));
+        return var_dec(node->children[0], new Type(new Array{type, _int(node->children[2])}));
 
     return nullptr;
 }
 
 Field *dec(Node *node, Type *type)
 {
+#ifdef debug
+    printf("dec\n");
+    if (node)
+        printf("lineno: %d\n", node->lineno);
+#endif
     Field *field = var_dec(node->children[0], type);
-    if (node->type == NodeType::VarDecArray)
+    if (node->type == NodeType::DecWithAssign)
     {
         Field *e = exp(node->children[2]);
         if (!_is_equivalent(e->type, type))
-        {
-            semantic_error(node->lineno, "Two sides of assignment have inconsistent type"); // "");
-        }
+            semantic_error(ErrorType::SemanticType5, node->lineno, "");
     }
+    // if (SYMBOL_TABLE.find(node->))
+    cout << "=====================" << field->name << endl;
     return field;
 }
 std::vector<Field *> dec_list(Node *node, Type *type)
 {
+#ifdef debug
+    printf("dec_list\n");
+    if (node)
+        printf("lineno: %d\n", node->lineno);
+#endif
     Field *field = dec(node->children[0], type);
     auto head = std::vector<Field *>{field};
     if (node->type == NodeType::VarDecListMultiple)
@@ -126,6 +137,11 @@ std::vector<Field *> dec_list(Node *node, Type *type)
 
 std::vector<Field *> def(Node *node)
 {
+#ifdef debug
+    printf("def\n");
+    if (node)
+        printf("lineno: %d\n", node->lineno);
+#endif
     Type *type = specifier(node->children[0]);
     Type *derived = _type_exist(type, node->lineno);
     if (derived == nullptr)
@@ -138,7 +154,8 @@ std::vector<Field *> def_list(Node *node, bool insert_now = false)
 {
 #ifdef debug
     printf("def_list\n");
-    printf("%p\n", node);
+    if (node)
+        printf("lineno: %d\n", node->lineno);
 #endif
     auto head = std::vector<Field *>();
     if (node && node->type == NodeType::DefList)
@@ -148,7 +165,7 @@ std::vector<Field *> def_list(Node *node, bool insert_now = false)
         {
             for (int i = 0; i < head.size(); i++)
             {
-                SYMBOL_TABLE.insert(new SymbolTableEntry(head[i]));
+                SYMBOL_TABLE.insert(new SymbolTableEntry(head[i], head[i]->lineno));
             }
         }
         auto tail = def_list(node->children[1], insert_now);
@@ -188,7 +205,8 @@ Type *specifier(Node *node)
 {
 #ifdef debug
     printf("specifier\n");
-    printf("%d\n", (int)node->type);
+    if (node)
+        printf("lineno: %d\n", node->lineno);
 #endif
     if (node == nullptr)
         return nullptr;
@@ -246,7 +264,7 @@ void stmt(Node *node, Type *ret_type)
     {
         Field *ret = exp(c[1]);
         if (!_is_equivalent(ret->type, ret_type))
-            semantic_error(node->lineno, "Invalid return type", "");
+            semantic_error(ErrorType::SemanticType8, node->lineno, "");
     }
     if (node->type == NodeType::StmtIf)
     {
@@ -282,7 +300,7 @@ void comp_st(Node *node, Type *ret_type, std::vector<Field *> params)
 #endif
     SYMBOL_TABLE.scope_push(ret_type);
     for (auto param : params)
-        SYMBOL_TABLE.insert(new SymbolTableEntry(param));
+        SYMBOL_TABLE.insert(new SymbolTableEntry(param, node->lineno));
     def_list(node->children[1], true);
     stmt_list(node->children[2], ret_type);
 
@@ -334,7 +352,7 @@ void ext_def(Node *node)
         _type_exist(type, node->lineno);
         auto fields = ext_dec_list(node->children[1], type);
         for (auto field : fields)
-            SYMBOL_TABLE.insert(new SymbolTableEntry(field));
+            SYMBOL_TABLE.insert(new SymbolTableEntry(field, field->lineno));
     }
     else if (node->type == NodeType::StructDef)
     {
@@ -355,7 +373,8 @@ void ext_def_list(Node *node)
 {
 #ifdef debug
     printf("ext_def_list\n");
-    // printf("%d\n", node && node->type);
+    if (node)
+        printf("lineno: %d\n", node->lineno);
 #endif
     if (node && node->type == NodeType::ExtDefList)
     {
@@ -364,10 +383,13 @@ void ext_def_list(Node *node)
     }
 }
 
+#define debug
 Field *exp(Node *node)
 {
 #ifdef debug
     printf("exp\n");
+    if (node)
+        printf("lineno: %d\n", node->lineno);
 #endif
     auto c = node->children;
     auto default_exp = new Field{"LValue", new Type(Primitive::NEXP), node->lineno};
@@ -378,16 +400,13 @@ Field *exp(Node *node)
         auto oprand_2 = exp(c[2]);
         if (oprand_1->name != "LValue")
         {
-            semantic_error(node->lineno,
-                           "LHS of assignment is not a LValue", "");
+            semantic_error(ErrorType::SemanticType6, node->lineno, "");
         }
         if (!_is_equivalent(oprand_1->type, oprand_2->type))
         {
             std::string msg =
                 to_str(oprand_1->type) + "!=" + to_str(oprand_2->type);
-            semantic_error(node->lineno,
-                           "unmatching type on both sides of assignment",
-                           msg.c_str());
+            semantic_error(ErrorType::SemanticType5, node->lineno, msg.c_str());
         }
         return new Field{"RValue", new Type(*oprand_1->type), node->lineno};
     }
@@ -422,11 +441,7 @@ Field *exp(Node *node)
         node->type == NodeType::ExpLE ||
         node->type == NodeType::ExpGE ||
         node->type == NodeType::ExpEQ ||
-        node->type == NodeType::ExpNE ||
-        node->type == NodeType::ExpPlus ||
-        node->type == NodeType::ExpMinus ||
-        node->type == NodeType::ExpMul ||
-        node->type == NodeType::ExpDiv)
+        node->type == NodeType::ExpNE)
     {
         auto oprand_1 = exp(c[0]);
         auto oprand_2 = exp(c[2]);
@@ -435,9 +450,7 @@ Field *exp(Node *node)
         if (category_1 != Category::PRIMITIVE ||
             category_2 != Category::PRIMITIVE)
         {
-            semantic_error(node->lineno,
-                           "Derived type can not be used in arithemetic operator",
-                           "");
+            semantic_error(ErrorType::SemanticType7, node->lineno, "");
             return default_exp;
         }
         auto primitive_1 = oprand_1->type->primitive;
@@ -457,6 +470,34 @@ Field *exp(Node *node)
                                "");
                 return default_exp;
             }
+        }
+        return new Field{"RValue", new Type(*oprand_1->type), node->lineno};
+    }
+    if (node->type == NodeType::ExpPlus ||
+        node->type == NodeType::ExpMinus ||
+        node->type == NodeType::ExpMul ||
+        node->type == NodeType::ExpDiv)
+    {
+        auto oprand_1 = exp(c[0]);
+        auto oprand_2 = exp(c[2]);
+        auto category_1 = oprand_1->type->category;
+        auto category_2 = oprand_2->type->category;
+        if (category_1 != Category::PRIMITIVE ||
+            category_2 != Category::PRIMITIVE)
+        {
+            semantic_error(ErrorType::SemanticType7, node->lineno, "");
+            return default_exp;
+        }
+        auto primitive_1 = oprand_1->type->primitive;
+        auto primitive_2 = oprand_2->type->primitive;
+
+        if (primitive_1 == Primitive::CHAR ||
+            primitive_2 == Primitive::CHAR)
+        {
+            semantic_error(node->lineno,
+                           "CHAR type can not be used in arithmetic operator",
+                           "");
+            return default_exp;
         }
         return new Field{"RValue", new Type(*oprand_1->type), node->lineno};
     }
@@ -498,11 +539,13 @@ Field *exp(Node *node)
         node->type == NodeType::ExpFuncCall)
     {
         std::string func_name = id(c[0]);
-        SymbolTableEntry *func_entry = SYMBOL_TABLE.find(func_name, EntryType::FUNC);
-        if (func_entry == NULL)
+        auto func_entry = SYMBOL_TABLE.find(func_name, EntryType::FUNC);
+        if (func_entry == nullptr)
         {
-            semantic_error(node->lineno, "Function not found",
-                           func_name.c_str());
+            if (SYMBOL_TABLE.find(func_name))
+                semantic_error(ErrorType::SemanticType11, node->lineno, func_name.c_str());
+            else
+                semantic_error(ErrorType::SemanticType2, node->lineno, func_name.c_str());
             return default_exp;
         }
         Func *func = func_entry->func;
@@ -511,9 +554,8 @@ Field *exp(Node *node)
             arguments = args(c[2]);
         if (func->params.size() != arguments.size())
         {
-            semantic_error(node->lineno,
-                           "Argument number does not equal",
-                           func_name.c_str());
+
+            semantic_error(ErrorType::SemanticType9, node->lineno, func_name.c_str());
             return new Field{"Exp", new Type(*func->ret), node->lineno};
         }
         for (int i = 0; i < arguments.size(); i++)
@@ -530,13 +572,32 @@ Field *exp(Node *node)
         }
         return new Field{"RValue", new Type(*func->ret), node->lineno};
     }
+    if (node->type == NodeType::ExpArrayIndex)
+    {
+        Field *field = exp(c[0]);
+        if (field->type->category != Category::ARRAY)
+        {
+            semantic_error(ErrorType::SemanticType10, node->lineno, field->name);
+            return default_exp;
+        }
+        Array *arr = field->type->array;
+        Field *idx = exp(c[2]);
+        if (idx->type->category != Category::PRIMITIVE ||
+            idx->type->primitive != Primitive::INT)
+        {
+            semantic_error(ErrorType::SemanticType12, node->lineno, field->name);
+            return default_exp;
+        }
+        return new Field{"LValue", new Type(*arr->type), node->lineno};
+    }
     if (node->type == NodeType::ExpFiledAccess)
     {
         Field *s = exp(c[0]);
         std::string field_name = id(c[2]);
         if (s->type->category != Category::STRUCT)
         {
-            semantic_error(node->lineno, "Not Structure", s->name);
+
+            semantic_error(ErrorType::SemanticType13, node->lineno, s->name);
             return default_exp;
         }
         auto fields = s->type->structure->fields;
@@ -547,17 +608,16 @@ Field *exp(Node *node)
                 return new Field{"LValue", new Type(*(i->type)), i->lineno};
             }
         }
-
-        semantic_error(node->lineno, "Field not exist", field_name.c_str());
+        semantic_error(ErrorType::SemanticType14, node->lineno, field_name.c_str());
         return default_exp;
     }
     if (node->type == NodeType::ExpId)
     {
         std::string var_name = id(c[0]);
-        SymbolTableEntry *var_entry = SYMBOL_TABLE.find(var_name, EntryType::FIELD);
-        if (var_entry == NULL)
+        auto var_entry = SYMBOL_TABLE.find(var_name, EntryType::FIELD);
+        if (var_entry == nullptr)
         {
-            semantic_error(node->lineno, "Variable not found in scope", var_name.c_str());
+            semantic_error(ErrorType::SemanticType1, node->lineno, var_name.c_str());
             return default_exp;
         }
         return new Field{"LValue", new Type(*var_entry->field->type), var_entry->field->lineno};

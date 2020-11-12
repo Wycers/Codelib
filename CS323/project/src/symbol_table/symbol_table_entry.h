@@ -2,30 +2,38 @@
 #include <string>
 #include <type.hpp>
 
-enum class EntryType { TYPE = 0, FUNC = 1, FIELD = 2 };
+enum class EntryType
+{
+    TYPE = 0,
+    FUNC = 1,
+    FIELD = 2
+};
 
-struct SymbolTableEntry {
+struct SymbolTableEntry
+{
 
     EntryType entry_type;
 
     int lineno;
 
-    union {
-        Type* type;
-        Field* field;
-        Func* func;
+    union
+    {
+        Type *type;
+        Field *field;
+        Func *func;
     };
 
-    SymbolTableEntry(Field* field)
-        : field(field), entry_type(EntryType::FIELD) {}
+    SymbolTableEntry(Field *field, int lineno)
+        : field(field), lineno(lineno), entry_type(EntryType::FIELD) {}
 
-    SymbolTableEntry(Func* func, int lineno)
+    SymbolTableEntry(Func *func, int lineno)
         : func(func), lineno(lineno), entry_type(EntryType::FUNC) {}
 
-    SymbolTableEntry(Type* type, int lineno)
+    SymbolTableEntry(Type *type, int lineno)
         : type(type), lineno(lineno), entry_type(EntryType::TYPE) {}
 
-    std::string name() {
+    std::string name()
+    {
         if (this->entry_type == EntryType::FIELD)
             return this->field->name;
         else if (this->entry_type == EntryType::FUNC)
@@ -37,4 +45,3 @@ struct SymbolTableEntry {
             return "";
     }
 };
-

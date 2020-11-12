@@ -1,9 +1,12 @@
 #include <symbol_table_entry.h>
+#include <error.h>
 
 #include <iostream>
 #include <unordered_map>
 #include <stack>
 #include <vector>
+
+
 
 using namespace std;
 
@@ -122,7 +125,9 @@ struct SymbolTable
         if (cur != nullptr)
         {
             // redefine
-            // insert_err(...)
+            cout << "===========================redefine" << endl;
+            cout << "line:" << entry->lineno << endl;
+            semantic_error(ErrorType::SemanticType3, entry->lineno, entry->name().c_str());
             return;
         }
 
