@@ -163,3 +163,10 @@ def hit_hb(s, targ, firstrun, supported):
 
 
 
+Making sure that the length in the request is smaller than the length of the payload before responsing can fix this problem.
+
+And: 
+
+>  Alice thinks the fundamental cause is missing the boundary checking during the buffer copy; Bob thinks the cause is missing the user input validation; Eva thinks that we can just delete the length value from the packet to solve everything.
+
+They are all right. Any one of these 3 ways can fix heartbleed problem. Though length is reserved to archive some features.
