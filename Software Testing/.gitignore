@@ -53,9 +53,7 @@ nbactions.xml
 
 
 # private tools
-fetch.py
 spoon.java
-pom.xml
 
 .idea/
 target/
