@@ -4,11 +4,18 @@
 #include "../type.hpp"
 #include "error.h"
 #include "node.h"
+
 #include <symbol_table.hpp>
 #include <vector>
 #include <unordered_set>
 
 #define debug
+
+struct Expression
+{
+    struct Field *field;
+    bool isLeftValue;
+};
 
 bool _is_equivalent(Type *s1, Type *s2)
 {
@@ -81,7 +88,7 @@ Type *_type_exist(Type *type, int lineno)
 }
 
 Type *specifier(Node *node);
-Field *exp(Node *node);
+Expression *exp(Node *node);
 void comp_st(Node *node, Type *ret_type, std::vector<Field *> params = std::vector<Field *>());
 
 Field *var_dec(Node *node, Type *type)
@@ -110,12 +117,13 @@ Field *dec(Node *node, Type *type)
     Field *field = var_dec(node->children[0], type);
     if (node->type == NodeType::DecWithAssign)
     {
-        Field *e = exp(node->children[2]);
+        Field *e = exp(node->children[2])->field;
         if (!_is_equivalent(e->type, type))
             semantic_error(ErrorType::SemanticType5, node->lineno, "");
     }
-    // if (SYMBOL_TABLE.find(node->))
+#ifdef debug
     cout << "=====================" << field->name << endl;
+#endif
     return field;
 }
 std::vector<Field *> dec_list(Node *node, Type *type)
@@ -142,7 +150,13 @@ std::vector<Field *> def(Node *node)
     if (node)
         printf("lineno: %d\n", node->lineno);
 #endif
+    printf("%s\n", node->text);
     Type *type = specifier(node->children[0]);
+    if (type == nullptr)
+    {
+        printf("======");
+        exit(-1);
+    }
     Type *derived = _type_exist(type, node->lineno);
     if (derived == nullptr)
         return dec_list(node->children[1], type);
@@ -194,7 +208,7 @@ Type *struct_specifier(Node *node)
             if (s.find(f->name) != s.end())
                 semantic_error(f->lineno,
                                "Repeated field name inside structure",
-                               f->name);
+                               f->name.c_str());
             s.insert(f->name);
         }
     }
@@ -239,7 +253,7 @@ std::vector<Field *> ext_dec_list(Node *node, Type *type)
 
 std::vector<Field *> args(Node *node)
 {
-    Field *e = exp(node->children[0]);
+    Field *e = exp(node->children[0])->field;
     auto head = std::vector<Field *>{e};
     if (node->type == NodeType::ArgsMultiple)
     {
@@ -262,7 +276,7 @@ void stmt(Node *node, Type *ret_type)
     }
     if (node->type == NodeType::StmtReturn)
     {
-        Field *ret = exp(c[1]);
+        Field *ret = exp(c[1])->field;
         if (!_is_equivalent(ret->type, ret_type))
             semantic_error(ErrorType::SemanticType8, node->lineno, "");
     }
@@ -383,8 +397,7 @@ void ext_def_list(Node *node)
     }
 }
 
-#define debug
-Field *exp(Node *node)
+Expression *exp(Node *node)
 {
 #ifdef debug
     printf("exp\n");
@@ -392,30 +405,34 @@ Field *exp(Node *node)
         printf("lineno: %d\n", node->lineno);
 #endif
     auto c = node->children;
-    auto default_exp = new Field{"LValue", new Type(Primitive::NEXP), node->lineno};
+    auto default_exp = new Expression{
+        new Field(new Type(Primitive::NEXP), node->lineno),
+        true};
 
     if (node->type == NodeType::ExpAssign)
     {
-        auto oprand_1 = exp(c[0]);
-        auto oprand_2 = exp(c[2]);
-        if (oprand_1->name != "LValue")
-        {
+        auto exp1 = exp(c[0]), exp2 = exp(c[2]);
+        if (exp1->isLeftValue == false)
             semantic_error(ErrorType::SemanticType6, node->lineno, "");
-        }
-        if (!_is_equivalent(oprand_1->type, oprand_2->type))
+
+        auto oprand1 = exp1->field, oprand2 = exp2->field;
+
+        if (!_is_equivalent(oprand1->type, oprand2->type))
         {
             std::string msg =
-                to_str(oprand_1->type) + "!=" + to_str(oprand_2->type);
+                to_str(oprand1->type) + "!=" + to_str(oprand2->type);
             semantic_error(ErrorType::SemanticType5, node->lineno, msg.c_str());
         }
-        return new Field{"RValue", new Type(*oprand_1->type), node->lineno};
+        return new Expression{
+            new Field{new Type(*oprand1->type), node->lineno},
+            false};
     }
     if (node->type == NodeType::ExpAnd || node->type == NodeType::ExpOr)
     {
-        auto oprand_1 = exp(c[0]);
-        auto oprand_2 = exp(c[2]);
-        auto category_1 = oprand_1->type->category;
-        auto category_2 = oprand_2->type->category;
+        auto exp1 = exp(c[0]), exp2 = exp(c[2]);
+        auto oprand1 = exp1->field, oprand2 = exp2->field;
+        auto category_1 = oprand1->type->category;
+        auto category_2 = oprand2->type->category;
         if (category_1 != Category::PRIMITIVE ||
             category_2 != Category::PRIMITIVE)
         {
@@ -424,8 +441,8 @@ Field *exp(Node *node)
                            "");
             return default_exp;
         }
-        auto primitive_1 = oprand_1->type->primitive;
-        auto primitive_2 = oprand_2->type->primitive;
+        auto primitive_1 = oprand1->type->primitive;
+        auto primitive_2 = oprand2->type->primitive;
         if (primitive_1 != Primitive::INT ||
             primitive_2 != Primitive::INT)
         {
@@ -434,7 +451,9 @@ Field *exp(Node *node)
                            "");
             return default_exp;
         }
-        return new Field{"RValue", new Type(*oprand_1->type), node->lineno};
+        return new Expression{
+            new Field{new Type(*oprand1->type), node->lineno},
+            false};
     }
     if (node->type == NodeType::ExpLT ||
         node->type == NodeType::ExpGT ||
@@ -443,18 +462,18 @@ Field *exp(Node *node)
         node->type == NodeType::ExpEQ ||
         node->type == NodeType::ExpNE)
     {
-        auto oprand_1 = exp(c[0]);
-        auto oprand_2 = exp(c[2]);
-        auto category_1 = oprand_1->type->category;
-        auto category_2 = oprand_2->type->category;
+        auto exp1 = exp(c[0]), exp2 = exp(c[2]);
+        auto oprand1 = exp1->field, oprand2 = exp2->field;
+        auto category_1 = oprand1->type->category;
+        auto category_2 = oprand2->type->category;
         if (category_1 != Category::PRIMITIVE ||
             category_2 != Category::PRIMITIVE)
         {
             semantic_error(ErrorType::SemanticType7, node->lineno, "");
             return default_exp;
         }
-        auto primitive_1 = oprand_1->type->primitive;
-        auto primitive_2 = oprand_2->type->primitive;
+        auto primitive_1 = oprand1->type->primitive;
+        auto primitive_2 = oprand2->type->primitive;
 
         if (primitive_1 == Primitive::CHAR ||
             primitive_2 == Primitive::CHAR)
@@ -471,25 +490,27 @@ Field *exp(Node *node)
                 return default_exp;
             }
         }
-        return new Field{"RValue", new Type(*oprand_1->type), node->lineno};
+        return new Expression{
+            new Field{new Type(*oprand1->type), node->lineno},
+            false};
     }
     if (node->type == NodeType::ExpPlus ||
         node->type == NodeType::ExpMinus ||
         node->type == NodeType::ExpMul ||
         node->type == NodeType::ExpDiv)
     {
-        auto oprand_1 = exp(c[0]);
-        auto oprand_2 = exp(c[2]);
-        auto category_1 = oprand_1->type->category;
-        auto category_2 = oprand_2->type->category;
+        auto exp1 = exp(c[0]), exp2 = exp(c[2]);
+        auto oprand1 = exp1->field, oprand2 = exp2->field;
+        auto category_1 = oprand1->type->category;
+        auto category_2 = oprand2->type->category;
         if (category_1 != Category::PRIMITIVE ||
             category_2 != Category::PRIMITIVE)
         {
             semantic_error(ErrorType::SemanticType7, node->lineno, "");
             return default_exp;
         }
-        auto primitive_1 = oprand_1->type->primitive;
-        auto primitive_2 = oprand_2->type->primitive;
+        auto primitive_1 = oprand1->type->primitive;
+        auto primitive_2 = oprand2->type->primitive;
 
         if (primitive_1 == Primitive::CHAR ||
             primitive_2 == Primitive::CHAR)
@@ -499,11 +520,13 @@ Field *exp(Node *node)
                            "");
             return default_exp;
         }
-        return new Field{"RValue", new Type(*oprand_1->type), node->lineno};
+        return new Expression{
+            new Field{new Type(*oprand1->type), node->lineno},
+            false};
     }
     if (node->type == NodeType::ExpNegative || node->type == NodeType::ExpNot)
     {
-        auto oprand = exp(c[1]);
+        auto oprand = exp(c[1])->field;
         if (oprand->type->category != Category::PRIMITIVE)
         {
             semantic_error(node->lineno,
@@ -511,29 +534,32 @@ Field *exp(Node *node)
                            "");
             return default_exp;
         }
-        else if (node->type == NodeType::ExpNegative &&
-                 oprand->type->primitive == Primitive::CHAR)
+        if (node->type == NodeType::ExpNegative &&
+            oprand->type->primitive == Primitive::CHAR)
         {
             semantic_error(node->lineno,
                            "CHAR type can not be used in negative operator",
                            "");
             return default_exp;
         }
-        else if (node->type == NodeType::ExpNot &&
-                 oprand->type->primitive != Primitive::INT)
+        if (node->type == NodeType::ExpNot &&
+            oprand->type->primitive != Primitive::INT)
         {
             semantic_error(node->lineno,
-                           "Only INT type can be used in negative operator",
+                           "Only INT type can be used in not operator",
                            "");
             return default_exp;
         }
-        return new Field{"RValue", new Type(*oprand->type),
-                         node->lineno};
+        return new Expression{
+            new Field{new Type(*oprand->type), node->lineno},
+            false};
     }
     if (node->type == NodeType::ExpBracketWrapped)
     {
-        auto e = exp(c[1]);
-        return new Field{e->name, new Type(*(e->type)), e->lineno};
+        auto e = exp(c[1])->field;
+        return new Expression{
+            new Field{e->name, new Type(*(e->type)), e->lineno},
+            false};
     }
     if (node->type == NodeType::ExpArgsFuncCall ||
         node->type == NodeType::ExpFuncCall)
@@ -556,57 +582,64 @@ Field *exp(Node *node)
         {
 
             semantic_error(ErrorType::SemanticType9, node->lineno, func_name.c_str());
-            return new Field{"Exp", new Type(*func->ret), node->lineno};
+
+            return new Expression{
+                new Field{"Exp", new Type(*func->ret), node->lineno},
+                false};
         }
         for (int i = 0; i < arguments.size(); i++)
         {
-            if (!_is_equivalent(func->params[i]->type,
-                                arguments[i]->type))
-            {
-                semantic_error(node->lineno,
-                               "Argument type does not match",
-                               func_name.c_str());
-                return new Field{"Exp", new Type(*func->ret),
-                                 node->lineno};
-            }
+            if (_is_equivalent(func->params[i]->type, arguments[i]->type))
+                continue;
+            semantic_error(node->lineno,
+                           "Argument type does not match",
+                           func_name.c_str());
+            return new Expression{
+                new Field{"Exp", new Type(*func->ret), node->lineno},
+                false};
         }
-        return new Field{"RValue", new Type(*func->ret), node->lineno};
+        return new Expression{
+            new Field{new Type(*func->ret), node->lineno},
+            false};
     }
     if (node->type == NodeType::ExpArrayIndex)
     {
-        Field *field = exp(c[0]);
+        Field *field = exp(c[0])->field;
         if (field->type->category != Category::ARRAY)
         {
-            semantic_error(ErrorType::SemanticType10, node->lineno, field->name);
+            semantic_error(ErrorType::SemanticType10, node->lineno, field->name.c_str());
             return default_exp;
         }
         Array *arr = field->type->array;
-        Field *idx = exp(c[2]);
+
+        Field *idx = exp(c[2])->field;
         if (idx->type->category != Category::PRIMITIVE ||
             idx->type->primitive != Primitive::INT)
         {
-            semantic_error(ErrorType::SemanticType12, node->lineno, field->name);
+            semantic_error(ErrorType::SemanticType12, node->lineno, field->name.c_str());
             return default_exp;
         }
-        return new Field{"LValue", new Type(*arr->type), node->lineno};
+        return new Expression{
+            new Field{new Type(*arr->type), node->lineno},
+            true};
     }
     if (node->type == NodeType::ExpFiledAccess)
     {
-        Field *s = exp(c[0]);
+        Field *s = exp(c[0])->field;
         std::string field_name = id(c[2]);
         if (s->type->category != Category::STRUCT)
         {
-
-            semantic_error(ErrorType::SemanticType13, node->lineno, s->name);
+            semantic_error(ErrorType::SemanticType13, node->lineno, s->name.c_str());
             return default_exp;
         }
         auto fields = s->type->structure->fields;
         for (auto i : fields)
         {
-            if (i->name == field_name)
-            {
-                return new Field{"LValue", new Type(*(i->type)), i->lineno};
-            }
+            if (i->name != field_name)
+                continue;
+            return new Expression{
+                new Field{new Type(*(i->type)), i->lineno},
+                true};
         }
         semantic_error(ErrorType::SemanticType14, node->lineno, field_name.c_str());
         return default_exp;
@@ -620,22 +653,30 @@ Field *exp(Node *node)
             semantic_error(ErrorType::SemanticType1, node->lineno, var_name.c_str());
             return default_exp;
         }
-        return new Field{"LValue", new Type(*var_entry->field->type), var_entry->field->lineno};
+        return new Expression{
+            new Field{new Type(*var_entry->field->type), var_entry->field->lineno},
+            true};
     }
     if (node->type == NodeType::ExpInt)
     {
-        return new Field{"RValue", new Type(Primitive::INT),
-                         node->lineno};
+        return new Expression{
+            new Field{new Type(Primitive::INT),
+                      node->lineno},
+            false};
     }
     if (node->type == NodeType::ExpChar)
     {
-        return new Field{"RValue", new Type(Primitive::CHAR),
-                         node->lineno};
+        return new Expression{
+            new Field{new Type(Primitive::CHAR),
+                      node->lineno},
+            false};
     }
     if (node->type == NodeType::ExpFloat)
     {
-        return new Field{"RValue", new Type(Primitive::FLOAT),
-                         node->lineno};
+        return new Expression{
+            new Field{new Type(Primitive::FLOAT),
+                      node->lineno},
+            false};
     }
 
     return default_exp;
