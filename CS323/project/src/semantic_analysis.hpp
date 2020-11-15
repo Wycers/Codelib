@@ -86,7 +86,7 @@ Field *dec(Node *node, Type *type)
     if (node->type == NodeType::DecWithAssign)
     {
         Field *e = exp(node->children[2])->field;
-        if (e->type != type)
+        if (!e->type->equals(type))
             semantic_error(ErrorType::SemanticType5, node->lineno, "");
     }
 #ifdef debug
@@ -245,7 +245,7 @@ void stmt(Node *node, Type *ret_type)
     if (node->type == NodeType::StmtReturn)
     {
         Field *ret = exp(c[1])->field;
-        if (ret->type != ret_type)
+        if (!ret->type->equals(ret_type))
             semantic_error(ErrorType::SemanticType8, node->lineno, "");
     }
     if (node->type == NodeType::StmtIf)
@@ -373,8 +373,8 @@ Expression *exp(Node *node)
         printf("lineno: %d\n", node->lineno);
 #endif
     auto c = node->children;
-    auto default_exp = new Expression{
-        new Field(new Type(Primitive::NEXP), node->lineno),
+    auto error_expr = new Expression{
+        new Field(new Type(Primitive::NotExpr), node->lineno),
         true};
 
     if (node->type == NodeType::ExpAssign)
@@ -385,7 +385,7 @@ Expression *exp(Node *node)
 
         auto oprand1 = exp1->field, oprand2 = exp2->field;
 
-        if (oprand1->type != oprand2->type)
+        if (!oprand1->type->equals(oprand2->type))
         {
             std::string msg =
                 to_str(oprand1->type) + "!=" + to_str(oprand2->type);
@@ -407,7 +407,7 @@ Expression *exp(Node *node)
             semantic_error(node->lineno,
                            "Only INT type can not be used in boolean operator",
                            "");
-            return default_exp;
+            return error_expr;
         }
         auto primitive_1 = oprand1->type->primitive;
         auto primitive_2 = oprand2->type->primitive;
@@ -417,7 +417,7 @@ Expression *exp(Node *node)
             semantic_error(node->lineno,
                            "Only INT type can not be used in boolean operator",
                            "");
-            return default_exp;
+            return error_expr;
         }
         return new Expression{
             new Field{new Type(*oprand1->type), node->lineno},
@@ -438,7 +438,7 @@ Expression *exp(Node *node)
             category_2 != Category::PRIMITIVE)
         {
             semantic_error(ErrorType::SemanticType7, node->lineno, "");
-            return default_exp;
+            return error_expr;
         }
         auto primitive_1 = oprand1->type->primitive;
         auto primitive_2 = oprand2->type->primitive;
@@ -455,7 +455,7 @@ Expression *exp(Node *node)
                 semantic_error(node->lineno,
                                "CHAR type can not be used in arithmetic operator",
                                "");
-                return default_exp;
+                return error_expr;
             }
         }
         return new Expression{
@@ -475,7 +475,7 @@ Expression *exp(Node *node)
             category_2 != Category::PRIMITIVE)
         {
             semantic_error(ErrorType::SemanticType7, node->lineno, "");
-            return default_exp;
+            return error_expr;
         }
         auto primitive_1 = oprand1->type->primitive;
         auto primitive_2 = oprand2->type->primitive;
@@ -486,7 +486,7 @@ Expression *exp(Node *node)
             semantic_error(node->lineno,
                            "CHAR type can not be used in arithmetic operator",
                            "");
-            return default_exp;
+            return error_expr;
         }
         return new Expression{
             new Field{new Type(*oprand1->type), node->lineno},
@@ -500,7 +500,7 @@ Expression *exp(Node *node)
             semantic_error(node->lineno,
                            "Derived type can not be used in negative operator",
                            "");
-            return default_exp;
+            return error_expr;
         }
         if (node->type == NodeType::ExpNegative &&
             oprand->type->primitive == Primitive::CHAR)
@@ -508,7 +508,7 @@ Expression *exp(Node *node)
             semantic_error(node->lineno,
                            "CHAR type can not be used in negative operator",
                            "");
-            return default_exp;
+            return error_expr;
         }
         if (node->type == NodeType::ExpNot &&
             oprand->type->primitive != Primitive::INT)
@@ -516,7 +516,7 @@ Expression *exp(Node *node)
             semantic_error(node->lineno,
                            "Only INT type can be used in not operator",
                            "");
-            return default_exp;
+            return error_expr;
         }
         return new Expression{
             new Field{new Type(*oprand->type), node->lineno},
@@ -540,7 +540,7 @@ Expression *exp(Node *node)
                 semantic_error(ErrorType::SemanticType11, node->lineno, func_name.c_str());
             else
                 semantic_error(ErrorType::SemanticType2, node->lineno, func_name.c_str());
-            return default_exp;
+            return error_expr;
         }
         Func *func = func_entry->func;
         std::vector<Field *> arguments{};
@@ -557,7 +557,7 @@ Expression *exp(Node *node)
         }
         for (int i = 0; i < arguments.size(); i++)
         {
-            if (func->params[i]->type == arguments[i]->type)
+            if (func->params[i]->type->equals(arguments[i]->type))
                 continue;
             semantic_error(node->lineno,
                            "Argument type does not match",
@@ -576,7 +576,7 @@ Expression *exp(Node *node)
         if (field->type->category != Category::ARRAY)
         {
             semantic_error(ErrorType::SemanticType10, node->lineno, field->name.c_str());
-            return default_exp;
+            return error_expr;
         }
         Array *arr = field->type->array;
 
@@ -585,7 +585,7 @@ Expression *exp(Node *node)
             idx->type->primitive != Primitive::INT)
         {
             semantic_error(ErrorType::SemanticType12, node->lineno, field->name.c_str());
-            return default_exp;
+            return error_expr;
         }
         return new Expression{
             new Field{new Type(*arr->type), node->lineno},
@@ -598,7 +598,7 @@ Expression *exp(Node *node)
         if (s->type->category != Category::STRUCT)
         {
             semantic_error(ErrorType::SemanticType13, node->lineno, s->name.c_str());
-            return default_exp;
+            return error_expr;
         }
         auto fields = s->type->structure->fields;
         for (auto i : fields)
@@ -610,7 +610,7 @@ Expression *exp(Node *node)
                 true};
         }
         semantic_error(ErrorType::SemanticType14, node->lineno, field_name.c_str());
-        return default_exp;
+        return error_expr;
     }
     if (node->type == NodeType::ExpId)
     {
@@ -619,7 +619,7 @@ Expression *exp(Node *node)
         if (var_entry == nullptr)
         {
             semantic_error(ErrorType::SemanticType1, node->lineno, var_name.c_str());
-            return default_exp;
+            return error_expr;
         }
         return new Expression{
             new Field{new Type(*var_entry->field->type), var_entry->field->lineno},
@@ -647,7 +647,7 @@ Expression *exp(Node *node)
             false};
     }
 
-    return default_exp;
+    return error_expr;
 }
 
 void program(Node *node)

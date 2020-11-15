@@ -18,8 +18,8 @@ string to_str(Type *type)
             return "FLOAT";
         else if (type->primitive == Primitive::CHAR)
             return "CHAR";
-        else if (type->primitive == Primitive::NEXP)
-            return "NON-EXP";
+        else if (type->primitive == Primitive::NotExpr)
+            return "Not a valid expression";
         else
             return to_string(static_cast<int>(type->primitive));
     }

@@ -15,7 +15,7 @@ enum class Primitive
     INT = INT,
     FLOAT = FLOAT,
     CHAR = CHAR,
-    NEXP = -1
+    NotExpr = -1
 };
 
 struct Type;
@@ -48,8 +48,7 @@ struct Type
         this->structure = structure;
     };
 
-    bool operator==(const Type *other) const;
-    bool operator!=(const Type *other) const;
+    bool equals(const Type *other);
 };
 
 struct Field
@@ -81,37 +80,34 @@ struct Func
     Type *ret;
 };
 
-bool Type::operator==(const Type *other) const
+bool Type::equals(const Type *other)
 {
-    if (this->category != other->category)
-        return false;
-
-    if (this->category == Category::PRIMITIVE)
-        return this->primitive == other->primitive;
-
-    if (this->category == Category::ARRAY)
-        return this->array->type == other->array->type &&
-               this->array->size == other->array->size;
-
-    if (this->category == Category::STRUCT)
     {
-        auto fields_1 = this->structure->fields;
-        auto fields_2 = other->structure->fields;
-        if (fields_1.size() != fields_2.size())
+        if (this->category != other->category)
             return false;
 
-        int s = fields_1.size();
-        for (int i = 0; i < s; i++)
-            if (fields_1[i]->type != fields_2[i]->type)
+        if (this->category == Category::PRIMITIVE)
+            return this->primitive == other->primitive;
+
+        if (this->category == Category::ARRAY)
+            return this->array->type->equals(other->array->type) &&
+                   this->array->size == other->array->size;
+
+        if (this->category == Category::STRUCT)
+        {
+            auto fields_1 = this->structure->fields;
+            auto fields_2 = other->structure->fields;
+            if (fields_1.size() != fields_2.size())
                 return false;
 
-        return true;
+            int s = fields_1.size();
+            for (int i = 0; i < s; i++)
+                if (!fields_1[i]->type->equals(fields_2[i]->type))
+                    return false;
+
+            return true;
+        }
+
+        return false;
     }
-
-    return false;
-}
-
-bool Type::operator!=(const Type *other) const
-{
-    return !(*this == other);
 }
