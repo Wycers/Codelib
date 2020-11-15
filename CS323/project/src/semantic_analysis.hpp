@@ -15,36 +15,6 @@ struct Expression
     bool isLeftValue;
 };
 
-bool _is_equivalent(Type *s1, Type *s2)
-{
-    if (s1->category != s2->category)
-        return false;
-
-    if (s1->category == Category::PRIMITIVE)
-        return s1->primitive == s2->primitive;
-
-    if (s1->category == Category::ARRAY)
-        return _is_equivalent(s1->array->type, s2->array->type) &&
-               s1->array->size == s2->array->size;
-
-    if (s1->category == Category::STRUCT)
-    {
-        auto fields_1 = s1->structure->fields;
-        auto fields_2 = s2->structure->fields;
-        if (fields_1.size() != fields_2.size())
-            return false;
-
-        int s = fields_1.size();
-        for (int i = 0; i < s; i++)
-            if (!_is_equivalent(fields_1[i]->type, fields_2[i]->type))
-                return false;
-
-        return true;
-    }
-
-    return false;
-}
-
 int _int(Node *node)
 {
     return strtol(node->text, nullptr, 10);
@@ -116,7 +86,7 @@ Field *dec(Node *node, Type *type)
     if (node->type == NodeType::DecWithAssign)
     {
         Field *e = exp(node->children[2])->field;
-        if (!_is_equivalent(e->type, type))
+        if (e->type != type)
             semantic_error(ErrorType::SemanticType5, node->lineno, "");
     }
 #ifdef debug
@@ -275,7 +245,7 @@ void stmt(Node *node, Type *ret_type)
     if (node->type == NodeType::StmtReturn)
     {
         Field *ret = exp(c[1])->field;
-        if (!_is_equivalent(ret->type, ret_type))
+        if (ret->type != ret_type)
             semantic_error(ErrorType::SemanticType8, node->lineno, "");
     }
     if (node->type == NodeType::StmtIf)
@@ -415,7 +385,7 @@ Expression *exp(Node *node)
 
         auto oprand1 = exp1->field, oprand2 = exp2->field;
 
-        if (!_is_equivalent(oprand1->type, oprand2->type))
+        if (oprand1->type != oprand2->type)
         {
             std::string msg =
                 to_str(oprand1->type) + "!=" + to_str(oprand2->type);
@@ -587,7 +557,7 @@ Expression *exp(Node *node)
         }
         for (int i = 0; i < arguments.size(); i++)
         {
-            if (_is_equivalent(func->params[i]->type, arguments[i]->type))
+            if (func->params[i]->type == arguments[i]->type)
                 continue;
             semantic_error(node->lineno,
                            "Argument type does not match",

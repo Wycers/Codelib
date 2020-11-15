@@ -36,12 +36,11 @@ struct SymbolTableEntry
     {
         if (this->entry_type == EntryType::FIELD)
             return this->field->name;
-        else if (this->entry_type == EntryType::FUNC)
+        if (this->entry_type == EntryType::FUNC)
             return this->func->name;
-        else if (this->entry_type == EntryType::TYPE &&
-                 this->type->category == Category::STRUCT)
+        if (this->entry_type == EntryType::TYPE && this->type->category == Category::STRUCT)
             return this->type->structure->name;
-        else
-            return "";
+
+        return "";
     }
 };
