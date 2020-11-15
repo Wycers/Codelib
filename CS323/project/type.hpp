@@ -51,9 +51,12 @@ struct Type
 
 struct Field
 {
-    char *name;
+    std::string name;
     struct Type *type;
     int lineno;
+
+    Field(Type *type, int lineno) : type(type), lineno(lineno) {}
+    Field(std::string name, Type *type, int lineno) : name(name), type(type), lineno(lineno) {}
 };
 
 struct Array

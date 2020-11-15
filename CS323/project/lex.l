@@ -1,6 +1,5 @@
 %{
     #include "syntax.tab.h"
-    // #define debug
 
     #include "node.h"
     #include "error.h"

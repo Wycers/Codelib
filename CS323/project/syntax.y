@@ -648,9 +648,12 @@ Args
 
 int main(int argc, char **argv){
 
+	char *filename = argv[1];
+
+
     FILE* fin = NULL;
     extern FILE* yyin;
-    fin = fopen(argv[1],"r");
+    fin = fopen(filename, "r");
 
     if(fin == NULL)
     {
@@ -662,6 +665,13 @@ int main(int argc, char **argv){
     yyparse();
     fclose(fin);
 
+	int len = strlen(filename);
+	filename[len - 3] = 'o';
+	filename[len - 2] = 'u';
+	filename[len - 1] = 't';
+
+	freopen(filename, "w", stdout);
+
 	semantic_analysis(root_node);
 
     if (has_error()) {
@@ -669,10 +679,11 @@ int main(int argc, char **argv){
 		return -1;
 	}
 
-	display(root_node, 0);
+	/* display(root_node, 0); */
 
-	SYMBOL_TABLE.print();
+	/* SYMBOL_TABLE.print(); */
 
+	fclose(stdout);
 	return 0;
 
 }

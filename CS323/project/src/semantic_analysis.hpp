@@ -9,8 +9,6 @@
 #include <vector>
 #include <unordered_set>
 
-#define debug
-
 struct Expression
 {
     struct Field *field;
@@ -149,12 +147,12 @@ std::vector<Field *> def(Node *node)
     printf("def\n");
     if (node)
         printf("lineno: %d\n", node->lineno);
-#endif
     printf("%s\n", node->text);
+#endif
     Type *type = specifier(node->children[0]);
     if (type == nullptr)
     {
-        printf("======");
+        printf("fatal error");
         exit(-1);
     }
     Type *derived = _type_exist(type, node->lineno);
@@ -318,7 +316,7 @@ void comp_st(Node *node, Type *ret_type, std::vector<Field *> params)
     def_list(node->children[1], true);
     stmt_list(node->children[2], ret_type);
 
-    SYMBOL_TABLE.print();
+    // SYMBOL_TABLE.print();
 
     SYMBOL_TABLE.scope_pop();
 }

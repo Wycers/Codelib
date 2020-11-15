@@ -49,9 +49,7 @@ void syntax_error(int line, const char *msg) {
     insert_err(ErrorType::Syntax, line, msg);
 }
 void semantic_error(ErrorType type, int line, const char *msg) {
-    printf("==sda=f=asdf=sad=fsa=df");
     insert_err(type, line, msg);
-    printf("%d\n", has_error());
 }
 
 bool has_error() {

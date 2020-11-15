@@ -142,8 +142,6 @@ struct SymbolTable
         if (cur != nullptr)
         {
             // redefine
-            cout << "===========================redefine" << endl;
-            cout << "line:" << entry->lineno << endl;
             if (entry->entry_type == EntryType::TYPE && entry->type->category == Category::STRUCT)
                 semantic_error(ErrorType::SemanticType15, entry->lineno, entry->name().c_str());
             else if (entry->entry_type == EntryType::FUNC)
