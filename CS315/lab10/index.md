@@ -17,125 +17,130 @@ Author: 11711918 吴烨昌
 Check certifications
 
 ``` plaintext
-➜  Wycer openssl s_client -connect www.example.org:443 -showcerts
+➜  Wycer openssl s_client -connect www.bilibili.com:443 -showcerts
 CONNECTED(00000003)
-depth=2 C = US, O = DigiCert Inc, OU = www.digicert.com, CN = DigiCert Global Root CA
+depth=2 OU = GlobalSign Root CA - R3, O = GlobalSign, CN = GlobalSign
 verify return:1
-depth=1 C = US, O = DigiCert Inc, CN = DigiCert SHA2 Secure Server CA
+depth=1 C = BE, O = GlobalSign nv-sa, CN = GlobalSign RSA OV SSL CA 2018
 verify return:1
-depth=0 C = US, ST = California, L = Los Angeles, O = Internet Corporation for Assigned Names and Numbers, OU = Technology, CN = www.example.org
+depth=0 C = CN, ST = \E4\B8\8A\E6\B5\B7, L = \E4\B8\8A\E6\B5\B7, O = \E4\B8\8A\E6\B5\B7\E5\B9\BB\E7\94\B5\E4\BF\A1\E6\81\AF\E7\A7\91\E6\8A\80\E6\9C\89\E9\99\90\E5\85\AC\E5\8F\B8, CN = *.bilibili.com
 verify return:1
 ---
 Certificate chain
- 0 s:C = US, ST = California, L = Los Angeles, O = Internet Corporation for Assigned Names and Numbers, OU = Technology, CN = www.example.org
-   i:C = US, O = DigiCert Inc, CN = DigiCert SHA2 Secure Server CA
+ 0 s:C = CN, ST = \E4\B8\8A\E6\B5\B7, L = \E4\B8\8A\E6\B5\B7, O = \E4\B8\8A\E6\B5\B7\E5\B9\BB\E7\94\B5\E4\BF\A1\E6\81\AF\E7\A7\91\E6\8A\80\E6\9C\89\E9\99\90\E5\85\AC\E5\8F\B8, CN = *.bilibili.com
+   i:C = BE, O = GlobalSign nv-sa, CN = GlobalSign RSA OV SSL CA 2018
 -----BEGIN CERTIFICATE-----
-MIIHQDCCBiigAwIBAgIQD9B43Ujxor1NDyupa2A4/jANBgkqhkiG9w0BAQsFADBN
-......
-0Gs4+eH6F9h3SojmPTYkT+8KuZ9w84Mn+M8qBXUQoYoKgIjN
+MIIGYjCCBUqgAwIBAgIMIZdGOFAcnWDaWHopMA0GCSqGSIb3DQEBCwUAMFAxCzAJ
+BgNVBAYTAkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52LXNhMSYwJAYDVQQDEx1H
+bG9iYWxTaWduIFJTQSBPViBTU0wgQ0EgMjAxODAeFw0yMDA4MDcwNzE2MDZaFw0y
+MjEwMTkwOTIxMDRaMHcxCzAJBgNVBAYTAkNOMQ8wDQYDVQQIDAbkuIrmtbcxDzAN
+BgNVBAcMBuS4iua1tzEtMCsGA1UECgwk5LiK5rW35bm755S15L+h5oGv56eR5oqA
+5pyJ6ZmQ5YWs5Y+4MRcwFQYDVQQDDA4qLmJpbGliaWxpLmNvbTCCASIwDQYJKoZI
+hvcNAQEBBQADggEPADCCAQoCggEBANrOd6vZ4pklKMFMjhWsIlqKMYAPIDsdqabS
+dnEloIsIQTF6f7nTEvTA1tUDv3vnVvLwW8Rpym+q1euGpwYvZyuT0nAzRUD3GEho
+1E9lXJF8qmTU4jd7fmaD/rO+aSCbIF3dGgINU+gqkXqExRJmu1FswEBKnbUZOTU6
+HYBVf7CFYY6lhyR8Mlk1DSwugG3xpJYdEqrJpoiQFRizxpOOSTZTINcjbFxATiOH
+i59rQdJSrBhl2G/ZoEPm6UWigeJ+9YsNkdLAk5uMZRiTwd4f8oIMQ1QX6Xl9PdNr
+vyvSAoqTfBOPH09igVhUgU9wg1ewR2IbgQB2PEZt5wcdqjVayPkCAwEAAaOCAxMw
+ggMPMA4GA1UdDwEB/wQEAwIFoDCBjgYIKwYBBQUHAQEEgYEwfzBEBggrBgEFBQcw
+AoY4aHR0cDovL3NlY3VyZS5nbG9iYWxzaWduLmNvbS9jYWNlcnQvZ3Nyc2FvdnNz
+bGNhMjAxOC5jcnQwNwYIKwYBBQUHMAGGK2h0dHA6Ly9vY3NwLmdsb2JhbHNpZ24u
+Y29tL2dzcnNhb3Zzc2xjYTIwMTgwVgYDVR0gBE8wTTBBBgkrBgEEAaAyARQwNDAy
+BggrBgEFBQcCARYmaHR0cHM6Ly93d3cuZ2xvYmFsc2lnbi5jb20vcmVwb3NpdG9y
+eS8wCAYGZ4EMAQICMAkGA1UdEwQCMAAwJwYDVR0RBCAwHoIOKi5iaWxpYmlsaS5j
+b22CDGJpbGliaWxpLmNvbTAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUHAwIw
+HwYDVR0jBBgwFoAU+O9/8s14Z6jeb48kjYjxhwMCs+swHQYDVR0OBBYEFA3bh7X3
+xVcYKx9xVhlkGt7DyRIGMIIBfwYKKwYBBAHWeQIEAgSCAW8EggFrAWkAdgBvU3as
+MfAxGdiZAKRRFf93FRwR2QLBACkGjbIImjfZEwAAAXPHxutKAAAEAwBHMEUCIQDk
+BVIt2jkljV9j7d2iAZZG/FPF7S89gKORcY2dmLoM8QIgbn94gRxBtL57+CLOtI29
+7ntK0Si2VOgevuQ6ApZymmkAdgBGpVXrdfqRIDC1oolp9PN9ESxBdL79SbiFq/L8
+cP5tRwAAAXPHxus6AAAEAwBHMEUCIQC6g30Cs55ncRXgaKikP+GKN/VaLGoO+8uJ
+l9mfBlI/mQIgHxHuoTEg7vRQcyeSaEDGrKYsWziybzWxy5KD7zAifMMAdwBRo7D1
+/QF5nFZtuDd4jwykeswbJ8v3nohCmg3+1IsF5QAAAXPHxusvAAAEAwBIMEYCIQDA
+Jndt3eZC88LqlCU8blkkiokB6vUWvb1K4yNsmciDyQIhAMgHRr4jQyTnxuj+IiRm
+BPJkC/F+SX6HJlmjtOXqOO6aMA0GCSqGSIb3DQEBCwUAA4IBAQAlfcuhFPYFupXM
+eC4nVtqYMOvrlwejUeBZewTs28Oyb+A4OPaMCqonqepoX+36rjOgPxpK2ksJOMDL
+1xALUh6EEbYRrl1SmwEPZ5AbIEVRTA3iuLJhf2xPy7uId71DiIhxY9nY7QM3lW1j
+++Dk1S69FQg/CX/M8Bn8qx/hTvCnBdV30kt3R83SBDRAAg7FC9keAIkZfxkuPEEW
+5msLHcINbAzyOQ5lkfx7dP8X6V/PLB3cG23cz8AIK+JOuwnQ5oUapz8U0zFgqGzP
+q8N1d9fhaAMfX9gfMhUOz37DqXoRzV0Fz9Zl4zfp4tfWGpe9Gmsezd/5h0DJ/wE6
+s064/1US
 -----END CERTIFICATE-----
- 1 s:C = US, O = DigiCert Inc, CN = DigiCert SHA2 Secure Server CA
-   i:C = US, O = DigiCert Inc, OU = www.digicert.com, CN = DigiCert Global Root CA
+ 1 s:C = BE, O = GlobalSign nv-sa, CN = GlobalSign RSA OV SSL CA 2018
+   i:OU = GlobalSign Root CA - R3, O = GlobalSign, CN = GlobalSign
 -----BEGIN CERTIFICATE-----
-MIIElDCCA3ygAwIBAgIQAf2j627KdciIQ4tyS8+8kTANBgkqhkiG9w0BAQsFADBh
-......
-j6tJLp07kzQoH3jOlOrHvdPJbRzeXDLz
+MIIETjCCAzagAwIBAgINAe5fIh38YjvUMzqFVzANBgkqhkiG9w0BAQsFADBMMSAw
+HgYDVQQLExdHbG9iYWxTaWduIFJvb3QgQ0EgLSBSMzETMBEGA1UEChMKR2xvYmFs
+U2lnbjETMBEGA1UEAxMKR2xvYmFsU2lnbjAeFw0xODExMjEwMDAwMDBaFw0yODEx
+MjEwMDAwMDBaMFAxCzAJBgNVBAYTAkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52
+LXNhMSYwJAYDVQQDEx1HbG9iYWxTaWduIFJTQSBPViBTU0wgQ0EgMjAxODCCASIw
+DQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKdaydUMGCEAI9WXD+uu3Vxoa2uP
+UGATeoHLl+6OimGUSyZ59gSnKvuk2la77qCk8HuKf1UfR5NhDW5xUTolJAgvjOH3
+idaSz6+zpz8w7bXfIa7+9UQX/dhj2S/TgVprX9NHsKzyqzskeU8fxy7quRU6fBhM
+abO1IFkJXinDY+YuRluqlJBJDrnw9UqhCS98NE3QvADFBlV5Bs6i0BDxSEPouVq1
+lVW9MdIbPYa+oewNEtssmSStR8JvA+Z6cLVwzM0nLKWMjsIYPJLJLnNvBhBWk0Cq
+o8VS++XFBdZpaFwGue5RieGKDkFNm5KQConpFmvv73W+eka440eKHRwup08CAwEA
+AaOCASkwggElMA4GA1UdDwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0G
+A1UdDgQWBBT473/yzXhnqN5vjySNiPGHAwKz6zAfBgNVHSMEGDAWgBSP8Et/qC5F
+JK5NUPpjmove4t0bvDA+BggrBgEFBQcBAQQyMDAwLgYIKwYBBQUHMAGGImh0dHA6
+Ly9vY3NwMi5nbG9iYWxzaWduLmNvbS9yb290cjMwNgYDVR0fBC8wLTAroCmgJ4Yl
+aHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9yb290LXIzLmNybDBHBgNVHSAEQDA+
+MDwGBFUdIAAwNDAyBggrBgEFBQcCARYmaHR0cHM6Ly93d3cuZ2xvYmFsc2lnbi5j
+b20vcmVwb3NpdG9yeS8wDQYJKoZIhvcNAQELBQADggEBAJmQyC1fQorUC2bbmANz
+EdSIhlIoU4r7rd/9c446ZwTbw1MUcBQJfMPg+NccmBqixD7b6QDjynCy8SIwIVbb
+0615XoFYC20UgDX1b10d65pHBf9ZjQCxQNqQmJYaumxtf4z1s4DfjGRzNpZ5eWl0
+6r/4ngGPoJVpjemEuunl1Ig423g7mNA2eymw0lIYkN5SQwCuaifIFJ6GlazhgDEw
+fpolu4usBCOmmQDo8dIm7A9+O4orkjgTHY+GzYZSR+Y0fFukAj6KYXwidlNalFMz
+hriSqHKvoflShx8xpfywgVcvzfTO3PYkz6fiNJBonf6q8amaEsybwMbDqKWwIX7e
+SPY=
 -----END CERTIFICATE-----
- 2 s:C = US, O = DigiCert Inc, OU = www.digicert.com, CN = DigiCert Global Root CA
-   i:C = US, O = DigiCert Inc, OU = www.digicert.com, CN = DigiCert Global Root CA
+ 2 s:OU = GlobalSign Root CA - R3, O = GlobalSign, CN = GlobalSign
+   i:C = BE, O = GlobalSign nv-sa, OU = Root CA, CN = GlobalSign Root CA
 -----BEGIN CERTIFICATE-----
-MIIDrzCCApegAwIBAgIQCDvgVpBCRrGhdWrJWZHHSjANBgkqhkiG9w0BAQUFADBh
-......
-CAUw7C29C79Fv1C5qfPrmAESrciIxpg0X40KPMbp1ZWVbd4=
+MIIETjCCAzagAwIBAgINAe5fFp3/lzUrZGXWajANBgkqhkiG9w0BAQsFADBXMQsw
+CQYDVQQGEwJCRTEZMBcGA1UEChMQR2xvYmFsU2lnbiBudi1zYTEQMA4GA1UECxMH
+Um9vdCBDQTEbMBkGA1UEAxMSR2xvYmFsU2lnbiBSb290IENBMB4XDTE4MDkxOTAw
+MDAwMFoXDTI4MDEyODEyMDAwMFowTDEgMB4GA1UECxMXR2xvYmFsU2lnbiBSb290
+IENBIC0gUjMxEzARBgNVBAoTCkdsb2JhbFNpZ24xEzARBgNVBAMTCkdsb2JhbFNp
+Z24wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDMJXaQeQZ4Ihb1wIO2
+hMoonv0FdhHFrYhy/EYCQ8eyip0EXyTLLkvhYIJG4VKrDIFHcGzdZNHr9SyjD4I9
+DCuul9e2FIYQebs7E4B3jAjhSdJqYi8fXvqWaN+JJ5U4nwbXPsnLJlkNc96wyOkm
+DoMVxu9bi9IEYMpJpij2aTv2y8gokeWdimFXN6x0FNx04Druci8unPvQu7/1PQDh
+BjPogiuuU6Y6FnOM3UEOIDrAtKeh6bJPkC4yYOlXy7kEkmho5TgmYHWyn3f/kRTv
+riBJ/K1AFUjRAjFhGV64l++td7dkmnq/X8ET75ti+w1s4FRpFqkD2m7pg5NxdsZp
+hYIXAgMBAAGjggEiMIIBHjAOBgNVHQ8BAf8EBAMCAQYwDwYDVR0TAQH/BAUwAwEB
+/zAdBgNVHQ4EFgQUj/BLf6guRSSuTVD6Y5qL3uLdG7wwHwYDVR0jBBgwFoAUYHtm
+GkUNl8qJUC99BM00qP/8/UswPQYIKwYBBQUHAQEEMTAvMC0GCCsGAQUFBzABhiFo
+dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9yb290cjEwMwYDVR0fBCwwKjAooCag
+JIYiaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9yb290LmNybDBHBgNVHSAEQDA+
+MDwGBFUdIAAwNDAyBggrBgEFBQcCARYmaHR0cHM6Ly93d3cuZ2xvYmFsc2lnbi5j
+b20vcmVwb3NpdG9yeS8wDQYJKoZIhvcNAQELBQADggEBACNw6c/ivvVZrpRCb8RD
+M6rNPzq5ZBfyYgZLSPFAiAYXof6r0V88xjPy847dHx0+zBpgmYILrMf8fpqHKqV9
+D6ZX7qw7aoXW3r1AY/itpsiIsBL89kHfDwmXHjjqU5++BfQ+6tOfUBJ2vgmLwgtI
+fR4uUfaNU9OrH0Abio7tfftPeVZwXwzTjhuzp3ANNyuXlava4BJrHEDOxcd+7cJi
+WOx37XMiwor1hkOIreoTbv3Y/kIvuX1erRjvlJDKPSerJpSZdcfL03v3ykzTr1Eh
+kluEfSufFT90y1HonoMOFm8b50bOI7355KKL0jlrqnkckSziYSQtjipIcJDEHsXo
+4HA=
 -----END CERTIFICATE-----
 ---
+Server certificate
+......
 ```
+
+Store first and second certificate to `c0.pem` and `c1.pem`
 
 #### Step 2
 
-Check $n$ (module) , $e$ (encrypt key) of the **issuer**
+Find $n$(module) , $e$ (encrypt key) of the **issuer**
 
 ``` bash
-➜  Wycer openssl x509 -in c1.pem -text -noout
-Certificate:
-    Data:
-        Version: 3 (0x2)
-        Serial Number:
-            01:fd:a3:eb:6e:ca:75:c8:88:43:8b:72:4b:cf:bc:91
-        Signature Algorithm: sha256WithRSAEncryption
-        Issuer: C = US, O = DigiCert Inc, OU = www.digicert.com, CN = DigiCert Global Root CA
-        Validity
-            Not Before: Mar  8 12:00:00 2013 GMT
-            Not After : Mar  8 12:00:00 2023 GMT
-        Subject: C = US, O = DigiCert Inc, CN = DigiCert SHA2 Secure Server CA
-        Subject Public Key Info:
-            Public Key Algorithm: rsaEncryption
-                RSA Public-Key: (2048 bit)
-                Modulus:
-                    00:dc:ae:58:90:4d:c1:c4:30:15:90:35:5b:6e:3c:
-                    82:15:f5:2c:5c:bd:e3:db:ff:71:43:fa:64:25:80:
-                    d4:ee:18:a2:4d:f0:66:d0:0a:73:6e:11:98:36:17:
-                    64:af:37:9d:fd:fa:41:84:af:c7:af:8c:fe:1a:73:
-                    4d:cf:33:97:90:a2:96:87:53:83:2b:b9:a6:75:48:
-                    2d:1d:56:37:7b:da:31:32:1a:d7:ac:ab:06:f4:aa:
-                    5d:4b:b7:47:46:dd:2a:93:c3:90:2e:79:80:80:ef:
-                    13:04:6a:14:3b:b5:9b:92:be:c2:07:65:4e:fc:da:
-                    fc:ff:7a:ae:dc:5c:7e:55:31:0c:e8:39:07:a4:d7:
-                    be:2f:d3:0b:6a:d2:b1:df:5f:fe:57:74:53:3b:35:
-                    80:dd:ae:8e:44:98:b3:9f:0e:d3:da:e0:d7:f4:6b:
-                    29:ab:44:a7:4b:58:84:6d:92:4b:81:c3:da:73:8b:
-                    12:97:48:90:04:45:75:1a:dd:37:31:97:92:e8:cd:
-                    54:0d:3b:e4:c1:3f:39:5e:2e:b8:f3:5c:7e:10:8e:
-                    86:41:00:8d:45:66:47:b0:a1:65:ce:a0:aa:29:09:
-                    4e:f3:97:eb:e8:2e:ab:0f:72:a7:30:0e:fa:c7:f4:
-                    fd:14:77:c3:a4:5b:28:57:c2:b3:f9:82:fd:b7:45:
-                    58:9b
-                Exponent: 65537 (0x10001)
-        X509v3 extensions:
-            X509v3 Basic Constraints: critical
-                CA:TRUE, pathlen:0
-            X509v3 Key Usage: critical
-                Digital Signature, Certificate Sign, CRL Sign
-            Authority Information Access:
-                OCSP - URI:http://ocsp.digicert.com
-
-            X509v3 CRL Distribution Points:
-
-                Full Name:
-                  URI:http://crl3.digicert.com/DigiCertGlobalRootCA.crl
-
-                Full Name:
-                  URI:http://crl4.digicert.com/DigiCertGlobalRootCA.crl
-
-            X509v3 Certificate Policies:
-                Policy: X509v3 Any Policy
-                  CPS: https://www.digicert.com/CPS
-
-            X509v3 Subject Key Identifier:
-                0F:80:61:1C:82:31:61:D5:2F:28:E7:8D:46:38:B4:2C:E1:C6:D9:E2
-            X509v3 Authority Key Identifier:
-                keyid:03:DE:50:35:56:D1:4C:BB:66:F0:A3:E2:1B:1B:C3:97:B2:3D:D1:55
-
-    Signature Algorithm: sha256WithRSAEncryption
-         23:3e:df:4b:d2:31:42:a5:b6:7e:42:5c:1a:44:cc:69:d1:68:
-         b4:5d:4b:e0:04:21:6c:4b:e2:6d:cc:b1:e0:97:8f:a6:53:09:
-         cd:aa:2a:65:e5:39:4f:1e:83:a5:6e:5c:98:a2:24:26:e6:fb:
-         a1:ed:93:c7:2e:02:c6:4d:4a:bf:b0:42:df:78:da:b3:a8:f9:
-         6d:ff:21:85:53:36:60:4c:76:ce:ec:38:dc:d6:51:80:f0:c5:
-         d6:e5:d4:4d:27:64:ab:9b:c7:3e:71:fb:48:97:b8:33:6d:c9:
-         13:07:ee:96:a2:1b:18:15:f6:5c:4c:40:ed:b3:c2:ec:ff:71:
-         c1:e3:47:ff:d4:b9:00:b4:37:42:da:20:c9:ea:6e:8a:ee:14:
-         06:ae:7d:a2:59:98:88:a8:1b:6f:2d:f4:f2:c9:14:5f:26:cf:
-         2c:8d:7e:ed:37:c0:a9:d5:39:b9:82:bf:19:0c:ea:34:af:00:
-         21:68:f8:ad:73:e2:c9:32:da:38:25:0b:55:d3:9a:1d:f0:68:
-         86:ed:2e:41:34:ef:7c:a5:50:1d:bf:3a:f9:d3:c1:08:0c:e6:
-         ed:1e:8a:58:25:e4:b8:77:ad:2d:6e:f5:52:dd:b4:74:8f:ab:
-         49:2e:9d:3b:93:34:28:1f:78:ce:94:ea:c7:bd:d3:c9:6d:1c:
-         de:5c:32:f3
+➜  Wycer openssl x509 -in c1.pem -noout -modulus
+Modulus=A75AC9D50C18210023D5970FEBAEDD5C686B6B8F5060137A81CB97EE8E8A61944B2679F604A72AFBA4DA56BBEEA0A4F07B8A7F551F4793610D6E71513A2524082F8CE1F789D692CFAFB3A73F30EDB5DF21AEFEF54417FDD863D92FD3815A6B5FD347B0ACF2AB3B24794F1FC72EEAB9153A7C184C69B3B52059095E29C363E62E465BAA9490490EB9F0F54AA1092F7C344DD0BC00C506557906CEA2D010F14843E8B95AB59555BD31D21B3D86BEA1EC0D12DB2C9924AD47C26F03E67A70B570CCCD272CA58C8EC2183C92C92E736F0610569340AAA3C552FBE5C505D669685C06B9EE5189E18A0E414D9B92900A89E9166BEFEF75BE7A46B8E3478A1D1C2EA74F
 ```
 
 ``` bash
- openssl x509 -in c1.pem -noout -pubkey > issuer-pub.pem
+➜  Wycer openssl x509 -in c1.pem -text -noout | grep Exponent
+                Exponent: 65537 (0x10001)
 ```
 
 #### Step 3
@@ -143,10 +148,29 @@ Certificate:
 extract the signature block of a certificate.
 
 ``` bash
-➜  Wycer vim sign
-➜  Wycer cat sign | tr -d '[:space:]:' > sign_std
+➜  Wycer openssl x509 -in c0.pem -text -noout
+Certificate:
+......
+    Signature Algorithm: sha256WithRSAEncryption
+         25:7d:cb:a1:14:f6:05:ba:95:cc:78:2e:27:56:da:98:30:eb:
+         eb:97:07:a3:51:e0:59:7b:04:ec:db:c3:b2:6f:e0:38:38:f6:
+         8c:0a:aa:27:a9:ea:68:5f:ed:fa:ae:33:a0:3f:1a:4a:da:4b:
+         09:38:c0:cb:d7:10:0b:52:1e:84:11:b6:11:ae:5d:52:9b:01:
+         0f:67:90:1b:20:45:51:4c:0d:e2:b8:b2:61:7f:6c:4f:cb:bb:
+         88:77:bd:43:88:88:71:63:d9:d8:ed:03:37:95:6d:63:fb:e0:
+         e4:d5:2e:bd:15:08:3f:09:7f:cc:f0:19:fc:ab:1f:e1:4e:f0:
+         a7:05:d5:77:d2:4b:77:47:cd:d2:04:34:40:02:0e:c5:0b:d9:
+         1e:00:89:19:7f:19:2e:3c:41:16:e6:6b:0b:1d:c2:0d:6c:0c:
+         f2:39:0e:65:91:fc:7b:74:ff:17:e9:5f:cf:2c:1d:dc:1b:6d:
+         dc:cf:c0:08:2b:e2:4e:bb:09:d0:e6:85:1a:a7:3f:14:d3:31:
+         60:a8:6c:cf:ab:c3:75:77:d7:e1:68:03:1f:5f:d8:1f:32:15:
+         0e:cf:7e:c3:a9:7a:11:cd:5d:05:cf:d6:65:e3:37:e9:e2:d7:
+         d6:1a:97:bd:1a:6b:1e:cd:df:f9:87:40:c9:ff:01:3a:b3:4e:
+         b8:ff:55:12
+➜  Wycer vim signature
+➜  Wycer cat signature | tr -d '[:space:]:' > sign_std
 ➜  Wycer cat sign_std
-737085ef4041a76a43d5789c7b5548e6bc6b9986bafb0d038b78fe11f029a00ccd69140bc60478b2cef087d5019dc4597a71fef06e9ec1a0b0912d1fea3d55c533050ccdc13518b06a68664cbf5621da5bd948b98c3521915ddc75d77a462c2227a66fd33a17ebbebd13c5122673c05da335896afb27d4ddaa74742e37e5013ba6d030b083d0a1c4752185b2e5fa670030a2bc53834dbfd6a883bbbcd6ed1cb31ef1580382008e9cef90f21a5fa2a306da5dbe9fda5da6e62fde588018d3f1627ba6a39faea86972638165ae8283a3b5978a9b2051ff1a3f61401e48d06b38f9e1fa17d8774a88e63d36244fef0ab99f70f38327f8cf2a057510a18a0a8088cd#
+257dcba114f605ba95cc782e2756da9830ebeb9707a351e0597b04ecdbc3b26fe03838f68c0aaa27a9ea685fedfaae33a03f1a4ada4b0938c0cbd7100b521e8411b611ae5d529b010f67901b2045514c0de2b8b2617f6c4fcbbb8877bd4388887163d9d8ed0337956d63fbe0e4d52ebd15083f097fccf019fcab1fe14ef0a705d577d24b7747cdd2043440020ec50bd91e0089197f192e3c4116e66b0b1dc20d6c0cf2390e6591fc7b74ff17e95fcf2c1ddc1b6ddccfc0082be24ebb09d0e6851aa73f14d33160a86ccfabc37577d7e168031f5fd81f32150ecf7ec3a97a11cd5d05cfd665e337e9e2d7d61a97bd1a6b1ecddff98740c9ff013ab34eb8ff5512
 ```
 
 #### Step 4
@@ -156,27 +180,34 @@ use ASN.1 structure to extract the bpdy of the certificate.
 ```
 ➜  Wycer openssl asn1parse -i -in c0.pem -strparse 4 -out c0_body.bin -noout
 ➜  Wycer openssl dgst -sha256 c0_body.bin
-SHA256(c0_body.bin)= 2c2a46bf245dab54ddb47298621e9629309f0e2c90c4d80d535c7d4e8ab07d29
+SHA256(c0_body.bin)= b4a346a7e966ff17ff6d2a1e8673843e9bc424122a26f7600e652ba861c17928
 ```
 
 #### Step 5
 
-From step 4, we know that the hash of the certificate body is `2c2a46bf245dab54ddb47298621e9629309f0e2c90c4d80d535c7d4e8ab07d29`.
+From step 4, we know that the hash of the certificate body is `b4a346a7e966ff17ff6d2a1e8673843e9bc424122a26f7600e652ba861c17928`.
 
 From step 2 & 3, we know that public key and signature, we decrypt the signature with public key. And use `asn1parse` to find out the decrypted hash.
 
-``` bash
-➜  Wycer echo 737085ef4041a76a43d5789c7b5548e6bc6b9986bafb0d038b78fe11f029a00ccd69140bc60478b2cef087d5019dc4597a71fef06e9ec1a0b0912d1fea3d55c533050ccdc13518b06a68664cbf5621da5bd948b98c3521915ddc75d77a462c2227a66fd33a17ebbebd13c5122673c05da335896afb27d4ddaa74742e37e5013ba6d030b083d0a1c4752185b2e5fa670030a2bc53834dbfd6a883bbbcd6ed1cb31ef1580382008e9cef90f21a5fa2a306da5dbe9fda5da6e62fde588018d3f1627ba6a39faea86972638165ae8283a3b5978a9b2051ff1a3f61401e48d06b38f9e1fa17d8774a88e63d36244fef0ab99f70f38327f8cf2a057510a18a0a8088cd  | xxd -r -p > signature.bin
-➜  Wycer openssl rsautl -verify -inkey issuer-pub.pem -in signature.bin -pubin > signature-decrypted.bin
-➜  Wycer openssl asn1parse -inform DER -in signature-decrypted.bin
-    0:d=0  hl=2 l=  49 cons: SEQUENCE
-    2:d=1  hl=2 l=  13 cons: SEQUENCE
-    4:d=2  hl=2 l=   9 prim: OBJECT            :sha256
-   15:d=2  hl=2 l=   0 prim: NULL
-   17:d=1  hl=2 l=  32 prim: OCTET STRING      [HEX DUMP]:2C2A46BF245DAB54DDB47298621E9629309F0E2C90C4D80D535C7D4E8AB07D29
+``` python
+
+def QuickPower(a, n, p): # 快速幂算法
+    tmp = a
+    ret = 1
+    while n > 0:
+        if n&1:
+            ret = (ret * tmp) % p
+        tmp = (tmp * tmp) % p
+        n>>=1
+    return ret
+n = 0xA75AC9D50C18210023D5970FEBAEDD5C686B6B8F5060137A81CB97EE8E8A61944B2679F604A72AFBA4DA56BBEEA0A4F07B8A7F551F4793610D6E71513A2524082F8CE1F789D692CFAFB3A73F30EDB5DF21AEFEF54417FDD863D92FD3815A6B5FD347B0ACF2AB3B24794F1FC72EEAB9153A7C184C69B3B52059095E29C363E62E465BAA9490490EB9F0F54AA1092F7C344DD0BC00C506557906CEA2D010F14843E8B95AB59555BD31D21B3D86BEA1EC0D12DB2C9924AD47C26F03E67A70B570CCCD272CA58C8EC2183C92C92E736F0610569340AAA3C552FBE5C505D669685C06B9EE5189E18A0E414D9B92900A89E9166BEFEF75BE7A46B8E3478A1D1C2EA74F
+S = 0x257dcba114f605ba95cc782e2756da9830ebeb9707a351e0597b04ecdbc3b26fe03838f68c0aaa27a9ea685fedfaae33a03f1a4ada4b0938c0cbd7100b521e8411b611ae5d529b010f67901b2045514c0de2b8b2617f6c4fcbbb8877bd4388887163d9d8ed0337956d63fbe0e4d52ebd15083f097fccf019fcab1fe14ef0a705d577d24b7747cdd2043440020ec50bd91e0089197f192e3c4116e66b0b1dc20d6c0cf2390e6591fc7b74ff17e95fcf2c1ddc1b6ddccfc0082be24ebb09d0e6851aa73f14d33160a86ccfabc37577d7e168031f5fd81f32150ecf7ec3a97a11cd5d05cfd665e337e9e2d7d61a97bd1a6b1ecddff98740c9ff013ab34eb8ff5512
+e = 65537
+
+d = QuickPower(S, e, n)
+
+print(hex(d))
+# 0x1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff003031300d060960864801650304020105000420b4a346a7e966ff17ff6d2a1e8673843e9bc424122a26f7600e652ba861c17928
 ```
 
-Noticed that the hex of hash is matched. So the certificate of example.org is valid.
-
-> https://kulkarniamit.github.io/whatwhyhow/howto/verify-ssl-tls-certificate-signature.html
-
+It ends with the same hash of the certificate body. So it's verified.
