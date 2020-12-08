@@ -1,0 +1,136 @@
+Program (1)
+  ExtDefList (1)
+    ExtDef (1)
+      Specifier (1)
+        StructSpecifier (1)
+          STRUCT
+          ID: mYStru4ct
+          LC
+          DefList (2)
+            Def (2)
+              Specifier (2)
+                TYPE: int
+              DecList (2)
+                Dec (2)
+                  VarDec (2)
+                    ID: a
+              SEMI
+            DefList (3)
+              Def (3)
+                Specifier (3)
+                  TYPE: float
+                DecList (3)
+                  Dec (3)
+                    VarDec (3)
+                      ID: b
+                SEMI
+              DefList (4)
+                Def (4)
+                  Specifier (4)
+                    TYPE: char
+                  DecList (4)
+                    Dec (4)
+                      VarDec (4)
+                        ID: c
+                  SEMI
+          RC
+      ExtDecList (5)
+        VarDec (5)
+          VarDec (5)
+            ID: list
+          LB
+          INT: 3
+          RB
+      SEMI
+    ExtDefList (7)
+      ExtDef (7)
+        Specifier (7)
+          TYPE: int
+        ExtDecList (7)
+          VarDec (7)
+            ID: global_value
+        SEMI
+      ExtDefList (9)
+        ExtDef (9)
+          Specifier (9)
+            TYPE: int
+          FunDec (9)
+            ID: main
+            LP
+            RP
+          CompSt (9)
+            LC
+            DefList (10)
+              Def (10)
+                Specifier (10)
+                  TYPE: int
+                DecList (10)
+                  Dec (10)
+                    VarDec (10)
+                      ID: a
+                  COMMA
+                  DecList (10)
+                    Dec (10)
+                      VarDec (10)
+                        ID: b
+                      ASSIGN
+                      Exp (10)
+                        INT: 12
+                SEMI
+            StmtList (11)
+              Stmt (11)
+                Exp (11)
+                  Exp (11)
+                    ID: b
+                  ASSIGN
+                  Exp (11)
+                    INT: 268345635
+                SEMI
+              StmtList (12)
+                Stmt (12)
+                  IF
+                  LP
+                  Exp (12)
+                    Exp (12)
+                      ID: a
+                    GT
+                    Exp (12)
+                      ID: b
+                  RP
+                  Stmt (12)
+                    CompSt (12)
+                      LC
+                      StmtList (13)
+                        Stmt (13)
+                          Exp (13)
+                            Exp (13)
+                              ID: a
+                            ASSIGN
+                            Exp (13)
+                              Exp (13)
+                                ID: b
+                              PLUS
+                              Exp (13)
+                                INT: 1
+                          SEMI
+                      RC
+                  ELSE
+                  Stmt (14)
+                    CompSt (14)
+                      LC
+                      StmtList (15)
+                        Stmt (15)
+                          RETURN
+                          Exp (15)
+                            INT: 5
+                          SEMI
+                      RC
+                StmtList (17)
+                  Stmt (17)
+                    RETURN
+                    Exp (17)
+                      ID: main
+                      LP
+                      RP
+                    SEMI
+            RC

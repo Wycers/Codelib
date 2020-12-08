@@ -1,0 +1,4 @@
+int _hhh(char c){
+	int a, bb
+	printf('c') c = c + 1;
+}

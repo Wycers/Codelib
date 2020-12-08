@@ -1,0 +1,13 @@
+int add(int a, int b){
+    return a+b;
+}
+
+int main(){
+    int a, b, c;
+
+    a = 3;
+    b = 4;
+    printf(add(a,b));
+
+    return 0;
+}

@@ -1,0 +1,4 @@
+int test_11711335_2(float a, char b){
+    int result = 0XCcLd143;
+    return i * a;
+}

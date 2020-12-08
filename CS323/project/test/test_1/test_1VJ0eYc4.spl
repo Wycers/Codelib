@@ -1,0 +1,11 @@
+int n;
+
+struct pair {
+    int a, b;
+};
+
+int test_11711111_1() {
+    pair.a = 1000;
+    pair.b = 0;
+    return 0;
+}

@@ -1,0 +1,4 @@
+Error type B at Line 10: Missing specifier
+Error type A at Line 22: unknown lexeme 1_testTs1
+Error type B at Line 29: Missing semicolon ';'
+Error type A at Line 30: unknown lexeme 0xz55ff

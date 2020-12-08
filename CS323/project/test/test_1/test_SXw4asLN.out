@@ -1,0 +1,117 @@
+Program (1)
+  ExtDefList (1)
+    ExtDef (1)
+      Specifier (1)
+        TYPE: int
+      FunDec (1)
+        ID: add_function
+        LP
+        VarList (1)
+          ParamDec (1)
+            Specifier (1)
+              TYPE: int
+            VarDec (1)
+              ID: a
+          COMMA
+          VarList (1)
+            ParamDec (1)
+              Specifier (1)
+                TYPE: int
+              VarDec (1)
+                ID: b
+        RP
+      CompSt (2)
+        LC
+        DefList (3)
+          Def (3)
+            Specifier (3)
+              TYPE: int
+            DecList (3)
+              Dec (3)
+                VarDec (3)
+                  ID: c
+                ASSIGN
+                Exp (3)
+                  Exp (3)
+                    ID: a
+                  PLUS
+                  Exp (3)
+                    ID: b
+            SEMI
+        StmtList (4)
+          Stmt (4)
+            RETURN
+            Exp (4)
+              ID: c
+            SEMI
+        RC
+    ExtDefList (7)
+      ExtDef (7)
+        Specifier (7)
+          TYPE: int
+        FunDec (7)
+          ID: mul_function
+          LP
+          VarList (7)
+            ParamDec (7)
+              Specifier (7)
+                TYPE: float
+              VarDec (7)
+                ID: a
+            COMMA
+            VarList (7)
+              ParamDec (7)
+                Specifier (7)
+                  TYPE: float
+                VarDec (7)
+                  ID: b
+          RP
+        CompSt (7)
+          LC
+          StmtList (8)
+            Stmt (8)
+              RETURN
+              Exp (8)
+                Exp (8)
+                  ID: a
+                MUL
+                Exp (8)
+                  ID: b
+              SEMI
+          RC
+      ExtDefList (11)
+        ExtDef (11)
+          Specifier (11)
+            TYPE: int
+          FunDec (11)
+            ID: test_1
+            LP
+            RP
+          CompSt (11)
+            LC
+            StmtList (12)
+              Stmt (12)
+                RETURN
+                Exp (12)
+                  ID: test_2
+                  LP
+                  RP
+                SEMI
+            RC
+        ExtDefList (15)
+          ExtDef (15)
+            Specifier (15)
+              TYPE: int
+            FunDec (15)
+              ID: test_2
+              LP
+              RP
+            CompSt (15)
+              LC
+              StmtList (16)
+                Stmt (16)
+                  RETURN
+                  Exp (16)
+                    INT: 687
+                  SEMI
+              RC

@@ -1,0 +1,3 @@
+Error type B at Line 2: Missing semicolon ';'
+Error type A at Line 3: unknown lexeme 2e5
+Error type B at Line 5: Missing closing parenthesis ')'

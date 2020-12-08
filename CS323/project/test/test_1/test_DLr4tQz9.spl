@@ -1,0 +1,9 @@
+int test()
+{
+  int a, b = 1;
+  int i = 0;
+  while (i < a)
+  {
+    b = b + i
+  }
+}

@@ -1,0 +1,342 @@
+Program (1)
+  ExtDefList (1)
+    ExtDef (1)
+      Specifier (1)
+        TYPE: int
+      FunDec (1)
+        ID: main
+        LP
+        RP
+      CompSt (2)
+        LC
+        DefList (3)
+          Def (3)
+            Specifier (3)
+              TYPE: float
+            DecList (3)
+              Dec (3)
+                VarDec (3)
+                  ID: x1
+              COMMA
+              DecList (3)
+                Dec (3)
+                  VarDec (3)
+                    ID: x2
+                COMMA
+                DecList (3)
+                  Dec (3)
+                    VarDec (3)
+                      ID: x0
+                  COMMA
+                  DecList (3)
+                    Dec (3)
+                      VarDec (3)
+                        ID: f1
+                    COMMA
+                    DecList (3)
+                      Dec (3)
+                        VarDec (3)
+                          ID: f2
+                      COMMA
+                      DecList (3)
+                        Dec (3)
+                          VarDec (3)
+                            ID: f0
+            SEMI
+        StmtList (4)
+          Stmt (4)
+            Exp (4)
+              Exp (4)
+                ID: x0
+              ASSIGN
+              Exp (4)
+                Exp (4)
+                  LP
+                  Exp (4)
+                    Exp (4)
+                      ID: x1
+                    PLUS
+                    Exp (4)
+                      ID: x2
+                  RP
+                DIV
+                Exp (4)
+                  INT: 2
+            SEMI
+          StmtList (5)
+            Stmt (5)
+              Exp (5)
+                Exp (5)
+                  ID: f0
+                ASSIGN
+                Exp (5)
+                  Exp (5)
+                    Exp (5)
+                      Exp (5)
+                        Exp (5)
+                          Exp (5)
+                            Exp (5)
+                              INT: 2
+                            MUL
+                            Exp (5)
+                              ID: x0
+                          MUL
+                          Exp (5)
+                            ID: x0
+                        MUL
+                        Exp (5)
+                          ID: x0
+                      MINUS
+                      Exp (5)
+                        Exp (5)
+                          Exp (5)
+                            INT: 4
+                          MUL
+                          Exp (5)
+                            ID: x0
+                        MUL
+                        Exp (5)
+                          ID: x0
+                    PLUS
+                    Exp (5)
+                      Exp (5)
+                        INT: 3
+                      MUL
+                      Exp (5)
+                        ID: x0
+                  MINUS
+                  Exp (5)
+                    INT: 6
+              SEMI
+            StmtList (6)
+              Stmt (6)
+                WHILE
+                LP
+                Exp (6)
+                  Exp (6)
+                    ID: fabs
+                    LP
+                    Args (6)
+                      Exp (6)
+                        ID: f0
+                    RP
+                  GT
+                  Exp (6)
+                    ID: epsilon
+                RP
+                Stmt (7)
+                  CompSt (7)
+                    LC
+                    StmtList (8)
+                      Stmt (8)
+                        IF
+                        LP
+                        Exp (8)
+                          Exp (8)
+                            Exp (8)
+                              ID: f0
+                            MUL
+                            Exp (8)
+                              ID: f1
+                          LT
+                          Exp (8)
+                            INT: 0
+                        RP
+                        Stmt (9)
+                          CompSt (9)
+                            LC
+                            StmtList (10)
+                              Stmt (10)
+                                Exp (10)
+                                  Exp (10)
+                                    ID: x2
+                                  ASSIGN
+                                  Exp (10)
+                                    ID: x0
+                                SEMI
+                              StmtList (11)
+                                Stmt (11)
+                                  Exp (11)
+                                    Exp (11)
+                                      ID: f2
+                                    ASSIGN
+                                    Exp (11)
+                                      Exp (11)
+                                        Exp (11)
+                                          Exp (11)
+                                            Exp (11)
+                                              Exp (11)
+                                                Exp (11)
+                                                  INT: 2
+                                                MUL
+                                                Exp (11)
+                                                  ID: x2
+                                              MUL
+                                              Exp (11)
+                                                ID: x2
+                                            MUL
+                                            Exp (11)
+                                              ID: x2
+                                          MINUS
+                                          Exp (11)
+                                            Exp (11)
+                                              Exp (11)
+                                                INT: 4
+                                              MUL
+                                              Exp (11)
+                                                ID: x2
+                                            MUL
+                                            Exp (11)
+                                              ID: x2
+                                        PLUS
+                                        Exp (11)
+                                          Exp (11)
+                                            INT: 3
+                                          MUL
+                                          Exp (11)
+                                            ID: x2
+                                      MINUS
+                                      Exp (11)
+                                        INT: 6
+                                  SEMI
+                            RC
+                      StmtList (13)
+                        Stmt (13)
+                          IF
+                          LP
+                          Exp (13)
+                            Exp (13)
+                              Exp (13)
+                                ID: f0
+                              MUL
+                              Exp (13)
+                                ID: f2
+                            LT
+                            Exp (13)
+                              INT: 0
+                          RP
+                          Stmt (14)
+                            CompSt (14)
+                              LC
+                              StmtList (15)
+                                Stmt (15)
+                                  Exp (15)
+                                    Exp (15)
+                                      ID: x1
+                                    ASSIGN
+                                    Exp (15)
+                                      ID: x0
+                                  SEMI
+                                StmtList (16)
+                                  Stmt (16)
+                                    Exp (16)
+                                      Exp (16)
+                                        ID: f1
+                                      ASSIGN
+                                      Exp (16)
+                                        Exp (16)
+                                          Exp (16)
+                                            Exp (16)
+                                              Exp (16)
+                                                Exp (16)
+                                                  Exp (16)
+                                                    INT: 2
+                                                  MUL
+                                                  Exp (16)
+                                                    ID: x1
+                                                MUL
+                                                Exp (16)
+                                                  ID: x1
+                                              MUL
+                                              Exp (16)
+                                                ID: x1
+                                            MINUS
+                                            Exp (16)
+                                              Exp (16)
+                                                Exp (16)
+                                                  INT: 4
+                                                MUL
+                                                Exp (16)
+                                                  ID: x1
+                                              MUL
+                                              Exp (16)
+                                                ID: x1
+                                          PLUS
+                                          Exp (16)
+                                            Exp (16)
+                                              INT: 3
+                                            MUL
+                                            Exp (16)
+                                              ID: x1
+                                        MINUS
+                                        Exp (16)
+                                          INT: 6
+                                    SEMI
+                              RC
+                        StmtList (18)
+                          Stmt (18)
+                            Exp (18)
+                              Exp (18)
+                                ID: x0
+                              ASSIGN
+                              Exp (18)
+                                Exp (18)
+                                  LP
+                                  Exp (18)
+                                    Exp (18)
+                                      ID: x1
+                                    PLUS
+                                    Exp (18)
+                                      ID: x2
+                                  RP
+                                DIV
+                                Exp (18)
+                                  INT: 2
+                            SEMI
+                          StmtList (19)
+                            Stmt (19)
+                              Exp (19)
+                                Exp (19)
+                                  ID: f0
+                                ASSIGN
+                                Exp (19)
+                                  Exp (19)
+                                    Exp (19)
+                                      Exp (19)
+                                        Exp (19)
+                                          Exp (19)
+                                            Exp (19)
+                                              INT: 2
+                                            MUL
+                                            Exp (19)
+                                              ID: x0
+                                          MUL
+                                          Exp (19)
+                                            ID: x0
+                                        MUL
+                                        Exp (19)
+                                          ID: x0
+                                      MINUS
+                                      Exp (19)
+                                        Exp (19)
+                                          Exp (19)
+                                            INT: 4
+                                          MUL
+                                          Exp (19)
+                                            ID: x0
+                                        MUL
+                                        Exp (19)
+                                          ID: x0
+                                    PLUS
+                                    Exp (19)
+                                      Exp (19)
+                                        INT: 3
+                                      MUL
+                                      Exp (19)
+                                        ID: x0
+                                  MINUS
+                                  Exp (19)
+                                    INT: 6
+                              SEMI
+                    RC
+        RC

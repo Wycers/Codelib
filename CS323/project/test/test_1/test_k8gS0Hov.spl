@@ -1,0 +1,46 @@
+int a, b, c;
+float m, n;
+char fuck;
+struct TS
+{
+    int t;
+    float s;
+} testTs2;
+
+int fibo(a)
+{
+    if (a == 1 || a == 2)
+        return 1;
+    return fibo(a - 1) + fibo(a - 2);
+}
+
+int main()
+{
+    int m, n, i;
+    char hello;
+    int ar[2][3];
+    struct TS 1_testTs1;
+    
+
+    m = read();
+    hello = 'a';
+    hello2 = 'd';
+    ar[0][1] = 1;
+    i = 1.5f;
+    testTs1.t = 0xz55ff;
+
+    while (i <= m)
+    {
+        n = fibo(i);
+        write(n);
+        i++;
+    }
+
+    for (i = 1; i <= m; i = i + 1)
+    {
+        i = i + 1;
+    }
+    i += 1;
+
+    return 1;
+}

@@ -1,0 +1,14 @@
+struct sDemo {
+    int attr1 = 0;
+slist[3;
+
+int test_11711906_5()
+{
+    int a, b;
+    while (a >= 0) {
+          
+    if ( a > b ){
+        a = a + b;
+    }
+    return c;
+}

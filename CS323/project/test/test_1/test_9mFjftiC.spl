@@ -1,0 +1,18 @@
+struct mYStru4ct{
+    int a;
+    float b;
+    char c;
+}list[3];
+
+int global_value;
+
+int main() {
+    int a, b = 12;
+    b = 0xFfEa123;
+    if (a > b) {
+        a = b + 1;
+    } else {
+        return 5;
+    }
+    return main();
+}

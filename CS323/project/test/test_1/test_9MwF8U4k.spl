@@ -1,0 +1,13 @@
+int test_1_o03(
+{
+  int max;
+  if (m > n)
+  {
+    max = m;
+  }
+  else
+  {
+    max = n;
+  }
+  return max;
+}

@@ -1,0 +1,4 @@
+int t1(char *a){
+    char b = 'asddsasd';
+    return 0;
+}

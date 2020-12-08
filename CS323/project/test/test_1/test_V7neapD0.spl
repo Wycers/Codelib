@@ -1,0 +1,5 @@
+int test_1_r01(int a, int b)
+{
+	int a = 5G;
+	return a;
+}

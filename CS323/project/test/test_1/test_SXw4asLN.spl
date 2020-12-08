@@ -1,0 +1,17 @@
+int add_function(int a, int b)
+{
+  int c = a+b;
+  return c;
+}
+
+int mul_function(float a, float b){
+  return a * b;
+}
+
+int test_1(){
+  return test_2();
+}
+
+int test_2(){
+  return 0x2aF;
+}

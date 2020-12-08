@@ -1,0 +1,23 @@
+struct qwq {
+  int a;
+  float b;
+  char c;
+};
+
+int test_11711918_r01()
+{
+  int a;
+  int a = 1;
+  int a = -1;
+  int a = 0x1f;
+  int a = -0x1f;
+
+  float b;
+  float f = 1.0;
+  float f = -1.0;
+
+  char ch;
+  char chh = '\x0c';
+  char chh = '\x23';
+  char chh = '\n';
+}

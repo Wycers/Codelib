@@ -1,0 +1,10 @@
+int test_11610613_1() 
+{
+    int i = 114514;
+    int j = 0;
+    int c = 1 || 0;
+    if(i > j){    
+        return i/j;
+    }          
+    return i&j;        
+}

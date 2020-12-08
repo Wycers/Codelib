@@ -1,0 +1,6 @@
+
+int test_11712702_2()
+{
+  int a = 2  b = 1;
+  return 1;
+

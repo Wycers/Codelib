@@ -1,0 +1,15 @@
+int a(int i, int j)
+{
+	j = -i;
+	return j;
+}
+
+int test(){
+	int i = 1;
+	int j = 0;
+	j = a(i,j);
+	j = a(i, j)
+	j = a(i,j;
+	j = a(i,j
+	return 0;
+}
