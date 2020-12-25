@@ -591,7 +591,7 @@ Expression *exp(Node *node)
             new Field{new Type(*arr->type), node->lineno},
             true};
     }
-    if (node->type == NodeType::ExpFiledAccess)
+    if (node->type == NodeType::ExpFieldAccess)
     {
         Field *s = exp(c[0])->field;
         std::string field_name = id(c[2]);

@@ -191,6 +191,52 @@ int|float|char {
 #endif
 }
 
+
+
+"." {
+#ifdef debug
+    puts("DOT");
+    printf("text: %s\n", yytext);
+#endif
+    NEW_NODE(DOT, yytext);
+#ifndef debug
+    return DOT;
+#endif
+}
+
+"," {
+#ifdef debug
+    puts("COMMA");
+    printf("text: %s\n", yytext);
+#endif
+    NEW_NODE(COMMA, yytext);
+#ifndef debug
+    return COMMA;
+#endif
+}
+
+"=" {
+#ifdef debug
+    puts("ASSIGN");
+    printf("text: %s\n", yytext);
+#endif
+    NEW_NODE(ASSIGN, yytext);
+#ifndef debug
+    return ASSIGN;
+#endif
+}
+
+";" {
+#ifdef debug
+    puts("SEMI");
+    printf("text: %s\n", yytext);
+#endif
+    NEW_NODE(SEMI, yytext);
+#ifndef debug
+    return SEMI;
+#endif
+}
+
 "<" {
 #ifdef debug
     puts("LT");
@@ -259,106 +305,6 @@ int|float|char {
 
 
 
-"," {
-#ifdef debug
-    puts("COMMA");
-    printf("text: %s\n", yytext);
-#endif
-    NEW_NODE(COMMA, yytext);
-#ifndef debug
-    return COMMA;
-#endif
-}
-
-";" {
-#ifdef debug
-    puts("SEMI");
-    printf("text: %s\n", yytext);
-#endif
-    NEW_NODE(SEMI, yytext);
-#ifndef debug
-    return SEMI;
-#endif
-}
-
-"." {
-#ifdef debug
-    puts("DOT");
-    printf("text: %s\n", yytext);
-#endif
-    NEW_NODE(DOT, yytext);
-#ifndef debug
-    return DOT;
-#endif
-}
-
-
-
-"(" {
-#ifdef debug
-    puts("LP");
-    printf("text: %s\n", yytext);
-#endif
-    NEW_NODE(LP, yytext);
-#ifndef debug
-    return LP;
-#endif
-}
-
-")" {
-#ifdef debug
-    puts("RP");
-    printf("text: %s\n", yytext);
-#endif
-    NEW_NODE(RP, yytext);
-#ifndef debug
-    return RP;
-#endif
-}
-
-"[" {
-#ifdef debug
-    puts("LB");
-    printf("text: %s\n", yytext);
-#endif
-    NEW_NODE(LB, yytext);
-#ifndef debug
-    return LB;
-#endif
-}
-
-"]" {
-#ifdef debug
-    puts("RB");
-    printf("text: %s\n", yytext);
-#endif
-    NEW_NODE(RB, yytext);
-#ifndef debug
-    return RB;
-#endif
-}
-
-"{" {
-#ifdef debug
-    puts("LC");
-    printf("text: %s\n", yytext);
-#endif
-    NEW_NODE(LC, yytext);
-#ifndef debug
-    return LC;
-#endif
-}
-
-"}" {
-#ifdef debug
-    puts("RC");
-    printf("text: %s\n", yytext);
-#endif
-    NEW_NODE(RC, yytext);
-#ifndef debug
-    return RC;
-#endif
-}
 
 
 "&&" {
@@ -433,17 +379,72 @@ int|float|char {
     return DIV;
 #endif
 }
-"=" {
+
+"(" {
 #ifdef debug
-    puts("ASSIGN");
+    puts("LP");
     printf("text: %s\n", yytext);
 #endif
-    NEW_NODE(ASSIGN, yytext);
+    NEW_NODE(LP, yytext);
 #ifndef debug
-    return ASSIGN;
+    return LP;
 #endif
 }
 
+")" {
+#ifdef debug
+    puts("RP");
+    printf("text: %s\n", yytext);
+#endif
+    NEW_NODE(RP, yytext);
+#ifndef debug
+    return RP;
+#endif
+}
+
+"[" {
+#ifdef debug
+    puts("LB");
+    printf("text: %s\n", yytext);
+#endif
+    NEW_NODE(LB, yytext);
+#ifndef debug
+    return LB;
+#endif
+}
+
+"]" {
+#ifdef debug
+    puts("RB");
+    printf("text: %s\n", yytext);
+#endif
+    NEW_NODE(RB, yytext);
+#ifndef debug
+    return RB;
+#endif
+}
+
+"{" {
+#ifdef debug
+    puts("LC");
+    printf("text: %s\n", yytext);
+#endif
+    NEW_NODE(LC, yytext);
+#ifndef debug
+    return LC;
+#endif
+}
+
+"}" {
+#ifdef debug
+    puts("RC");
+    printf("text: %s\n", yytext);
+#endif
+    NEW_NODE(RC, yytext);
+#ifndef debug
+    return RC;
+#endif
+}
 
 [\n\t\r" "] {
 // #ifdef debug

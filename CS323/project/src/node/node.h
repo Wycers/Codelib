@@ -45,7 +45,7 @@ enum class NodeType
     ExpArgsFuncCall = 24,
     ExpFuncCall = 25,
 
-    ExpFiledAccess = 26,
+    ExpFieldAccess = 26,
 
     ExpId = 30,
     ExpInt = 27,

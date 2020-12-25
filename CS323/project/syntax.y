@@ -12,33 +12,35 @@
 
 %union{ struct Node *node; }
 
-%nonassoc THEN
-%nonassoc<node> ELSE
-
-%type <node> Program ExtDefList ExtDef ExtDecList Specifier StructSpecifier VarDec FunDec VarList ParamDec CompSt StmtList Stmt DefList Def DecList Dec Exp Args
-
-%right<node> TYPE;
-
-%token<node> INT CHAR FLOAT STRUCT IF FOR WHILE RETURN
-
-%left<node> LT LE GT GE NE EQ
-
-%token<node> SEMI COMMA
-%left<node>  DOT LP RP LB RB
-%token<node> LC RC
-
-
-%left<node> AND OR
-%right<node> NOT
-
-%right<node> ASSIGN
-%left<node>  PLUS SUB MUL DIV
-%right<node> MINUS
-
-%token<node> ID
 
 %token<node> ERR
+%token<node> INT FLOAT CHAR
+%token<node> ID
+%token<node> TYPE STRUCT
+%token<node> IF ELSE WHILE RETURN FOR
+%token<node> DOT SEMI COMMA
+%token<node> ASSIGN
+%token<node> PLUS MINUS MUL DIV
+%token<node> AND OR NOT
+%token<node> LP RP LB RB LC RC
+%token<node> LT LE GT GE NE EQ
+
+
+%type <node> Program ExtDefList ExtDef ExtDecList
+%type <node> Specifier StructSpecifier
+%type <node> VarDec FunDec VarList ParamDec Args
+%type <node> CompSt
+%type <node> StmtList Stmt DefList Def DecList Dec Exp
+
 %nonassoc ERR
+%right ASSIGN
+%left OR
+%left AND
+%left LT LE GT GE NE EQ
+%left PLUS MINUS
+%left MUL DIV
+%right NEG NOT
+%left DOT LP RP LB RB
 
 
 %%
@@ -301,7 +303,7 @@ Stmt
     	|	RETURN Exp error SEMI       	{
 												syntax_error($1 -> lineno, "Missing semicolon ';'");
     		                            	}
-    	|	IF LP Exp RP Stmt %prec THEN	{
+    	|	IF LP Exp RP Stmt	{
     		                            	    root_node = new_node(233, "Stmt", "NULL", $1->lineno);
                                                 insert_node(root_node, $1);
     		                            	    insert_node(root_node, $2);
@@ -543,7 +545,7 @@ Exp
    	|	LP Exp error RP         	{
 										syntax_error($1 -> lineno, "Missing closing parenthesis ')'");
    		                        	}
-    | 	MINUS Exp %prec NOT 		{
+    | 	MINUS Exp %prec NEG 		{
    		                        	    root_node = new_node(233, "Exp", "NULL", $1->lineno);
 										insert_node(root_node, $1);
    		                        	    insert_node(root_node, $2);
@@ -595,7 +597,7 @@ Exp
 										insert_node(root_node, $1);
    		                        	    insert_node(root_node, $2);
    		                        	    insert_node(root_node, $3);
-										set_node_type(root_node, NodeType::ExpFiledAccess);
+										set_node_type(root_node, NodeType::ExpFieldAccess);
    		                        	    $$ = root_node;
    		                        	}
    	|	ID                      	{
@@ -647,6 +649,7 @@ Args
 #include "semantic_analysis.hpp"
 
 int main(int argc, char **argv){
+	yydebug = 1;
 
 	char *filename = argv[1];
 
@@ -670,7 +673,8 @@ int main(int argc, char **argv){
 	filename[len - 2] = 'u';
 	filename[len - 1] = 't';
 
-	freopen(filename, "w", stdout);
+	/* freopen(filename, "w", stdout); */
+	display(root_node, 0);
 
 	semantic_analysis(root_node);
 
@@ -679,7 +683,6 @@ int main(int argc, char **argv){
 		return -1;
 	}
 
-	/* display(root_node, 0); */
 
 	/* SYMBOL_TABLE.print(); */
 
