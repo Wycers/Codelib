@@ -1,0 +1,35 @@
+FUNCTION mod :
+PARAM v_1_x
+PARAM v_2_n
+t_6_ := v_1_x / v_2_n
+t_5_ := t_6_ * v_2_n
+t_3_ret := v_1_x - t_5_
+RETURN t_3_ret
+FUNCTION DigitSum :
+PARAM v_10_y
+IF v_10_y == #0 GOTO lb_11_
+GOTO lb_12_
+LABEL lb_11_ :
+RETURN #0
+LABEL lb_12_ :
+ARG #10
+ARG v_10_y
+t_17_ := CALL mod
+t_21_args := v_10_y / #10
+ARG t_21_args
+t_18_ := CALL DigitSum
+t_16_ret := t_17_ + t_18_
+RETURN t_16_ret
+FUNCTION main :
+READ v_26_num
+IF v_26_num < #0 GOTO lb_27_
+GOTO lb_28_
+LABEL lb_27_ :
+WRITE #-1
+GOTO lb_29_
+LABEL lb_28_ :
+ARG v_26_num
+t_36_args := CALL DigitSum
+WRITE t_36_args
+LABEL lb_29_ :
+RETURN #0

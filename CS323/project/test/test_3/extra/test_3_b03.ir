@@ -1,0 +1,79 @@
+FUNCTION calculate_avg :
+PARAM v_1_g
+v_2_sum := #0
+v_3_k := #0
+LABEL lb_4_ :
+IF v_3_k < #10 GOTO lb_5_
+GOTO lb_6_
+LABEL lb_5_ :
+addr_t_14_arr := v_1_g + #4
+t_18_size := v_3_k * #12
+addr_t_13_struct := addr_t_14_arr + t_18_size
+addr_t_12_ := addr_t_13_struct + #4
+t_12_ := *addr_t_12_
+v_2_sum := v_2_sum + t_12_
+v_3_k := v_3_k + #1
+GOTO lb_4_
+LABEL lb_6_ :
+t_25_src := v_2_sum / #10
+addr_t_28_dst := v_1_g + #124
+*addr_t_28_dst := t_25_src
+addr_t_32_ret := v_1_g + #124
+t_32_ret := *addr_t_32_ret
+RETURN t_32_ret
+FUNCTION main :
+DEC v_35_company 640
+v_36_i := #0
+v_37_avg := #0
+LABEL lb_38_ :
+IF v_36_i < #5 GOTO lb_39_
+GOTO lb_40_
+LABEL lb_39_ :
+v_45_j := #0
+t_47_src := v_36_i
+addr_t_50_arr := &v_35_company
+t_52_size := v_36_i * #128
+addr_t_49_struct := addr_t_50_arr + t_52_size
+addr_t_48_dst := addr_t_49_struct
+*addr_t_48_dst := t_47_src
+LABEL lb_55_ :
+IF v_45_j < #10 GOTO lb_56_
+GOTO lb_57_
+LABEL lb_56_ :
+t_65_ := v_36_i * #100
+t_62_ := #3000 + t_65_
+t_63_ := v_45_j * #150
+t_61_src := t_62_ + t_63_
+addr_t_74_arr := &v_35_company
+t_76_size := v_36_i * #128
+addr_t_73_struct := addr_t_74_arr + t_76_size
+addr_t_72_arr := addr_t_73_struct + #4
+t_79_size := v_45_j * #12
+addr_t_71_struct := addr_t_72_arr + t_79_size
+addr_t_70_dst := addr_t_71_struct + #4
+*addr_t_70_dst := t_61_src
+v_45_j := v_45_j + #1
+GOTO lb_55_
+LABEL lb_57_ :
+addr_t_89_arr := &v_35_company
+t_91_size := v_36_i * #128
+addr_t_88_args := addr_t_89_arr + t_91_size
+ARG addr_t_88_args
+t_87_src := CALL calculate_avg
+addr_t_94_arr := &v_35_company
+t_96_size := v_36_i * #128
+addr_t_93_struct := addr_t_94_arr + t_96_size
+addr_t_92_dst := addr_t_93_struct + #124
+*addr_t_92_dst := t_87_src
+addr_t_104_arr := &v_35_company
+t_106_size := v_36_i * #128
+addr_t_103_struct := addr_t_104_arr + t_106_size
+addr_t_102_ := addr_t_103_struct + #124
+t_102_ := *addr_t_102_
+v_37_avg := v_37_avg + t_102_
+v_36_i := v_36_i + #1
+GOTO lb_38_
+LABEL lb_40_ :
+v_37_avg := v_37_avg / #5
+WRITE v_37_avg
+RETURN #0

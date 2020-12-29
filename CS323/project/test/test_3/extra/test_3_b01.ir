@@ -1,0 +1,70 @@
+FUNCTION Joseph :
+PARAM v_1_n
+PARAM v_2_m
+DEC v_3_people 400
+v_4_i := #1
+v_5_j := #0
+v_6_k := #0
+LABEL lb_8_ :
+IF v_4_i <= v_1_n GOTO lb_9_
+GOTO lb_10_
+LABEL lb_9_ :
+t_14_src := #1
+addr_t_16_arr := &v_3_people
+t_18_size := v_4_i * #4
+addr_t_15_dst := addr_t_16_arr + t_18_size
+*addr_t_15_dst := t_14_src
+v_4_i := v_4_i + #1
+GOTO lb_8_
+LABEL lb_10_ :
+v_4_i := #1
+LABEL lb_26_ :
+IF v_4_i <= v_1_n GOTO lb_27_
+GOTO lb_28_
+LABEL lb_27_ :
+addr_t_35_arr := &v_3_people
+t_37_size := v_4_i * #4
+addr_t_33_ := addr_t_35_arr + t_37_size
+t_33_ := *addr_t_33_
+IF t_33_ == #1 GOTO lb_31_
+GOTO lb_32_
+LABEL lb_31_ :
+addr_t_42_arr := &v_3_people
+t_44_size := v_4_i * #4
+addr_t_41_ := addr_t_42_arr + t_44_size
+t_41_ := *addr_t_41_
+v_5_j := v_5_j + t_41_
+IF v_5_j == v_2_m GOTO lb_45_
+GOTO lb_46_
+LABEL lb_45_ :
+WRITE v_4_i
+v_5_j := #0
+t_54_src := #0
+addr_t_56_arr := &v_3_people
+t_58_size := v_4_i * #4
+addr_t_55_dst := addr_t_56_arr + t_58_size
+*addr_t_55_dst := t_54_src
+v_6_k := v_6_k + #1
+LABEL lb_46_ :
+IF v_6_k == v_1_n GOTO lb_64_
+GOTO lb_65_
+LABEL lb_64_ :
+RETURN #0
+LABEL lb_65_ :
+LABEL lb_32_ :
+IF v_4_i == v_1_n GOTO lb_71_
+GOTO lb_72_
+LABEL lb_71_ :
+v_4_i := #0
+LABEL lb_72_ :
+v_4_i := v_4_i + #1
+GOTO lb_26_
+LABEL lb_28_ :
+RETURN #0
+FUNCTION main :
+READ v_84_a
+READ v_87_b
+ARG v_87_b
+ARG v_84_a
+t_88_ := CALL Joseph
+RETURN #0

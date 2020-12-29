@@ -1,0 +1,125 @@
+FUNCTION Swap :
+PARAM v_1_a
+PARAM v_2_l
+PARAM v_3_h
+t_8_size := v_2_l * #4
+addr_t_5_src := v_1_a + t_8_size
+v_9_temp := *addr_t_5_src
+t_14_size := v_3_h * #4
+addr_t_11_src := v_1_a + t_14_size
+t_11_src := *addr_t_11_src
+t_18_size := v_2_l * #4
+addr_t_15_dst := v_1_a + t_18_size
+*addr_t_15_dst := t_11_src
+t_21_src := v_9_temp
+t_25_size := v_3_h * #4
+addr_t_22_dst := v_1_a + t_25_size
+*addr_t_22_dst := t_21_src
+RETURN #0
+FUNCTION Partition :
+PARAM v_28_b
+PARAM v_29_low
+PARAM v_30_high
+t_34_size := v_29_low * #4
+addr_v_31_base := v_28_b + t_34_size
+v_31_base := *addr_v_31_base
+LABEL lb_35_ :
+IF v_29_low < v_30_high GOTO lb_36_
+GOTO lb_37_
+LABEL lb_36_ :
+LABEL lb_40_ :
+IF v_29_low < v_30_high GOTO lb_43_
+GOTO lb_42_
+LABEL lb_43_ :
+t_50_size := v_30_high * #4
+addr_t_46_ := v_28_b + t_50_size
+t_46_ := *addr_t_46_
+IF t_46_ >= v_31_base GOTO lb_41_
+GOTO lb_42_
+LABEL lb_41_ :
+v_30_high := v_30_high - #1
+GOTO lb_40_
+LABEL lb_42_ :
+ARG v_30_high
+ARG v_29_low
+ARG v_28_b
+t_55_ := CALL Swap
+LABEL lb_59_ :
+IF v_29_low < v_30_high GOTO lb_62_
+GOTO lb_61_
+LABEL lb_62_ :
+t_69_size := v_29_low * #4
+addr_t_65_ := v_28_b + t_69_size
+t_65_ := *addr_t_65_
+IF t_65_ <= v_31_base GOTO lb_60_
+GOTO lb_61_
+LABEL lb_60_ :
+v_29_low := v_29_low + #1
+GOTO lb_59_
+LABEL lb_61_ :
+ARG v_30_high
+ARG v_29_low
+ARG v_28_b
+t_74_ := CALL Swap
+GOTO lb_35_
+LABEL lb_37_ :
+RETURN v_29_low
+FUNCTION QuickSort :
+PARAM v_79_c
+PARAM v_80_low1
+PARAM v_81_high1
+IF v_80_low1 < v_81_high1 GOTO lb_82_
+GOTO lb_83_
+LABEL lb_82_ :
+ARG v_81_high1
+ARG v_80_low1
+ARG v_79_c
+v_86_base1 := CALL Partition
+t_93_args := v_86_base1 - #1
+ARG t_93_args
+ARG v_80_low1
+ARG v_79_c
+t_90_ := CALL QuickSort
+t_98_args := v_86_base1 + #1
+ARG v_81_high1
+ARG t_98_args
+ARG v_79_c
+t_96_ := CALL QuickSort
+LABEL lb_83_ :
+RETURN #0
+FUNCTION main :
+v_103_n := #8
+DEC v_104_arr 32
+v_105_i := #0
+LABEL lb_106_ :
+IF v_105_i < v_103_n GOTO lb_107_
+GOTO lb_108_
+LABEL lb_107_ :
+READ t_112_src
+addr_t_114_arr := &v_104_arr
+t_116_size := v_105_i * #4
+addr_t_113_dst := addr_t_114_arr + t_116_size
+*addr_t_113_dst := t_112_src
+v_105_i := v_105_i + #1
+GOTO lb_106_
+LABEL lb_108_ :
+addr_t_123_args := &v_104_arr
+t_125_args := v_103_n - #1
+ARG t_125_args
+ARG #0
+ARG addr_t_123_args
+t_122_ := CALL QuickSort
+v_105_i := #0
+LABEL lb_130_ :
+IF v_105_i < v_103_n GOTO lb_131_
+GOTO lb_132_
+LABEL lb_131_ :
+addr_t_137_arr := &v_104_arr
+t_139_size := v_105_i * #4
+addr_t_136_args := addr_t_137_arr + t_139_size
+t_136_args := *addr_t_136_args
+WRITE t_136_args
+v_105_i := v_105_i + #1
+GOTO lb_130_
+LABEL lb_132_ :
+RETURN #0

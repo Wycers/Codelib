@@ -1,0 +1,34 @@
+FUNCTION main :
+v_1_N := #30
+v_2_num := #0
+v_3_i := #1
+v_4_k := #1
+LABEL lb_5_ :
+IF v_4_k <= v_1_N GOTO lb_6_
+GOTO lb_7_
+LABEL lb_6_ :
+LABEL lb_10_ :
+IF v_3_i <= v_4_k GOTO lb_11_
+GOTO lb_12_
+LABEL lb_11_ :
+t_19_ := v_4_k / v_3_i
+t_18_ := t_19_ * v_3_i
+IF v_4_k == t_18_ GOTO lb_15_
+GOTO lb_16_
+LABEL lb_15_ :
+v_2_num := v_2_num + #1
+LABEL lb_16_ :
+v_3_i := v_3_i + #1
+GOTO lb_10_
+LABEL lb_12_ :
+IF v_2_num == #2 GOTO lb_31_
+GOTO lb_32_
+LABEL lb_31_ :
+WRITE v_4_k
+LABEL lb_32_ :
+v_3_i := #1
+v_2_num := #0
+v_4_k := v_4_k + #1
+GOTO lb_5_
+LABEL lb_7_ :
+RETURN #0

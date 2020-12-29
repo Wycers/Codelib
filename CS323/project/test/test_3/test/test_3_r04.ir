@@ -1,0 +1,19 @@
+FUNCTION sqr :
+PARAM v_1_i1
+t_2_ret := v_1_i1 * v_1_i1
+RETURN t_2_ret
+FUNCTION cbc :
+PARAM v_5_i2
+t_7_ := v_5_i2 * v_5_i2
+t_6_ret := t_7_ * v_5_i2
+RETURN t_6_ret
+FUNCTION main :
+READ v_13_a
+WRITE v_13_a
+ARG v_13_a
+v_19_r := CALL sqr
+WRITE v_19_r
+ARG v_13_a
+v_19_r := CALL cbc
+WRITE v_19_r
+RETURN #0

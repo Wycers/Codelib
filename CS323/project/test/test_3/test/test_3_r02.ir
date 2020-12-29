@@ -1,0 +1,96 @@
+FUNCTION main :
+READ v_3_year
+READ v_6_month
+t_12_ := v_3_year / #100
+t_11_ := t_12_ * #100
+IF v_3_year == t_11_ GOTO lb_7_
+GOTO lb_8_
+LABEL lb_7_ :
+t_21_ := v_3_year / #400
+t_20_ := t_21_ * #400
+IF v_3_year == t_20_ GOTO lb_16_
+GOTO lb_17_
+LABEL lb_16_ :
+IF v_6_month == #2 GOTO lb_25_
+GOTO lb_26_
+LABEL lb_25_ :
+WRITE #29
+GOTO lb_27_
+LABEL lb_26_ :
+t_37_ := v_6_month / #2
+t_36_ := t_37_ + t_37_
+IF v_6_month == t_36_ GOTO lb_32_
+GOTO lb_33_
+LABEL lb_32_ :
+WRITE #30
+GOTO lb_34_
+LABEL lb_33_ :
+WRITE #31
+LABEL lb_34_ :
+LABEL lb_27_ :
+GOTO lb_18_
+LABEL lb_17_ :
+IF v_6_month == #2 GOTO lb_45_
+GOTO lb_46_
+LABEL lb_45_ :
+WRITE #28
+GOTO lb_47_
+LABEL lb_46_ :
+t_57_ := v_6_month / #2
+t_56_ := t_57_ + t_57_
+IF v_6_month == t_56_ GOTO lb_52_
+GOTO lb_53_
+LABEL lb_52_ :
+WRITE #30
+GOTO lb_54_
+LABEL lb_53_ :
+WRITE #31
+LABEL lb_54_ :
+LABEL lb_47_ :
+LABEL lb_18_ :
+GOTO lb_9_
+LABEL lb_8_ :
+t_70_ := v_3_year / #4
+t_69_ := t_70_ * #4
+IF v_3_year == t_69_ GOTO lb_65_
+GOTO lb_66_
+LABEL lb_65_ :
+IF v_6_month == #2 GOTO lb_74_
+GOTO lb_75_
+LABEL lb_74_ :
+WRITE #29
+GOTO lb_76_
+LABEL lb_75_ :
+t_86_ := v_6_month / #2
+t_85_ := t_86_ + t_86_
+IF v_6_month == t_85_ GOTO lb_81_
+GOTO lb_82_
+LABEL lb_81_ :
+WRITE #30
+GOTO lb_83_
+LABEL lb_82_ :
+WRITE #31
+LABEL lb_83_ :
+LABEL lb_76_ :
+GOTO lb_67_
+LABEL lb_66_ :
+IF v_6_month == #2 GOTO lb_94_
+GOTO lb_95_
+LABEL lb_94_ :
+WRITE #28
+GOTO lb_96_
+LABEL lb_95_ :
+t_106_ := v_6_month / #2
+t_105_ := t_106_ + t_106_
+IF v_6_month == t_105_ GOTO lb_101_
+GOTO lb_102_
+LABEL lb_101_ :
+WRITE #30
+GOTO lb_103_
+LABEL lb_102_ :
+WRITE #31
+LABEL lb_103_ :
+LABEL lb_96_ :
+LABEL lb_67_ :
+LABEL lb_9_ :
+RETURN #0

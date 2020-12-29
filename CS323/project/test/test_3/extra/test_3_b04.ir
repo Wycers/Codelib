@@ -1,0 +1,26 @@
+FUNCTION main :
+t_2_src := #1
+addr_t_4_struct := &v_5_s1
+addr_t_3_dst := addr_t_4_struct
+*addr_t_3_dst := t_2_src
+t_9_src := #70
+addr_t_11_struct := &v_5_s1
+addr_t_10_dst := addr_t_11_struct + #4
+*addr_t_10_dst := t_9_src
+t_15_src := #2
+addr_t_17_struct := &v_18_s2
+addr_t_16_dst := addr_t_17_struct
+*addr_t_16_dst := t_15_src
+t_22_src := #90
+addr_t_24_struct := &v_18_s2
+addr_t_23_dst := addr_t_24_struct + #4
+*addr_t_23_dst := t_22_src
+addr_t_29_struct := &v_18_s2
+addr_t_28_args := addr_t_29_struct
+t_28_args := *addr_t_28_args
+WRITE t_28_args
+addr_t_33_struct := &v_5_s1
+addr_t_32_args := addr_t_33_struct + #4
+t_32_args := *addr_t_32_args
+WRITE t_32_args
+RETURN #0

@@ -1,0 +1,38 @@
+FUNCTION main :
+v_12_tu1 := #1
+v_15_tu2 := #1
+READ v_18_m
+IF v_18_m < #1 GOTO lb_19_
+GOTO lb_20_
+LABEL lb_19_ :
+WRITE #0
+GOTO lb_21_
+LABEL lb_20_ :
+IF v_18_m == #1 GOTO lb_26_
+GOTO lb_29_
+LABEL lb_29_ :
+IF v_18_m == #2 GOTO lb_26_
+GOTO lb_27_
+LABEL lb_26_ :
+WRITE #1
+GOTO lb_28_
+LABEL lb_27_ :
+IF v_18_m > #2 GOTO lb_36_
+GOTO lb_37_
+LABEL lb_36_ :
+v_42_i := #3
+LABEL lb_43_ :
+IF v_42_i <= v_18_m GOTO lb_44_
+GOTO lb_45_
+LABEL lb_44_ :
+v_52_tu3 := v_12_tu1 + v_15_tu2
+v_12_tu1 := v_15_tu2
+v_15_tu2 := v_52_tu3
+v_42_i := v_42_i + #1
+GOTO lb_43_
+LABEL lb_45_ :
+WRITE v_52_tu3
+LABEL lb_37_ :
+LABEL lb_28_ :
+LABEL lb_21_ :
+RETURN #0

@@ -1,0 +1,37 @@
+FUNCTION hanoi :
+PARAM v_1_n
+PARAM v_2_p1
+PARAM v_3_p2
+PARAM v_4_p3
+IF v_1_n == #1 GOTO lb_5_
+GOTO lb_6_
+LABEL lb_5_ :
+t_12_ := v_2_p1 * #1000000
+t_11_args := t_12_ + v_4_p3
+WRITE t_11_args
+GOTO lb_7_
+LABEL lb_6_ :
+t_17_args := v_1_n - #1
+ARG v_3_p2
+ARG v_4_p3
+ARG v_2_p1
+ARG t_17_args
+t_16_ := CALL hanoi
+t_25_ := v_2_p1 * #1000000
+t_24_args := t_25_ + v_4_p3
+WRITE t_24_args
+t_30_args := v_1_n - #1
+ARG v_4_p3
+ARG v_2_p1
+ARG v_3_p2
+ARG t_30_args
+t_29_ := CALL hanoi
+LABEL lb_7_ :
+RETURN #0
+FUNCTION main :
+ARG #3
+ARG #2
+ARG #1
+ARG #3
+t_38_ := CALL hanoi
+RETURN #0

@@ -1,0 +1,68 @@
+FUNCTION gcd1 :
+PARAM v_1_a
+PARAM v_2_b
+t_7_ := v_1_a / v_2_b
+t_6_ := t_7_ * v_2_b
+v_11_temp := v_1_a - t_6_
+LABEL lb_12_ :
+IF v_11_temp != #0 GOTO lb_13_
+GOTO lb_14_
+LABEL lb_13_ :
+v_1_a := v_2_b
+v_2_b := v_11_temp
+t_25_ := v_11_temp / v_11_temp
+t_24_ := t_25_ * v_11_temp
+v_11_temp := v_11_temp - t_24_
+GOTO lb_12_
+LABEL lb_14_ :
+RETURN v_2_b
+FUNCTION gcd2 :
+PARAM v_33_x
+PARAM v_34_y
+v_35_remainder := #0
+IF v_33_x > v_34_y GOTO lb_36_
+GOTO lb_37_
+LABEL lb_36_ :
+t_45_ := v_33_x / v_34_y
+t_44_ := t_45_ * v_34_y
+v_35_remainder := v_33_x - t_44_
+IF v_35_remainder == #0 GOTO lb_49_
+GOTO lb_50_
+LABEL lb_49_ :
+RETURN v_34_y
+GOTO lb_51_
+LABEL lb_50_ :
+ARG v_35_remainder
+ARG v_34_y
+t_55_ret := CALL gcd2
+RETURN t_55_ret
+LABEL lb_51_ :
+GOTO lb_38_
+LABEL lb_37_ :
+t_62_ := v_34_y / v_33_x
+t_61_ := t_62_ * v_33_x
+v_35_remainder := v_34_y - t_61_
+IF v_35_remainder == #0 GOTO lb_66_
+GOTO lb_67_
+LABEL lb_66_ :
+RETURN v_33_x
+GOTO lb_68_
+LABEL lb_67_ :
+ARG v_35_remainder
+ARG v_33_x
+t_72_ret := CALL gcd2
+RETURN t_72_ret
+LABEL lb_68_ :
+LABEL lb_38_ :
+FUNCTION main :
+READ v_75_m
+READ v_76_n
+ARG v_76_n
+ARG v_75_m
+t_78_args := CALL gcd1
+WRITE t_78_args
+ARG v_76_n
+ARG v_75_m
+t_82_args := CALL gcd2
+WRITE t_82_args
+RETURN #0

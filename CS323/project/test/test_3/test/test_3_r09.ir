@@ -1,0 +1,89 @@
+FUNCTION mod :
+PARAM v_1_number2
+PARAM v_2_m2
+t_6_ := v_1_number2 / v_2_m2
+t_5_ := t_6_ * v_2_m2
+v_3_result := v_1_number2 - t_5_
+RETURN v_3_result
+FUNCTION power :
+PARAM v_12_base1
+PARAM v_13_p1
+t_15_ := #1 + v_13_p1
+v_14_ret1 := t_15_ - v_13_p1
+LABEL lb_19_ :
+IF v_13_p1 > #0 GOTO lb_20_
+GOTO lb_21_
+LABEL lb_20_ :
+v_14_ret1 := v_14_ret1 * v_12_base1
+t_42_ := v_13_p1 + v_13_p1
+t_40_ := t_42_ - v_13_p1
+v_13_p1 := t_40_ - #1
+GOTO lb_19_
+LABEL lb_21_ :
+RETURN v_14_ret1
+FUNCTION getNumDigits :
+PARAM v_51_number3
+v_52_ret3 := #0
+IF v_51_number3 < #0 GOTO lb_53_
+GOTO lb_54_
+LABEL lb_53_ :
+RETURN #-1
+LABEL lb_54_ :
+LABEL lb_59_ :
+IF v_51_number3 > #0 GOTO lb_60_
+GOTO lb_61_
+LABEL lb_60_ :
+v_51_number3 := v_51_number3 / #10
+v_52_ret3 := #1 + v_52_ret3
+GOTO lb_59_
+LABEL lb_61_ :
+RETURN v_52_ret3
+FUNCTION isNarcissistic :
+PARAM v_81_number4
+ARG v_81_number4
+v_82_numDigits4 := CALL getNumDigits
+v_88_sum4 := #0
+v_89_n4 := v_81_number4
+LABEL lb_90_ :
+IF v_89_n4 > #0 GOTO lb_91_
+GOTO lb_92_
+LABEL lb_91_ :
+ARG #10
+ARG v_89_n4
+v_99_s4 := CALL mod
+t_102_ := v_89_n4 - v_99_s4
+v_89_n4 := t_102_ / #10
+ARG v_82_numDigits4
+ARG v_99_s4
+t_109_ := CALL power
+v_88_sum4 := v_88_sum4 + t_109_
+GOTO lb_90_
+LABEL lb_92_ :
+IF v_88_sum4 == v_81_number4 GOTO lb_112_
+GOTO lb_113_
+LABEL lb_112_ :
+RETURN #1
+GOTO lb_114_
+LABEL lb_113_ :
+RETURN #0
+LABEL lb_114_ :
+FUNCTION main :
+v_119_count := #0
+v_120_i := #300
+LABEL lb_121_ :
+IF v_120_i < #500 GOTO lb_122_
+GOTO lb_123_
+LABEL lb_122_ :
+ARG v_120_i
+t_128_ := CALL isNarcissistic
+IF t_128_ == #1 GOTO lb_126_
+GOTO lb_127_
+LABEL lb_126_ :
+WRITE v_120_i
+v_119_count := v_119_count + #1
+LABEL lb_127_ :
+v_120_i := v_120_i + #1
+GOTO lb_121_
+LABEL lb_123_ :
+WRITE v_119_count
+RETURN v_119_count

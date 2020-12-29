@@ -1,0 +1,18 @@
+FUNCTION main :
+READ v_3_n
+IF v_3_n > #0 GOTO lb_4_
+GOTO lb_5_
+LABEL lb_4_ :
+WRITE #1
+GOTO lb_6_
+LABEL lb_5_ :
+IF v_3_n < #0 GOTO lb_11_
+GOTO lb_12_
+LABEL lb_11_ :
+WRITE #-1
+GOTO lb_13_
+LABEL lb_12_ :
+WRITE #0
+LABEL lb_13_ :
+LABEL lb_6_ :
+RETURN #0
