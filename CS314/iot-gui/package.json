@@ -12,7 +12,7 @@
     "start": "npm run build && electron ./dist/main.js"
   },
   "devDependencies": {
-    "electron": "^8.2.5",
+    "electron": "^13.6.6",
     "tslint": "^6.1.2",
     "typescript": "^3.8.3"
   }
