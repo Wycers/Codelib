@@ -13,7 +13,7 @@
     "blessed": "^0.1.81",
     "commander": "^5.1.0",
     "cron": "^1.8.2",
-    "moment": "^2.26.0",
+    "moment": "^2.29.4",
     "socket.io-client": "^2.3.0"
   }
 }
