@@ -8,6 +8,7 @@
 
 \documentclass[12pt, a4paper, twocolumn]{article}
 \usepackage{lipsum}
+\usepackage{graphicx}
 \usepackage{listings}
 \lstset{
   basicstyle=\ttfamily,
@@ -51,10 +52,10 @@
 
 \subsection{Task 1}
 
-As shown in \cite{uname_result}, download linux kernel source code according to the version reported in the result of ``uname'' command.
+As shown in listing \ref{lst:fetch}, download linux kernel source code according to the version reported in the result of ``uname'' command.
 
-\begin{lstlisting}[language=bash, caption=Fetch Sources,frame=tlrb]{uname_result}
-> uname -r    
+\begin{lstlisting}[language=bash, caption=Fetch Sources, frame=tlrb, label=lst:fetch]
+> uname -r
 5.18.17-200.fc36.x86_64
 > wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.18.17.tar.xz
 ...
@@ -67,9 +68,11 @@ arch     fs ...
 
 \subsection{Task 2}
 
+As the listing \ref{lst:build}.
+
 
 \noindent\begin{minipage}{.45\textwidth}
-\begin{lstlisting}[language=bash, caption=Fetch Sources,frame=tlrb]{uname_result}
+\begin{lstlisting}[language=bash, caption=Build the kernel,frame=tlrb, label=lst:build]
 > cp /boot/config-`uname -r`* .config
 > make bzImage -j16
 > make modules -j16
@@ -77,5 +80,30 @@ arch     fs ...
 > sudo make install
 \end{lstlisting}
 \end{minipage}\hfill
+
+
+\subsection{Task 3}
+
+Then, by adding code in listing \ref{kernel_modifier} to function ``sys\_execve'',
+a simple debugging message will appear when ``execve'' syscall triggered.
+
+
+\noindent\begin{minipage}{.45\textwidth}
+\begin{lstlisting}[language=C, caption=Add A Debug Message, frame=tlrb, label=kernel_modifier]
+printk(KERN_ALERT "Hello World From The Toy Kernel");
+\end{lstlisting}
+\end{minipage}\hfill
+
+
+Rebuild and reinstall the toy kernel, and then reboot to the toy kernel.
+
+The result is as shown in picture \ref{fig:1}.
+
+\begin{figure}
+\includegraphics[width=.98\linewidth]{picture/1.jpg}
+\caption{Screenshot on logs}
+\label{fig:1}
+\end{figure}
+
 
 \end{document}
