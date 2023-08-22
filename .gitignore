@@ -325,3 +325,4 @@ TSWLatexianTemp*
 
 # Vagrant directory
 .vagrant/
+.Rproj.user
